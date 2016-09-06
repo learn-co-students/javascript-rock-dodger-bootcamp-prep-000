@@ -1,3 +1,5 @@
+"use strict";
+
 const DODGER = document.getElementById('dodger');
 const GAME = document.getElementById('game');
 const GAME_HEIGHT = 400;
@@ -44,14 +46,13 @@ function createRock(x) {
 
     if (checkCollision(rock)) {
       endGame();
-    } else {
-      if (top < GAME_HEIGHT) {
-        window.requestAnimationFrame(moveRock);
-      } else {
-        rock.remove();
-      }
     }
 
+    if (top < GAME_HEIGHT) {
+      window.requestAnimationFrame(moveRock);
+    } else {
+      rock.remove();
+    }
   }
 
   window.requestAnimationFrame(moveRock);
@@ -60,7 +61,7 @@ function createRock(x) {
 }
 
 function endGame() {
-  clearInterval(gameInterval);
+  window.clearInterval(gameInterval);
   ROCKS.forEach(function(el) {
     el.remove();
   });
