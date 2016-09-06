@@ -66,7 +66,7 @@ function endGame() {
     el.remove();
   });
   ROCKS.length = 0;
-  window.removeEventListener('keydown', moveDodger);
+  document.removeEventListener('keydown', moveDodger);
   alert('YOU LOSE!');
 }
 
