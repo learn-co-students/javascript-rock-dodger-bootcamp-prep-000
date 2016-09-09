@@ -50,6 +50,7 @@ describe('Rock Dodger', () => {
 
         expect(checkCollision(rock)).toBe(true)
       })
+
     })
   })
 
@@ -86,10 +87,12 @@ describe('Rock Dodger', () => {
         createRock(4)
 
         expect(spy).toHaveBeenCalled()
+
       })
 
       it('ends the game if there is a collision', () => {
         const spy = expect.spyOn(window, 'endGame')
+
         const stub = expect.spyOn(window, 'checkCollision').andReturn(true)
 
         window.requestAnimationFrame = cb => {
@@ -113,6 +116,7 @@ describe('Rock Dodger', () => {
 
         // Janky setTimeout to let the rock fall
         // off the screen
+
         setTimeout(() => {
           expect(spy).toHaveBeenCalled()
           done()
@@ -138,7 +142,6 @@ describe('Rock Dodger', () => {
 
       for (let i = 0; i < 4; i++) {
         let rock = createRock(i)
-
         spies.push(expect.spyOn(rock, 'remove'))
       }
 
@@ -147,6 +150,7 @@ describe('Rock Dodger', () => {
       for (let i = 0; i < 4; i++) {
         expect(spies[i]).toHaveBeenCalled()
       }
+
     })
 
     it('removes the "keydown" event listener', () => {
