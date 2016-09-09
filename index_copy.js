@@ -88,9 +88,8 @@ function createRock(x) {
      * Otherwise, if the rock hasn't reached the bottom of
      * the GAME, we want to move it again.
      */
-     if (positionToInteger(rock.style.top) < GAME_HEIGHT - 20) {
-       rock.style.top = `${top += 2}px`;
-       window.requestAnimationFrame(moveRock);
+     if (rock.style.top < GAME_HEIGHT - 20) {
+       rock.style.top + 2;
      }
     /**
      * But if the rock *has* reached the bottom of the GAME,
@@ -118,12 +117,6 @@ function createRock(x) {
  * Finally, alert "YOU LOSE!" to the player.
  */
 function endGame() {
-  clearInterval(gameInterval);
-  ROCKS.forEach(function(rock) {
-    rock.remove();
-  });
-  window.removeEventListener('keydown', moveDodger);
-  return alert('YOU LOOSE!');
 }
 
 function moveDodger(e) {
@@ -135,16 +128,6 @@ function moveDodger(e) {
    * we've declared for you above.)
    * And be sure to use the functions declared below!
    */
-   var key = e.which;
-
-   e.preventDefault();
-   e.stopPropagation();
-
-   if (key === LEFT_ARROW) {
-     moveDodgerLeft();
-   } else if (key === RIGHT_ARROW) {
-     moveDodgerRight();
-   }
 }
 
 function moveDodgerLeft() {
@@ -153,13 +136,6 @@ function moveDodgerLeft() {
    * This function should move DODGER to the left
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
-   var dodgerLeftEdge = positionToInteger(DODGER.style.left);
-
-   if (dodgerLeftEdge > 0) {
-     window.requestAnimationFrame(function() {
-       DODGER.style.left = `${dodgerLeftEdge - 4}px`;
-     });
-   }
 }
 
 function moveDodgerRight() {
