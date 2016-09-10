@@ -72,7 +72,7 @@ function createRock(x) {
    */
   function moveRock() {
     rock.style.top = `${top -= 2}`
-    if (top < 400) {
+    if (top > 20) {
       window.requestAnimationFrame(moveRock)
     }
   }
@@ -82,7 +82,7 @@ function createRock(x) {
      * If a rock collides with the DODGER,
      * we should call endGame()
      */
-  if (checkCollision() === true) {
+  if (checkCollision(rock) === true) {
     endGame()
   }
     /**
