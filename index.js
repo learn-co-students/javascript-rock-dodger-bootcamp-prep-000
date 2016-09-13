@@ -32,36 +32,34 @@ function checkCollision(rock) {
 
     if ((rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge) || (rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge) || (rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge)) {
       return true
+    } else {
+      return false
     }
   }
 }
 
 function createRock(x) {
   const rock = document.createElement('div')
+  var top = 0;
 
   rock.className = 'rock'
   rock.style.left = `${x}px`
-
-  // Hmmm, why would we have used `var` here?
-  var top = 0;
-
   rock.style.top = `${top}px`;
   GAME.appendChild(rock);
 
   function moveRock() {
-    if (!rock.parentNode) return
+    top += 2;
+    rock.style.top = `${top}px`;
 
-    if (checkCollision(rock)) {
+    if (rock.parentNode && checkCollision(rock)) {
       endGame();
+      top = 400;
     }
 
-    if (positionToInteger(rock.style.top) < 400) {
-      top += 2;
-      rock.style.top = `${top}px`;
+    if (top < 400) {
       window.requestAnimationFrame(moveRock);
     } else {
-      if (rock.parentNode)
-        rock.remove();
+      rock.remove();
     }
   }
 
@@ -77,8 +75,7 @@ function endGame() {
   window.removeEventListener('keydown', moveDodger)
   window.clearInterval(gameInterval);
   ROCKS.forEach(function(rock){
-    if (rock.parentNode)
-      rock.remove();
+    rock.remove();
   });
   alert("YOU LOSE!");
 }
