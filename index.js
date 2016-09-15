@@ -85,7 +85,7 @@ function createRock(x) {
      * we should call endGame()
      */
      if (checkCollision(rock)) {
-       return endGame();
+       endGame();
      }
 
     /**
@@ -121,6 +121,17 @@ function createRock(x) {
  * Finally, alert "YOU LOSE!" to the player.
  */
 function endGame() {
+  clearInterval(gameInterval);
+
+  var i = 0;
+
+  while (i < ROCKS.length) {
+    ROCKS[i].remove();
+  }
+
+  document.removeEventListener('keydown', moveDodger);
+
+  alert("YOU LOSE!");
 }
 
 function moveDodger(e) {
