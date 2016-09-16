@@ -180,7 +180,7 @@ function moveDodgerRight() {
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
    function step() {
-     DODGER.style.right = `${rightDodger -= 4}`;
+     DODGER.style.right = `${rightDodger += 4}`;
 
      if (rightDodger < GAME_WIDTH) {
        window.requestAnimationFrame(step);
