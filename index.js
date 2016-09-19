@@ -84,9 +84,7 @@ function createRock(x) {
      * we should call endGame()
      */
      if (checkCollision(rock)) {
-       endGame();
-       //FIXME
-       break;
+       return endGame();
      }
 
     /**
@@ -132,7 +130,7 @@ function endGame() {
 
   document.removeEventListener('keydown', moveDodger);
 
-  alert("YOU LOSE!");
+  return alert("YOU LOSE!");
 }
 
 function moveDodger(e) {
@@ -150,30 +148,38 @@ function moveDodger(e) {
      moveDodgerRight();
    }
 
-   if (e.which !== LEFT_ARROW || e.which !== RIGHT_ARROW) {
+   if (e.which !== LEFT_ARROW && e.which !== RIGHT_ARROW) {
      e.preventDefault();
      e.stopPropagation();
    }
 }
 
 function moveDodgerLeft() {
+  console.log("moveDodgerLeft...");
   // implement me!
   var leftDodger = positionToInteger(DODGER.style.left);
+
   /**
    * This function should move DODGER to the left
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
    function step() {
-     DODGER.style.left = `${leftDodger -= 4}`;
+     var moveInPXLeft = leftDodger - 4;
 
-     if (leftDodger > 0) {
+     DODGER.style.left = `${moveInPXLeft}px`;
+     //console.log("moveInPXLeft->", moveInPXLeft);
+
+     if (moveInPXLeft > 0) {
        window.requestAnimationFrame(step);
+     }else{
+       return;
      }
    }
    window.requestAnimationFrame(step);
 }
 
 function moveDodgerRight() {
+  console.log("moveDodgerRight...");
   // implement me!
   var rightDodger = positionToInteger(DODGER.style.right);
   /**
@@ -181,9 +187,16 @@ function moveDodgerRight() {
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
    function step() {
-     DODGER.style.right = `${rightDodger += 4}`;
+     var moveInPXRight = rightDodger + 4;
+     DODGER.style.right = `${moveInPXRight}px`;
 
-     if (rightDodger < GAME_WIDTH) {
+     // rocks are 20px high
+     // DODGER is 20px high
+     // GAME_HEIGHT - 20 - 20 = 360px;
+     var limit = GAME_WIDTH - 20 - 20;
+     console.log("limit->", limit);
+
+     if (moveInPXRight < limit) {
        window.requestAnimationFrame(step);
      }
    }
