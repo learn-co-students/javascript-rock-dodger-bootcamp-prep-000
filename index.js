@@ -64,7 +64,7 @@ function createRock(x) {
   // Hmmm, why would we have used `var` here?
 
 
-  top = rock.style.top = 0;
+  var top = rock.style.top = 0;
 
   /**
    * Now that we have a rock, we'll need to append
@@ -166,12 +166,12 @@ function moveDodgerLeft() {
    */
    function step() {
      moveInPXLeft = moveInPXLeft - 4;
-     DODGER.style.left = `${moveInPXLeft}px`;
-     // console.log("moveInPXLeft->", moveInPXLeft);
-     // console.log("DODGER.style.left->", DODGER.style.left);
 
      if (moveInPXLeft > 0) {
-       window.requestAnimationFrame(step);
+       DODGER.style.left = `${moveInPXLeft}px`;
+      // console.log("moveInPXLeft->", moveInPXLeft);
+      // console.log("DODGER.style.left->", DODGER.style.left);
+       //window.requestAnimationFrame(step);
      }
    }
    window.requestAnimationFrame(step);
@@ -186,9 +186,6 @@ function moveDodgerRight() {
    */
    function step() {
      moveInPXRight = moveInPXRight + 4;
-     DODGER.style.left = `${moveInPXRight}px`;
-     // console.log("moveInPXRight->", moveInPXRight);
-     // console.log("DODGER.style.left->", DODGER.style.left);
 
       // rocks are 20px high
       // DODGER is 20px high
@@ -197,7 +194,10 @@ function moveDodgerRight() {
       // console.log("limit->", limit);
 
      if (moveInPXRight < limit) {
-       window.requestAnimationFrame(step);
+       DODGER.style.left = `${moveInPXRight}px`;
+       // console.log("moveInPXRight->", moveInPXRight);
+       // console.log("DODGER.style.left->", DODGER.style.left);
+       //window.requestAnimationFrame(step);
      }
    }
    window.requestAnimationFrame(step);
