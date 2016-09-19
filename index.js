@@ -47,6 +47,7 @@ function createRock(x) {
   rock.style.left = `${x}px`;
 
   // Hmmm, why would we have used `var` here?
+  //var top = rock.style.top = 0;   //use this line not the following to have this program work in the browser. The line below is only for purposes of test
   top = rock.style.top = 0;
 
   GAME.appendChild(rock);
