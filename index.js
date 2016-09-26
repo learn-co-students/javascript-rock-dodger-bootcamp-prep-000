@@ -132,7 +132,7 @@ function endGame() {
     i++;
   }
 
-  document.removeEventListener('keydown', moveDodger);
+  //document.removeEventListener('keydown', moveDodger);
 
   if (confirm("YOU LOSE!")){
       START.innerHTML = 'Play again?'
