@@ -105,7 +105,7 @@ function createRock(x) {
   }
 
   // We should kick of the animation of the rock around here
-
+  window.requestAnimationFrame(moveRock)
   // Add the rock to ROCKS so that we can remove all rocks
   // when there's a collision
   ROCKS.push(rock)
@@ -124,11 +124,19 @@ function endGame() {
 
   clearInterval(gameInterval)
 
+  ROCKS.forEach(function(rock){rock.remove()})
+
   document.removeEventListener('keydown', moveDodger)
 
 }
 
 function moveDodger(e) {
+  const code = e.which
+
+  if ([LEFT_ARROW, RIGHT_ARROW].indexOf(code) > -1){
+    e.stopPropagation()
+    e.preventDefault()
+  }
   // implement me!
   /**
    * This function should call `moveDodgerLeft()`
