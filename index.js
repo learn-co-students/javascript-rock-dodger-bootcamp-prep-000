@@ -30,7 +30,7 @@ function checkCollision(rock) {
 
     return (((rockLeftEdge <= dodgerLeftEdge) && (rockRightEdge >= dodgerLeftEdge))
         || ((rockLeftEdge >= dodgerLeftEdge) && (rockRightEdge <= dodgerRightEdge))
-        || ((rockLeftEdge < dodgerRightEdge) && (rockRightEdge > dodgerRightEdge)))
+        || ((rockLeftEdge <= dodgerRightEdge) && (rockRightEdge >= dodgerRightEdge)))
 
   }
 }
@@ -42,9 +42,10 @@ function createRock(x) {
   rock.style.left = `${x}px`
 
   // Hmmm, why would we have used `var` here?
-  var top = rock.style.top
+  var top = 0
+  rock.style.top = `${top}px`
 
-  rock.style.top = 0
+
 
   GAME.appendChild(rock)
   /**
@@ -59,6 +60,7 @@ function createRock(x) {
    */
   function moveRock() {
       rock.style.top = `${top += 2}px`;
+
       if (checkCollision(rock)) {
         return endGame()
       }
@@ -111,8 +113,8 @@ function endGame() {
     ROCKS[i].remove()
   }
 
-  return alert('YOU LOSE')
- }
+  alert('YOU LOSE')
+}
 
 
 
@@ -155,7 +157,7 @@ function positionToInteger(p) {
 }
 
 function start() {
-  window.addEventListener('keydown', moveDodger)
+  document.addEventListener('keydown', moveDodger)
 
   START.style.display = 'none'
 
