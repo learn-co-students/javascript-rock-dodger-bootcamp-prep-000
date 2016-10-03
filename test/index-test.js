@@ -107,7 +107,6 @@ describe('Rock Dodger', () => {
         window.requestAnimationFrame = cb => {
           setInterval(cb, 0)
         }
-
         const rock = createRock(2)
         const spy = expect.spyOn(rock, 'remove')
 
