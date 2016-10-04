@@ -110,10 +110,11 @@ function createRock(x) {
  */
 function endGame() {
   clearInterval(gameInterval);
-  for (var i = ROCKS.length - 1; i >= 0; i--){
-    ROCKS.shift();
-  }
+
+  ROCKS.forEach(function(rock) { rock.remove() })
   document.removeEventListener('keydown', moveDodger)
+  START.innerHTML = 'Play again?'
+  START.style.display = 'inline'
   alert("YOU LOSE!");
 }
 
