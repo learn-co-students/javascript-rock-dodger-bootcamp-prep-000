@@ -123,6 +123,15 @@ function createRock(x) {
  * Finally, alert "YOU LOSE!" to the player.
  */
 function endGame() {
+  clearInterval(gameInterval)
+
+  ROCKS.forEach(function(rock) {
+    rock.remove()
+  })
+
+  document.removeEventListener('keydown', moveDodger)
+
+  return alert("YOU LOSE!")
 }
 
 function moveDodger(e) {
@@ -142,6 +151,17 @@ function moveDodgerLeft() {
    * This function should move DODGER to the left
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
+var left = 0
+
+   function move () {
+     DODGER.style.left = `${left += 4}`
+
+     if (left >= 0) {
+       window.requestAnimationFrame(move)
+     }
+   }
+
+   window.requestAnimationFrame(move)
 }
 
 function moveDodgerRight() {
