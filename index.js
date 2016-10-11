@@ -20,7 +20,7 @@ var gameInterval = null
 
 // My constants
 const MOVE_DIST = 4;
-const DODGER_WIDTH = DODGER.offsetWidth;
+const DODGER_WIDTH = 40;
 
 // My helper functions
 function pxAsInteger(dimension){
@@ -133,7 +133,7 @@ function createRock(x) {
 function endGame() {
   window.clearInterval(gameInterval);
   ROCKS.forEach(rock => rock.remove());
-  window.removeEventListener('keydown', moveDodger);
+  document.removeEventListener('keydown', moveDodger);
   alert('YOU LOSE!');
 }
 
@@ -166,7 +166,7 @@ function moveDodgerLeft() {
    * This function should move DODGER to the left
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
-   var left = pxAsInteger(DODGER.style.left);
+   var left = positionToInteger(DODGER.style.left);
    if(left > 0){
      window.requestAnimationFrame(function(){
        DODGER.style.left = `${left - MOVE_DIST}px`;
@@ -181,8 +181,9 @@ function moveDodgerRight() {
    * This function should move DODGER to the right
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
-   var left = pxAsInteger(DODGER.style.left);
-   if(left < GAME_WIDTH - DODGER_WIDTH){
+   var left = positionToInteger(DODGER.style.left);
+   //
+   if(left < (GAME_WIDTH - DODGER_WIDTH)){
      window.requestAnimationFrame(function(){
        DODGER.style.left = `${left + MOVE_DIST}px`;
      });
@@ -199,7 +200,7 @@ function positionToInteger(p) {
 }
 
 function start() {
-  window.addEventListener('keydown', moveDodger)
+  document.addEventListener('keydown', moveDodger)
 
   START.style.display = 'none'
 
