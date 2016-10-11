@@ -101,12 +101,12 @@ function createRock(x) {
      * Otherwise, if the rock hasn't reached the bottom of
      * the GAME, we want to move it again.
      */
-     if(top > GAME_HEIGHT){
-       if(GAME.contains(rock)){
-        GAME.removeChild(rock);
+     if(GAME.contains(rock)){
+       if(top >= GAME_HEIGHT){
+          rock.remove();
+       } else {
+          window.requestAnimationFrame(moveRock);
        }
-     } else {
-        window.requestAnimationFrame(moveRock);
      }
     /**
      * But if the rock *has* reached the bottom of the GAME,
@@ -131,13 +131,8 @@ function createRock(x) {
  * Finally, alert "YOU LOSE!" to the player.
  */
 function endGame() {
-  clearInterval(gameInterval);
-
-  var remainingRocks = document.querySelectorAll('.rock');
-  for(var i = 0; i < remainingRocks.length; i++){
-    GAME.removeChild(remainingRocks[i]);
-  }
-  ROCKS.splice(0, ROCKS.length);
+  window.clearInterval(gameInterval);
+  ROCKS.forEach(rock => rock.remove());
   window.removeEventListener('keydown', moveDodger);
   alert('YOU LOSE!');
 }
@@ -151,6 +146,12 @@ function moveDodger(e) {
    * we've declared for you above.)
    * And be sure to use the functions declared below!
    */
+   if(e.which === LEFT_ARROW || e.which == RIGHT_ARROW){
+     e.preventDefault();
+     e.stopPropagation();
+   }
+
+
    if(e.which === LEFT_ARROW){
      moveDodgerLeft();
    } else if(e.which === RIGHT_ARROW){
