@@ -143,6 +143,16 @@ function moveDodger(e) {
    * we've declared for you above.)
    * And be sure to use the functions declared below!
    */
+  if (e.which != LEFT_ARROW && e.which != RIGHT_ARROW) {
+    e.preventDefault()
+    e.stopPropagation()
+  }
+
+  if (e.which === LEFT_ARROW) {
+    moveDodgerLeft()
+  } else if (e.which === RIGHT_ARROW) {
+    moveDodgerRight()
+  }
 }
 
 function moveDodgerLeft() {
@@ -153,15 +163,15 @@ function moveDodgerLeft() {
    */
 var left = 0
 
-   function move () {
-     DODGER.style.left = `${left += 4}`
+   //function move () {
+     //DODGER.style.left = `${left += 4}`
 
-     if (left >= 0) {
-       window.requestAnimationFrame(move)
-     }
-   }
+     //if (left >= 0) {
+       //window.requestAnimationFrame(move)
+     //}
+   //}
 
-   window.requestAnimationFrame(move)
+   //window.requestAnimationFrame(move)
 }
 
 function moveDodgerRight() {
