@@ -38,8 +38,8 @@ body {
 .rock:before {
   content: "";
   border-bottom: 6px solid tan;
-  border-left: 6px solid #111;
-  border-right: 6px solid #111;
+  border-left: 6px solid rgb(60, 70, 185);
+  border-right: 6px solid rgb(60, 70, 185);
   height: 0;
   left: 0;
   position: absolute;
@@ -49,8 +49,8 @@ body {
 
 .rock:after {
   content: "";
-  border-left: 6px solid #111;
-  border-right: 6px solid #111;
+  border-left: 6px solid rgb(60, 70, 185);
+  border-right: 6px solid rgb(60, 70, 185);
   border-top: 6px solid tan;
   bottom: 0;
   height: 0;
