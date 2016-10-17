@@ -97,7 +97,7 @@ function createRock(x) {
      * But if the rock *has* reached the bottom of the GAME,
      * we should remove the rock from the DOM
      */
-     
+
      if(parseInt(rock.style.top) > GAME_HEIGHT){
        GAME.removeChild(rock);
      }
