@@ -65,7 +65,7 @@ function checkCollision(rock) {
 
 function createRock(x) {
   const rock = document.createElement('div');
-
+  rock.style.backgroundColor = '#FF69B4';
   rock.className = 'rock';
   rock.style.left = `${x}px`;
 
@@ -94,10 +94,10 @@ function createRock(x) {
      if (checkCollision(rock)) {
        endGame();
       }
-     else if (top < 360) {
+     if (top < 360) {
        window.requestAnimationFrame(moveRock);
      }
-     else {
+     if (top = 360) {
        rock.remove();
      }
     /**
@@ -130,7 +130,12 @@ function createRock(x) {
  * Finally, alert "YOU LOSE!" to the player.
  */
 function endGame() {
-  clearInterval(GAME);
+  clearInterval(gameInterval);
+  for (let i = 0; i < ROCKS.length; i++) {
+    ROCKS[i].remove();
+  }
+  document.removeEventListener('keydown', moveDodger);
+  alert("YOU LOSE!");
 }
 
 function moveDodger(e) {
