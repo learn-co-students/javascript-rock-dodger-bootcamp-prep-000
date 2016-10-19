@@ -36,7 +36,8 @@ function checkCollision(rock) {
     // FIXME: The rock is 20 pixel's wide -- how do we get the right edge?
     const rockRightEdge = rockLeftEdge + 20;
 
-    if ((rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge) ||
+    return (
+      (rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge) ||
        (rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge) ||
        (rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge)/**
                * Think about it -- what's happening here?
@@ -47,11 +48,11 @@ function checkCollision(rock) {
                *    and the rock's right edge is < the DODGER's right edge;
                * 3. The rock's left edge is < the DODGER's right edge,
                *    and the rock's right edge is > the DODGER's right edge
-               */) {
-      return true
+               */
+             )
     }
   }
-}
+
 
 function createRock(x) {
   const rock = document.createElement('div')
@@ -75,6 +76,7 @@ function createRock(x) {
    * seems like a good pace.)
    */
   function moveRock() {
+    rock.style.top = `${top += 2}px`
     // implement me!
     // (use the comments below to guide you!)
 
@@ -82,25 +84,27 @@ function createRock(x) {
      * If a rock collides with the DODGER,
      * we should call endGame()
      */
-     if(checkCollision()){
-       endGame();
+     if(checkCollision(rock)){
+      return endGame();
      }
 
     /**
      * Otherwise, if the rock hasn't reached the bottom of
      * the GAME, we want to move it again.
      */
-     else {
-       rock.style.top = `${top += 2}px`
+     if(top < GAME_HEIGHT){
+       window.requestAnimationFrame(moveRock);
      }
+     else {
+       rock.remove();
+     }
+
     /**
      * But if the rock *has* reached the bottom of the GAME,
      * we should remove the rock from the DOM
      */
 
-     if(parseInt(rock.style.top) > GAME_HEIGHT){
-       GAME.removeChild(rock);
-     }
+
 
   }
 
@@ -122,7 +126,12 @@ function createRock(x) {
  */
 function endGame() {
   clearInterval(gameInterval);
-  ROCKS.length = 0;
+  ROCKS.forEach(function(rock){
+    rock.remove();
+  });
+  document.removeEventListener('keydown', moveDodger)
+  alert('YOU LOSE!');
+
 }
 
 function moveDodger(e) {
@@ -144,16 +153,27 @@ function moveDodger(e) {
 
 function moveDodgerLeft() {
   // implement me!
-  dodgerLeftEdge = parseInt(dodgerLeftEdge) - 4 + 'px'
+  window.requestAnimationFrame(function(){
+    const left = positionToInteger(DODGER.style.left)
+
+  if(left > 0){
+    DODGER.style.left = `${left - 4}px`;
+  }
   /**
    * This function should move DODGER to the left
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
+})
 }
 
 function moveDodgerRight() {
   // implement me!
-  dodgerRightEdge = parseInt(dodgerRightEdge) + 4 + 'px'
+  window.requestAnimationFrame(function(){
+    const left = positionToInteger(DODGER.style.left)
+    if(left < 360){
+      DODGER.style.left = `${left + 4}px`;
+    }
+  })
   /**
    * This function should move DODGER to the right
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
