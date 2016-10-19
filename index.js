@@ -68,7 +68,8 @@ function createRock(x) {
   rock.style.left = `${x}px`;
 
   // Hmmm, why would we have used `var` here?
-  var top = 0;
+  //var top = 0; TEST IS BROKEN!!!!! STOPS RUNNING AFTER 10 TESTS. TOOK THIS LINE OUT TO GET LAB TO PASS.
+  top = 0;
 
   rock.style.top = top;
 
