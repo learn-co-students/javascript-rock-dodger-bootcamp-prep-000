@@ -27,55 +27,63 @@ function checkCollision(rock) {
 }
 
 function createRock(x) {
-  const rock = document.createElement('div') //create rock div
+  const rock = document.createElement('div')
+
   rock.className = 'rock'
   rock.style.left = `${x}px`
-  var top = 0
-  rock.style.top = top
-  document.getElementById('game').appendChild(rock) //add rock to page
 
-  var mover = 0
+  var top = rock.style.top = 0
+
+  GAME.appendChild(rock)
 
   function moveRock() {
-    document.querySelector('.rock').style.top = `${mover}px`
-    mover += 2
+    rock.style.top = `${top += 2}px`;
 
     if (checkCollision(rock)) {
-      endGame()
-    };
+      return endGame()
+    }
 
-    if (mover >= GAME_HEIGHT) {
-     var parent = document.getElementById("game");
-     var child = document.querySelector('.rock');
-     parent.removeChild(child);
-   };
+    if (top < GAME_HEIGHT) {
+      window.requestAnimationFrame(moveRock)
+    } else {
+      rock.remove()
+    }
+  }
 
-   requestAnimationFrame(moveRock)
- }
- moveRock()
-  ROCKS.push(rock) // Add the rock to ROCKS so that we can remove all rocks when there's a collision
-     // Finally, return the rock element you've created
-  // debugger said this is an "illegal return statement" -> return rock
+  window.requestAnimationFrame(moveRock)
+
+  ROCKS.push(rock)
+
+  return rock
 }
 
 
 function endGame() {
-  gameInterval = 0 //End the game by clearing `gameInterval`
-  ROCKS.length = 0 //removing all ROCKS from the DOM
-  // document.removeEventListener('keydown',function) remove the `moveDodger` event listener.
-  alert('YOU LOSE!') //Finally, alert "YOU LOSE!" to the player
+  clearInterval(gameInterval)
+
+  ROCKS.forEach(function(rock) { rock.remove() })
+
+  document.removeEventListener('keydown', moveDodger)
+
+  START.innerHTML = 'Play again?'
+  START.style.display = 'inline'
+
+  return alert('YOU LOSE!')
 }
 
 function moveDodger(e) {
- document.addEventListener('keydown', function(e) {
-  if (e.which === 37) {
-    moveDodgerLeft()
+  const code = e.which
+
+  if ([LEFT_ARROW, RIGHT_ARROW].indexOf(code) > -1) {
+    e.preventDefault()
+    e.stopPropagation()
   }
-  if (e.which === 39) {
+
+  if (code === LEFT_ARROW) {
+    moveDodgerLeft()
+  } else if (code === RIGHT_ARROW) {
     moveDodgerRight()
   }
-  console.log(e.which)
-})
 }
 
 function moveDodgerLeft() {
