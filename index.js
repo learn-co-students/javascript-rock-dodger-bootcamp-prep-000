@@ -60,9 +60,10 @@ function createRock(x) {
   rock.style.left = `${x}px`
 
   // Hmmm, why would we have used `var` here?
-  var top = 0
-
-  rock.style.top = top
+  //rock.style.top = top
+  // top = rock.style.top
+  //top = 0
+  rock.style.top = top = 0 ;
 
   /**
    * Now that we have a rock, we'll need to append
@@ -90,7 +91,7 @@ function createRock(x) {
    }
 
   // We should kick of the animation of the rock around here
-window.requestAnimationFrame(moveRock)
+  window.requestAnimationFrame(moveRock)
   // Add the rock to ROCKS so that we can remove all rocks
   // when there's a collision
   ROCKS.push(rock)
