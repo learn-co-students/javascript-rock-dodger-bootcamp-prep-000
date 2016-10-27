@@ -36,10 +36,9 @@ function checkCollision(rock) {
     // FIXME: The rock is 20 pixel's wide -- how do we get the right edge?
     const rockRightEdge = rockLeftEdge + 20;
 
-    if ((rockLeftEdge < dodgerLeftEdge && rockRightEdge > dodgerLeftEdge) ||
-        (rockLeftEdge > dodgerLeftEdge && rockRightEdge < dodgerRightEdge) ||
-        (rockLeftEdge < dodgerRightEdge && rockRightEdge > dodgerRightEdge)
-        /**
+    if  ((rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge) ||
+        (rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge) ||
+        (rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge) /**
                * Think about it -- what's happening here?
                * There's been a collision if one of three things is true:
                * 1. The rock's left edge is < the DODGER's left edge,
@@ -48,9 +47,7 @@ function checkCollision(rock) {
                *    and the rock's right edge is < the DODGER's right edge;
                * 3. The rock's left edge is < the DODGER's right edge,
                *    and the rock's right edge is > the DODGER's right edge
-               */
-
-             ) {
+               */) {
       return true
     }
   }
@@ -77,37 +74,20 @@ function createRock(x) {
    * This function moves the rock. (2 pixels at a time
    * seems like a good pace.)
    */
-  function moveRock() {
-    // implement me!
-    // (use the comments below to guide you!)
-    rock.style.top = `${top += 2}px`
-    /**
-     * If a rock collides with the DODGER,
-     * we should call endGame()
-     */
+
+   function moveRock() {
+     rock.style.top = `${top += 2}px`;
+
      if (checkCollision(rock)) {
        return endGame()
      }
 
      if (top < GAME_HEIGHT) {
-        window.requestAnimationFrame(moveRock)
+       window.requestAnimationFrame(moveRock)
+     } else {
+       rock.remove()
      }
-
-     if (top > GAME_HEIGHT) {
-       rock.remove
-     }
-    /**
-     * Otherwise, if the rock hasn't reached the bottom of
-     * the GAME, we want to move it again.
-     */
-
-    /**
-     * But if the rock *has* reached the bottom of the GAME,
-     * we should remove the rock from the DOM
-     */
-  }
-
-
+   }
 
   // We should kick of the animation of the rock around here
 window.requestAnimationFrame(moveRock)
@@ -125,28 +105,16 @@ window.requestAnimationFrame(moveRock)
  * and removing the `moveDodger` event listener.
  * Finally, alert "YOU LOSE!" to the player.
  */
-function endGame() {
-  clearInterval(gameInterval)
-  ROCKS.forEach(function(rock){
-    rock.remove
-  })
-  alert("YOU LOSE!")
-  window.removeEventListener('keydown', moveDodger)
-}
+ function endGame() {
+   clearInterval(gameInterval)
+   ROCKS.forEach(function(rock){ rock.remove()})
+    document.removeEventListener('keydown', moveDodger)
+
+    return alert("YOU LOSE!")
+ }
 
 function moveDodger(e) {
   // implement me!
-  document.addEventListener('keydown', function(e) {
-  if (e.which === 37) {
-    moveDodgerLeft()
-    }
-  })
-  document.addEventListener('keydown', function(e) {
-  if (e.which === 39) {
-    moveDodgerRight()
-    }
-  })
-
   /**
    * This function should call `moveDodgerLeft()`
    * if the left arrow is pressed and `moveDodgerRight()`
@@ -154,7 +122,21 @@ function moveDodger(e) {
    * we've declared for you above.)
    * And be sure to use the functions declared below!
    */
-}
+
+     const key = e.which
+     if ([LEFT_ARROW, RIGHT_ARROW].indexOf(key) > -1) {
+       e.preventDefault()
+       e.stopPropagation()
+     }
+
+   if (key === LEFT_ARROW) {
+     moveDodgerLeft()
+     }
+   if (key === RIGHT_ARROW) {
+     moveDodgerRight()
+     }
+   }
+
 
 function moveDodgerLeft() {
   // implement me!
@@ -163,11 +145,11 @@ function moveDodgerLeft() {
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
    var leftNumbers = dodger.style.left.replace('px', '')
-   var left = parseInt(leftNumbers, 10)
+    var left = parseInt(leftNumbers, 10)
 
-  if (left > 0) {
-    dodger.style.left = `${left - 4}px`
-  }
+   if (left > 0) {
+     dodger.style.left = `${left - 4}px`
+   }
 }
 
 function moveDodgerRight() {
@@ -179,10 +161,11 @@ function moveDodgerRight() {
    var leftNumbers = dodger.style.left.replace('px', '')
    var left = parseInt(leftNumbers, 10)
 
-   if (left + 40 < GAME_WIDTH) {
-    dodger.style.left = `${left + 4}px`
-  }
+    if (left + 40 < GAME_WIDTH) {
+     dodger.style.left = `${left + 4}px`
+   }
 }
+
 
 /**
  * @param {string} p The position property
