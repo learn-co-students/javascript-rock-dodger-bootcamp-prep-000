@@ -79,7 +79,7 @@ function createRock(x) {
      rock.style.top = `${top += 2}px`;
 
      if (checkCollision(rock)) {
-       return endGame()
+        return endGame()
      }
 
      if (top < GAME_HEIGHT) {
@@ -108,9 +108,9 @@ window.requestAnimationFrame(moveRock)
  function endGame() {
    clearInterval(gameInterval)
    ROCKS.forEach(function(rock){ rock.remove()})
-    document.removeEventListener('keydown', moveDodger)
-
-    return alert("YOU LOSE!")
+   document.removeEventListener('keydown', moveDodger)
+   //return alert("YOU LOSE!")
+   alert("YOU LOSE!")
  }
 
 function moveDodger(e) {
