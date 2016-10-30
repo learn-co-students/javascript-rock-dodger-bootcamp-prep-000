@@ -150,10 +150,10 @@ function moveDodger(e) {
    } else if (e.which === RIGHT_ARROW) {
      moveDodgerRight();
    }
-  //   else {
-  //    e.preventDefault();
-  //    e.stopPropagation();
-  //  }
+    else {
+     e.preventDefault();
+     e.stopPropagation();
+   }
 }
 
 function moveDodgerLeft() {
