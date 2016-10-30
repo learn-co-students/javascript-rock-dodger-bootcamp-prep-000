@@ -126,7 +126,7 @@ function endGame() {
 
   ROCKS.length = 0;
 
-  window.removeEventListener('keydown', moveDodger);
+  document.removeEventListener('keydown', moveDodger);
   alert("YOU LOSE!");
 
   var elements = document.getElementsByClassName('rock');
@@ -136,24 +136,31 @@ function endGame() {
   }
 }
 
+// function moveDodger(e) {
+//   // implement me!
+//    if (e.which !== LEFT_ARROW && e.which !== RIGHT_ARROW){
+//      e.preventDefault();
+//      e.stopPropagation();
+//    } else if (e.which === LEFT_ARROW) {
+//      moveDodgerLeft();
+//    } else if (e.which === RIGHT_ARROW) {
+//      moveDodgerRight();
+//    }
+// }
+
 function moveDodger(e) {
-  // implement me!
-  /**
-   * This function should call `moveDodgerLeft()`
-   * if the left arrow is pressed and `moveDodgerRight()`
-   * if the right arrow is pressed. (Check the constants
-   * we've declared for you above.)
-   * And be sure to use the functions declared below!
-   */
-   if (e.which === LEFT_ARROW) {
-     moveDodgerLeft();
-   } else if (e.which === RIGHT_ARROW) {
-     moveDodgerRight();
-   }
-    else {
-     e.preventDefault();
-     e.stopPropagation();
-   }
+  const code = e.which
+
+  if ([LEFT_ARROW, RIGHT_ARROW].indexOf(code) > -1) {
+    e.preventDefault()
+    e.stopPropagation()
+  }
+
+  if (code === LEFT_ARROW) {
+    moveDodgerLeft()
+  } else if (code === RIGHT_ARROW) {
+    moveDodgerRight()
+  }
 }
 
 function moveDodgerLeft() {
@@ -200,7 +207,7 @@ function positionToInteger(p) {
 }
 
 function start() {
-  window.addEventListener('keydown', moveDodger);
+  document.addEventListener('keydown', moveDodger);
 
   START.style.display = 'none';
 
