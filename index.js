@@ -101,9 +101,6 @@ function createRock(x) {
      * we should remove the rock from the DOM GAME.
     **/
      else {
-      //  if (rock.parentNode) {
-      //    rock.parentNode.removeChild(rock);
-      //  }
       rock.remove();
      }
   }
@@ -129,25 +126,14 @@ function endGame() {
 
   ROCKS.length = 0;
 
-  removeEventListener('keydown', moveDodger);
+  window.removeEventListener('keydown', moveDodger);
   alert("YOU LOSE!");
 
   var elements = document.getElementsByClassName('rock');
 
-  // while (elements.length !== 0){
-  //   elements.pop().remove();
-  // }
-
-
   for (var i = 0, l = elements.length; i < l; i++) {
     elements[i].remove();
   }
-
-  // not working solution
-  // while(elements[0]) {
-  //   elements[0].remove();
-  // }
-
 }
 
 function moveDodger(e) {
@@ -161,12 +147,12 @@ function moveDodger(e) {
    */
    if (e.which === LEFT_ARROW) {
      moveDodgerLeft();
-   }
-   if (e.which === RIGHT_ARROW) {
+   } else if (e.which === RIGHT_ARROW) {
      moveDodgerRight();
    }
   //   else {
-  //   //  e.preventDefault();
+  //    e.preventDefault();
+  //    e.stopPropagation();
   //  }
 }
 
