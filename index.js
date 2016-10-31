@@ -69,12 +69,12 @@ function endGame() {
   for (let i = 0, l = ROCKS.length; i < l; i++){
     ROCKS[i].remove();
   }
+  ROCKS.splice(0, ROCKS.length);
 
   // ROCKS.forEach(function(rock) {
   //   rock.remove();
   // })
-
-  ROCKS.length = 0;
+    // ROCKS.length = 0;
 
   document.removeEventListener('keydown', moveDodger);
 
