@@ -66,11 +66,14 @@ function createRock(x) {
 function endGame() {
   clearInterval(gameInterval);
 
-  // for (let i = 0, l = ROCKS.length; i < l; i++){
-  //   ROCKS[i].remove();
-  // }
+  for (let i = 0, l = ROCKS.length; i < l; i++){
+    ROCKS[i].remove();
+  }
 
-  ROCKS.forEach(function(rock) { rock.remove(); })
+  // ROCKS.forEach(function(rock) {
+  //   rock.remove();
+  // })
+
   ROCKS.length = 0;
 
   document.removeEventListener('keydown', moveDodger);
@@ -133,6 +136,7 @@ function start() {
   document.addEventListener('keydown', moveDodger);
 
   START.style.display = 'none';
+  DODGER.style.left = '180px';
 
   gameInterval = setInterval(function() {
     createRock(Math.floor(Math.random() * (GAME_WIDTH - 20)))
