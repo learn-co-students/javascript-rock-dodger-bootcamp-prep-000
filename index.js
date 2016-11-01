@@ -31,24 +31,24 @@ function checkCollision(rock) {
     const dodgerLeftEdge = positionToInteger(DODGER.style.left);
 
     // FIXME: The DODGER is 40 pixels wide -- how do we get the right edge?
-    const dodgerRightEdge = `${dodgerLeftEdge + 40}px`; // changed from 0      ////  `${top += 2}px`
+    const dodgerRightEdge = `${dodgerLeftEdge + 40}`; // changed from 0      ////  `${top += 2}px`
     //const dodgerRightEdge = positionToInteger(DODGER.style.right); // changed from 0; correct ?? -- ER
 
     const rockLeftEdge = positionToInteger(rock.style.left);
 
     // FIXME: The rock is 20 pixel's wide -- how do we get the right edge?
-    const rockRightEdge = `${rockLeftEdge + 20}px`; // changed from 0
+    const rockRightEdge = `${rockLeftEdge + 20}`; // changed from 0
     //const rockRightEdge = positionToInteger(rock.style.right); // changed from 0; correct ?? -- ER
 
 
-      if (rockLeftEdge < dodgerLeftEdge && rockRightEdge > dodgerLeftEdge) {
-        return false; // return false?
-    } if (rockLeftEdge > dodgerLeftEdge && rockRightEdge < dodgerRightEdge) {
-        return false; // return false?
-    } if (rockLeftEdge < dodgerRightEdge && rockRightEdge > dodgerRightEdge) {
-        return false; // return false?
+      if (rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge) {
+        return true; // return false?
+    } if (rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge) {
+        return true; // return false?
+    } if (rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge) {
+        return true; // return false?
     } else {
-      return true; // return true?
+      return false; // return true?
     }
   }
 }
@@ -112,56 +112,10 @@ function endGame() {
    */
   clearInterval(gameInterval); // endGame() clears gameInterval
 
-  // still need this --- removes all of the rocks
-
-  // remove all ROCKS from the DOM using forEach (?) and splice
-  // var removeAllRocks = ROCKS.splice(0, ROCKS.length+1)
-  //
-
-  // for(var i = elements.length -1; i >= 0 ; i--){
-  //   if(elements[i] == 5){
-  //       elements.splice(i, 1);
-  //   }
-  // }
-
-  // const rock = document.createElement('div');
-  // rock.className = 'rock';
-
-  // var rocksToRemove = ROCKS;
-  // for (let i = 0; i < 4; i++) {
-  //   rock.remove();
-  // }
-
-//   var rocksToRemove = ROCKS;
-//
-//   function clearit() {
-//     return rocksToRemove = []; //or array = [""];
-// }
-// clearit();
-
-  // var rocksToRemove = ROCKS;
-  // rocksToRemove.splice(0, rocksToRemove.length);
-
-  // while(rocksToRemove.length > 0) {
-  //   rocksToRemove.pop();
-  // }
-
-  // for(var i = rocksToRemove.length - 1; i >= 0; i--) {
-  //   rocksToRemove.splice(i--, 1)
-  // }
-    //rock.remove();
-    // if(ROCKS[i] == 5){
-    //     ROCKS.splice(i, 1);
-    // }
-  //}
-
-  // KEEP WORKING ON ::::
-
-  // ROCKS.forEach() {
-  //   rock.remove();
-  // }
-
-  //GAME.removeChild(ROCKS); // works ??????  ------ not sure this works
+  ROCKS.forEach(        // remove all rocks using an anonymous function
+    function(rock) {
+      rock.remove()
+    });
 
   window.document.removeEventListener("keydown", moveDodger); // // endGame() removes keydown event listener
   alert(`YOU LOSE!`); // endGame() alerts 'you lose' message
