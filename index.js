@@ -20,32 +20,41 @@ var gameInterval = null
 function checkCollision(rock) {
   // implement me!
   // use the comments below to guide you!
-  const top = positionToInteger(rock.style.top)  // is this the top of the dodger, or the rock?? -- ER
+  const top = positionToInteger(rock.style.top)  // this is the top of the rock
 
   // rocks are 20px high
   // DODGER is 20px high
   // GAME_HEIGHT - 20 - 20 = 360px;
+
+
+  // it("collides if the rock's left edge is <= the DODGER's left edge
+  // and the rock's right edge is >= the DODGER's left edge", () =>
+  //   rock.style.left = '170px'
+  //
+  //   expect(checkCollision(rock)).toBe(true)
+
   if (top > 360) {
-    const dodgerLeftEdge = positionToInteger(DODGER.style.left)
+    const dodgerLeftEdge = positionToInteger(DODGER.style.left);
 
     // FIXME: The DODGER is 40 pixels wide -- how do we get the right edge?
-    //const dodgerRightEdge = 0; // what was here
-    const dodgerRightEdge = positionToInteger(DODGER.style.right); // changed from 0; correct ?? -- ER
+    const dodgerRightEdge = `${dodgerLeftEdge + 40}px`; // changed from 0      ////  `${top += 2}px`
+    //const dodgerRightEdge = positionToInteger(DODGER.style.right); // changed from 0; correct ?? -- ER
 
-    const rockLeftEdge = positionToInteger(rock.style.left)
+    const rockLeftEdge = positionToInteger(rock.style.left);
 
     // FIXME: The rock is 20 pixel's wide -- how do we get the right edge?
-    //const rockRightEdge = 0; // what was here
-    const rockRightEdge = positionToInteger(rock.style.right); // changed from 0; correct ?? -- ER
+    const rockRightEdge = `${rockLeftEdge + 20}px`; // changed from 0
+    //const rockRightEdge = positionToInteger(rock.style.right); // changed from 0; correct ?? -- ER
 
-      if (rockLeftEdge > dodgerLeftEdge && rockRightEdge > dodgerLeftEdge) {
-        return false;
-    } else if (rockLeftEdge > dodgerLeftEdge && rockRightEdge < dodgerLeftEdge) {
-        return false;
-    } else if (rockLeftEdge < dodgerRightEdge && rockRightEdge > dodgerRightEdge) {
-        return false;
+
+      if (rockLeftEdge < dodgerLeftEdge && rockRightEdge > dodgerLeftEdge) {
+        return false; // return false?
+    } if (rockLeftEdge > dodgerLeftEdge && rockRightEdge < dodgerRightEdge) {
+        return false; // return false?
+    } if (rockLeftEdge < dodgerRightEdge && rockRightEdge > dodgerRightEdge) {
+        return false; // return false?
     } else {
-      return true;
+      return true; // return true?
     }
   }
 }
@@ -57,98 +66,40 @@ function checkCollision(rock) {
 //                * There's been a collision if one of three things is true:
 //                * 1. The rock's left edge is < the DODGER's left edge,
 //                *    and the rock's right edge is > the DODGER's left edge;
+
 //                * 2. The rock's left edge is > the DODGER's left edge,
 //                *    and the rock's right edge is < the DODGER's right edge;
+
 //                * 3. The rock's left edge is < the DODGER's right edge,
 //                *    and the rock's right edge is > the DODGER's right edge
-//                */) {
+//                */)
 //       return true
-//     }
-//   }
-// }
+
 
 function createRock(x) {
-  const rock = document.createElement('div')
+  const rock = document.createElement('div');
+  rock.className = 'rock';
+  rock.style.left = `${x}px`; // changed to `${2}px` from `${x}px` -- needs to be this, original.
+  var top = 0;
+  rock.style.top = top; // commented this out -- ER
+  GAME.appendChild(rock); // -------- <<<<< ------ this is the one
 
-  rock.className = 'rock'
-  rock.style.left = `2px` // changed to `${2}px` from `${x}px`
+  function moveRock() {
+    rock.style.top = `${top += 2}px`;  // added this -- ER
 
-  // Hmmm, why would we have used `var` here?
-  var top = 0
-
-  rock.style.top = top // commented this out -- ER
-  //rock.style.top = `${top += 2}px`  // added this; putting it below -- ER
-
-  /**
-   * Now that we have a rock, we'll need to append
-   * it to GAME and move it downwards.
-   */
-
-   //var currentDiv = document.getElementById("div1");
-   //var game = document.getElementById("game");
-
-   //newDiv.appendChild(newContent); //add the text node to the newly created div.
-   //game.appendChild(rock);
-   GAME.appendChild(rock); // -------- <<<<< ------ this is the one
-   //GAME.append(rock);
-   //top.appendChild(rock); //append to top instead of GAME ??
-
-
-
-
-   // add the newly created element and its content into the DOM::
-
-   //document.body.insertBefore(newDiv, currentDiv);
-   //document.body.insertBefore(rock, game);
-
-
-  /**
-   * This function moves the rock. (2 pixels at a time
-   * seems like a good pace.)
-   */
-  //function moveRock() {
-  function moveRock(rock) {  // add (rock) ??? -- ER
-
-    function step() {
-      rock.style.top = `${top += 2}px`  // added this -- ER
-
-    // implement me!
-    // (use the comments below to guide you!)
-    /**
-
-     * If a rock collides with the DODGER,
-     * we should call endGame()
-     */
      if (checkCollision(rock) === true) { // added -- ER
-       return endGame();
+       return endGame(); // If a rock collides with the DODGER, we call endGame()
      }
-
-    /**
-     * Otherwise, if the rock hasn't reached the bottom of
-     * the GAME, we want to move it again.
-     */
-        else if (top < `400px`) { // added -- ER
-         //window.requestAnimationFrame(step);
-       }
-
-    /**
-     * But if the rock *has* reached the bottom of the GAME,
-     * we should remove the rock from the DOM
-     */
-      else if (top === `400px`) { // added -- ER
-       //$( ".rock" ).remove();
-       GAME.removeChild(rock);
+     if (top < `400px`) {
+       window.requestAnimationFrame(moveRock); // (moveRock), not (step) !!
      }
-  window.requestAnimationFrame(step) // -- added, ER
-}
-  // We should kick of the animation of the rock around here
-
-  // Add the rock to ROCKS so that we can remove all rocks
-  // when there's a collision
-  ROCKS.push(rock)
-
-  // Finally, return the rock element you've created
-  return rock
+     else { // dont' need (top === `400px`)
+       rock.remove();
+     }
+   } // below needs to be outside this close bracket!!
+  window.requestAnimationFrame(moveRock); // -- added, ER // (moveRock), not (step) !!
+  ROCKS.push(rock);   // Add the rock to ROCKS so  we can remove all rocks when there's a collision
+  return rock; // Finally, return the rock element you've created
 }
 
 
@@ -168,9 +119,55 @@ function endGame() {
   clearInterval(gameInterval); // endGame() clears gameInterval
 
   // still need this --- removes all of the rocks
-  GAME.removeChild(ROCKS); // works ??????  ------ not sure this works
-  //game.removeChild(rocks); // does uppercase/lowercase matter?? ------ not sure this works
-  //$("#GAME").remove(ROCKS); // ---- trying this
+
+  // remove all ROCKS from the DOM using forEach (?) and splice
+  // var removeAllRocks = ROCKS.splice(0, ROCKS.length+1)
+  //
+
+  // for(var i = elements.length -1; i >= 0 ; i--){
+  //   if(elements[i] == 5){
+  //       elements.splice(i, 1);
+  //   }
+  // }
+
+  // const rock = document.createElement('div');
+  // rock.className = 'rock';
+
+  // var rocksToRemove = ROCKS;
+  // for (let i = 0; i < 4; i++) {
+  //   rock.remove();
+  // }
+
+//   var rocksToRemove = ROCKS;
+//
+//   function clearit() {
+//     return rocksToRemove = []; //or array = [""];
+// }
+// clearit();
+
+  // var rocksToRemove = ROCKS;
+  // rocksToRemove.splice(0, rocksToRemove.length);
+
+  // while(rocksToRemove.length > 0) {
+  //   rocksToRemove.pop();
+  // }
+
+  // for(var i = rocksToRemove.length - 1; i >= 0; i--) {
+  //   rocksToRemove.splice(i--, 1)
+  // }
+    //rock.remove();
+    // if(ROCKS[i] == 5){
+    //     ROCKS.splice(i, 1);
+    // }
+  //}
+
+  // KEEP WORKING ON ::::
+
+  // ROCKS.forEach() {
+  //   rock.remove();
+  // }
+
+  //GAME.removeChild(ROCKS); // works ??????  ------ not sure this works
 
   window.document.removeEventListener("keydown", moveDodger); // // endGame() removes keydown event listener
   alert(`YOU LOSE!`); // endGame() alerts 'you lose' message
