@@ -37,7 +37,7 @@ function createRock(x) {
 
   rock.className = 'rock'
   rock.style.left = `${x}px`
-  var top = 0
+  top = 0
 
 
 
@@ -104,7 +104,7 @@ function moveDodgerRight() {
           }
         })
       }
-  
+
 function positionToInteger(p) {
   return parseInt(p.split('px')[0]) || 0
 }
