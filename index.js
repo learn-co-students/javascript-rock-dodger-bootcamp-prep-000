@@ -36,9 +36,9 @@ function checkCollision(rock) {
     // FIXME: The rock is 20 pixel's wide -- how do we get the right edge?
     const rockRightEdge = rockLeftEdge + 20
 
-    if ( rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge ||
-      rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge ||
-      rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge
+    if ( (rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge) ||
+      (rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge) ||
+      (rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge)
        /**
                * Think about it -- what's happening here?
                * There's been a collision if one of three things is true:
@@ -93,7 +93,7 @@ function createRock(x) {
      * Otherwise, if the rock hasn't reached the bottom of
      * the GAME, we want to move it again.
      */
-     if ( top < (GAME_HEIGHT - 20) ){
+     if ( top < GAME_HEIGHT ){
        window.requestAnimationFrame(moveRock)
      }
 
@@ -126,10 +126,16 @@ function createRock(x) {
  */
 function endGame() {
   clearInterval(gameInterval)
-  ROCKS.forEach(function(rock){ rock.remove() })
   document.removeEventListener('keydown', moveDodger)
+  console.log("ROCKS", ROCKS)
+  // todo: remove all rocks from DOM
+  for (var i = 0; i < ROCKS.length; i++){
+    ROCKS[i].remove()
+  }
 
-  return alert("YOU LOSE!")
+  START.innerHTML = 'GAME OVER'
+  START.style.display = 'block'
+  alert("YOU LOSE!")
 }
 
 function moveDodger(e) {
