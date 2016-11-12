@@ -29,7 +29,6 @@ function checkCollision(rock) {
     const dodgerLeftEdge = positionToInteger(DODGER.style.left)
 
     // FIXME: The DODGER is 40 pixels wide -- how do we get the right edge?
-
     const dodgerRightEdge = dodgerLeftEdge + 40
 
     const rockLeftEdge = positionToInteger(rock.style.left)
@@ -41,7 +40,6 @@ function checkCollision(rock) {
       (rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge) ||
       (rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge)
        /**
-
                * Think about it -- what's happening here?
                * There's been a collision if one of three things is true:
                * 1. The rock's left edge is < the DODGER's left edge,
@@ -67,6 +65,11 @@ function createRock(x) {
 
   rock.style.top = top
 
+
+  /**
+   * Now that we have a rock, we'll need to append
+   * it to GAME and move it downwards.
+   */
    GAME.appendChild(rock)
 
   /**
@@ -86,22 +89,18 @@ function createRock(x) {
        return endGame()
      }
 
-
     /**
      * Otherwise, if the rock hasn't reached the bottom of
      * the GAME, we want to move it again.
      */
-
      if ( top < GAME_HEIGHT ){
        window.requestAnimationFrame(moveRock)
      }
-
 
     /**
      * But if the rock *has* reached the bottom of the GAME,
      * we should remove the rock from the DOM
      */
-
      else {
       rock.remove()
      }
@@ -111,11 +110,6 @@ function createRock(x) {
 
   // We should kick of the animation of the rock around here
   moveRock()
-
-  }
-
-  // We should kick of the animation of the rock around here
-
   // Add the rock to ROCKS so that we can remove all rocks
   // when there's a collision
   ROCKS.push(rock)
@@ -153,7 +147,6 @@ function moveDodger(e) {
    * we've declared for you above.)
    * And be sure to use the functions declared below!
    */
-
    if ( e.which === LEFT_ARROW || e.detail === LEFT_ARROW){
      e.preventDefault()
      e.stopPropagation()
@@ -180,7 +173,6 @@ function moveDodgerLeft() {
    }
    window.requestAnimationFrame(stepLeft)
 
-
 }
 
 function moveDodgerRight() {
@@ -196,7 +188,6 @@ function moveDodgerRight() {
       }
    }
    window.requestAnimationFrame(stepLeft)
-
 }
 
 /**
