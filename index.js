@@ -87,6 +87,7 @@ function createRock(x) {
      if ( checkCollision(rock)){
        return endGame()
      }
+     window.requestAnimationFrame(moveRock)
 
     /**
      * Otherwise, if the rock hasn't reached the bottom of
