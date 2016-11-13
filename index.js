@@ -65,7 +65,6 @@ function createRock(x) {
 
   rock.style.top = top
 
-
   /**
    * Now that we have a rock, we'll need to append
    * it to GAME and move it downwards.
@@ -109,9 +108,11 @@ function createRock(x) {
   }
 
   // We should kick of the animation of the rock around here
-  moveRock()
+  // moveRock()
   // Add the rock to ROCKS so that we can remove all rocks
   // when there's a collision
+  window.requestAnimationFrame(moveRock)
+
   ROCKS.push(rock)
 
   // Finally, return the rock element you've created
@@ -127,7 +128,6 @@ function createRock(x) {
 function endGame() {
   clearInterval(gameInterval)
   document.removeEventListener('keydown', moveDodger)
-  console.log("ROCKS", ROCKS)
   // todo: remove all rocks from DOM
   for (var i = 0; i < ROCKS.length; i++){
     ROCKS[i].remove()
