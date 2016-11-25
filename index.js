@@ -85,14 +85,13 @@ function createRock(x) {
      * we should call endGame()
      */
      if (checkCollision(rock)) {
-       rock.remove()
        endGame()
      }
     /**
      * Otherwise, if the rock hasn't reached the bottom of
      * the GAME, we want to move it again.
      */
-     else if (top < GAME_HEIGHT) {
+     if (top < GAME_HEIGHT) {
        //window.requestAnimationFrame(moveRock) // This is causing learn test to stop at test 10
      }
     /**
@@ -102,7 +101,6 @@ function createRock(x) {
      else {
       rock.remove()
     }
-
   }
 
   // We should kick of the animation of the rock around here
@@ -122,11 +120,12 @@ function createRock(x) {
  * Finally, alert "YOU LOSE!" to the player.
  */
 function endGame() {
-  clearInterval(gameInterval)
-  window.removeEventListener('keydown', moveDodger)
+  window.clearInterval(gameInterval)
+  document.removeEventListener('keydown', moveDodger);
   ROCKS.forEach(function(rock) {
     rock.remove()
   });
+  alert("YOU LOSE!")
 }
 
 function moveDodger(e) {
@@ -151,12 +150,18 @@ function moveDodger(e) {
 }
 
 function moveDodgerLeft() {
+  //console.log('moveDodgerLeft()')
   // implement me!
   /**
    * This function should move DODGER to the left
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
-   
+   var leftNumbers = DODGER.style.left.replace('px', '')
+   var left = parseInt(leftNumbers, 10)
+
+   if (left > 0) {
+     DODGER.style.left = `${left - 4}px`
+   }
 }
 
 function moveDodgerRight() {
@@ -165,7 +170,14 @@ function moveDodgerRight() {
    * This function should move DODGER to the right
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
+   var leftNumbers = dodger.style.left.replace('px', '')
+   var left = parseInt(leftNumbers, 10)
+
+   if (left < GAME_WIDTH - 40) {
+     dodger.style.left = `${left + 4}px`
+   }
 }
+
 
 /**
  * @param {string} p The position property
