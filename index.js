@@ -87,7 +87,7 @@ function createRock(x) {
      * the GAME, we want to move it again.
      */
      if ( rock.style.top < GAME_HEIGHT) {
-      window.requestAnimationFrame(moveRock)
+      document.requestAnimationFrame(moveRock)
     } else {
       rock.remove()
     }
@@ -116,7 +116,7 @@ function endGame() {
   for(var a of ROCKS){
     a.remove();
   }
-  document.removeEventListener('keydown', moveDodger);
+  window.removeEventListener('keydown', moveDodger);
   alert('YOU LOSE!');
 }
 
@@ -145,7 +145,7 @@ function moveDodgerLeft() {
   // implement me!
   /**
    * This function should move DODGER to the left
-   * (mabye 4 pixels?). Use window.requestAnimationFrame()!
+   * (mabye 4 pixels?). Use document.requestAnimationFrame()!
    */
   var left = positionToInteger(DODGER.style.left);
   DODGER.style.left = left;
@@ -163,12 +163,12 @@ function moveDodgerRight() {
   // implement me!
   /**
    * This function should move DODGER to the right
-   * (mabye 4 pixels?). Use window.requestAnimationFrame()!
+   * (mabye 4 pixels?). Use document.requestAnimationFrame()!
    */
   var right = 40 + positionToInteger(DODGER.style.left)
   function rightMove() {
     if (right < GAME_WIDTH-40) {
-      DODGER.style.left = `${(right += 4)-40}px`
+      DODGER.style.left = `${(right += 4)}px`
       window.requestAnimationFrame(rightMove)
     }
   }
