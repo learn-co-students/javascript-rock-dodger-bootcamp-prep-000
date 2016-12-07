@@ -91,7 +91,7 @@ function createRock(x) {
      * we should remove the rock from the DOM
      */
      if(top <= 20){
-       //NEEDS CODE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+       rock.remove();
      }
   }
 
@@ -114,7 +114,7 @@ function createRock(x) {
 function endGame() {
   clearInterval(gameInterval);
   for(let i=0; i<ROCKS.length; i++){
-    //NEEDS CODE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    ROCKS[i].remove();
   }
   alert('YOU LOSE!');
 }
