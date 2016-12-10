@@ -61,7 +61,6 @@ function moveRock() {
       }
      else {
      rock.remove()
-     // ROCKS.pop()
      }
   } window.requestAnimationFrame(step);
 }
@@ -72,10 +71,6 @@ function moveRock() {
 
 function endGame() {
   clearInterval(gameInterval);
-
- //for (let i = 0, l = ROCKS.length; i < l; i++) {
-  //  document.getElementsByClassName("rock")[0].remove()
-//  }
 
   Rocks.forEach(rock => rock.remove());
 
