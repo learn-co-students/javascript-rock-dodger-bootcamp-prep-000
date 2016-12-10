@@ -73,7 +73,7 @@ function moveRock() {
 function endGame() {
   clearInterval(gameInterval);
 
- for (let i = 0, l = ROCKS.length; i < l; i++) {
+ //for (let i = 0, l = ROCKS.length; i < l; i++) {
   //  document.getElementsByClassName("rock")[0].remove()
 //  }
 
