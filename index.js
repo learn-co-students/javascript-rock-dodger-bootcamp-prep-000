@@ -72,18 +72,23 @@ function moveRock() {
 function endGame() {
   clearInterval(gameInterval);
 
-  Rocks.forEach(rock => rock.remove());
+  ROCKS.forEach(rock => rock.remove());
 
   alert("YOU LOSE!");
-  removeEventListener('keydown', moveDodger);
+  document.removeEventListener('keydown', moveDodger);
 }
 
 function moveDodger(e) {
   if (e.which === LEFT_ARROW) {
+    e.preventDefault();
+    e.stopPropagation()
     moveDodgerLeft();
+
   }
   else if (e.which === RIGHT_ARROW) {
+    e.preventDefault();
     moveDodgerRight();
+
   }
 }
 
