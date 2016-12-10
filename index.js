@@ -51,17 +51,17 @@ function createRock(x) {
 
 
 function moveRock() {
-     function step() {
-     rock.style.top = `${top += 2}px`;
-     if (checkCollision(rock)){
-         endGame()
-        }
-     else if (top < 380) {
+  if (checkCollision(rock)){
+      endGame()
+     }
+  function step() {
+    rock.style.top = `${top += 2}px`;
+     if (top < 380) {
         window.requestAnimationFrame(step);
       }
      else {
      rock.remove()
-     ROCKS.pop() 
+     // ROCKS.pop()
      }
   } window.requestAnimationFrame(step);
 }
@@ -74,8 +74,11 @@ function endGame() {
   clearInterval(gameInterval);
 
  for (let i = 0, l = ROCKS.length; i < l; i++) {
-    document.getElementsByClassName("rock")[0].remove()
-  }
+  //  document.getElementsByClassName("rock")[0].remove()
+//  }
+
+  Rocks.forEach(rock => rock.remove());
+
   alert("YOU LOSE!");
   removeEventListener('keydown', moveDodger);
 }
