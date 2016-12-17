@@ -82,18 +82,16 @@ function createRock(x) {
     // (use the comments below to guide you!)
     rock.style.top = `${top += 2}px`
 
-
     /**
      * If a rock collides with the DODGER,
      * we should call endGame()
      */
      if (checkCollision(rock)){
-       endGame();
+       return endGame();
      }
-     if (top < GAME_HEIGHT - 20){
-       rock.style.top = `${top += 2}px`
-     }
-     if (top > GAME_HEIGHT){
+     if (top < GAME_HEIGHT){
+       window.requestAnimationFrame(moveRock)
+     }else{
        rock.remove()
      }
 
@@ -127,9 +125,9 @@ function createRock(x) {
  */
 function endGame() {
   clearInterval(gameInterval);
-  ROCKS.forEach(()=> ROCKS.pop());
-  window.removeEventListener('keydown', moveDodger)
-//  alert('YOU LOSE!')
+  ROCKS.forEach((ele)=> ele.remove());
+  document.removeEventListener("keydown", moveDodger);
+  alert('YOU LOSE!')
 }
 
 function moveDodger(e) {
@@ -162,7 +160,7 @@ function moveDodgerLeft() {
    var leftEdge = positionToInteger(dodger.style.left)
    var rightEdge = leftEdge + 40
    function step(){
-     if (leftEdge >= 40 && rightEdge <= GAME_WIDTH){
+     if (leftEdge >= 4 && rightEdge <= GAME_WIDTH){
        dodger.style.left = `${leftEdge -= 4}px`
      }
    }
@@ -176,10 +174,11 @@ function moveDodgerRight() {
    * This function should move DODGER to the right
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
+
    var leftEdge = positionToInteger(dodger.style.left)
    var rightEdge = leftEdge + 40
    function step(){
-     if (leftEdge >= 0 && rightEdge <= GAME_WIDTH - 40){
+     if (leftEdge >= 0 && rightEdge <= GAME_WIDTH-4){
        dodger.style.left = `${leftEdge += 4}px`
      }
    }
