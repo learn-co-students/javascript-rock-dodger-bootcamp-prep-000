@@ -116,7 +116,7 @@ describe('Rock Dodger', () => {
         setTimeout(() => {
           expect(spy).toHaveBeenCalled()
           done()
-        }, 50)
+        }, 500)
       })
     })
   })
