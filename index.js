@@ -103,9 +103,7 @@ function moveDodger( e ) {
 		e.stopPropagation()
 		e.preventDefault()
 	}
-	else{
-		//e.preventDefault();
-	}
+	
 }
 
 function moveDodgerLeft() {
