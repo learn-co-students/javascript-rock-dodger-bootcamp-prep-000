@@ -8,7 +8,6 @@ const ROCKS = []
 const START = document.getElementById( 'start' )
 const ROCKSPEED = 50
 var gameInterval = null
-var rockID = 3
 
 function checkCollision( rock ) {
 	const top = positionToInteger( rock.style.top )
@@ -34,10 +33,7 @@ function checkCollision( rock ) {
 function createRock( x ) {
 	const rock = document.createElement( 'div' )
 	rock.className = 'rock'
-	rock.id = rockID * 2
-	rockID = rockID * .5
 	rock.style.left = `${x}px`
-
 	var top = 0
 	rock.style.top = top
 	GAME.appendChild( rock )
@@ -51,15 +47,12 @@ function createRock( x ) {
 			if ( top >= 0 ) {
 				tmpRock.style.top = `${top + ROCKSPEED}px`
 			}
-			console.log( "moving rock down" )
 			if ( checkCollision( tmpRock ) ) {
-				console.log( "Collision" )
 				endGame()
 			}
-			if ( top >= (GAME_HEIGHT - ROCKSPEED)) {
+			if ( top >= ( GAME_HEIGHT )){//- ROCKSPEED ) ) {
 				//Remove from DOM
-				console.log( "Bottomed out" )
-        ROCKS.shift()
+				ROCKS.shift()
 				tmpRock.remove()
 			}
 		}
@@ -67,43 +60,30 @@ function createRock( x ) {
 	ROCKS.push( rock )
 	return rock
 }
-/**
- * End the game by clearing `gameInterval`,
- * removing all ROCKS from the DOM,
- * and removing the `moveDodger` event listener.
- * Finally, alert "YOU LOSE!" to the player.
- */
+
 function endGame() {
 	gameInterval = null
 	window.clearInterval()
-		for ( var i = 0; i < ROCKS.length; i++ ) {
-			var rock = ROCKS[ i ]
-			rock.remove()
-      ROCKS.shift()
-		}
+	for ( var i = 0; i < ROCKS.length; i++ ) {
+		var rock = ROCKS[ i ]
+		rock.remove()
+	}
 	DODGER.remove()
-	document.removeEventListener('keydown',moveDodger)
+	document.removeEventListener( 'keydown', moveDodger )
 	alert( 'You Lost!' )
 }
 
 function moveDodger( e ) {
 	var key = ( e.which )
-	/*if(e.which !== LEFT_ARROW && e.which !== RIGHT_ARROW){
-		e.preventDefault()
-		return
-	}*/
-	//else
 	if ( e.which === LEFT_ARROW ) {
 		moveDodgerLeft()
 		e.stopPropagation()
 		e.preventDefault()
-	}
-	else if ( e.which === RIGHT_ARROW ) {
+	} else if ( e.which === RIGHT_ARROW ) {
 		moveDodgerRight()
 		e.stopPropagation()
 		e.preventDefault()
 	}
-	
 }
 
 function moveDodgerLeft() {
@@ -113,7 +93,6 @@ function moveDodgerLeft() {
 		if ( left > 0 ) {
 			DODGER.style.left = `${left - 4}px`
 		}
-		console.log( "moveDodgerLeft" )
 	} )
 }
 
@@ -121,10 +100,9 @@ function moveDodgerRight() {
 	window.requestAnimationFrame( () => {
 		var leftNumbers = DODGER.style.left.replace( 'px', '' )
 		var left = parseInt( leftNumbers, 10 )
-		if ( left <= 360 - 4) {
+		if ( left <= 360 - 4 ) {
 			DODGER.style.left = `${left + 4}px`
 		}
-		console.log( "moveDodgerRight" )
 	} )
 }
 /**
