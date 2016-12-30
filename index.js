@@ -133,45 +133,42 @@ function createRock(x) {
  */
 function endGame() {
   clearInterval(gameInterval)
-  for(var i =0; i<ROCKS.length; i++){
-    GAME.removeChild(ROCKS[i])
-  }
-  window.removeEventListener('keydown', moveDodger)
+  ROCKS.forEach(function(rock) { rock.remove() })
+
+  document.removeEventListener('keydown', moveDodger)
+
+  START.innerHTML = 'Play again?'
+  START.style.display = 'inline'
+
+  alert('YOU LOSE!')
 }
 
 function moveDodger(e) {
-
-  if (e.which === 37) {
-    window.requestAnimationFrame(moveDodgerLeft)
+  if (e.which === LEFT_ARROW) {
+    e.preventDefault()
+    e.stopPropagation()
+    moveDodgerLeft()
   }
-  if (e.which === 39) {
-    window.requestAnimationFrame(moveDodgerRight)
+  if (e.which === RIGHT_ARROW) {
+    e.preventDefault()
+    moveDodgerRight()
   }
-  // implement me!
-  /**
-   * This function should call `moveDodgerLeft()`
-   * if the left arrow is pressed and `moveDodgerRight()`
-   * if the right arrow is pressed. (Check the constants
-   * we've declared for you above.)
-   * And be sure to use the functions declared below!
-   */
+}
 
-   var left = positionToInteger(DODGER.style.left)
-   function moveDodgerLeft() {
-     console.log("movesleft")
-     if (left > 0) {
-       DODGER.style.left = `${left -= 4}px`
-     }
+function moveDodgerLeft() {
+  var left = positionToInteger(DODGER.style.left)
+  if (left > 0) {
+    DODGER.style.left = `${left -= 4}px`
+  }
 
-   }
+}
 
-   function moveDodgerRight() {
-     console.log("movesright")
-     if (left < 360) {
-       DODGER.style.left = `${left += 4}px`
-     }
+function moveDodgerRight() {
+  var left = positionToInteger(DODGER.style.left)
+  if (left < 360) {
+    DODGER.style.left = `${left += 4}px`
+  }
 
-   }
 }
 
 /**
