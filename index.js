@@ -44,23 +44,21 @@ function checkCollision(rock) {
     }
   }
 }
-/**
+
 function createRock(x) {
   const rock = document.createElement('div')
 
   rock.className = 'rock'
   rock.style.left = `${x}px`
 
-  var top = 0
-
-  rock.style.top = top
+  var top = rock.style.top = 0
 
 GAME.appendChild(rock)
 
 function moveRock() {
   rock.style.top = `${top += 2}px`;
 
-  if(checkCollision(rock)){
+  if (checkCollision(rock)) {
     return endGame()
   }
 
@@ -70,11 +68,12 @@ function moveRock() {
   rock.remove()
   }
 }
+
 window.requestAnimationFrame(moveRock)
 
-  ROCKS.push(rock)
+ROCKS.push(rock)
 
-  return rock
+return rock
 }
 
 
@@ -98,15 +97,15 @@ return alert('YOU LOSE!')
 }
 
 function moveDodger(e) {
-  if([LEFT_ARROW, RIGHT_ARROW].indexof(e.which) > -1) {
+  if([LEFT_ARROW, RIGHT_ARROW].indexOf(e.which) > -1) {
     e.preventDefault()
     e.stopPropagation()
   }
 
-  if(e.which === 37) {
+  if(e.which === LEFT_ARROW) {
     moveDodgerLeft()
   }
-  else if (e.which === 39) {
+  else if (e.which === RIGHT_ARROW) {
     moveDodgerRight()
   }
   // implement me!
