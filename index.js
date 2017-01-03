@@ -68,6 +68,8 @@ function createRock(x) {
    * seems like a good pace.)
    */
   function moveRock() {
+
+  rock.style.top = `${top += 2} px`
     // implement me!
     // (use the comments below to guide you!)
     /**
@@ -82,13 +84,13 @@ function createRock(x) {
      * the GAME, we want to move it again.
      */
      if (top < 400) {
-     top = top + 2;
+     window.requestAnimationFrame(moveRock) 
     }
     /**
      * But if the rock *has* reached the bottom of the GAME,
      * we should remove the rock from the DOM
      */
-     if (top >= 400) {
+      if else(top >= 400) {
      rock.remove();
      }
 
@@ -96,6 +98,8 @@ function createRock(x) {
      if (top < 400) {
      requestAnimationFrame(moveRock)
      }
+     }
+     window.requestAnimationFrame(moveRock);
   // Add the rock to ROCKS so that we can remove all rocks
   // when there's a collision
   ROCKS.push(rock)
@@ -114,7 +118,7 @@ function createRock(x) {
 function endGame() {
 	clearInterval(gameInterval);
 	ROCKS.remove();
-	document.removeEventListener(keydown, moveDodger)
+	document.removeEventListener('keydown', moveDodger)
 	alert("YOU LOSE!")
 
 }
@@ -126,7 +130,7 @@ function moveDodger(e) {
   document.addEventListener('keydown', function(){
     if(e.which === 37) {
       moveDodgerLeft()
-    } if (e.which === 39) {
+    } if else (e.which === 39) {
       moveDodgerRight()
     }
   })
@@ -139,31 +143,33 @@ function moveDodger(e) {
    */
 }
 
-function moveDodgerLeft(DODGER) {
+function moveDodgerLeft() {
   // implement me!
-  var left = 0
+  var left = positionToInteger(DODGER.style.left)
   function step() {
-    DODGER.style.left = `$(left -= 4)px`
+    DODGER.style.left = `${left - 4}px`
   }
   window.requestAnimationFrame(step)
+  }
   /**
    * This function should move DODGER to the left
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
-}
 
-function moveDodgerRight(DODGER) {
+
+function moveDodgerRight() {
   // implement me!
-  var right = 0
+  var left = positionToInteger(DODGER.style.right)
   function step() {
-    DODGER.style.right = `$(right -= 4)px`
+    DODGER.style.left = `${right - 4}px`
   }
   window.requestAnimationFrame(step)
+  }
   /**
    * This function should move DODGER to the right
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
-}
+
 
 /**
  * @param {string} p The position property
