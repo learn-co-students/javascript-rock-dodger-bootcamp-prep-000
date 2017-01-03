@@ -27,23 +27,18 @@ function checkCollision(rock) {
    // rocks are 20px high
   // DODGER is 20px high
   // GAME_HEIGHT - 20 - 20 = 360px;
-  if (top > 360) {
-    const dodgerLeftEdge = positionToInteger(DODGER.style.left)
-    // FIXME: The DODGER is 40 pixels wide -- how do we get the right edge?
-    const dodgerRightEdge = dodgerLeftEdge + 40
 
-    const rockLeftEdge = positionToInteger(rock.style.left)
-    // FIXME: The rock is 20 pixel's wide -- how do we get the right edge?
-    const rockRightEdge = rockLeftEdge + 20
+    if (top > 360) {
+    const dodgerLeftEdge = positionToInteger(DODGER.style.left);
+    const dodgerRightEdge = dodgerLeftEdge + 40;
+    const rockLeftEdge = positionToInteger(rock.style.left);
+    const rockRightEdge = rockLeftEdge + 20;
 
-
-    if ( rockLeftEdge < dodgerLeftEdge && rockRightEdge > dodgerLeftEdge ||
+    return ( rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge ||
          rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge ||
-         rockLeftEdge < dodgerRightEdge && rockRightEdge > dodgerRightEdge
-         ) {
-       return true
-    }
-  }
+         rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge
+         )
+  	}
 }
 
 function createRock(x) {
@@ -84,7 +79,7 @@ function createRock(x) {
      * the GAME, we want to move it again.
      */
      if (top < 400) {
-     window.requestAnimationFrame(moveRock) 
+     window.requestAnimationFrame(moveRock)
     }
     /**
      * But if the rock *has* reached the bottom of the GAME,
@@ -155,7 +150,6 @@ function moveDodgerLeft() {
    * This function should move DODGER to the left
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
-
 
 function moveDodgerRight() {
   // implement me!
