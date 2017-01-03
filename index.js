@@ -52,6 +52,7 @@ function createRock(x) {
   rock.className = 'rock'
   rock.style.left = `${x}px`
 
+  window.requestAnimationFrame();
   // Hmmm, why would we have used `var` here?
   var top =  rock.style.top = 0;
 
@@ -73,8 +74,8 @@ function createRock(x) {
      * If a rock collides with the DODGER,
      * we should call endGame()
      */
-     if (checkCollision(rock)) {
-       endGame()
+     if (checkCollision(rock) === true) {
+       return endGame()
      }
     /**
      * Otherwise, if the rock hasn't reached the bottom of
@@ -112,9 +113,9 @@ function createRock(x) {
  * Finally, alert "YOU LOSE!" to the player.
  */
 function endGame() {
-	clearInterval(gameInterval);
-	ROCKS.remove();
-	document.removeEventListener(keydown, moveDodger)
+	clearInterval(gameInterval)
+	ROCKS.forEach(rock.remove());
+	document.removeEventListener('keydown', moveDodger)
 	alert("YOU LOSE!")
 
 }
@@ -123,13 +124,15 @@ function endGame() {
 
 function moveDodger(e) {
   // implement me!
+  window.requestAnimationFrame()
   document.addEventListener('keydown', function(){
-    if(e.which === 37) {
+    if(e.which === RIGHT_ARROW) {
       moveDodgerLeft()
-    } if (e.which === 39) {
+    } else if (e.which === LEFT_ARROW) {
       moveDodgerRight()
     }
   })
+}
   /**
    * This function should call `moveDodgerLeft()`
    * if the left arrow is pressed and `moveDodgerRight()`
@@ -137,11 +140,11 @@ function moveDodger(e) {
    * we've declared for you above.)
    * And be sure to use the functions declared below!
    */
-}
 
-function moveDodgerLeft(DODGER) {
+
+function moveDodgerLeft() {
   // implement me!
-  var left = 0
+  var left = DODGER.style.left = 0;
   function step() {
     DODGER.style.left = `${left - 4}px`
   }
@@ -152,9 +155,9 @@ function moveDodgerLeft(DODGER) {
    */
 }
 
-function moveDodgerRight(DODGER) {
+function moveDodgerRight() {
   // implement me!
-  var right = 0
+  var right = DODGER.style.right = 0;
   function step() {
     DODGER.style.right = `${right - 4}px`
   }
