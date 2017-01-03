@@ -61,7 +61,7 @@ function createRock(x) {
    * Now that we have a rock, we'll need to append
    * it to GAME and move it downwards.
    */
-  GAME.appendChild('rock')
+  GAME.appendChild(rock)
 
   /**
    * This function moves the rock. (2 pixels at a time
@@ -113,7 +113,7 @@ function createRock(x) {
  */
 function endGame() {
 	clearInterval(gameInterval);
-	remove(ROCKS);
+	ROCKS.remove();
 	document.removeEventListener(keydown, moveDodger)
 	alert("YOU LOSE!")
 
