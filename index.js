@@ -224,15 +224,15 @@ ROCKS.push(rock);
 
 
 
-function endGame(rock) {
-
+function endGame() {
+var rock = document.getElementsByClassName('rock');
 
 clearInterval(gameInterval);
-rockContainer.removeChild(rock)[0];
-window.removeEventListener('keydown',moveDodger);
-for (var i =1, l = rock.length; i < l ; i++){
-    rock.remove(i);
- }
+document.removeEventListener('keydown',moveDodger);
+ROCKS.forEach(function(rock){
+    rock.remove();
+ })
+
 alert("YOU LOSE!");
 
 }
@@ -253,11 +253,14 @@ function moveDodger(e) {
    */
 
  if(e.which===LEFT_ARROW){
- window.requestAnimationFrame(moveDodgerLeft);
+ moveDodgerLeft();
+ e.stopPropagation();
+ e.preventDefault();
  }
 
  if(e.which===RIGHT_ARROW){
- window.requestAnimationFrame(moveDodgerRight);
+ moveDodgerRight();
+ e.preventDefault();
  }
 
 
