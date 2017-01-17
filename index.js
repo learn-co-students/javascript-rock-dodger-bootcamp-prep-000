@@ -26,7 +26,7 @@ function checkCollision(rock) {
        (rockLeftEdge <= dodgerRightEdge) && (rockRightEdge >= dodgerRightEdge)||
         (rockLeftEdge >= dodgerLeftEdge) && (rockRightEdge <= dodgerRightEdge)) {
           return true
-      } else {return false}
+      }
     }
       }
 
@@ -106,11 +106,15 @@ function moveDodgerRight() {
   }
 
   function positionToInteger(p) {
-    window.addEventListener('keydown', moveDodger);
-    START.style.display = 'none';
+  return parseInt(p.split('px')[0]) || 0
+}
+
+function start() {
+  window.addEventListener('keydown', moveDodger)
+
+  START.style.display = 'none'
 
   gameInterval = setInterval(function() {
-      createRock(Math.floor(Math.random() *  (GAME_WIDTH - 20)))
-   }, 1000)
-
-  }
+    createRock(Math.floor(Math.random() *  (GAME_WIDTH - 20)))
+  }, 1000)
+}
