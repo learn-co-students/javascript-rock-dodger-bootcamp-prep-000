@@ -37,41 +37,41 @@ function checkCollision(rock) {
    rock.style.left = `${x}px`;
    var top = 0;
    top = rock.style.top;
- }
+
 
    GAME.appendChild(rock);
 
 
    function moveRock() {
-         rock.style.top = `${top += 2}px`;
-         //if a rock collides with the dodger, call end game function.
-         if (checkCollision(rock)===true) {
-           return endGame();
-         }
-         //if the rock is not at the bottom, move the rock.
-         else if (top < GAME_HEIGHT) {
-           window.requestAnimationFrame(moveRock);
-         }
-         //if rock is at the bottom of the game, remove the rock.
-         else {
-           rock.remove();
-         }
-       }
+   rock.style.top = `${top += 2}px`;
 
-   window.requestAnimationFrame(moveRock);
+   if (checkCollision(rock)===true) {
+     return endGame();
+   }
 
-   ROCKS.push(rock);
+   else if (top < GAME_HEIGHT) {
+     window.requestAnimationFrame(moveRock);
+   }
 
-   return rock;
-  }
+   else {
+     rock.remove();
+   }}
+
+
+ window.requestAnimationFrame(moveRock);
+
+ ROCKS.push(rock);
+
+ return rock;
+}
 
   function endGame() {
- +  clearInterval(gameInterval);
- +  for (var i = 0; i < ROCKS.length; i++) {
- +    ROCKS[i].remove();
- +  }
- +  document.removeEventListener(`keydown`, moveDodger);
- +  alert("You Lose!");
+   clearInterval(gameInterval);
+   for (var i = 0; i < ROCKS.length; i++) {
+     ROCKS[i].remove();
+  }
+   document.removeEventListener(`keydown`, moveDodger);
+   alert("You Lose!");
   }
 
   function moveDodger (e) {
@@ -112,5 +112,5 @@ function moveDodgerRight() {
   gameInterval = setInterval(function() {
       createRock(Math.floor(Math.random() *  (GAME_WIDTH - 20)))
    }, 1000)
-  }, 2500)
+
   }
