@@ -20,20 +20,14 @@ var gameInterval = null
 function checkCollision(rock) {
   // implement me!
   // use the comments below to guide you!
-  const top = positionToInteger(rock.style.top)
-
   // rocks are 20px high
   // DODGER is 20px high
   // GAME_HEIGHT - 20 - 20 = 360px;
+  const top = positionToInteger(rock.style.top)
   if (top > 360) {
     const dodgerLeftEdge = positionToInteger(DODGER.style.left)
-
-    // FIXME:
     const dodgerRightEdge = dodgerLeftEdge + 40;
-
     const rockLeftEdge = positionToInteger(rock.style.left)
-
-    // FIXME:
     const rockRightEdge = rockLeftEdge + 20;
     /**
              * Think about it -- what's happening here?
@@ -45,13 +39,11 @@ function checkCollision(rock) {
              * 3. The rock's left edge is < the DODGER's right edge,
              *    and the rock's right edge is > the DODGER's right edge
              */
-    if ((rockLeftEdge < dodgerLeftEdge && rockRightEdge > dodgerLeftEdge)
-    || (rockLeftEdge > dodgerLeftEdge && rockRightEdge < dodgerRightEdge)
-    || (rockLeftEdge < dodgerRightEdge && rockRightEdge > dodgerRightEdge)){
-
+    if ((rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge)
+    || (rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge)
+    || (rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge)){
       return true
     } else {
-
       return false
     }
   }
@@ -68,7 +60,6 @@ function createRock(x) {
     rock.style.top = `${top += 2}px`
     // console.log(`top = ${rock.style.top}`)
     if (checkCollision(rock)) {
-      rock.remove()
       return endGame()
     }
     if (top < GAME_HEIGHT){
@@ -114,36 +105,43 @@ function endGame() {
   clearInterval(gameInterval)
   ROCKS.forEach(function(rock) {rock.remove()})
   document.removeEventListener('keydown', moveDodger)
+  START.innerHTML = 'Play again?'
+  START.style.display = 'inline'
   alert("YOU LOSE!")
 }
 
 
 
 function moveDodger(e) {
-  document.addEventListener('keydown', myKeyPress)
-  function myKeyPress(e){
-    if (e.which === 37) {
-      moveDodgerLeft()
-    } else if (e.which === 39) {
-      moveDodgerRight()
-    }
+  let key = e.which
+  if ([LEFT_ARROW, RIGHT_ARROW].indexOf(key) > -1){
+    e.preventDefault()
+    e.stopPropagation()
+  }
+  if (key === LEFT_ARROW) {
+    moveDodgerLeft()
+
+  }else if (key === RIGHT_ARROW) {
+    moveDodgerRight()
   }
 }
 
 function moveDodgerLeft() {
-      var leftNumbers = dodger.style.left.replace('px', '')
-      var left = parseInt(leftNumbers, 10)
-      if (left > 0){
+  window.requestAnimationFrame(function(){
+    let left = positionToInteger(DODGER.style.left)
+    if (left > 0){
       dodger.style.left = `${left -= 4}px`
     }
+  })
 }
 
 function moveDodgerRight() {
-      var rightNumbers = dodger.style.left.replace('px', '')
-      var right = parseInt(rightNumbers, 10)
-      if (right < 360){
+  window.requestAnimationFrame(function(){
+    let right = positionToInteger(DODGER.style.left)
+    if (right < 360){
       dodger.style.left = `${right += 4}px`
     }
+  })
 }
 
 /**
