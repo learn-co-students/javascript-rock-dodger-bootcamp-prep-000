@@ -41,7 +41,7 @@ function createRock(x) {
        endGame();
       }
      else if (top >= 400) {
-            Game(rock).remove()
+        Game(rock).remove()
      }
    window.requestAnimationFrame(moveRock);
   }
@@ -49,12 +49,14 @@ window.requestAnimationFrame(moveRock);
   ROCKS.push(rock)
   return rock
 }
+
 function endGame() {
   clearInterval(gameInterval)
-  DODGER.remove()
-  delete
-  DODGER.removeEventLister('moveDodger')
-  alert('YOU LOSE!')
+  for (var i = 0, l = ROCKS.length; i < l; i++){
+      ROCKS[i].remove() 
+    }
+window.removeEventListener('keydown',moveDodger)
+alert('YOU LOSE!')
 }
 function moveDodger(e) {
     if(e.which===37) {
