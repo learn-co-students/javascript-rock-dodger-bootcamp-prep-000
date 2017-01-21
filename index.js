@@ -30,7 +30,7 @@ function checkCollision(rock) {
 
       return ((rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge) ||
         (rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge) ||
-        (rockLeftEdge <= dodgerRightEdge) && (rockRightEdge >= dodgerRightEdge))
+        (rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge))
     }
 }
 
@@ -60,7 +60,7 @@ function createRock(x) {
      if(checkCollision()) {
        return endGame()
      }
-     else if(top >= GAME_HEIGHT-20) {
+     else if(top >= GAME_HEIGHT) {
        GAME.remove('rock')
      }
      else{
@@ -74,8 +74,8 @@ function createRock(x) {
 
 
   return rock
-  }
 }
+
 
 function endGame() {
   var gameInterval = null
