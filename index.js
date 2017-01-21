@@ -43,7 +43,7 @@ function createRock(x) {
 
   rock.style.top = top
 
-  GAME.appendChild('rock');
+  GAME.appendChild(rock);
 
   function moveRock() {
     var topNumbers = rock.style.top.replace('px', '')
@@ -54,13 +54,14 @@ function createRock(x) {
      if(checkCollision(rock)) {
        endGame();
      } else if(rock.style.top >= 400) {
-       $('rock').remove();
+       rock.parentNode.removeChild(rock)
+       window.requestAnimationFrame(moveRock);
+
      }
    window.requestAnimationFrame(moveRock);
-
   }
+window.requestAnimationFrame(moveRock);
 
-  window.requestAnimationFrame(moveRock);
 
   ROCKS.push(rock)
 
