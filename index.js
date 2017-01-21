@@ -74,8 +74,8 @@ function createRock(x) {
 
 
   return rock
+  }
 }
-
 
 function endGame() {
   var gameInterval = null
@@ -115,7 +115,7 @@ function moveDodgerRight() {
      window.requestAnimationFrame(moveDodgerRight)
    }
 }
-}
+
 
 
 function positionToInteger(p) {
