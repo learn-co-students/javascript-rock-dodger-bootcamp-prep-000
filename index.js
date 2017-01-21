@@ -51,13 +51,15 @@ function createRock(x) {
 
     rock.style.top = `${top + 2}px`
 
-     if(checkCollision(rock)) {
-       endGame();
-     } else if(rock.style.top >= 400) {
-       rock.parentNode.removeChild(rock)
-       window.requestAnimationFrame(moveRock);
+     if (checkCollision(rock)) {
+        endGame();}
 
+     else if (top >= 400) {
+            rock.parentNode.removeChild(rock)
      }
+
+
+
    window.requestAnimationFrame(moveRock);
   }
 window.requestAnimationFrame(moveRock);
@@ -71,7 +73,7 @@ window.requestAnimationFrame(moveRock);
 
 function endGame() {
   var gameInterval = null
-  DODGER.remove('rocks')
+  DODGER.remove(ROCKS)
   DODGER.removeEventLister('moveDodger')
   alert('YOU LOSE!')
 }
@@ -91,7 +93,7 @@ function moveDodgerLeft() {
    var leftNumber =
    DODGER.style.left.replace('px', '')
    var left = parseInt(leftNumber, 10)
-   if (left > 0) {
+   if (left >= 8 ) {
      dodger.style.left = `${left-8}px`
 
    }
