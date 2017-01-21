@@ -65,7 +65,21 @@ function createRock(x) {
      else{
          window.requestAnimationFrame(moveRock)
     }
+      window.requestAnimationFrame(moveRock)
 }
+/*function move(el) {
+  var top = 0
+ 
+  function step() {
+    el.style.top = `${top += 2}px`
+ 
+    if (top < 200) {
+      window.requestAnimationFrame(step)
+    }
+  }
+ 
+  window.requestAnimationFrame(step)
+}*/
 
 
 
@@ -100,9 +114,9 @@ function moveDodgerLeft() {
    var left = parseInt(leftNumber, 10)
    if (left > 0) {
      dodger.style.left = `${left-8}px`
-     
+
    }
-    
+
 }
 
 function moveDodgerRight() {
@@ -112,9 +126,9 @@ function moveDodgerRight() {
    var left = parseInt(leftNumber, 10)
    if (left > 0) {
      dodger.style.left = `${left+8}px`
-     
+
     }
-    window.requestAnimationFrame(moveDodger)  
+    window.requestAnimationFrame(moveDodger)
 }
 
 
