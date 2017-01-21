@@ -95,24 +95,26 @@ function moveDodger(e) {
 
 function moveDodgerLeft() {
 
-   var leftNumbers =
+   var leftNumber =
    DODGER.style.left.replace('px', '')
    var left = parseInt(leftNumber, 10)
    if (left > 0) {
-     dodger.style.left = `${left-4}px`
-     window.requestAnimationFrame(moveDodgerLeft)
+     dodger.style.left = `${left-8}px`
+     
    }
+    
 }
 
 function moveDodgerRight() {
 
-   var rightNumbers =
+   var leftNumber =
    DODGER.style.left.replace('px', '')
-   var right = parseInt(leftNumber, 10)
+   var left = parseInt(leftNumber, 10)
    if (left > 0) {
-     dodger.style.left = `${left+4}px`
-     window.requestAnimationFrame(moveDodgerRight)
-   }
+     dodger.style.left = `${left+8}px`
+     
+    }
+    window.requestAnimationFrame(moveDodger)  
 }
 
 
