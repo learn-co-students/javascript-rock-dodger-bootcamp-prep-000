@@ -76,6 +76,7 @@ function endGame() {
   DODGER.remove(ROCKS)
   DODGER.removeEventLister('moveDodger')
   alert('YOU LOSE!')
+  return gameInterval
 }
 
 function moveDodger(e) {
