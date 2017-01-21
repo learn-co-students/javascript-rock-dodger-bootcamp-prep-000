@@ -39,52 +39,30 @@ function createRock(x) {
   rock.className = 'rock'
   rock.style.left = `${x}px`
 
-
   var top = 0
 
   rock.style.top = top
 
-
-   GAME.append('rock')
-
+  GAME.append('rock');
 
   function moveRock() {
-
     var topNumbers = rock.style.top.replace('px', '')
     var top = parseInt(topNumbers, 10)
 
     rock.style.top = `${top + 2}px`
 
+     if(checkCollision(rock)) {
+       endGame();
+     } else if(rock.style.top >= 400) {
+       $('.rock').remove();
+     }
+   window.requestAnimationFrame(moveRock);
 
-     if(checkCollision()) {
-       return endGame()
-     }
-     else if(top >= GAME_HEIGHT) {
-       GAME.remove('rock')
-     }
-     else{
-         window.requestAnimationFrame(moveRock)
-    }
-      window.requestAnimationFrame(moveRock)
-}
-/*function move(el) {
-  var top = 0
- 
-  function step() {
-    el.style.top = `${top += 2}px`
- 
-    if (top < 200) {
-      window.requestAnimationFrame(step)
-    }
   }
- 
-  window.requestAnimationFrame(step)
-}*/
 
-
+  window.requestAnimationFrame(moveRock);
 
   ROCKS.push(rock)
-
 
   return rock
 }
