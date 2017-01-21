@@ -1,4 +1,3 @@
-
 const DODGER = document.getElementById('dodger')
 const GAME = document.getElementById('game')
 const GAME_HEIGHT = 400
@@ -66,7 +65,7 @@ function createRock(x) {
      else{
          window.requestAnimationFrame(moveRock)
     }
-
+}
 
 
 
