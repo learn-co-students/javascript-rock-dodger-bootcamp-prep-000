@@ -42,7 +42,7 @@ function createRock(x) {
         rock.remove()
      } else {
        window.requestAnimationFrame(moveRock);
-     }   
+     }
   }
 window.requestAnimationFrame(moveRock);
   ROCKS.push(rock)
@@ -71,7 +71,7 @@ function moveDodger(e) {
       if (dodgerRightEdge >= GAME_WIDTH){
         e.preventDefault()
       }
-      
+
       moveDodgerRight()
     }
 }
@@ -79,15 +79,15 @@ function moveDodgerLeft() {
    var leftNumber =
    DODGER.style.left.replace('px', '')
    var left = parseInt(leftNumber, 10)
-  
+
      dodger.style.left = `${left-8}px`
-   
+
 }
 function moveDodgerRight() {
    var leftNumber =
    DODGER.style.left.replace('px', '')
    var left = parseInt(leftNumber, 10)
- 
+
     dodger.style.left = `${left+8}px`
 /*function moveDodger(e) {
     if(e.which===37) {
