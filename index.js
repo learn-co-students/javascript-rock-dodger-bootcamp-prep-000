@@ -62,9 +62,12 @@ alert('YOU LOSE!')
 
 function moveDodger(e) {
     if(e.which===37) {
+      e.preventDefault();
+      e.stopPropagation();
       moveDodgerLeft()
     }
     else if (e.which===39){
+      e.preventDefault();
       moveDodgerRight()
     }
 }
@@ -80,13 +83,12 @@ function moveDodgerRight() {
    var leftNumber =
    DODGER.style.left.replace('px', '')
    var left = parseInt(leftNumber, 10)
-   if (left >=(GAME_WIDTH-40) ) {
-     e.preventDefault()
-    }
+   if (left <(GAME_WIDTH-40) ) {
     dodger.style.left = `${left+8}px`
+  }
 }
 
-}
+
 function positionToInteger(p) {
   return parseInt(p.split('px')[0]) || 0
 }
