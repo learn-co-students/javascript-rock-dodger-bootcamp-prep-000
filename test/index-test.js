@@ -103,8 +103,8 @@ describe('Rock Dodger', () => {
         window.checkCollision.restore()
       })
 
-<<<<<<< HEAD
-      /*it('removes the rock once it falls of the screen', done => {
+/*<<<<<<< HEAD
+      it('removes the rock once it falls of the screen', done => {
 =======
     /*  it('removes the rock once it falls of the screen', done => {
 >>>>>>> 1afb4fac6e5611acb1fe076c0e93bcf581719928

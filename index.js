@@ -57,39 +57,10 @@ function endGame() {
 document.removeEventListener('keydown',moveDodger)
 alert('YOU LOSE!')
 }
+
+
+
 function moveDodger(e) {
-  const dodgerLeftEdge = positionToInteger(DODGER.style.left)
-  const dodgerRightEdge = dodgerLeftEdge+40
-
-    if(e.which===37) {
-      if(dodgerLeftEdge <= 0) {
-        e.preventDefault()
-      }
-      moveDodgerLeft()
-    }
-    if (e.which===39){
-      if (dodgerRightEdge >= GAME_WIDTH){
-        e.preventDefault()
-      }
-
-      moveDodgerRight()
-    }
-}
-function moveDodgerLeft() {
-   var leftNumber =
-   DODGER.style.left.replace('px', '')
-   var left = parseInt(leftNumber, 10)
-
-     dodger.style.left = `${left-8}px`
-
-}
-function moveDodgerRight() {
-   var leftNumber =
-   DODGER.style.left.replace('px', '')
-   var left = parseInt(leftNumber, 10)
-
-    dodger.style.left = `${left+8}px`
-/*function moveDodger(e) {
     if(e.which===37) {
       moveDodgerLeft()
     }
@@ -113,7 +84,7 @@ function moveDodgerRight() {
      e.preventDefault()
     }
     dodger.style.left = `${left+8}px`
-}*/
+}
 
 }
 function positionToInteger(p) {
