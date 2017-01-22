@@ -42,7 +42,7 @@ function createRock(x) {
         rock.remove()
      } else {
        window.requestAnimationFrame(moveRock);
-     }
+     }   
   }
 window.requestAnimationFrame(moveRock);
   ROCKS.push(rock)
@@ -60,9 +60,6 @@ alert('YOU LOSE!')
 function moveDodger(e) {
   const dodgerLeftEdge = positionToInteger(DODGER.style.left)
   const dodgerRightEdge = dodgerLeftEdge+40
-  const rockLeftEdge = positionToInteger(rock.style.left)
-  const rockRightEdge = rockLeftEdge+20
-
 
     if(e.which===37) {
       if(dodgerLeftEdge <= 0) {
@@ -74,7 +71,7 @@ function moveDodger(e) {
       if (dodgerRightEdge >= GAME_WIDTH){
         e.preventDefault()
       }
-
+      
       moveDodgerRight()
     }
 }
@@ -82,16 +79,42 @@ function moveDodgerLeft() {
    var leftNumber =
    DODGER.style.left.replace('px', '')
    var left = parseInt(leftNumber, 10)
-
+  
      dodger.style.left = `${left-8}px`
-
+   
 }
 function moveDodgerRight() {
    var leftNumber =
    DODGER.style.left.replace('px', '')
    var left = parseInt(leftNumber, 10)
-
+ 
     dodger.style.left = `${left+8}px`
+/*function moveDodger(e) {
+    if(e.which===37) {
+      moveDodgerLeft()
+    }
+    else if (e.which===39){
+      moveDodgerRight()
+    }
+}
+function moveDodgerLeft() {
+   var leftNumber =
+   DODGER.style.left.replace('px', '')
+   var left = parseInt(leftNumber, 10)
+   if (left >= 8 ) {
+     dodger.style.left = `${left-8}px`
+   }
+}
+function moveDodgerRight() {
+   var leftNumber =
+   DODGER.style.left.replace('px', '')
+   var left = parseInt(leftNumber, 10)
+   if (left >=(GAME_WIDTH-40) ) {
+     e.preventDefault()
+    }
+    dodger.style.left = `${left+8}px`
+}*/
+
 }
 function positionToInteger(p) {
   return parseInt(p.split('px')[0]) || 0
