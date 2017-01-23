@@ -10,6 +10,7 @@ const RIGHT_ARROW = 39 // use e.which!
 const ROCKS = []
 const START = document.getElementById('start')
 var requestFrame;
+var stopFrame;
 
 
 var gameInterval = null
@@ -82,9 +83,9 @@ function createRock(x) {
          * we should call endGame()
          */
         if (checkCollision(rock)) {
+            //stopFrame = window.cancelAnimationFrame(requestFrame);
+            //requestFrame = undefined;
             endGame();
-            window.cancelAnimationFrame(requestId);
-            requestFrame = undefined;
             // break;
         }
 
@@ -106,12 +107,9 @@ function createRock(x) {
          */
 
         if ((positionToInteger(rock.style.top) >= 400)) {
-            debugger
-            //var rockNode = document.getElementsByClassName('rock');
             if (rock && rock.parentNode !== null) {
                 rock.parentNode.removeChild(rock);
             }
-
         }
     }
     // We should kick of the animation of the rock around here
@@ -131,26 +129,30 @@ function createRock(x) {
  * Finally, alert "YOU LOSE!" to the player.
  */
 function endGame() {
-    clearInterval(gameInterval);
-    window.removeEventListener('keydown', moveDodger)
-    for (var i = 0; i < ROCKS.length; i++) {
-        if (ROCKS[i] && ROCKS[i].parentNode !== null) {
-            ROCKS[i].parentNode.removeChild(ROCKS[i]);
-        }
-    }
+  clearInterval(gameInterval);
+    ROCKS.forEach(rock => rock.remove());
+    document.removeEventListener('keydown', moveDodger);
     alert("YOU LOSE!");
 }
 
 function moveDodger(e) {
-    e.preventDefault();
+
     if (e.which === LEFT_ARROW) {
         //console.log('in left')
+        e.stopPropagation();
+        e.preventDefault();
         moveDodgerLeft();
-    } else if (e.which === RIGHT_ARROW) {
+    }
+    if (e.which === RIGHT_ARROW) {
         //console.log('in right')
+        e.stopPropagation();
+        e.preventDefault();
         moveDodgerRight();
     }
 
+    if(e.which !== LEFT_ARROW && e.which !== RIGHT_ARROW)
+    {
+    }
 }
 
 function moveDodgerLeft() {
@@ -158,11 +160,11 @@ function moveDodgerLeft() {
     function moveLeft() {
         var leftNumbers = dodger.style.left.replace('px', '')
         var left = parseInt(leftNumbers, 10)
-        var rightNumbers = dodger.style.right.replace('px', '')
-        var right = parseInt(rightNumbers, 10)
+        // var rightNumbers = dodger.style.right.replace('px', '')
+        // var right = parseInt(rightNumbers, 10)
         if (left > 0) {
             dodger.style.left = `${left - 4}px`
-            dodger.style.right = `${right + 4}px`
+            // dodger.style.right = `${right + 4}px`
             window.requestAnimationFrame(moveLeft)
         }
     }
@@ -171,14 +173,13 @@ function moveDodgerLeft() {
 
 function moveDodgerRight() {
 
-
     function moveRight() {
         var leftNumbers = dodger.style.left.replace('px', '')
         var left = parseInt(leftNumbers, 10)
-        var rightNumbers = dodger.style.right.replace('px', '')
-        var right = parseInt(rightNumbers, 10)
-        if (right > 0) {
-            dodger.style.right = `${right - 4}px`
+        // var rightNumbers = dodger.style.right.replace('px', '')
+        // var right = parseInt(rightNumbers, 10)
+        if (left < 360) {
+            // dodger.style.right = `${right - 4}px`
             dodger.style.left = `${left + 4}px`
             window.requestAnimationFrame(moveRight)
         }
@@ -198,7 +199,7 @@ function start() {
     window.addEventListener('keydown', moveDodger)
 
     START.style.display = 'none'
-    
+
     gameInterval = setInterval(function () {
         createRock(Math.floor(Math.random() * (GAME_WIDTH - 20)))
     }, 1000)
