@@ -51,6 +51,7 @@ describe('Rock Dodger', () => {
         expect(checkCollision(rock)).toBe(true)
       })
     })
+
   })
 
   describe('createRock(x)', () => {
