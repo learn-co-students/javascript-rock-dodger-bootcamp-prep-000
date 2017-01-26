@@ -36,12 +36,18 @@ function checkCollision(rock) {
     // FIXME: The rock is 20 pixel's wide -- how do we get the right edge?
     const rockRightEdge = rockLeftEdge + 20;
 
-      return (
-        (rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge) ||
-        (rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge) ||
-        (rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge)
-      )
+      if(rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge){
+        return true
+      }
+      if(rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge){
+        return true
+      }
+      if(rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge){
+        return true
+      }
+      return false
     }
+    return false
   }
 
 function createRock(x) {
@@ -66,7 +72,7 @@ GAME.appendChild(rock)
    * seems like a good pace.)
    */
   function moveRock() {
-    rock.style.top = `${top += 2}px`
+    rock.style.top = `${top += 50}px`
     if(checkCollision(rock)) {
       return endGame()
     }
@@ -170,7 +176,6 @@ function moveDodgerRight() {
    * This function should move DODGER to the right
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
-}
 
 /**
  * @param {string} p The position property
