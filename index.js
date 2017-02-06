@@ -129,8 +129,8 @@ function endGame() {
     rock.remove()
   })
   //REMOVE moveDodger EVENT listener
-  document.removeEventListener('keydown', moveDodger)
   window.removeEventListener('keydown', moveDodger)
+
   //ALERT YOU LOSE TO player
   return alert('YOU LOSE!')
 }
@@ -149,13 +149,11 @@ function moveDodger(e) {
     e.stopPropagation()
    }
 
-  document.addEventListener('keydown', function(e) {
     if (e.which === LEFT_ARROW) {
       moveDodgerLeft()
     } else if (e.which === RIGHT_ARROW) {
       moveDodgerRight()
     }
-  })
 }
 
 function moveDodgerLeft() {
@@ -164,17 +162,15 @@ function moveDodgerLeft() {
    * This function should move DODGER to the left
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
-   var leftNumbers = dodger.style.left.replace('px', '')
-   var left = parseInt(leftNumbers, 10)
+   //var leftNumbers = dodger.style.left.replace('px', '')
+   //var left = parseInt(leftNumbers, 10)
 
-   function moveItLft() {
-     dodger.style.left = `${left - 4}px`
-     if (left > 0) {
-       window.requestAnimationFrame(moveItLft)
-     }
-   }
-
-   window.requestAnimationFrame(moveItLft)
+   window.requestAnimationFrame(function() {
+     var left = positionToInteger(DODGER.style.left)
+      if (left > 0) {
+        dodger.style.left = `${left - 4}px`
+      }
+   })
 }
 
 function moveDodgerRight() {
@@ -183,16 +179,16 @@ function moveDodgerRight() {
    * This function should move DODGER to the right
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
-  var rightNumbers = dodger.style.left.replace('px', '')
-	var right = parseInt(rightNumbers, 10)
+  //var rightNumbers = dodger.style.left.replace('px', '')
+	//var right = parseInt(rightNumbers, 10)
 
-  function moveItRt() {
-    dodger.style.left = `${right + 4}px`
+  window.requestAnimationFrame(function() {
+    var right = positionToInteger(DODGER.style.left)
+
     if (right < 360) {
-      window.requestAnimationFrame(moveItRt)
+      dodger.style.left = `${right + 4}px`
     }
-  }
-  window.requestAnimationFrame(moveItRt)
+  })
 }
 
 /**
