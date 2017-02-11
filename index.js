@@ -11,6 +11,7 @@ const ROCKS = []
 const START = document.getElementById('start')
 
 var gameInterval = null
+var stopGame = false
 
 /**
  * Be aware of what's above this line,
@@ -20,23 +21,26 @@ var gameInterval = null
 function checkCollision(rock) {
   // implement me!
   // use the comments below to guide you!
-  const top = positionToInteger(rock.style.top)
+  const top = positionToInteger(rock.style.top);
 
   // rocks are 20px high
   // DODGER is 20px high
   // GAME_HEIGHT - 20 - 20 = 360px;
   if (top > 360) {
-    const dodgerLeftEdge = positionToInteger(DODGER.style.left)
+    //console.log('a rock is in range')
+    const dodgerLeftEdge = positionToInteger(DODGER.style.left);
 
     // FIXME: The DODGER is 40 pixels wide -- how do we get the right edge?
-    const dodgerRightEdge = 0;
+    const dodgerRightEdge = dodgerLeftEdge + 40;
 
     const rockLeftEdge = positionToInteger(rock.style.left)
 
     // FIXME: The rock is 20 pixel's wide -- how do we get the right edge?
-    const rockRightEdge = 0;
+    const rockRightEdge = rockLeftEdge + 20;
 
-    if (false /**
+    /**
+    left in as a reminder of what this originally assked for
+    if (false
                * Think about it -- what's happening here?
                * There's been a collision if one of three things is true:
                * 1. The rock's left edge is < the DODGER's left edge,
@@ -45,7 +49,12 @@ function checkCollision(rock) {
                *    and the rock's right edge is < the DODGER's right edge;
                * 3. The rock's left edge is < the DODGER's right edge,
                *    and the rock's right edge is > the DODGER's right edge
-               */) {
+               ) {
+      return true
+    }*/
+    if ((rockLeftEdge < dodgerLeftEdge && rockRightEdge > dodgerLeftEdge) || (rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge) || (rockLeftEdge < dodgerRightEdge && rockRightEdge > dodgerRightEdge)) {
+
+      //console.log('COLLISION');
       return true
     }
   }
@@ -66,39 +75,57 @@ function createRock(x) {
    * Now that we have a rock, we'll need to append
    * it to GAME and move it downwards.
    */
-
-
+   GAME.appendChild(rock);
   /**
    * This function moves the rock. (2 pixels at a time
    * seems like a good pace.)
    */
   function moveRock() {
+    //console.log('moveRock');
     // implement me!
     // (use the comments below to guide you!)
+    if (stopGame === false) {
     /**
      * If a rock collides with the DODGER,
      * we should call endGame()
      */
+     if (checkCollision(rock)) {
+      //debugger
+      endGame();
+     }
 
     /**
      * Otherwise, if the rock hasn't reached the bottom of
      * the GAME, we want to move it again.
      */
-
+     else if (top < 400 && stopGame === false) {
+      //console.log(`rock is at ${rock.style.top}`);
+      rock.style.top = `${top += 2}px`
+      window.requestAnimationFrame(moveRock);
+     }
     /**
      * But if the rock *has* reached the bottom of the GAME,
      * we should remove the rock from the DOM
      */
+     else {
+      //rock.remove();
+      rock.remove();
+      ROCKS.shift();
+     }
+    }
   }
 
   // We should kick of the animation of the rock around here
-
+  if (stopGame === false) {
+    window.requestAnimationFrame(moveRock);
+  }
   // Add the rock to ROCKS so that we can remove all rocks
   // when there's a collision
-  ROCKS.push(rock)
+  ROCKS.push(rock);
+  //console.log(ROCKS);
 
   // Finally, return the rock element you've created
-  return rock
+  return rock;
 }
 
 /**
@@ -108,6 +135,24 @@ function createRock(x) {
  * Finally, alert "YOU LOSE!" to the player.
  */
 function endGame() {
+  //console.log(ROCKS);
+  clearInterval(gameInterval);
+
+  for (i = 0, l = ROCKS.length; i < l; i++) {
+    //console.log(`removing rock ${i}`);
+    //ROCKS[i].style.top = "400px";
+    //ROCKS[i].
+    ROCKS[i].remove();
+  }
+  document.removeEventListener('keydown', moveDodger);
+  //ROCKS = [];
+  //console.log(ROCKS);
+
+  //var parent = rocks.parentNode;
+  //console.log(parent);
+  //GAME.removeChild(rocks);
+  alert('YOU LOSE!');
+  stopGame = true;
 }
 
 function moveDodger(e) {
@@ -119,22 +164,45 @@ function moveDodger(e) {
    * we've declared for you above.)
    * And be sure to use the functions declared below!
    */
+    //console.log('move dodger');
+
+  if (e.which === LEFT_ARROW) {
+    e.preventDefault();
+    e.stopPropagation();
+    moveDodgerLeft();
+  }
+  if (e.which === RIGHT_ARROW) {
+    e.preventDefault()
+    moveDodgerRight();
+  }
 }
 
 function moveDodgerLeft() {
+  //console.log('move left');
   // implement me!
   /**
    * This function should move DODGER to the left
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
+  var leftNumbers = DODGER.style.left.replace('px', '')
+  var left = parseInt(leftNumbers, 10)
+  if (left > 0) {
+    DODGER.style.left = `${left -= 4}px`
+  }
 }
 
 function moveDodgerRight() {
+  //console.log('move right');
   // implement me!
   /**
    * This function should move DODGER to the right
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
+  var leftNumbers = DODGER.style.left.replace('px', '')
+  var left = parseInt(leftNumbers, 10)
+  if (left < 360) {
+    DODGER.style.left = `${left += 4}px`
+  }
 }
 
 /**
