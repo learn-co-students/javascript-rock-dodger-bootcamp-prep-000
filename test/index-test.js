@@ -70,45 +70,61 @@ describe('Rock Dodger', () => {
       expect(window.requestAnimationFrame).toHaveBeenCalled()
     })
 
+    describe('moveRock()', () => {
+      it('checks for a collision', () => {
+        let called = false
 
+        const spy = expect.spyOn(window, 'checkCollision')
+
+        window.requestAnimationFrame = cb => {
+          if (!called) {
+            called = true
+            cb()
+          }
+        }
+
+        createRock(4)
+
+        expect(spy).toHaveBeenCalled()
+      })
+
+      it('ends the game if there is a collision', () => {
+        const spy = expect.spyOn(window, 'endGame')
+        const stub = expect.spyOn(window, 'checkCollision').andReturn(true)
+
+        window.requestAnimationFrame = cb => {
+          cb()
+        }
+
+        createRock(182)
+
+        expect(spy).toHaveBeenCalled()
+
+        window.checkCollision.restore()
+      })
+
+      it('removes the rock once it falls of the screen', done => {
+        window.requestAnimationFrame = cb => {
+          setInterval(cb, 0)
+        }
+
+        const rock = createRock(2)
+        const spy = expect.spyOn(rock, 'remove')
+
+        // Janky setTimeout to let the rock fall
+        // off the screen
+        setTimeout(() => {
+          expect(spy).toHaveBeenCalled()
+          done()
+        }, 50)
+      })
+    })
   })
 
   describe('endGame()', () => {
     it('clears gameInterval', () => {
       const spy = expect.spyOn(window, 'clearInterval')
-      describe('moveRock()', () => {
-        it('checks for a collision', () => {
-          let called = false
 
-          const spy = expect.spyOn(window, 'checkCollision')
-
-          window.requestAnimationFrame = cb => {
-            if (!called) {
-              called = true
-              cb()
-            }
-          }
-
-          createRock(4)
-
-          expect(spy).toHaveBeenCalled()
-        })
-
-        it('ends the game if there is a collision', () => {
-          const spy = expect.spyOn(window, 'endGame')
-          const stub = expect.spyOn(window, 'checkCollision').andReturn(true)
-
-          window.requestAnimationFrame = cb => {
-            cb()
-          }
-
-          createRock(182)
-
-          expect(spy).toHaveBeenCalled()
-
-          window.checkCollision.restore()
-        })
-      })
       endGame()
 
       expect(spy).toHaveBeenCalled()
