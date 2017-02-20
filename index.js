@@ -37,7 +37,7 @@ function checkCollision(rock) {
       (rockLeftEdge<=dodgerRightEdge && rockRightEdge>=dodgerRightEdge)){
       return true
     }
-  } 
+  }
 }
 
 function createRock(x) {
@@ -74,14 +74,15 @@ function createRock(x) {
      * Otherwise, if the rock hasn't reached the bottom of
      * the GAME, we want to move it again.
      */
-   }else if(top<360){
+   }else if(top<400){
           window.requestAnimationFrame(moveRock);
 
     /**
      * But if the rock *has* reached the bottom of the GAME,
      * we should remove the rock from the DOM
      */
-   } else {rock.remove()
+   } else {
+     rock.remove()
    }
   }
   // We should kick of the animation of the rock around here
