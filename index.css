@@ -1,5 +1,5 @@
 #dodger {
-  background-color: white;
+  background-color: lightgray;
   height: 20px;
   position: absolute;
   width: 40px;
@@ -20,6 +20,7 @@
   font-size: 4rem;
   position: relative;
   text-decoration: none;
+  text-align: center;
   top: 4rem;
 }
 
