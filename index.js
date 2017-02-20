@@ -6,11 +6,13 @@ const LEFT_ARROW = 37; // use e.which!
 const RIGHT_ARROW = 39; // use e.which!
 const ROCKS = [];
 const START = document.getElementById('start');
+const PLAYAGAIN = document.getElementById('play');
 const scoreCounter = document.getElementById('score');
+const highScoreDisplay = document.getElementById('highscore');
 var gameStatus = false;
 var gameInterval = null;
 var currentScore = 0;
-var SCOREHISTORY = [];
+var highestScore = 0;
 
 
 function countScore() {
@@ -73,6 +75,7 @@ function createRock(x) {
        window.requestAnimationFrame(moveRock);
      }
      //if rock is at the bottom of the game, remove the rock.
+     //increment current score
      else {
       if(gameStatus) {
         currentScore++;
@@ -91,21 +94,15 @@ function createRock(x) {
   return rock;
 }
 
-/**
- * End the game by clearing `gameInterval`,
- * removing all ROCKS from the DOM,
- * and removing the `moveDodger` event listener.
- * Finally, alert "YOU LOSE!" to the player.
- */
 function endGame() {
   gameStatus = false;
   clearInterval(gameInterval);
   for (var i = 0; i < ROCKS.length; i++) {
     ROCKS[i].remove();
   }
-  //SCOREHISTORY.push(currentScore);
+
   document.removeEventListener(`keydown`, moveDodger);
-  alert("You Lose!");
+  PLAYAGAIN.style.display = 'block';
 }
 
 function moveDodger (e) {
@@ -148,6 +145,7 @@ function start() {
   window.addEventListener('keydown', moveDodger);
 
   START.style.display = 'none';
+  PLAYAGAIN.style.display = 'none';
 
   gameInterval = setInterval(function() {
     createRock(Math.floor(Math.random() *  (GAME_WIDTH - 20)))
