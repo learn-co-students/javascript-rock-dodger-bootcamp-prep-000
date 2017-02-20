@@ -8,7 +8,7 @@
 #game {
   background-color: #111;
   height: 400px;
-  margin: 0 auto;
+  margin: 10px auto;
   overflow: hidden;
   position: relative;
   text-align: center;
@@ -53,4 +53,15 @@
   left: 0;
   position: absolute;
   width: 9px;
+}
+
+#score {
+  margin: 0 auto;
+  font-size: 32px;
+  font-weight: bold;
+  color: white;
+  background-color: black;
+  border: 1px solid black;
+  text-align: center;
+  width: 400px;
 }

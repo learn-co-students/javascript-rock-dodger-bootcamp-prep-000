@@ -6,8 +6,16 @@ const LEFT_ARROW = 37; // use e.which!
 const RIGHT_ARROW = 39; // use e.which!
 const ROCKS = [];
 const START = document.getElementById('start');
+const scoreCounter = document.getElementById('score');
 var gameStatus = false;
 var gameInterval = null;
+var currentScore = 0;
+var SCOREHISTORY = [];
+
+
+function countScore() {
+  scoreCounter.textContent = `Score: ${currentScore}`;
+};
 
 function checkCollision(rock) {
   const top = positionToInteger(rock.style.top);
@@ -44,6 +52,8 @@ function checkCollision(rock) {
 };
 
 function createRock(x) {
+  countScore();
+  console.log(currentScore);
   const rock = document.createElement('div');
   rock.className = 'rock';
   rock.style.left = `${x}px`;
@@ -64,8 +74,11 @@ function createRock(x) {
      }
      //if rock is at the bottom of the game, remove the rock.
      else {
-       rock.remove();
-     }
+      if(gameStatus) {
+        currentScore++;
+      };
+      rock.remove()
+    };
   };
 
   // We should kick of the animation of the rock around here
@@ -90,6 +103,7 @@ function endGame() {
   for (var i = 0; i < ROCKS.length; i++) {
     ROCKS[i].remove();
   }
+  //SCOREHISTORY.push(currentScore);
   document.removeEventListener(`keydown`, moveDodger);
   alert("You Lose!");
 }
@@ -130,6 +144,7 @@ function positionToInteger(p) {
 
 function start() {
   gameStatus = true;
+  currentScore = 0;
   window.addEventListener('keydown', moveDodger);
 
   START.style.display = 'none';
