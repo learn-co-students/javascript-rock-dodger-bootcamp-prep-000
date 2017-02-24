@@ -1,5 +1,5 @@
 #dodger {
-  background-color: white;
+  background-color: lightgray;
   height: 20px;
   position: absolute;
   width: 40px;
@@ -8,21 +8,25 @@
 #game {
   background-color: #111;
   height: 400px;
-  margin: 0 auto;
+  margin: 10px auto;
   overflow: hidden;
   position: relative;
   text-align: center;
   width: 400px;
 }
 
-#start {
+#start, #play {
   color: white;
   font-size: 4rem;
   position: relative;
   text-decoration: none;
+  text-align: center;
   top: 4rem;
 }
 
+#play {
+  display: none;
+}
 .rock {
   width: 20px;
   height: 20px;
@@ -52,4 +56,15 @@
   left: 0;
   position: absolute;
   width: 9px;
+}
+
+#score {
+  margin: 0 auto;
+  font-size: 32px;
+  font-weight: bold;
+  color: white;
+  background-color: black;
+  border: 1px solid black;
+  text-align: center;
+  width: 400px;
 }
