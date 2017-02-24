@@ -1,5 +1,6 @@
 JavaScript Rock Dodger
 ---
+This is the Rock Dodger game I made as part of Flatiron School's Javascript course. You can see my game at https://mthorry.github.io/javascript-rock-dodger-game/
 
 ## Objectives
 
