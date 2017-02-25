@@ -103,21 +103,23 @@ function moveRock() {
      }
 }
      window.requestAnimationFrame(moveRock);
+     /**
     /**
      * Otherwise, if the rock hasn't reached the bottom of
      * the GAME, we want to move it again.
      */
-
     /**
      * But if the rock *has* reached the bottom of the GAME,
      * we should remove the rock from the DOM
      */
-
   // We should kick of the animation of the rock around here
-
   // Add the rock to ROCKS so that we can remove all rocks
   // when there's a collision
-  //
+  // testing
+  // testing
+  // testing
+  // testing
+//}
   ROCKS.push(rock)
 
   // Finally, return the rock element you've created
