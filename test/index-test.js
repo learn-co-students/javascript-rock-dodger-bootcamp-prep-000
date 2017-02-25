@@ -118,6 +118,8 @@ describe('Rock Dodger', () => {
 //     done()
 //   }, 50)
 //  })
+  })
+})
 
   describe('endGame()', () => {
     it('clears gameInterval', () => {
