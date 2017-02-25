@@ -103,6 +103,22 @@ describe('Rock Dodger', () => {
         window.checkCollision.restore()
       })
 
+      //test
+//testing
+//testing
+//testing
+//testing
+//testing
+//testing
+//testing
+//testing
+//testing
+//testing
+//testing
+//testing
+//testing
+//testing
+
       it('removes the rock once it falls of the screen', done => {
         window.requestAnimationFrame = cb => {
           setInterval(cb, 0)
