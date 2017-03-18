@@ -142,6 +142,8 @@ function endGame() {
   //var gameInterval = null
   clearInterval(gameInterval)
   //$("rock").remove()
+  document.removeEventListener('keydown', moveDodger) //VERY IMP -- THIS DID NOT WORK WITH SPY WHEN I HAD window instead of document. Spy is looking for something specific in that regard with first variable in paren
+  alert("YOU LOSE!")
   var rock = document.getElementsByClassName("rock")
   for (var i = 0, l = rock.length; i < l; i++) {
     rock[i].remove()}
@@ -182,8 +184,7 @@ function endGame() {
   //GAME.removeChild(div)
   //const ROCKS = [ ]
 
-  document.removeEventListener('keydown', moveDodger) //VERY IMP -- THIS DID NOT WORK WITH SPY WHEN I HAD window instead of document. Spy is looking for something specific in that regard with first variable in paren
-  alert("YOU LOSE!")
+
 }
 
 function moveDodger(e) {
