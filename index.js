@@ -17,7 +17,7 @@ var gameInterval = null
  * but all of your work should happen below.
  */
 
-function checkCollision(rock) {
+function checkCollision(rock) { // 5:28: I deleted rock from in bw the parens -- rocks still move but other errors show
   // implement me!
   // use the comments below to guide you!
   const top = positionToInteger(rock.style.top)
@@ -29,14 +29,18 @@ function checkCollision(rock) {
     const dodgerLeftEdge = positionToInteger(DODGER.style.left)
 
     // FIXME: The DODGER is 40 pixels wide -- how do we get the right edge?
-    const dodgerRightEdge = 0;
+    const dodgerRightEdge = dodgerLeftEdge + 40 //I modified //0;
 
     const rockLeftEdge = positionToInteger(rock.style.left)
 
     // FIXME: The rock is 20 pixel's wide -- how do we get the right edge?
-    const rockRightEdge = 0;
+    const rockRightEdge = rockLeftEdge + 20 //I modified// 0;
 
-    if (false /**
+    if (
+      ((rockLeftEdge <= dodgerLeftEdge) && (rockRightEdge >= dodgerLeftEdge)) ||
+      ((rockLeftEdge >= dodgerLeftEdge) && (rockRightEdge <= dodgerRightEdge)) ||
+      ((rockLeftEdge <= dodgerRightEdge) && (rockRightEdge >= dodgerRightEdge))
+       /** I deleted the word false here
                * Think about it -- what's happening here?
                * There's been a collision if one of three things is true:
                * 1. The rock's left edge is < the DODGER's left edge,
@@ -62,6 +66,10 @@ function createRock(x) {
 
   rock.style.top = top
 
+//  $('game').append(rock)
+  GAME.appendChild(rock)//I added this.  Tried GAME.append(rock) -- worked in console,
+  //but seems jQuery not loaded so had to do appendChild
+
   /**
    * Now that we have a rock, we'll need to append
    * it to GAME and move it downwards.
@@ -72,7 +80,30 @@ function createRock(x) {
    * This function moves the rock. (2 pixels at a time
    * seems like a good pace.)
    */
-  function moveRock() {
+
+  //window.requestAnimationFrame(moveRock)
+
+
+  function moveRock() { //I began adding stuff here:
+
+    if (checkCollision(rock)) { // what got rocks to fall was adding (rock) here. Not ()
+        //Note the above line -- simply putting the function in an "if" parameter, seems to be a way to test if true
+      endGame()
+    }
+    else {
+      rock.style.top = `${top += 2}px`
+      if (top < 400) { // had to be 400, not 200// it's like the top of the window is 0, and we keep additing to make it go down
+        window.requestAnimationFrame(moveRock)
+      }
+      if (top === 400) {
+        GAME.removeChild(rock)
+      }
+    }
+  }
+
+  window.requestAnimationFrame(moveRock)
+
+
     // implement me!
     // (use the comments below to guide you!)
     /**
@@ -89,7 +120,7 @@ function createRock(x) {
      * But if the rock *has* reached the bottom of the GAME,
      * we should remove the rock from the DOM
      */
-  }
+  //}
 
   // We should kick of the animation of the rock around here
 
@@ -108,10 +139,73 @@ function createRock(x) {
  * Finally, alert "YOU LOSE!" to the player.
  */
 function endGame() {
+  //var gameInterval = null
+  clearInterval(gameInterval)
+  //$("rock").remove()
+  var rock = document.getElementsByClassName("rock")
+  for (var i = 0, l = rock.length; i < l; i++) {
+    rock[i].remove()}
+  //var rock = document.getElementsByClassName("rock")
+  //while (rock.length > 0) {
+	  // rock[0].remove()
+   //}
+  /* This too removes it but makes the learn test freeze up
+  var rock = document.getElementsByClassName("rock")
+  while (rock.length > 0) {
+    rock[0].remove()
+  }
+  */
+/* This removes it but doesn't call spy
+  var game = document.getElementById("game")
+  var rock = game.getElementsByClassName("rock")
+  while (rock.length > 0) {
+    game.removeChild(rock[0])
+  }
+*/
+  //rock[0].remove()
+  //for (var i = 0, l = rock.length; i < l; i++) {
+    //rock[i].remove()
+  //}
+  //this seems to work but trying somemthing else -- var rocky = document.getElementsByClassName("rock")
+  //var rocky = document.getElementById('rock')
+  //var rocky2 = rocky.querySelectorAll('div')
+  //remove()
+  //var rocky =
+  //for (var i = 0, l = rocky.length; i < l; i ++) {
+    //GAME.remove(rocky[i]) // removeChild not work
+    //rocky.remove(i)
+  //}//while (GAME.hasChildNodes()) {
+    //GAME.removeChild(ROCKS.lastChild);
+  //}
+  //GAME.removeChild(ROCKS)
+  //rock.remove()
+  //GAME.removeChild(div)
+  //const ROCKS = [ ]
+
+  document.removeEventListener('keydown', moveDodger) //VERY IMP -- THIS DID NOT WORK WITH SPY WHEN I HAD window instead of document. Spy is looking for something specific in that regard with first variable in paren
+  alert("YOU LOSE!")
 }
 
 function moveDodger(e) {
-  // implement me!
+  //document.addEventListener('keydown', function(e) { // should I change document to game?//seems this is already in the game
+    if (e.which === LEFT_ARROW) {
+      moveDodgerLeft()
+      e.preventDefault() //Don't quite understand why these are here but
+      e.stopPropagation() // tests seems to require it
+    }
+    if (e.which === RIGHT_ARROW) {
+      moveDodgerRight()
+      e.preventDefault()
+      e.stopPropagation()
+    }
+    if ((e.which !== LEFT_ARROW) && (e.which !== RIGHT_ARROW)) {
+      null//e.preventDefault()
+      //e.stopPropagation()
+    }
+  //})
+}//
+
+//implement me!
   /**
    * This function should call `moveDodgerLeft()`
    * if the left arrow is pressed and `moveDodgerRight()`
@@ -119,23 +213,41 @@ function moveDodger(e) {
    * we've declared for you above.)
    * And be sure to use the functions declared below!
    */
-}
+//}
 
 function moveDodgerLeft() {
-  // implement me!
+  var leftNumbers = dodger.style.left.replace('px', '')
+  var left = parseInt(leftNumbers, 10)
+  function stepLeft() {
+    if (left > 0) {
+          dodger.style.left = `${left - 4}px`
+    }
+  }
+  window.requestAnimationFrame(stepLeft)
+}
+// implement me!
   /**
    * This function should move DODGER to the left
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
-}
+//}
 
 function moveDodgerRight() {
+  var leftNumbers = dodger.style.left.replace('px', '')
+  var left = parseInt(leftNumbers, 10)
+  function stepRight() {
+    if (left < 360) {
+          dodger.style.left = `${left + 4}px`
+    }
+  }
+  window.requestAnimationFrame(stepRight)
+}
   // implement me!
   /**
    * This function should move DODGER to the right
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
-}
+//}
 
 /**
  * @param {string} p The position property
