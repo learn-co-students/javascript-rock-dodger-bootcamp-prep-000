@@ -150,7 +150,7 @@ describe('Rock Dodger', () => {
     })
 
     it('removes the "keydown" event listener', () => {
-      const spy = expect.spyOn(document, 'removeEventListener')
+      const spy = expect.spyOn(document, 'removeEventListener') // REM THIS DIDN'T PASS UNTIL I changed WINDOW TO DOCUMENT!
 
       endGame()
 
