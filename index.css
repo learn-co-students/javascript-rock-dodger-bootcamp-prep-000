@@ -23,6 +23,13 @@
   top: 4rem;
 }
 
+#gameover {
+  color: white;
+  font-size: 4rem;
+  position: relative;
+  top: 4rem;
+}
+
 .rock {
   width: 20px;
   height: 20px;
