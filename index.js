@@ -95,20 +95,23 @@ function endGame() {
   ROCKS = [];
   document.removeEventListener('keydown', moveDodger)
   window.removeEventListener('keydown', moveDodger)
-  
+
   alert(`YOU LOSE\n You dodged: ${rocksDodged} rocks.`)
   console.log('end of game');
 }
 
 function moveDodger(e) {
   // implement me!
-  document.addEventListener('keydown', function(e){
-    if (e.which === LEFT_ARROW){
-      moveDodgerLeft()
-    } else if (e.which === RIGHT_ARROW) {
-      moveDodgerRight()
-    }
-  })
+
+  if (e.which === LEFT_ARROW){
+    e.preventDefault()
+    e.stopPropagation()
+    moveDodgerLeft()
+  } else if (e.which === RIGHT_ARROW) {
+    e.preventDefault()
+    e.stopPropagation()
+    moveDodgerRight()
+  }
 }
 
 function moveDodgerLeft() {
@@ -143,7 +146,7 @@ function positionToInteger(p) {
 
 function start() {
   window.addEventListener('keydown', moveDodger)
-
+  DODGER.style.backgroundColor = '#c1c1c1'
   START.style.display = 'none'
 
   gameInterval = setInterval(function() {
