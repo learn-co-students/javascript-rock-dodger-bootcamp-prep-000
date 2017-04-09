@@ -171,12 +171,12 @@ function moveDodgerLeft() {
    */
 
    window.requestAnimationFrame(function() {
-     const left = positionToInteger(DODGER.style.left);
+     const left = positionToInteger(DODGER.style.left)
 
-     if (left > 360) {
+     if (left > 0) {
        DODGER.style.left = `${left - 4}px`;
      }
-   });
+   })
 
 }
 
@@ -188,10 +188,10 @@ function moveDodgerRight() {
    */
 
    window.requestAnimationFrame(function() {
-     const right = positionToInteger(DODGER.style.right);
+     const left = positionToInteger(DODGER.style.left);
 
-     if (right > 360) {
-       DODGER.style.right = `${right - 4}px`;
+     if (left < 360) {
+       DODGER.style.left = `${left + 4}px`;
      }
    })
 
