@@ -9,8 +9,11 @@ const LEFT_ARROW = 37 // use e.which!
 const RIGHT_ARROW = 39 // use e.which!
 const ROCKS = []
 const START = document.getElementById('start')
+const MOVE_DODGER_BY = 4;
+const MOVE_ROCKS_BY = 2;
 
-var gameInterval = null
+var gameInterval = null;
+var rocksCreated = 0;
 
 /**
  * Be aware of what's above this line,
@@ -18,37 +21,27 @@ var gameInterval = null
  */
 
 function checkCollision(rock) {
-  // implement me!
-  // use the comments below to guide you!
+
   const top = positionToInteger(rock.style.top)
 
   // rocks are 20px high
   // DODGER is 20px high
   // GAME_HEIGHT - 20 - 20 = 360px;
-  if (top > 360) {
-    const dodgerLeftEdge = positionToInteger(DODGER.style.left)
 
-    // FIXME: The DODGER is 40 pixels wide -- how do we get the right edge?
-    const dodgerRightEdge = 0;
-
-    const rockLeftEdge = positionToInteger(rock.style.left)
-
-    // FIXME: The rock is 20 pixel's wide -- how do we get the right edge?
-    const rockRightEdge = 0;
-
-    if (false /**
-               * Think about it -- what's happening here?
-               * There's been a collision if one of three things is true:
-               * 1. The rock's left edge is < the DODGER's left edge,
-               *    and the rock's right edge is > the DODGER's left edge;
-               * 2. The rock's left edge is > the DODGER's left edge,
-               *    and the rock's right edge is < the DODGER's right edge;
-               * 3. The rock's left edge is < the DODGER's right edge,
-               *    and the rock's right edge is > the DODGER's right edge
-               */) {
-      return true
-    }
+  // rock can only collide if its bottom is at or below the dodger's top
+  if (top <= 360) { // i.e. rock hasn't reached the dodger yet
+    return false;
   }
+
+  const dodgerLeftEdge = positionToInteger(DODGER.style.left)
+  const dodgerRightEdge = dodgerLeftEdge + 40; // width defined in index.css
+  const rockLeftEdge = positionToInteger(rock.style.left)
+  const rockRightEdge = rockLeftEdge + 20; // width defined in index.css
+
+  const isInsideDodger = (edge) => edge >= dodgerLeftEdge && edge <= dodgerRightEdge;
+
+  // collision when either rock edge is inside the dodger
+  return isInsideDodger(rockLeftEdge) || isInsideDodger(rockRightEdge);
 }
 
 function createRock(x) {
@@ -57,48 +50,38 @@ function createRock(x) {
   rock.className = 'rock'
   rock.style.left = `${x}px`
 
-  // Hmmm, why would we have used `var` here?
-  var top = 0
+  var top = rock.style.top = 0;
 
-  rock.style.top = top
-
-  /**
-   * Now that we have a rock, we'll need to append
-   * it to GAME and move it downwards.
-   */
-
-
-  /**
-   * This function moves the rock. (2 pixels at a time
-   * seems like a good pace.)
-   */
   function moveRock() {
-    // implement me!
-    // (use the comments below to guide you!)
-    /**
-     * If a rock collides with the DODGER,
-     * we should call endGame()
-     */
-
-    /**
-     * Otherwise, if the rock hasn't reached the bottom of
-     * the GAME, we want to move it again.
-     */
-
-    /**
-     * But if the rock *has* reached the bottom of the GAME,
-     * we should remove the rock from the DOM
-     */
+    if (checkCollision(rock)) {
+      return endGame();
+    }
+    // remove rock when its bottom edge touches game bottom edge
+    const rockBottom = top + 20;
+    if (rockBottom >= GAME_HEIGHT) {
+      return removeRock(rock);
+    }
+    // all is good to move rock downwards and repeat
+    rock.style.top = `${top += MOVE_ROCKS_BY}px`;
+    window.requestAnimationFrame(moveRock);
   }
 
-  // We should kick of the animation of the rock around here
-
-  // Add the rock to ROCKS so that we can remove all rocks
-  // when there's a collision
   ROCKS.push(rock)
+  GAME.appendChild(rock);
+
+  // We should kick of the animation of the rock around here
+  window.requestAnimationFrame(moveRock);
 
   // Finally, return the rock element you've created
   return rock
+}
+
+function removeRock(rock) {
+  var indexOfRock = ROCKS.indexOf(rock);
+  if (indexOfRock > -1) {
+    ROCKS.splice(indexOfRock, 1);
+    rock.remove();
+  }
 }
 
 /**
@@ -108,33 +91,54 @@ function createRock(x) {
  * Finally, alert "YOU LOSE!" to the player.
  */
 function endGame() {
+  clearInterval(gameInterval);
+  gameInterval = null;
+
+  // http://stackoverflow.com/questions/9882284/looping-through-array-and-removing-items-without-breaking-for-loop
+  var i = ROCKS.length;
+  while (i--) {
+    removeRock(ROCKS[i]);
+  }
+
+  window.removeEventListener('keydown', moveDodger);
+  
+  // HACK: for tests - https://github.com/learn-co-students/javascript-rock-dodger-bootcamp-prep-000/issues/192
+  document.removeEventListener('keydown', moveDodger);
+
+  alert('YOU LOSE!');
 }
 
 function moveDodger(e) {
-  // implement me!
-  /**
-   * This function should call `moveDodgerLeft()`
-   * if the left arrow is pressed and `moveDodgerRight()`
-   * if the right arrow is pressed. (Check the constants
-   * we've declared for you above.)
-   * And be sure to use the functions declared below!
-   */
+  var handled = false;
+
+  let key = e.detail || e.which;
+  switch (key) {
+    case LEFT_ARROW: moveDodgerLeft(); handled = true; break;
+    case RIGHT_ARROW: moveDodgerRight(); handled = true; break;
+  }
+
+  if (handled) {
+    e.preventDefault();
+    e.stopPropagation();
+  }
 }
 
-function moveDodgerLeft() {
-  // implement me!
-  /**
-   * This function should move DODGER to the left
-   * (mabye 4 pixels?). Use window.requestAnimationFrame()!
-   */
-}
+// HACK: tests look for these by name, but shove impl into single method
+function moveDodgerLeft() { moveDodgerImpl(-MOVE_DODGER_BY); }
+function moveDodgerRight() { moveDodgerImpl(MOVE_DODGER_BY); }
 
-function moveDodgerRight() {
-  // implement me!
-  /**
-   * This function should move DODGER to the right
-   * (mabye 4 pixels?). Use window.requestAnimationFrame()!
-   */
+function moveDodgerImpl(moveByPx) {
+
+  var dodgerLeftEdge = positionToInteger(DODGER.style.left)
+  var dodgerRightEdge = dodgerLeftEdge + 40; // width defined in index.css
+
+  // apply move only to current position and check bounds before actually moving
+  dodgerLeftEdge += moveByPx;
+  dodgerRightEdge += moveByPx;
+
+  if (dodgerLeftEdge > 0 && dodgerRightEdge < GAME_WIDTH) {
+    DODGER.style.left = `${dodgerLeftEdge}px`;
+  }
 }
 
 /**
@@ -146,6 +150,7 @@ function positionToInteger(p) {
 }
 
 function start() {
+  rocksCreated = 0;
   window.addEventListener('keydown', moveDodger)
 
   START.style.display = 'none'
