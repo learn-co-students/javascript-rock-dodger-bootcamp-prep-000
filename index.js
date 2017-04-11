@@ -49,9 +49,8 @@ function createRock(x) {
   rock.style.left = `${x}px`
 
   // Hmmm, why would we have used `var` here?
-  var top = 0
+  var top = rock.style.top = 0
 
-  rock.style.top = top
 
   /**
    * Now that we have a rock, we'll need to append
@@ -65,24 +64,27 @@ function createRock(x) {
    * This function moves the rock. (2 pixels at a time
    * seems like a good pace.)
    */
-    function moveRock(rock) {
-      rock.style.top = `${top += 2}px`
+  function moveRock() {
+    rock.style.top = `${top += 2}px`
     // implement me!
     // (use the comments below to guide you!)
     /**
      * If a rock collides with the DODGER,
      * we should call endGame()
      */
-      if (checkCollision(rock)){
-        endGame()
-      }
+    if (checkCollision(rock)){
+      return endGame()
+    }
 
-      if (top < 360 && top >0) {
+    if (top < GAME_HEIGHT) {
         window.requestAnimationFrame(moveRock)
-      } else {
+    } else {
           rock.remove()
       }
+
     }
+    window.requestAnimationFrame(moveRock)
+    return rock
   }
 
 /**
@@ -92,6 +94,13 @@ function createRock(x) {
  * Finally, alert "YOU LOSE!" to the player.
  */
 function endGame() {
+  clearInterval(gameInterval)
+  ROCKS.forEach(function(rock) {rock.remove()})
+  //for (let i = 0, l=ROCKS.lenth; i < l; i++) {
+    //rock.remove()
+
+  document.removeEventListener('keydown', moveDodger)
+  return alert ("YOU LOSE!");
 }
 
 function moveDodger(e) {
@@ -146,7 +155,7 @@ function positionToInteger(p) {
 }
 
 function start() {
-  window.addEventListener('keydown', moveDodger(e))
+  document.addEventListener('keydown', moveDodger(e))
 
   START.style.display = 'none'
 
