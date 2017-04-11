@@ -84,6 +84,7 @@ function createRock(x) {
 
     }
     window.requestAnimationFrame(moveRock)
+    ROCKS.push(rock)
     return rock
   }
 
@@ -95,7 +96,7 @@ function createRock(x) {
  */
 function endGame() {
   clearInterval(gameInterval)
-  ROCKS.forEach(function(rock) {rock.remove()})
+  ROCKS.forEach( function(rock){ rock.remove() } )
   //for (let i = 0, l=ROCKS.lenth; i < l; i++) {
     //rock.remove()
 
