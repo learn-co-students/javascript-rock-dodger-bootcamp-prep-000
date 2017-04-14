@@ -11,7 +11,6 @@ const DODGER_WIDTH = 40
 const ROCK_WIDTH = 20
 
 var gameInterval = null
-var stop = false
 
 // checks for a collision between the rock and the dodger.
 // returns true if there is one, false if not.
@@ -97,7 +96,7 @@ function moveDodger(e) {
    e.preventDefault()
    e.stopPropagation()
   }
-  
+
   if (e.which === LEFT_ARROW) {
     moveDodgerLeft()
   }
