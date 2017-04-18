@@ -65,9 +65,7 @@ function createRock(x) {
    * seems like a good pace.)
    */
   function moveRock() {
-      var fallDown = rock.style.top.replace('', 'px')
-      var top = parseInt(fallDown, 10)
-      rock.style.top = `${top + 2}`
+      rock.style.top = `${top += 2}px`
 
     // implement me!
     // (use the comments below to guide you!)
@@ -76,7 +74,7 @@ function createRock(x) {
      * we should call endGame()
      */
     if (checkCollision(rock)) {
-      endGame()
+      return endGame()
     }
     /**
      * Otherwise, if the rock hasn't reached the bottom of
@@ -122,7 +120,20 @@ function endGame() {
 }
 
 function moveDodger(e) {
+  if (e.which === LEFT_ARROW) {
+    window.requestAnimationFrame(moveDodgerLeft)
+    e.stopPropagation()
+    e.preventDefault()
+    return moveDodgerLeft()
+  } else if (e.which === RIGHT_ARROW) {
+    window.requestAnimationFrame(moveDodgerRight)
+    e.stopPropagation()
+    e.preventDefault()
+    return moveDodgerRight()
+  }
+  window.requestAnimationFrame(moveDodger)
 
+  }
   // implement me!
   /**
    * This function should call `moveDodgerLeft()`
@@ -162,18 +173,7 @@ function moveDodgerRight() {
    * This function should move DODGER to the right
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
-   if (e.which === LEFT_ARROW) {
-     window.requestAnimationFrame(moveDodgerLeft)
-     e.stopPropagation()
-     e.preventDefault()
- } else if (e.which === RIGHT_ARROW) {
-     window.requestAnimationFrame(moveDodgerRight)
-     e.stopPropagation()
-     e.preventDefault()
- }
- window.requestAnimationFrame(moveDodger)
 
-}
 
 /**
  * @param {string} p The position property
