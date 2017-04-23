@@ -26,9 +26,7 @@ function checkCollision(rock){
 
     if(rockLeftEdge < dodgerRightEdge && rockRightEdge > dodgerLeftEdge){
       return true;
-    } //else {
-      //return false;
-    //}
+    }
   }
 }
 
@@ -63,13 +61,15 @@ function endGame(){
     rock.remove();
   });
   document.removeEventListener('keydown', moveDodger);
-  alert(`YOU LOSE!\nYou dodged ${YOUR_SCORE} rocks before you were crushed!`);
+  START.innerHTML = "Play again?"
+  START.style.display = 'inline'
+  DODGER.style.left = '180px'
+  return alert(`YOU LOSE!\nYou dodged ${YOUR_SCORE} rocks before you were crushed!`)
 }
 
 function moveDodgerLeft() {
   function moveLeft(){
     const left = positionToInteger(DODGER.style.left);
-
     if(left < 4){
       DODGER.style.left = '0px';
     }
@@ -110,6 +110,8 @@ function moveDodger(e){
 
 function start(){
   document.addEventListener('keydown', moveDodger);
+
+  YOUR_SCORE = 0;
 
   START.style.display = 'none';
 
