@@ -82,19 +82,23 @@ function endGame() {
 
   document.removeEventListener('keydown', moveDodger)
 
-  alert('YOU LOSE!')
+  alert('YOU LOSE!');
 }
 
 function moveDodger(e) {
 
   document.addEventListener('keydown', function(e) {
   if (e.which === RIGHT_ARROW) {
+    e.preventDefault()
+    e.stopPropagation();
     moveDodgerRight()
   }
 })
 
 document.addEventListener('keydown', function(e) {
   if (e.which === LEFT_ARROW) {
+    e.preventDefault()
+    e.stopPropagation();
     moveDodgerLeft()
   }
 })// implement me!
@@ -108,19 +112,16 @@ document.addEventListener('keydown', function(e) {
 }
 
 function moveDodgerLeft() {
-  var leftNumbers = dodger.style.left.replace('px', '')
- var left = parseInt(leftNumbers, 10)
-
+ var left = positionToInteger(dodger.style.left)
  if (left > 0) {
    dodger.style.left = `${left - 4}px`
  }
 }
 
 function moveDodgerRight() {
-  var leftNumbers = dodger.style.left.replace('px', '')
-  var left = parseInt(leftNumbers, 10)
-  if (left < 360) {
-    dodger.style.left = `${left + 4}px`
+  var right = positionToInteger(dodger.style.left)
+  if (right < 360) {
+    dodger.style.left = `${right + 4}px`
   }
 }
 
