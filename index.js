@@ -64,7 +64,7 @@ function createRock(x) {
   rock.style.left = `${x}px`
 
   // Hmmm, why would we have used `var` here?
-  var top = '0px'
+  var top = 0
 
   rock.style.top = top
 
@@ -97,13 +97,14 @@ function createRock(x) {
      * we should remove the rock from the DOM
      */
 
-     let top = positionToInteger(rock.style.top)
+     rock.style.top = `${top += 2}px`
+     
      if (checkCollision(rock)) {
        endGame()
      } else if (top + 20 >= GAME_HEIGHT) {
        GAME.removeChild(rock)
      } else {
-       rock.style.top = `${top + 10}px`
+       window.requestAnimationFrame(moveRock)
      }
   }
 
@@ -195,9 +196,5 @@ function start() {
 
   gameInterval = setInterval(function() {
     createRock(Math.floor(Math.random() *  (GAME_WIDTH - 20)))
-    for (let i = 0; i < ROCKS.length; i++) {
-      let top = positionToInteger(ROCKS[i].style.top)
-      ROCKS[i].style.top = `${top + 10}px`
-    }
   }, 1000)
 }
