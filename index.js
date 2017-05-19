@@ -12,6 +12,8 @@ const START = document.getElementById('start')
 
 var gameInterval = null
 
+console.log('DODGER: ', DODGER.style.right);
+
 /**
  * Be aware of what's above this line,
  * but all of your work should happen below.
@@ -26,15 +28,15 @@ function checkCollision(rock) {
   // DODGER is 20px high
   // GAME_HEIGHT - 20 - 20 = 360px;
   if (top > 360) {
-    const dodgerLeftEdge = positionToInteger(DODGER.style.left)
+    const dodgerLeftEdge = positionToInteger(DODGER.style.left) // 180
 
     // FIXME: The DODGER is 40 pixels wide -- how do we get the right edge?
-    const dodgerRightEdge = 0;
+    const dodgerRightEdge = dodgerLeftEdge + 40;
 
     const rockLeftEdge = positionToInteger(rock.style.left)
 
     // FIXME: The rock is 20 pixel's wide -- how do we get the right edge?
-    const rockRightEdge = 0;
+    const rockRightEdge = rockLeftEdge + 20;
 
     if (false /**
                * Think about it -- what's happening here?
@@ -46,6 +48,7 @@ function checkCollision(rock) {
                * 3. The rock's left edge is < the DODGER's right edge,
                *    and the rock's right edge is > the DODGER's right edge
                */) {
+               (rockLeftEdge < dodgerLeftEdge && rockRightEdge > dodgerRightEdge, rockLeftEdge > dodgerLeftEdge && rockRightEdge < dodgerRightEdge, rockLeftEdge < dodgerRightEdge && rockRightEdge > dodgerRightEdge)
       return true
     }
   }
