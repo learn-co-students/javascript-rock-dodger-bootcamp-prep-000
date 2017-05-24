@@ -46,8 +46,9 @@ function checkCollision(rock) {
                * 3. The rock's left edge is < the DODGER's right edge,
                *    and the rock's right edge is > the DODGER's right edge
                */
-    if (rockLeftEdge > dodgerLeftEdge && rockRightEdge < dodgerRightEdge) {
-        console.log('collision')
+    if (rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge || 
+    rockRightEdge > dodgerRightEdge && rockLeftEdge < dodgerRightEdge ||
+    rockLeftEdge < dodgerLeftEdge && rockRightEdge > dodgerLeftEdge) {
         return true
     }
   }
@@ -89,11 +90,11 @@ function createRock(x) {
      * we should remove the rock from the DOM
      */
         if (checkCollision(rock)) {
+           game.removeChild(rock)
             endGame()
         } else if (top < 380) {
-           rock.style.top = `${top += 2}px`
-           //console.log(top)
-           window.requestAnimationFrame(moveRock)
+            rock.style.top = `${top += 2}px`
+            window.requestAnimationFrame(moveRock)
        } else {
            game.removeChild(rock)
        }
@@ -119,12 +120,11 @@ function createRock(x) {
  */
 function endGame() {
     var score = ROCKS.length - 4
-    gameInterval = null
-    console.log(window.innerHTML)
-    game.innerHTML = '';
+    clearInterval(gameInterval)
+    $('#rock').remove()
     window.removeEventListener('keydown', moveDodger)
     alert('YOU LOSE!!!\nYou\'re score is ' + (score))
-    location.reload()
+    //location.reload()
 }
 
 function moveDodger(e) {
