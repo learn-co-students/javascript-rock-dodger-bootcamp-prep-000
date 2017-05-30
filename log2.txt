@@ -1,0 +1,386 @@
+
+> java-script-rock-dodger@0.1.0 test /home/williamhancharek-77681/code/labs/javascript-rock-dodger-bootcamp-prep-000
+> mocha -R mocha-multi --reporter-options nyan=-,json=.results.json
+
+ 0
+ 0
+ 0
+
+[4A[5C-
+[5C-
+[5C-
+[5C-
+[4A[6C_,------,
+[6C_|   /\_/\ 
+[6C^|__( - .-) 
+[6C  ""  "" 
+[4A 1
+ 0
+ 0
+
+[4A[5C-_
+[5C-_
+[5C-_
+[5C-_
+[4A[7C_,------,
+[7C_|  /\_/\ 
+[7C~|_( ^ .^) 
+[7C ""  "" 
+[4A 2
+ 0
+ 0
+
+[4A[5C-_-
+[5C-_-
+[5C-_-
+[5C-_-
+[4A[8C_,------,
+[8C_|   /\_/\ 
+[8C^|__( ^ .^) 
+[8C  ""  "" 
+[4A 3
+ 0
+ 0
+
+[4A[5C-_-_
+[5C-_-_
+[5C-_-_
+[5C-_-_
+[4A[9C_,------,
+[9C_|  /\_/\ 
+[9C~|_( ^ .^) 
+[9C ""  "" 
+[4A 4
+ 0
+ 0
+
+[4A[5C-_-_-
+[5C-_-_-
+[5C-_-_-
+[5C-_-_-
+[4A[10C_,------,
+[10C_|   /\_/\ 
+[10C^|__( ^ .^) 
+[10C  ""  "" 
+[4A 4
+ 1
+ 0
+
+[4A[5C-_-_-_
+[5C-_-_-_
+[5C-_-_-_
+[5C-_-_-_
+[4A[11C_,------,
+[11C_|  /\_/\ 
+[11C~|_( x .x) 
+[11C ""  "" 
+[4A 5
+ 1
+ 0
+
+[4A[5C-_-_-_-
+[5C-_-_-_-
+[5C-_-_-_-
+[5C-_-_-_-
+[4A[12C_,------,
+[12C_|   /\_/\ 
+[12C^|__( x .x) 
+[12C  ""  "" 
+[4A 5
+ 2
+ 0
+
+[4A[5C-_-_-_-_
+[5C-_-_-_-_
+[5C-_-_-_-_
+[5C-_-_-_-_
+[4A[13C_,------,
+[13C_|  /\_/\ 
+[13C~|_( x .x) 
+[13C ""  "" 
+[4A 5
+ 3
+ 0
+
+[4A[5C-_-_-_-_-
+[5C-_-_-_-_-
+[5C-_-_-_-_-
+[5C-_-_-_-_-
+[4A[14C_,------,
+[14C_|   /\_/\ 
+[14C^|__( x .x) 
+[14C  ""  "" 
+[4A 5
+ 4
+ 0
+
+[4A[5C-_-_-_-_-_
+[5C-_-_-_-_-_
+[5C-_-_-_-_-_
+[5C-_-_-_-_-_
+[4A[15C_,------,
+[15C_|  /\_/\ 
+[15C~|_( x .x) 
+[15C ""  "" 
+[4A 5
+ 5
+ 0
+
+[4A[5C-_-_-_-_-_-
+[5C-_-_-_-_-_-
+[5C-_-_-_-_-_-
+[5C-_-_-_-_-_-
+[4A[16C_,------,
+[16C_|   /\_/\ 
+[16C^|__( x .x) 
+[16C  ""  "" 
+[4A 5
+ 6
+ 0
+
+[4A[5C-_-_-_-_-_-_
+[5C-_-_-_-_-_-_
+[5C-_-_-_-_-_-_
+[5C-_-_-_-_-_-_
+[4A[17C_,------,
+[17C_|  /\_/\ 
+[17C~|_( x .x) 
+[17C ""  "" 
+[4A 5
+ 7
+ 0
+
+[4A[5C-_-_-_-_-_-_-
+[5C-_-_-_-_-_-_-
+[5C-_-_-_-_-_-_-
+[5C-_-_-_-_-_-_-
+[4A[18C_,------,
+[18C_|   /\_/\ 
+[18C^|__( x .x) 
+[18C  ""  "" 
+[4A 6
+ 7
+ 0
+
+[4A[5C-_-_-_-_-_-_-_
+[5C-_-_-_-_-_-_-_
+[5C-_-_-_-_-_-_-_
+[5C-_-_-_-_-_-_-_
+[4A[19C_,------,
+[19C_|  /\_/\ 
+[19C~|_( x .x) 
+[19C ""  "" 
+[4A 6
+ 8
+ 0
+
+[4A[5C-_-_-_-_-_-_-_-
+[5C-_-_-_-_-_-_-_-
+[5C-_-_-_-_-_-_-_-
+[5C-_-_-_-_-_-_-_-
+[4A[20C_,------,
+[20C_|   /\_/\ 
+[20C^|__( x .x) 
+[20C  ""  "" 
+[4A 6
+ 9
+ 0
+
+[4A[5C-_-_-_-_-_-_-_-_
+[5C-_-_-_-_-_-_-_-_
+[5C-_-_-_-_-_-_-_-_
+[5C-_-_-_-_-_-_-_-_
+[4A[21C_,------,
+[21C_|  /\_/\ 
+[21C~|_( x .x) 
+[21C ""  "" 
+[4A 6
+ 10
+ 0
+
+[4A[5C-_-_-_-_-_-_-_-_-
+[5C-_-_-_-_-_-_-_-_-
+[5C-_-_-_-_-_-_-_-_-
+[5C-_-_-_-_-_-_-_-_-
+[4A[22C_,------,
+[22C_|   /\_/\ 
+[22C^|__( x .x) 
+[22C  ""  "" 
+[4A 6
+ 11
+ 0
+
+[4A[5C-_-_-_-_-_-_-_-_-_
+[5C-_-_-_-_-_-_-_-_-_
+[5C-_-_-_-_-_-_-_-_-_
+[5C-_-_-_-_-_-_-_-_-_
+[4A[23C_,------,
+[23C_|  /\_/\ 
+[23C~|_( x .x) 
+[23C ""  "" 
+[4A 7
+ 11
+ 0
+
+[4A[5C-_-_-_-_-_-_-_-_-_-
+[5C-_-_-_-_-_-_-_-_-_-
+[5C-_-_-_-_-_-_-_-_-_-
+[5C-_-_-_-_-_-_-_-_-_-
+[4A[24C_,------,
+[24C_|   /\_/\ 
+[24C^|__( x .x) 
+[24C  ""  "" 
+[4A 7
+ 12
+ 0
+
+[4A[5C-_-_-_-_-_-_-_-_-_-_
+[5C-_-_-_-_-_-_-_-_-_-_
+[5C-_-_-_-_-_-_-_-_-_-_
+[5C-_-_-_-_-_-_-_-_-_-_
+[4A[25C_,------,
+[25C_|  /\_/\ 
+[25C~|_( x .x) 
+[25C ""  "" 
+[4A 7
+ 13
+ 0
+
+[4A[5C-_-_-_-_-_-_-_-_-_-_-
+[5C-_-_-_-_-_-_-_-_-_-_-
+[5C-_-_-_-_-_-_-_-_-_-_-
+[5C-_-_-_-_-_-_-_-_-_-_-
+[4A[26C_,------,
+[26C_|   /\_/\ 
+[26C^|__( x .x) 
+[26C  ""  "" 
+[4A 8
+ 13
+ 0
+
+[4A[5C-_-_-_-_-_-_-_-_-_-_-_
+[5C-_-_-_-_-_-_-_-_-_-_-_
+[5C-_-_-_-_-_-_-_-_-_-_-_
+[5C-_-_-_-_-_-_-_-_-_-_-_
+[4A[27C_,------,
+[27C_|  /\_/\ 
+[27C~|_( x .x) 
+[27C ""  "" 
+[4A 8
+ 14
+ 0
+
+[4A[5C-_-_-_-_-_-_-_-_-_-_-_-
+[5C-_-_-_-_-_-_-_-_-_-_-_-
+[5C-_-_-_-_-_-_-_-_-_-_-_-
+[5C-_-_-_-_-_-_-_-_-_-_-_-
+[4A[28C_,------,
+[28C_|   /\_/\ 
+[28C^|__( x .x) 
+[28C  ""  "" 
+[4A 9
+ 14
+ 0
+
+[4A[5C-_-_-_-_-_-_-_-_-_-_-_-_
+[5C-_-_-_-_-_-_-_-_-_-_-_-_
+[5C-_-_-_-_-_-_-_-_-_-_-_-_
+[5C-_-_-_-_-_-_-_-_-_-_-_-_
+[4A[29C_,------,
+[29C_|  /\_/\ 
+[29C~|_( x .x) 
+[29C ""  "" 
+[4A
+
+
+
+
+  9 passing (3s)
+  14 failing
+
+  1) Rock Dodger checkCollision(rock) rock is > 360px from the top of GAME collides if the rock's left edge is <= the DODGER's right edge and the rock's right edge is >= the DODGER's right edge:
+     Error: Expected undefined to be true
+      at assert (node_modules/expect/lib/assert.js:29:9)
+      at Expectation.toBe (node_modules/expect/lib/Expectation.js:66:28)
+      at Context.it (test/index-test.js:51:38)
+
+  2) Rock Dodger createRock(x) calls window.requestAnimationFrame():
+     Error: spy was not called
+      at assert (node_modules/expect/lib/assert.js:29:9)
+      at Expectation.toHaveBeenCalled (node_modules/expect/lib/Expectation.js:318:28)
+      at Context.it (test/index-test.js:70:44)
+
+  3) Rock Dodger createRock(x) moveRock() checks for a collision:
+     Error: spy was not called
+      at assert (node_modules/expect/lib/assert.js:29:9)
+      at Expectation.toHaveBeenCalled (node_modules/expect/lib/Expectation.js:318:28)
+      at Context.it (test/index-test.js:88:21)
+
+  4) Rock Dodger createRock(x) moveRock() ends the game if there is a collision:
+     Error: spy was not called
+      at assert (node_modules/expect/lib/assert.js:29:9)
+      at Expectation.toHaveBeenCalled (node_modules/expect/lib/Expectation.js:318:28)
+      at Context.it (test/index-test.js:101:21)
+
+  5) Rock Dodger endGame() clears gameInterval:
+     Error: spy was not called
+      at assert (node_modules/expect/lib/assert.js:29:9)
+      at Expectation.toHaveBeenCalled (node_modules/expect/lib/Expectation.js:318:28)
+      at Context.it (test/index-test.js:130:19)
+
+  6) Rock Dodger endGame() removes all of the rocks:
+     Error: spy was not called
+      at assert (node_modules/expect/lib/assert.js:29:9)
+      at Expectation.toHaveBeenCalled (node_modules/expect/lib/Expectation.js:318:28)
+      at Context.it (test/index-test.js:148:26)
+
+  7) Rock Dodger endGame() removes the "keydown" event listener:
+     Error: spy was never called with [ 'keydown', [Function: moveDodger] ]
+      at assert (node_modules/expect/lib/assert.js:29:9)
+      at Expectation.toHaveBeenCalledWith (node_modules/expect/lib/Expectation.js:333:28)
+      at Context.it (test/index-test.js:157:19)
+
+  8) Rock Dodger moveDodger(e) e.which === LEFT_ARROW calls e.preventDefault():
+     Error: spy was not called
+      at assert (node_modules/expect/lib/assert.js:29:9)
+      at Expectation.toHaveBeenCalled (node_modules/expect/lib/Expectation.js:318:28)
+      at Context.it (test/index-test.js:205:21)
+
+  9) Rock Dodger moveDodger(e) e.which === LEFT_ARROW calls e.stopPropagation():
+     Error: spy was not called
+      at assert (node_modules/expect/lib/assert.js:29:9)
+      at Expectation.toHaveBeenCalled (node_modules/expect/lib/Expectation.js:318:28)
+      at Context.it (test/index-test.js:213:21)
+
+  10) Rock Dodger moveDodger(e) e.which === LEFT_ARROW calls moveDodgerLeft():
+     Error: spy was not called
+      at assert (node_modules/expect/lib/assert.js:29:9)
+      at Expectation.toHaveBeenCalled (node_modules/expect/lib/Expectation.js:318:28)
+      at Context.it (test/index-test.js:221:19)
+
+  11) Rock Dodger moveDodger(e) e.which === RIGHT_ARROW calls e.preventDefault():
+     Error: spy was not called
+      at assert (node_modules/expect/lib/assert.js:29:9)
+      at Expectation.toHaveBeenCalled (node_modules/expect/lib/Expectation.js:318:28)
+      at Context.it (test/index-test.js:244:21)
+
+  12) Rock Dodger moveDodger(e) e.which === RIGHT_ARROW calls moveDodgerRight():
+     Error: spy was not called
+      at assert (node_modules/expect/lib/assert.js:29:9)
+      at Expectation.toHaveBeenCalled (node_modules/expect/lib/Expectation.js:318:28)
+      at Context.it (test/index-test.js:260:19)
+
+  13) Rock Dodger moveDodgerLeft() moves the DODGER to the left:
+     Error: Expected 180 to be less than 180
+      at assert (node_modules/expect/lib/assert.js:29:9)
+      at Expectation.toBeLessThan (node_modules/expect/lib/Expectation.js:156:28)
+      at Context.it (test/index-test.js:281:52)
+
+  14) Rock Dodger moveDodgerRight moves the DODGER to the right:
+     Error: Expected 180 to be greater than 180
+      at assert (node_modules/expect/lib/assert.js:29:9)
+      at Expectation.toBeGreaterThan (node_modules/expect/lib/Expectation.js:178:28)
+      at Context.it (test/index-test.js:307:52)
+
+
+
