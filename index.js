@@ -71,6 +71,7 @@ function createRock(x) {
    * Now that we have a rock, we'll need to append
    * it to GAME and move it downwards.
    */
+   GAME.appendChild(rock);
 
 
   /**
@@ -78,13 +79,15 @@ function createRock(x) {
    * seems like a good pace.)
    */
   function moveRock() {
+    rock.style.top = `${top += 2}px`;
     // implement me!
     // (use the comments below to guide you!)
     /**
      * If a rock collides with the DODGER,
      * we should call endGame()
      */
-     if (checkCollision() === true){
+
+     if (checkCollision(rock) === true){
        return endGame()
      }
 
@@ -92,12 +95,16 @@ function createRock(x) {
      * Otherwise, if the rock hasn't reached the bottom of
      * the GAME, we want to move it again.
      */
+    if (top < GAME_HEIGHT){
+      window.requestAnimationFrame(moveRock);
 
+    } else {
+      rock.remove();
+    }
     /**
      * But if the rock *has* reached the bottom of the GAME,
      * we should remove the rock from the DOM
      */
-     window.requestAnimationFrame(moveRock);
   }
 
   // We should kick of the animation of the moveRock around here
@@ -123,7 +130,9 @@ function endGame() {
     ROCKS[i].remove(); // emphasizes on remove
   }
   ROCKS.forEach((rock) => ROCKS.pop()); // removes all elements from array
-  return alert("YOU LOSE!");
+  alert("YOU LOSE!");
+  START.style.display = "inline-block";
+  DODGER.style.left = "180px";
 }
 
 function moveDodger(e) {
