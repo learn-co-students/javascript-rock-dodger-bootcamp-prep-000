@@ -107,9 +107,18 @@ function createRock(x) {
  * and removing the `moveDodger` event listener.
  * Finally, alert "YOU LOSE!" to the player.
  */
+//function remove(rockList) {
+//  var numRocks = rockList.length;
+//    for (var i=0; i < numRocks; i++) {
+//        rockList.push();
+//    }
+//}
+
 function endGame() {
-  gameinterval = null;
-  alert("YOU LOSE!")
+
+  clearInterval(gameInterval);
+  alert("YOU LOSE!");
+  removeEventListener('keydown',moveDodger);
 }
 
 function moveDodger(e) {
@@ -121,6 +130,16 @@ function moveDodger(e) {
    * we've declared for you above.)
    * And be sure to use the functions declared below!
    */
+   if(e.which !== LEFT_ARROW && e.which !== RIGHT_ARROW){
+   }
+   if(e.which === LEFT_ARROW){
+     e.preventDefault()
+     e.stopPropagation()
+   }
+   if(e.which === RIGHT_ARROW){
+     e.preventDefault()
+     e.stopPropagation()
+   }
 }
 
 function moveDodgerLeft() {
