@@ -69,8 +69,7 @@ function createRock(x) {
    * Now that we have a rock, we'll need to append
    * it to GAME and move it downwards.
    */
-   GAME.append(rock)
-   moveRock()
+   GAME.appendChild(rock)
   /**
    * This function moves the rock. (2 pixels at a time
    * seems like a good pace.)
@@ -86,7 +85,6 @@ function createRock(x) {
 
     if (top < GAME_HEIGHT) {
       rock.style.top = `${top += 2}px`
-      window.requestAnimationFrame(moveRock)
     }
     else{
       ROCKS.pop()
@@ -112,7 +110,7 @@ function createRock(x) {
   // Add the rock to ROCKS so that we can remove all rocks
   // when there's a collision
   ROCKS.push(rock)
-
+  window.requestAnimationFrame(moveRock)
   // Finally, return the rock element you've created
   return rock
 }
@@ -124,12 +122,14 @@ function createRock(x) {
  * Finally, alert "YOU LOSE!" to the player.
  */
 function endGame() {
-  
+
   clearInterval(gameInterval)
 
-  ROCKS.length = 0
+  for(let i=0; i< ROCKS.length; i++){
+    ROCKS[i].remove()
+  }
 
-  window.removeEventListener('keydown', moveDodger)
+  document.removeEventListener('keydown', moveDodger)
 
   alert("YOU LOSE!")
 }
@@ -143,10 +143,14 @@ function moveDodger(e) {
    * we've declared for you above.)
    * And be sure to use the functions declared below!
    */
-   if(e.which===LEFT_ARROW){
+   if(e.which === LEFT_ARROW){
+     e.preventDefault()
+     e.stopPropagation()
      moveDodgerLeft()
    }
-   if(e.which===RIGHT_ARROW) {
+   if(e.which === RIGHT_ARROW) {
+     e.preventDefault()
+     e.stopPropagation()
      moveDodgerRight()
    }
 }
