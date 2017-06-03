@@ -140,6 +140,7 @@ function moveDodger(e) {
    if(e.which === RIGHT_ARROW){
      e.preventDefault()
      e.stopPropagation()
+     moveDodgerRight()
    }
 }
 
@@ -149,16 +150,16 @@ function moveDodgerLeft() {
    * This function should move DODGER to the left
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
-  var left = DODGER.style.left.slice(0,-2)
+  var left = Number(DODGER.style.left.slice(0,-2));
   console.log(left);
   function step() {
-    DODGER.style.left = `${left -= 2}px`
+    DODGER.style.left = `${left -= 2}px`;
 
     if (left > 0) {
-      window.requestAnimationFrame(step)
+      window.requestAnimationFrame(step);
     }
   }
-  window.requestAnimationFrame(step)
+  window.requestAnimationFrame(step);
 }
 
 function moveDodgerRight() {
@@ -167,6 +168,16 @@ function moveDodgerRight() {
    * This function should move DODGER to the right
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
+   var left = Number(DODGER.style.left.slice(0,-2));
+   console.log(left);
+   function step() {
+     DODGER.style.left = `${left += 2}px`;
+
+     if (left < 360) {
+       window.requestAnimationFrame(step);
+     }
+   }
+   window.requestAnimationFrame(step);
 }
 
 /**
