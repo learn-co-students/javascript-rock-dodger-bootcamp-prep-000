@@ -91,12 +91,12 @@ function createRock(x) {
        rock.parentNode.removeChild(rock)
      }
 
-    /**
+    /** DONE
      * Otherwise, if the rock hasn't reached the bottom of
      * the GAME, we want to move it again.
      */
 
-    /**
+    /** DONE
     var element = document.getElementById("element-id");
 element.parentNode.removeChild(element);
      * But if the rock *has* reached the bottom of the GAME,
