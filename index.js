@@ -1,5 +1,5 @@
 
-// Don't change these constants!
+// dodgers and game are already created in given html
 const DODGER = document.getElementById('dodger')
 const GAME = document.getElementById('game')
 const GAME_HEIGHT = 400
