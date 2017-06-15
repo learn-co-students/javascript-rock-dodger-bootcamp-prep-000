@@ -90,13 +90,14 @@ function createRock(x) {
   function moveRock() {
     rock.style.top = `${top += 2}px`
     // FIXME If a rock collides with the DODGER, we should call endGame()
-    if(checkCollision()) {
-      endGame()
-    }
+
 
      if (top < GAME_HEIGHT){
        window.requestAnimationFrame(moveRock)
      } else {rock.remove()}
+
+     if(checkCollision()) {endGame()}
+
      }
      window.requestAnimationFrame(moveRock)
      ROCKS.push(rock)
