@@ -1,6 +1,5 @@
-/**
- * Don't change these constants!
- */
+
+// Don't change these constants!
 const DODGER = document.getElementById('dodger')
 const GAME = document.getElementById('game')
 const GAME_HEIGHT = 400
@@ -11,15 +10,10 @@ const ROCKS = []
 const START = document.getElementById('start')
 
 var gameInterval = null
-
-/**
- * Be aware of what's above this line,
- * but all of your work should happen below.
- */
+// Don't change these constants!
 
 function checkCollision(rock) {
   // implement me!
-  // use the comments below to guide you!
   const top = positionToInteger(rock.style.top) //input string & return int position
 
   // rocks are 20px high
@@ -38,7 +32,7 @@ function checkCollision(rock) {
 
     if ((rockLeftEdge < dodgerLeftEdge && rockRightEdge > dodgerLeftEdge) ||
     (rockLeftEdge > dodgerLeftEdge && rockRightEdge < dodgerRightEdge) ||
-    (rockLeftEdge < dodgerRightEdge && rockRightEdge > dodgerRightEdge)) /**
+    (rockLeftEdge < dodgerRightEdge && rockRightEdge > dodgerRightEdge) /**
                * Think about it -- what's happening here?
                * There's been a collision if one of three things is true:
                * 1. The rock's left edge is < the DODGER's left edge,
@@ -50,7 +44,9 @@ function checkCollision(rock) {
                */) {
       return true
     }
+    return false
   }
+  return false
 }
 
 function createRock(x) {
@@ -97,8 +93,7 @@ function createRock(x) {
      */
 
     /** DONE
-    var element = document.getElementById("element-id");
-element.parentNode.removeChild(element);
+
      * But if the rock *has* reached the bottom of the GAME,
      * we should remove the rock from the DOM
      */
