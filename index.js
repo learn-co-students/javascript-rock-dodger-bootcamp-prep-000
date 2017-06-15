@@ -14,10 +14,7 @@ var gameInterval = null // what's this?
 function checkCollision(rock) {
   const top = positionToInteger(rock.style.top) //
 
-  // rocks are 20px high
-  // DODGER is 20px high
-  // GAME_HEIGHT - 20 - 20 = 360px;
-  if (top > 360) {
+  if (top > 360) { // GAME_HEIGHT - rock heigh - dodger height
     const dodgerLeftEdge = positionToInteger(DODGER.style.left)
     const dodgerRightEdge = dodgerLeftEdge + 40;
     const rockLeftEdge = positionToInteger(rock.style.left)
@@ -83,7 +80,7 @@ function start() {
   START.style.display = 'none'
   gameInterval = setInterval(function() {
     createRock(Math.floor(Math.random() *  (GAME_WIDTH - 20)))
-  }, 2)
+  }, 1000)
 }
 
 function createRock(x) {
@@ -92,8 +89,7 @@ function createRock(x) {
   rock.className = 'rock'
   rock.style.left = `${x}px`
 
-  var top = 0 //400*Math.random()
-
+  var top = 0
   rock.style.top = top
   //Now that we have a rock, we'll need to append it to GAME and move it downwards.
 
@@ -103,17 +99,16 @@ function createRock(x) {
     rock.style.top = `${top += 2}px`
     // FIXME If a rock collides with the DODGER, we should call endGame()
 
-     if(checkCollision()){
-       endGame()
-     }
-
      if (top < GAME_HEIGHT){
        window.requestAnimationFrame(moveRock)
      } else {
        rock.remove()
      }
+     if(checkCollision()){
+       endGame()
+     }
    }
-     window.requestAnimationFrame(moveRock)
-     ROCKS.push(rock)
-     return rock
+   window.requestAnimationFrame(moveRock)
+   ROCKS.push(rock)
+   return rock
 }
