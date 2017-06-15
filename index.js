@@ -65,15 +65,7 @@ function moveDodgerRight() {
   }
 }
 
-function endGame() {
-  window.clearInterval(gameInterval);
-  ROCKS.forEach(function(el) {
-    el.remove();
-  });
-  ROCKS.length = 0;
-  document.removeEventListener('keydown', moveDodger);
-  alert('YOU LOSE!');
-}
+
 
 function start() {
   window.addEventListener('keydown', moveDodger)
@@ -108,10 +100,19 @@ function createRock(x) {
      if(checkCollision()) {
        endGame()
      }
-
      }
+     window.requestAnimationFrame(moveRock)
+     ROCKS.push(rock)
+     return rock
    }
-   window.requestAnimationFrame(moveRock)
-   ROCKS.push(rock)
-   return rock
+
+
+function endGame() {
+  window.clearInterval(gameInterval);
+  ROCKS.forEach(function(el) {
+    el.remove();
+  });
+  ROCKS.length = 0;
+  document.removeEventListener('keydown', moveDodger);
+  alert('YOU LOSE!');
 }
