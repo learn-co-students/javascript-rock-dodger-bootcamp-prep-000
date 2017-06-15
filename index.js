@@ -95,13 +95,9 @@ function createRock(x) {
     }
 
      if (top < GAME_HEIGHT){
-
        window.requestAnimationFrame(moveRock)
-     } else {
-       rock.remove()
+     } else {rock.remove()}
      }
-     }
-
      window.requestAnimationFrame(moveRock)
      ROCKS.push(rock)
      return rock
@@ -112,7 +108,7 @@ function endGame() {
   window.clearInterval(gameInterval);
   ROCKS.forEach(function(el) {
     el.remove();
-  });
+  })
   ROCKS.length = 0;
   document.removeEventListener('keydown', moveDodger);
   alert('YOU LOSE!');
