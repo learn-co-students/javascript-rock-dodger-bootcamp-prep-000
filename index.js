@@ -4,16 +4,15 @@ const DODGER = document.getElementById('dodger')
 const GAME = document.getElementById('game')
 const GAME_HEIGHT = 400
 const GAME_WIDTH = 400
-const LEFT_ARROW = 37 // use e.which!
-const RIGHT_ARROW = 39 // use e.which!
-const ROCKS = []
-const START = document.getElementById('start')
-var gameInterval = null
-// Don't change these constants!
+const LEFT_ARROW = 37 // ASCII standard, use e.which to match to keydown
+const RIGHT_ARROW = 39
+const ROCKS = [] //ROCKS is an array of elements
+const START = document.getElementById('start') // big button
+var gameInterval = null // what's this?
+
 
 function checkCollision(rock) {
-  // implement me!
-  const top = positionToInteger(rock.style.top) //input string & return int position
+  const top = positionToInteger(rock.style.top) //
 
   // rocks are 20px high
   // DODGER is 20px high
@@ -84,7 +83,7 @@ function start() {
   START.style.display = 'none'
   gameInterval = setInterval(function() {
     createRock(Math.floor(Math.random() *  (GAME_WIDTH - 20)))
-  }, 1000)
+  }, 2)
 }
 
 function createRock(x) {
@@ -113,8 +112,7 @@ function createRock(x) {
      } else {
        rock.remove()
      }
-     }
-
+   }
      window.requestAnimationFrame(moveRock)
      ROCKS.push(rock)
      return rock
