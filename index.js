@@ -90,7 +90,7 @@ function createRock(x) {
   function moveRock() {
     rock.style.top = `${top += 2}px`
     // FIXME If a rock collides with the DODGER, we should call endGame()
-    if(checkCollision()) {
+    if(checkCollision()===true) {
       endGame()
     }
 
