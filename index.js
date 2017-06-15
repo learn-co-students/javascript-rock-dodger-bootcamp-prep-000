@@ -14,7 +14,7 @@ var gameInterval = null // what's this?
 function checkCollision(rock) {
   const top = positionToInteger(rock.style.top) //
 
-  if (top < 40) { // GAME_HEIGHT - rock heigh - dodger height
+  if (top >= 360) { // GAME_HEIGHT - rock heigh - dodger height
     const dodgerLeftEdge = positionToInteger(DODGER.style.left)
     const dodgerRightEdge = dodgerLeftEdge + 40;
     const rockLeftEdge = positionToInteger(rock.style.left)
@@ -50,7 +50,7 @@ function moveDodgerLeft() {
   var left = positionToInteger(DODGER.style.left);
   if (left > 0) {
     window.requestAnimationFrame(function() {
-      DODGER.style.left = (left -= 4) + 'px';
+      DODGER.style.left = (left -= 8) + 'px';
     });
   }
 }
@@ -60,7 +60,7 @@ function moveDodgerRight() {
   var left = positionToInteger(DODGER.style.left);
   if (left < GAME_WIDTH-40) {
     window.requestAnimationFrame(function() {
-      DODGER.style.left = (left += 4) + 'px';
+      DODGER.style.left = (left += 8) + 'px';
     });
   }
 }
