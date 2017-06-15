@@ -8,7 +8,6 @@ const LEFT_ARROW = 37 // use e.which!
 const RIGHT_ARROW = 39 // use e.which!
 const ROCKS = []
 const START = document.getElementById('start')
-
 var gameInterval = null
 // Don't change these constants!
 
@@ -22,32 +21,21 @@ function checkCollision(rock) {
   if (top > 360) {
     const dodgerLeftEdge = positionToInteger(DODGER.style.left)
 
-    // FIXME: The DODGER is 40 pixels wide -- how do we get the right edge?
+    // The DODGER is 40 pixels wide -- how do we get the right edge?
     const dodgerRightEdge = dodgerLeftEdge + 40;
-
     const rockLeftEdge = positionToInteger(rock.style.left)
 
-    // FIXME: The rock is 20 pixel's wide -- how do we get the right edge?
+    // The rock is 20 pixel's wide -- how do we get the right edge?
     const rockRightEdge = rockLeftEdge + 20;
 
     if ((rockLeftEdge < dodgerLeftEdge && rockRightEdge > dodgerLeftEdge) ||
     (rockLeftEdge > dodgerLeftEdge && rockRightEdge < dodgerRightEdge) ||
-    (rockLeftEdge < dodgerRightEdge && rockRightEdge > dodgerRightEdge) /**
-               * Think about it -- what's happening here?
-               * There's been a collision if one of three things is true:
-               * 1. The rock's left edge is < the DODGER's left edge,
-               *    and the rock's right edge is > the DODGER's left edge;
-               * 2. The rock's left edge is > the DODGER's left edge,
-               *    and the rock's right edge is < the DODGER's right edge;
-               * 3. The rock's left edge is < the DODGER's right edge,
-               *    and the rock's right edge is > the DODGER's right edge
-               */) {
+    (rockLeftEdge < dodgerRightEdge && rockRightEdge > dodgerRightEdge)) {
       return true
     }
-    return false
   }
-  return false
 }
+
 
 function createRock(x) {
   const rock = document.createElement('div')
@@ -59,24 +47,17 @@ function createRock(x) {
   var top = 400*Math.random()
 
   rock.style.top = top
+  //Now that we have a rock, we'll need to append it to GAME and move it downwards.
 
-  /**
-   * Now that we have a rock, we'll need to append
-   * it to GAME and move it downwards.
-   */
-
+GAME.appendChild(rock)
 
   /**
    * This function moves the rock. (2 pixels at a time
    * seems like a good pace.)
    */
   function moveRock() {
-    // FIXME
-    // (use the comments below to guide you!)
-    /**
-     * If a rock collides with the DODGER,
-     * we should call endGame()
-     */
+    // FIXME If a rock collides with the DODGER, we should call endGame()
+
      if(checkCollision()){
        endGame()
      }
@@ -116,6 +97,10 @@ function createRock(x) {
  * Finally, alert "YOU LOSE!" to the player.
  */
 function endGame() {
+  gameInterval = null
+  //remove rocks from DOM
+
+  alert("YOU LOSE!")
 }
 
 function moveDodger(e) {
