@@ -82,20 +82,16 @@ function createRock(x) {
      * we should call endGame()
      */
 
-   function step(){
-
-      top=`${top += 2}px`;
-
-    if (checkCollision(rock)){
-      return endGame();
-    }
+      if (checkCollision(rock)){
+        endGame();
+      }
     /**
      * Otherwise, if the rock hasn't reached the bottom of
      * the GAME, we want to move it again.
      */
-   else if(top<360) {
-    window.requestAnimationFrame(step)
-   }
+     else if(top<360) {
+       window.requestAnimationFrame(step)
+       }
     /**
      * But if the rock *has* reached the bottom of the GAME,
      * we should remove the rock from the DOM
@@ -103,11 +99,17 @@ function createRock(x) {
     else{
       GAME.removeChild(rock);
     }
-  }
+
 
   // We should kick of the animation of the rock around here
 }
-  window.requestAnimationFrame();
+
+function step(){
+   top=`${top += 2}px`;
+   moveRock();
+   }
+
+  window.requestAnimationFrame(step);
 
   // Add the rock to ROCKS so that we can remove all rocks
   // when there's a collision
@@ -123,13 +125,34 @@ function createRock(x) {
  * and removing the `moveDodger` event listener.
  * Finally, alert "YOU LOSE!" to the player.
  */
+
+
 function endGame() {
+
   clearInterval(gameInterval);
-  ROCKS=[];
+  for(i=0; i<ROCKS.length; i++){
+    ROCKS[i].remove();
+  }
+  document.removeEventListener('keydown', moveDodger)
   alert('YOU LOSE!');
+
 }
 
 function moveDodger(e) {
+  document.addEventListener('keydown', function(e){
+
+ })
+
+ if( e.which === LEFT_ARROW ){
+   e.preventDefault();
+   e.stopPropagation();
+   moveDodgerLeft();
+
+ } else if ( e.which === RIGHT_ARROW ){
+   e.preventDefault();
+   e.stopPropagation();
+   moveDodgerRight();
+ }
 
   // implement me!
   /**
@@ -141,7 +164,21 @@ function moveDodger(e) {
    */
 }
 
+
+
 function moveDodgerLeft() {
+
+  var leftNumbers= dodger.style.left.replace('px',' ')
+  var left = parseInt(leftNumbers, 10)
+
+  function stepLeft(){
+    dodger.style.left=`${left - 4}px`;
+   }
+
+  if (left > 0){
+    window.requestAnimationFrame(stepLeft);
+  }
+
   // implement me!
   /**
    * This function should move DODGER to the left
@@ -150,6 +187,17 @@ function moveDodgerLeft() {
 }
 
 function moveDodgerRight() {
+
+    var leftNumbers= dodger.style.left.replace('px',' ')
+    var left = parseInt(leftNumbers, 10)
+
+    function stepRight(){
+      dodger.style.left=`${left + 4}px`;
+     }
+
+    if (left < 360){
+      window.requestAnimationFrame(stepRight);
+    }
   // implement me!
   /**
    * This function should move DODGER to the right
