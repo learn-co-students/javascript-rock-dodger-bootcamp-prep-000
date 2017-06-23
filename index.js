@@ -53,30 +53,31 @@ function createRock(x) {
   rock.className = 'rock'
   rock.style.left = `${x}px`
 
-  var top = 0
-
-  rock.style.top = `${top}px`
+  rock.style.top = "0px"
 
   var rockTop = positionToInteger(rock.style.top)
 
   GAME.appendChild(rock)
 
 
-  window.requestAnimationFrame(moveRock)
-
   function moveRock() {
 
-    if (checkCollision() === true) {
+
+    if (checkCollision(rock) === true) {
       return endGame()
     }
     if (rockTop < 400) {
-        rock.style.top = `${top + 2} px`
+        rock.style.top = `${rockTop + 2} px`
+        window.requestAnimationFrame(moveRock)
+        console.log(rock.style.top)
       }
 
     if (rockTop === 400) {
       rock.style.display = 'none'
     }
   }
+
+  window.requestAnimationFrame(moveRock)
 
   ROCKS.push(rock)
 
