@@ -23,7 +23,7 @@ function checkCollision(rock) {
   const top = positionToInteger(rock.style.top)
 
 
-  if (top < 360) {
+  if (top == 360) {
     const dodgerLeftEdge = positionToInteger(DODGER.style.left)
 
     const dodgerRightEdge = positionToInteger(DODGER.style.left) + 40;
@@ -32,9 +32,14 @@ function checkCollision(rock) {
 
     const rockRightEdge = positionToInteger(rock.style.left) + 20;
 
+    const rockBottom = positionToInteger(rock.style.bottom)
+
+    const dodgerTop = positionToInteger(DODGER.style.top)
+
     if (rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge ||
         rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge ||
-        rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge) {
+        rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge
+      ) {
       return true
     }
   }
@@ -62,12 +67,12 @@ function createRock(x) {
 
   function moveRock() {
 
-
+    rock.style.top = `${rockTop += 2}px`
     if (checkCollision(rock) === true) {
-      return endGame()
+      endGame()
+      return;
     }
     if (rockTop < 400) {
-        rock.style.top = `${rockTop + 2} px`
         window.requestAnimationFrame(moveRock)
         console.log(rock.style.top)
       }
@@ -75,6 +80,7 @@ function createRock(x) {
     if (rockTop === 400) {
       rock.style.display = 'none'
     }
+
   }
 
   window.requestAnimationFrame(moveRock)
@@ -84,14 +90,10 @@ function createRock(x) {
   return rock
 }
 
-/**
- * End the game by clearing `gameInterval`,
- * removing all ROCKS from the DOM,
- * and removing the `moveDodger` event listener.
- * Finally, alert "YOU LOSE!" to the player.
- */
+
 function endGame() {
-  $('div').remove('.rock')
+  clearInterval(gameInterval)
+  var ROCKS = []
   window.removeEventListener('keydown', moveDodger)
   alert('YOU LOSE!')
 }
