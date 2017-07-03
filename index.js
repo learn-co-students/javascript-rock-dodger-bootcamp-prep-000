@@ -36,7 +36,7 @@ function checkCollision(rock) {
     // FIXME: The rock is 20 pixel's wide -- how do we get the right edge?
     const rockRightEdge = rockLeftEdge + 20;
 
-    if (positionToInteger <= 360 && ((rockRightEdge >= dodgerLeftEdge && rockLeftEdge<=dodgerLeftEdge) || (rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge) || (rockRightEdge >= dodgerRightEdge && rockLeftEdge <= dodgerRightEdge))){
+    if ((rockRightEdge >= dodgerLeftEdge && rockLeftEdge<=dodgerLeftEdge) || (rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge) || (rockRightEdge >= dodgerRightEdge && rockLeftEdge <= dodgerRightEdge)){
             return true
 
 
@@ -64,13 +64,13 @@ function createRock(x) {
   // Hmmm, why would we have used `var` here?
   var top = 0
 
-  rock.style.top = top
+  rock.style.top = `${top}px`
 
   /**
    * Now that we have a rock, we'll need to append
    * it to GAME and move it downwards.
    */
-
+   GAME.appendChild(rock)
 
   /**
    * This function moves the rock. (2 pixels at a time
@@ -83,44 +83,32 @@ function createRock(x) {
      * If a rock collides with the DODGER,
      * we should call endGame()
      */
-     if (checkCollision(rock))
-     {
-        endGame()
+      rock.style.top = `${top += 2}px`
 
-     }
+         if (checkCollision(rock))
+         {
+            endGame()
+         }
     /**
      * Otherwise, if the rock hasn't reached the bottom of
      * the GAME, we want to move it again.
      */
-     if(rock.style.top > 380){
-       var topNumber = dodger.style.top.replace('px','')
-       var top = parseInt(topNumber, 10)
-       var limit = 0
-
-       function step(){
-       if(top<380){
-           dodger.style.top = `${left - 1}px`
-           limit += 1
-           checkCollision(rock)
-             if(limit<=2){
-   window.requestAnimationFrame(step)
-       }
-   }}
-   window.requestAnimationFrame(step)
-   }
-
-    if(top>=380){
-
-    }
+     if(top < GAME_HEIGHT){
+       window.requestAnimationFrame(moveRock)
+     } else {
+       rock.remove()
      }
+
+
+   } // end of moveRock
+
     /**
      * But if the rock *has* reached the bottom of the GAME,
      * we should remove the rock from the DOM
      */
 
-
   // We should kick of the animation of the rock around here
-
+  window.requestAnimationFrame(moveRock)
   // Add the rock to ROCKS so that we can remove all rocks
   // when there's a collision
   ROCKS.push(rock)
@@ -136,19 +124,23 @@ function createRock(x) {
  * Finally, alert "YOU LOSE!" to the player.
  */
 function endGame() {
-  gameInterval = null
-  clearInterval()
-  window.removeEventListener('keydown', moveDodger)
+  clearInterval(gameInterval)
+  document.removeEventListener('keydown', moveDodger)
+  ROCKS.forEach(rock => rock.remove())
+  ROCKS.forEach(rock => ROCKS.pop())
   alert("YOU LOSE!")
+  return
+
 }
 
 function moveDodger(e) {
       if(e.which===LEFT_ARROW){
         moveDodgerLeft()
       }
-      if(e.which===RIGHT_ARROW){
+      else if(e.which===RIGHT_ARROW){
         moveDodgerRight()
       }
+      else return
   }
 
   // implement me!
@@ -164,17 +156,10 @@ function moveDodger(e) {
 function moveDodgerLeft() {
     var leftNumber = dodger.style.left.replace('px','')
     var left = parseInt(leftNumber, 10)
-    var limit = 0
 
-    function step(){
-    if(left>0){
-        dodger.style.left = `${left - 1}px`
-        limit += 1
-          if(limit<=4){
-window.requestAnimationFrame(step)
-    }
-}}
-window.requestAnimationFrame(step)
+window.requestAnimationFrame(function(){
+  dodger.style.left = `${left-4}px`
+})
 }
   // implement me!
   /**
@@ -192,19 +177,13 @@ function moveDodgerRight() {
 
   var leftNumber = dodger.style.left.replace('px','')
   var left = parseInt(leftNumber, 10)
-  var limit = 0
-
-  function step(){
-  if(left<360){
-      dodger.style.left = `${left + 1}px`
-      limit += 1
-        if(limit<=4){
-window.requestAnimationFrame(step)
+  
+  window.requestAnimationFrame(function(){
+    dodger.style.left = `${left+4}px`
+  })
   }
-}}
-window.requestAnimationFrame(step)
 
-}
+
 
 /**
  * @param {string} p The position property
