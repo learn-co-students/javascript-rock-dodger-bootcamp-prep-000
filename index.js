@@ -183,13 +183,14 @@ function moveDodgerRight() {
   var leftNumber = dodger.style.left.replace('px','')
   var left = parseInt(leftNumber, 10)
 
-  if(left >=GAME_WIDTH){
+  if(left >=GAME_WIDTH-44){
     window.requestAnimationFrame(function(){
-    dodger.style.left = `${GAME_WIDTH-20}px`
+    dodger.style.left = `${GAME_WIDTH-40}px`
   })}
+  else{
   window.requestAnimationFrame(function(){
     dodger.style.left = `${left+4}px`
-  })
+  })}
   }
 
 
