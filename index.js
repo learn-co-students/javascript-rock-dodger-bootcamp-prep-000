@@ -157,8 +157,9 @@ function moveDodgerLeft() {
     var leftNumber = dodger.style.left.replace('px','')
     var left = parseInt(leftNumber, 10)
 
-    if(left < 4){window.requestAnimationFrame(function(){
-      dodger.style.left = `${left-left}px`
+    if(left <= 4){
+      window.requestAnimationFrame(function(){
+      dodger.style.left = `${0}px`
     })}
     else{
     window.requestAnimationFrame(function(){
@@ -182,6 +183,10 @@ function moveDodgerRight() {
   var leftNumber = dodger.style.left.replace('px','')
   var left = parseInt(leftNumber, 10)
 
+  if(left >=GAME_WIDTH){
+    window.requestAnimationFrame(function(){
+    dodger.style.left = `${GAME_WIDTH-20}px`
+  })}
   window.requestAnimationFrame(function(){
     dodger.style.left = `${left+4}px`
   })
