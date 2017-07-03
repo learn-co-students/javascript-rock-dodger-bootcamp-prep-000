@@ -36,7 +36,7 @@ function checkCollision(rock) {
     // FIXME: The rock is 20 pixel's wide -- how do we get the right edge?
     const rockRightEdge = rockLeftEdge + 20;
 
-    if (positionToInteger <= 360 && ((rockRightEdge > dodgerLeftEdge && rockRightEdge<dodgerRightEdge) || (rockLeftEdge>dodgerLeftEdge && rockRightEdge < dodgerRightEdge) || (rockLeftEdge > dodgerLeftEdge && rockLeftEdge < dodgerRightEdge))){
+    if (positionToInteger <= 360 && ((rockRightEdge >= dodgerLeftEdge && rockLeftEdge<=dodgerLeftEdge) || (rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge) || (rockRightEdge >= dodgerRightEdge && rockLeftEdge <= dodgerRightEdge))){
             return true
 
 
@@ -76,7 +76,7 @@ function createRock(x) {
    * This function moves the rock. (2 pixels at a time
    * seems like a good pace.)
    */
-  function moveRock() {
+   function moveRock() {
     // implement me!
     // (use the comments below to guide you!)
     /**
@@ -117,7 +117,7 @@ function createRock(x) {
      * But if the rock *has* reached the bottom of the GAME,
      * we should remove the rock from the DOM
      */
-  }
+
 
   // We should kick of the animation of the rock around here
 
