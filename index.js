@@ -36,8 +36,8 @@ function checkCollision(rock) {
     // FIXME: The rock is 20 pixel's wide -- how do we get the right edge?
     const rockRightEdge = rockLeftEdge + 20;
 
-    if (positionToInteger <= 20 && ((rockRightEdge > dodgerLeftEdge && rockRightEdge<dodgerRightEdge) || (rockLeftEdge>dodgerLeftEdge && rockRightEdge < dodgerRightEdge) || (rockLeftEdge > dodgerLeftEdge && rockLeftEdge < dodgerRightEdge))){
-            endGame()
+    if (positionToInteger <= 360 && ((rockRightEdge > dodgerLeftEdge && rockRightEdge<dodgerRightEdge) || (rockLeftEdge>dodgerLeftEdge && rockRightEdge < dodgerRightEdge) || (rockLeftEdge > dodgerLeftEdge && rockLeftEdge < dodgerRightEdge))){
+            return true
 
 
 
@@ -51,7 +51,6 @@ function checkCollision(rock) {
                * 3. The rock's left edge is < the DODGER's right edge,
                *    and the rock's right edge is > the DODGER's right edge
                */
-      return true
     }
   }
 }
@@ -84,12 +83,36 @@ function createRock(x) {
      * If a rock collides with the DODGER,
      * we should call endGame()
      */
+     if (checkCollision(rock))
+     {
+        endGame()
 
+     }
     /**
      * Otherwise, if the rock hasn't reached the bottom of
      * the GAME, we want to move it again.
      */
+     if(rock.style.top > 380){
+       var topNumber = dodger.style.top.replace('px','')
+       var top = parseInt(topNumber, 10)
+       var limit = 0
 
+       function step(){
+       if(top<380){
+           dodger.style.top = `${left - 1}px`
+           limit += 1
+           checkCollision(rock)
+             if(limit<=2){
+   window.requestAnimationFrame(step)
+       }
+   }}
+   window.requestAnimationFrame(step)
+   }
+
+    if(top>=380){
+
+    }
+     }
     /**
      * But if the rock *has* reached the bottom of the GAME,
      * we should remove the rock from the DOM
@@ -136,7 +159,7 @@ function moveDodger(e) {
    * we've declared for you above.)
    * And be sure to use the functions declared below!
    */
-}
+
 
 function moveDodgerLeft() {
     var leftNumber = dodger.style.left.replace('px','')
