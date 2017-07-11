@@ -3,6 +3,8 @@
   height: 20px;
   position: absolute;
   width: 40px;
+  top: 380px;
+  z-index:1;
 }
 
 #game {
@@ -13,6 +15,15 @@
   position: relative;
   text-align: center;
   width: 400px;
+}
+
+.scorebar {
+  color: white;
+  font-size: 10px; 
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  z-index:1;
 }
 
 #start {
@@ -28,6 +39,7 @@
   height: 20px;
   background: tan;
   position: absolute;
+  z-index:0;
 }
 
 .rock:before {
