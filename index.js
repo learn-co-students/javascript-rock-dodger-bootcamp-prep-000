@@ -66,14 +66,13 @@ function createRock(x) {
   rock.style.top = top
 
 
-  if(checkCollision()){
-    endGame();
-  }
+
   /**
    * Now that we have a rock, we'll need to append
    * it to GAME and move it downwards.
    */
-   window.requestAnimationFrame(rock);
+   GAME.appendChild(rock);
+  window.requestAnimationFrame(moveRock);
 
   /**
    * This function moves the rock. (2 pixels at a time
@@ -87,6 +86,19 @@ function createRock(x) {
      * we should call endGame()
      */
      rock.style.top = '${top += 2}px';
+     var top = 0
+
+  function step() {
+    rock.style.top = `${top += 2}px`
+
+    if (top > 0) {
+      window.requestAnimationFrame(step);
+    }
+  }
+
+
+
+
 
 
      if(checkCollision(rock)){
@@ -96,7 +108,7 @@ function createRock(x) {
      * Otherwise, if the rock hasn't reached the bottom of
      * the GAME, we want to move it again.
      */ else {
-     window.requestAnimationFrame(moveRock(rock));
+     window.requestAnimationFrame(step);
    }
 
     /**
@@ -104,18 +116,20 @@ function createRock(x) {
      * we should remove the rock from the DOM
      */
      if (rock.style.bottom === '0px'){
-       delete rock;
+        rock.remove();
      }
   }
 
   // We should kick of the animation of the rock around here
-
+ if(checkCollision(rock)){
+   endGame();
+ }
   // Add the rock to ROCKS so that we can remove all rocks
   // when there's a collision
   ROCKS.push(rock)
 
   // Finally, return the rock element you've created
-  return rock
+  return rock;
 }
 
 /**
@@ -125,9 +139,15 @@ function createRock(x) {
  * Finally, alert "YOU LOSE!" to the player.
  */
 function endGame() {
-  gameInterval = null;
+  clearInterval(gameInterval);
   alert("YOU LOSE!");
-  delete ROCKS;
+  document.removeEventListener('keydown', moveDodger);
+
+  for(var i = 0; i < ROCKS.length; i++){
+    ROCKS[i].remove();
+
+  }
+
 }
 
 function moveDodger(e) {
@@ -139,15 +159,21 @@ function moveDodger(e) {
    * we've declared for you above.)
    * And be sure to use the functions declared below!
    */
-   if(e === 37){
-     e.preventDefault(RIGHT_ARROW);
-   }
-   if(LEFT_ARROW){
+
+   if(e.which === LEFT_ARROW){
      moveDodgerLeft();
+     e.stopPropagation();
+     e.preventDefault();
+
    }
-   if(RIGHT_ARROW){
+   if(e.which === RIGHT_ARROW){
      moveDodgerRight();
+     e.stopPropagation();
+     e.preventDefault();
+
    }
+
+
 }
 
 function moveDodgerLeft() {
@@ -156,15 +182,21 @@ function moveDodgerLeft() {
    * This function should move DODGER to the left
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
-   document.addEventListener('keydown', function(e) {
-  if (e.which === 37) {
+
     var leftNumbers = dodger.style.left.replace('px', '')
     var left = parseInt(leftNumbers, 10)
 
+  if (left > 0) {
     dodger.style.left = `${left - 4}px`
   }
+  document.addEventListener('keydown', function(e) {
+  if (e.which === 37) {
+    moveDodgerLeft();
+  }
 })
+
 }
+
 
 function moveDodgerRight() {
   // implement me!
@@ -172,14 +204,18 @@ function moveDodgerRight() {
    * This function should move DODGER to the right
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
-   document.addEventListener('keydown', function(e) {
-  if (e.which === 39) {
     var leftNumbers = dodger.style.left.replace('px', '')
     var left = parseInt(leftNumbers, 10)
+    if (left > 0 && left < 360) {
+      dodger.style.left = `${left + 4}px`
+    }
+    document.addEventListener('keydown', function(e) {
+    if (e.which === 39) {
+      moveDodgerRight();
+    }
+  })
 
-    dodger.style.left = `${left + 4}px`
-  }
-})
+
 }
 
 /**
