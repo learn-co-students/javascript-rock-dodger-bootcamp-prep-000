@@ -158,6 +158,16 @@ describe('Rock Dodger', () => {
     })
   })
 
+    it('alerts "YOU LOSE! BETTER LUCK NEXT TIME!" when the game is over', function() {
+
+      const spy = expect.spyOn(window, 'alert')
+
+      endGame()
+
+      expect(spy).toHaveBeenCalledWith("YOU LOSE! BETTER LUCK NEXT TIME!");
+
+  });
+
   describe('moveDodger(e)', () => {
     beforeEach(() => {
       window.requestAnimationFrame = () => {}
