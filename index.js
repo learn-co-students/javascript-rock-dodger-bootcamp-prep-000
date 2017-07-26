@@ -74,14 +74,13 @@ function createRock(x) {
    */
   function moveRock() {
     // implement me!
-    function move(rock) {
   var top = 0
 
   function step() {
     rock.style.top = `${top += 2}px`
 
     }
-  }
+    
     // (use the comments below to guide you!)
     /**
      * If a rock collides with the DODGER,
@@ -158,7 +157,7 @@ function moveDodger(e) {
 
 function moveDodgerLeft() {
   // implement me!
-  function move(#dodger) {
+  (#dodger) {
   var left = 180
 
   function step() {
@@ -179,7 +178,7 @@ function moveDodgerLeft() {
 
 function moveDodgerRight() {
   // implement me!
-  function move(#dodger) {
+  (#dodger) {
   var left = 180
 
   function step() {
