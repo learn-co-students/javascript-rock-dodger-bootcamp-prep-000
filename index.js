@@ -64,7 +64,7 @@ function createRock(x) {
   rock.style.left = `${x}px`
 
   // Hmmm, why would we have used `var` here?
-  var top = 2
+  var top = 0
 
   rock.style.top = top
 
@@ -87,7 +87,7 @@ function createRock(x) {
      * If a rock collides with the DODGER,
      * we should call endGame()
      */
-     if (checkCollision() == true) {
+     if (checkCollision(rock) == true) {
        return endGame()
      }
 
@@ -96,7 +96,7 @@ function createRock(x) {
      * the GAME, we want to move it again.
      */
      else if (top < GAME_HEIGHT) {
-       window.requestAnimationFrame(moveRock())
+       window.requestAnimationFrame(moveRock)
      }
 
     /**
@@ -112,7 +112,7 @@ function createRock(x) {
 
   // Add the rock to ROCKS so that we can remove all rocks
   // when there's a collision
-  window.requestAnimationFrame(moveRock())
+  window.requestAnimationFrame(moveRock) //not (moveRock()) because every callback you dont need the ()
 
   ROCKS.push(rock)
 
