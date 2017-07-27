@@ -64,9 +64,9 @@ function createRock(x) {
   rock.style.left = `${x}px`
 
   // Hmmm, why would we have used `var` here?
-  var topp = 0
+  var top = 2
 
-  rock.style.top = topp
+  rock.style.top = top
 
   /**
    * Now that we have a rock, we'll need to append
@@ -80,7 +80,7 @@ function createRock(x) {
    * seems like a good pace.)
    */
   function moveRock() {
-    rock.style.top = `${topp += 2}px`
+    rock.style.top = `${top += 2}px`
     // implement me!
     // (use the comments below to guide you!)
     /**
@@ -95,7 +95,7 @@ function createRock(x) {
      * Otherwise, if the rock hasn't reached the bottom of
      * the GAME, we want to move it again.
      */
-     else if (topp < GAME_HEIGHT) {
+     else if (top < GAME_HEIGHT) {
        window.requestAnimationFrame(moveRock())
      }
 
@@ -127,7 +127,7 @@ function createRock(x) {
  * Finally, alert "YOU LOSE!" to the player.
  */
 function endGame() {
-  document.removeEventListener('keydown',moveDodger);
+  window.removeEventListener('keydown',moveDodger);
   clearInterval(gameInterval);
   for (let i=0; i<ROCKS.length; i++){
     ROCKS[i].remove()
