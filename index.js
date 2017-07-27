@@ -20,12 +20,14 @@ var gameInterval = null
 function checkCollision(rock) {
   // implement me!
   // use the comments below to guide you!
-   const top = positionToInteger(rock.style.top)
+
+   const bottom = positionToInteger(rock.style.bottom)
+   
 
   // rocks are 20px high
   // DODGER is 20px high
   // GAME_HEIGHT - 20 - 20 = 360px;
-  if (top > 360) {
+  if (bottom < 40) {
     const dodgerLeftEdge = positionToInteger(DODGER.style.left)
 
     // FIXME: The DODGER is 40 pixels wide -- how do we get the right edge?
@@ -140,7 +142,8 @@ function endGame() {
     ROCKS[i].remove()
   }
 
-  alert("hey cutie");
+
+  alert("you snooze you lose");
 }
 
 function moveDodger(e) {
