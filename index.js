@@ -57,13 +57,13 @@ function checkCollision(rock) {
 }
 
 function createRock(x) {
-  console.log(`x from createRock ${x}`)
+  //console.log(`x from createRock ${x}`) //a random value
   const rock = document.createElement('div')
 
   rock.className = 'rock'
   rock.style.left = `${x}px`
 
-  // Hmmm, why would we have used `var` here?
+  // Hmmm, why would we have used `var` here? //becaause top will change
   var top = 0
 
   rock.style.top = top
@@ -72,8 +72,8 @@ function createRock(x) {
    * Now that we have a rock, we'll need to append
    * it to GAME and move it downwards.
    */
-
-
+   GAME.append(rock);
+  // moveRock() //*********possibly remove this here
   /**
    * This function moves the rock. (2 pixels at a time
    * seems like a good pace.)
@@ -81,20 +81,26 @@ function createRock(x) {
   function moveRock() {
     // implement me!
     // (use the comments below to guide you!)
+    // console.log(`moveRock() rock.style.top : ${rock.style.top} ${parseInt(rock.style.top)}`)
+    // rock.style.top = `${parseInt(rock.style.top)+2}px`
+    // console.log(` after moveRock() rock.style.top : ${rock.style.top} ${parseInt(rock.style.top)}`)
+
     /**
      * If a rock collides with the DODGER,
      * we should call endGame()
      */
-
+     if(checkCollision(rock)){ console.log("moveRock() collision, calling endGame()");endGame()}
     /**
      * Otherwise, if the rock hasn't reached the bottom of
      * the GAME, we want to move it again.
      */
-
+     else if( parseInt(rock.style.top) < GAME_HEIGHT) {moveRock(rock)}
     /**
      * But if the rock *has* reached the bottom of the GAME,
      * we should remove the rock from the DOM
      */
+     //    frameid.parentNode.removeChild(frameid);
+     else if( parseInt(rock.style.top) >= GAME_HEIGHT ) { rock.parentNode.removeChild(rock) }
   }
 
   // We should kick of the animation of the rock around here
@@ -114,6 +120,11 @@ function createRock(x) {
  * Finally, alert "YOU LOSE!" to the player.
  */
 function endGame() {
+  gameInterval = null;
+  var rocks = document.querySelectorAll(".rock");
+  for(var i=0;i<rocks.length;i++){ rocks[i].parentNode.removeChild(rocks[i])}
+  window.removeEventListener('keydown', moveDodger)
+  alert("YOU LOSE!")
 }
 
 function moveDodger(e) {
