@@ -143,8 +143,12 @@ function moveDodgerLeft() {
 }
 
 function moveDodgerRight() {
+  var left = DODGER.style.left;
   console.log(`moveDodgerRight called`)
-
+  window.requestAnimationFrame(function(){
+    console.log(`DODGER.style.left ${DODGER.style.left} ${parseInt(DODGER.style.left)}`)
+    if(parseInt(DODGER.style.left) < 360) {      DODGER.style.left = `${parseInt(DODGER.style.left)+4}px`    }
+  })
   // implement me!
   /**
    * This function should move DODGER to the right
