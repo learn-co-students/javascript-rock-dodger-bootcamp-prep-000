@@ -111,6 +111,11 @@ function endGame() {
 }
 
 function moveDodger(e) {
+  console.log(`e: ${e} \ne.which ${e.which}`)
+  var key = parseInt(e.detail || e.which);
+  console.log(`key ${key} // typeof key ${typeof key}`)
+  if(key === 37) {moveDodgerLeft()}
+  if(key === 39) {moveDodgerRight()}
   // implement me!
   /**
    * This function should call `moveDodgerLeft()`
@@ -122,6 +127,14 @@ function moveDodger(e) {
 }
 
 function moveDodgerLeft() {
+  console.log(`moveDodgerLeft called`)
+  window.requestAnimationFrame(function(){
+    console.log(`DODGER.style.left ${DODGER.style.left} ${parseInt(DODGER.style.left)}`)
+    if(parseInt(DODGER.style.left) > 0) {
+      DODGER.style.left = `${parseInt(DODGER.style.left)-4}px`
+    }
+    // DODGER.style.left
+  })
   // implement me!
   /**
    * This function should move DODGER to the left
@@ -130,6 +143,8 @@ function moveDodgerLeft() {
 }
 
 function moveDodgerRight() {
+  console.log(`moveDodgerRight called`)
+
   // implement me!
   /**
    * This function should move DODGER to the right
@@ -146,6 +161,7 @@ function positionToInteger(p) {
 }
 
 function start() {
+  console.log("start was called")
   window.addEventListener('keydown', moveDodger)
 
   START.style.display = 'none'
@@ -154,3 +170,5 @@ function start() {
     createRock(Math.floor(Math.random() *  (GAME_WIDTH - 20)))
   }, 1000)
 }
+//console.log("EYYYYY")
+start()
