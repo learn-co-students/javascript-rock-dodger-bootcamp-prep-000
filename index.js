@@ -18,6 +18,7 @@ var gameInterval = null
  */
 
 function checkCollision(rock) {
+  console.log(`checkCollision  rock: ${rock}`)
   // implement me!
   // use the comments below to guide you!
   const top = positionToInteger(rock.style.top)
@@ -42,13 +43,13 @@ function checkCollision(rock) {
       //          * There's been a collision if one of three things is true:
       //          * 1. The rock's left edge is < the DODGER's left edge,
       //          *    and the rock's right edge is > the DODGER's left edge;
-               (rockLeftEdge<dodgerLeftEdge && rockRightEdge>dodgerLeftEdge) || //**************
+               (rockLeftEdge<=dodgerLeftEdge && rockRightEdge>=dodgerLeftEdge) || //**************
       //          * 2. The rock's left edge is > the DODGER's left edge,
       //          *    and the rock's right edge is < the DODGER's right edge;
-               (rockLeftEdge>dodgerLeftEdge && rockRightEdge<dodgerRightEdge) ||  //************** my work to uncomment
+               (rockLeftEdge>=dodgerLeftEdge && rockRightEdge<=dodgerRightEdge) ||  //************** my work to uncomment
       //          * 3. The rock's left edge is < the DODGER's right edge,
       //          *    and the rock's right edge is > the DODGER's right edge
-               (rockLeftEdge < dodgerRightEdge && rockRightEdge > dodgerRightEdge) //****************
+               (rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge) //****************
       //          */
              ) {
       return true
@@ -72,7 +73,9 @@ function createRock(x) {
    * Now that we have a rock, we'll need to append
    * it to GAME and move it downwards.
    */
-   GAME.append(rock);
+     GAME.appendChild(rock);
+
+  //  GAME.append(rock);
   // moveRock() //*********possibly remove this here
   /**
    * This function moves the rock. (2 pixels at a time
@@ -82,7 +85,7 @@ function createRock(x) {
     // implement me!
     // (use the comments below to guide you!)
     // console.log(`moveRock() rock.style.top : ${rock.style.top} ${parseInt(rock.style.top)}`)
-    // rock.style.top = `${parseInt(rock.style.top)+2}px`
+    rock.style.top = `${parseInt(rock.style.top)+2}px`
     // console.log(` after moveRock() rock.style.top : ${rock.style.top} ${parseInt(rock.style.top)}`)
 
     /**
@@ -104,7 +107,21 @@ function createRock(x) {
   }
 
   // We should kick of the animation of the rock around here
+  move(rock);
+  function move(el) {
+    var top = 0
+    function step() {
+      el.style.top = `${top += 2}px`;      // console.log(el.style.top)
+      if (top < 400) {
+        window.requestAnimationFrame(step)
+      }
+      if(checkCollision(el)){endGame();
+        return null //added becuase hving to click alert 20+ times
 
+      }
+    }
+   window.requestAnimationFrame(step)
+ }
   // Add the rock to ROCKS so that we can remove all rocks
   // when there's a collision
   ROCKS.push(rock)
@@ -120,19 +137,26 @@ function createRock(x) {
  * Finally, alert "YOU LOSE!" to the player.
  */
 function endGame() {
-  gameInterval = null;
-  var rocks = document.querySelectorAll(".rock");
-  for(var i=0;i<rocks.length;i++){ rocks[i].parentNode.removeChild(rocks[i])}
+  clearInterval(gameInterval)//gameInterval = null;
+  // var rocks = document.querySelectorAll(".rock");
+  //for(var i=0;i<rocks.length;i++){ rocks[i].parentNode.removeChild(rocks[i])}
+  // while(ROCKS.length > 0){ROCKS[0].parentNode.removeChild(ROCKS[0]); ROCKS.shift();} //works not pass test
+  // for(var i=0;i<ROCKS.length;i++){ ROCKS[i].parentNode.removeChild(ROCKS[i]);}
+  // for(var i=0;i<ROCKS.length;i++){ ROCKS[i].removeChild(ROCKS[i]);}
+  for(var i=0;i<ROCKS.length;i++){ ROCKS[i].remove(ROCKS[i]);} //<- pass test
+
   window.removeEventListener('keydown', moveDodger)
   alert("YOU LOSE!")
-}
 
+}
 function moveDodger(e) {
-  console.log(`e: ${e} \ne.which ${e.which}`)
+  // e.stopPropagation() //  4) Rock Dodger moveDodger(e) e.which === LEFT_ARROW calls e.stopPropagation():
+  // e.preventDefault(); //   5) Rock Dodger moveDodger(e) e.which === RIGHT_ARROW calls e.preventDefault():
+  // console.log(`e: ${e} \ne.which ${e.which}`)
   var key = parseInt(e.detail || e.which);
-  console.log(`key ${key} // typeof key ${typeof key}`)
-  if(key === 37) {moveDodgerLeft()}
-  if(key === 39) {moveDodgerRight()}
+  // console.log(`key ${key} // typeof key ${typeof key}`)
+  if(key === 37) { e.stopPropagation(); e.preventDefault();moveDodgerLeft()}
+  if(key === 39) { e.stopPropagation(); e.preventDefault();moveDodgerRight()}
   // implement me!
   /**
    * This function should call `moveDodgerLeft()`
@@ -144,9 +168,9 @@ function moveDodger(e) {
 }
 
 function moveDodgerLeft() {
-  console.log(`moveDodgerLeft called`)
+  // console.log(`moveDodgerLeft called`)
   window.requestAnimationFrame(function(){
-    console.log(`DODGER.style.left ${DODGER.style.left} ${parseInt(DODGER.style.left)}`)
+    // console.log(`DODGER.style.left ${DODGER.style.left} ${parseInt(DODGER.style.left)}`)
     if(parseInt(DODGER.style.left) > 0) {
       DODGER.style.left = `${parseInt(DODGER.style.left)-4}px`
     }
@@ -161,9 +185,9 @@ function moveDodgerLeft() {
 
 function moveDodgerRight() {
   var left = DODGER.style.left;
-  console.log(`moveDodgerRight called`)
+  // console.log(`moveDodgerRight called`)
   window.requestAnimationFrame(function(){
-    console.log(`DODGER.style.left ${DODGER.style.left} ${parseInt(DODGER.style.left)}`)
+    // console.log(`DODGER.style.left ${DODGER.style.left} ${parseInt(DODGER.style.left)}`)
     if(parseInt(DODGER.style.left) < 360) {      DODGER.style.left = `${parseInt(DODGER.style.left)+4}px`    }
   })
   // implement me!
