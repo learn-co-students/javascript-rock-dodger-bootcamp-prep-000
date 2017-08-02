@@ -18,7 +18,7 @@ var gameInterval = null
  */
 
 function checkCollision(rock) {
-  console.log(`checkCollision  rock: ${rock}`)
+  // console.log(`checkCollision  rock: ${rock}`)
   // implement me!
   // use the comments below to guide you!
   const top = positionToInteger(rock.style.top)
@@ -81,32 +81,24 @@ function createRock(x) {
    * This function moves the rock. (2 pixels at a time
    * seems like a good pace.)
    */
+  // function moveRock() {
   function moveRock() {
-    // implement me!
-    // (use the comments below to guide you!)
-    // console.log(`moveRock() rock.style.top : ${rock.style.top} ${parseInt(rock.style.top)}`)
-    rock.style.top = `${parseInt(rock.style.top)+2}px`
-    // console.log(` after moveRock() rock.style.top : ${rock.style.top} ${parseInt(rock.style.top)}`)
+      // rock.style.top = `${parseInt(rock.style.top)+2}px`
 
-    /**
-     * If a rock collides with the DODGER,
-     * we should call endGame()
-     */
-     if(checkCollision(rock)){ console.log("moveRock() collision, calling endGame()"); endGame()}
-    /**
-     * Otherwise, if the rock hasn't reached the bottom of
-     * the GAME, we want to move it again.
-     */
-     else if( parseInt(rock.style.top) < GAME_HEIGHT) {moveRock(rock)}
-    /**
-     * But if the rock *has* reached the bottom of the GAME,
-     * we should remove the rock from the DOM
-     */
-     //    frameid.parentNode.removeChild(frameid);
+      /**     * If a rock collides with the DODGER,      * we should call endGame()      */
+
+    /**      * Otherwise, if the rock hasn't reached the bottom of      * the GAME, we want to move it again.      */
+    /**      * But if the rock *has* reached the bottom of the GAME,     * we should remove the rock from the DOM     */
+    rock.style.top = `${parseInt(rock.style.top)+2}px`
+    if(checkCollision(rock)){ endGame()}
+     else if( parseInt(rock.style.top) < GAME_HEIGHT) {  window.requestAnimationFrame(moveRock) }
      else if( parseInt(rock.style.top) >= GAME_HEIGHT ) { rock.parentNode.removeChild(rock) }
   }
 
   // We should kick of the animation of the rock around here
+  // window.requestAnimationFrame(moveRock)
+  moveRock();
+/*
   move(rock);
   function move(el) {
     var top = 0
@@ -122,6 +114,7 @@ function createRock(x) {
     }
    window.requestAnimationFrame(step)
  }
+ */
   // Add the rock to ROCKS so that we can remove all rocks
   // when there's a collision
   ROCKS.push(rock)
@@ -129,7 +122,7 @@ function createRock(x) {
   // Finally, return the rock element you've created
   return rock
 }
-
+// *****************************************************************************
 /**
  * End the game by clearing `gameInterval`,
  * removing all ROCKS from the DOM,
@@ -137,17 +130,15 @@ function createRock(x) {
  * Finally, alert "YOU LOSE!" to the player.
  */
 function endGame() {
-  clearInterval(gameInterval)//gameInterval = null;
-  // var rocks = document.querySelectorAll(".rock");
-  //for(var i=0;i<rocks.length;i++){ rocks[i].parentNode.removeChild(rocks[i])}
-  // while(ROCKS.length > 0){ROCKS[0].parentNode.removeChild(ROCKS[0]); ROCKS.shift();} //works not pass test
-  // for(var i=0;i<ROCKS.length;i++){ ROCKS[i].parentNode.removeChild(ROCKS[i]);}
-  // for(var i=0;i<ROCKS.length;i++){ ROCKS[i].removeChild(ROCKS[i]);}
+  clearInterval(gameInterval)
+  // console.log(ROCKS)
+  // console.log(document.querySelectorAll(".rock"))
   for(var i=0;i<ROCKS.length;i++){ ROCKS[i].remove(ROCKS[i]);} //<- pass test
-
+  // console.log(ROCKS); //looks like there are still rocks after removing
+  // console.log(document.querySelectorAll(".rock")) // looks like rocks in dom removed, just not from array ROCKS
+  // console.log("after remove above")
   window.removeEventListener('keydown', moveDodger)
   alert("YOU LOSE!")
-
 }
 // *****************************************************************************
 function moveDodger(e) {
