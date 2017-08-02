@@ -92,7 +92,7 @@ function createRock(x) {
      * If a rock collides with the DODGER,
      * we should call endGame()
      */
-     if(checkCollision(rock)){ console.log("moveRock() collision, calling endGame()");endGame()}
+     if(checkCollision(rock)){ console.log("moveRock() collision, calling endGame()"); endGame()}
     /**
      * Otherwise, if the rock hasn't reached the bottom of
      * the GAME, we want to move it again.
@@ -149,54 +149,23 @@ function endGame() {
   alert("YOU LOSE!")
 
 }
+// *****************************************************************************
 function moveDodger(e) {
-  // e.stopPropagation() //  4) Rock Dodger moveDodger(e) e.which === LEFT_ARROW calls e.stopPropagation():
-  // e.preventDefault(); //   5) Rock Dodger moveDodger(e) e.which === RIGHT_ARROW calls e.preventDefault():
-  // console.log(`e: ${e} \ne.which ${e.which}`)
   var key = parseInt(e.detail || e.which);
-  // console.log(`key ${key} // typeof key ${typeof key}`)
-  if(key === 37) { e.stopPropagation(); e.preventDefault();moveDodgerLeft()}
-  if(key === 39) { e.stopPropagation(); e.preventDefault();moveDodgerRight()}
-  // implement me!
-  /**
-   * This function should call `moveDodgerLeft()`
-   * if the left arrow is pressed and `moveDodgerRight()`
-   * if the right arrow is pressed. (Check the constants
-   * we've declared for you above.)
-   * And be sure to use the functions declared below!
-   */
+  if(key === LEFT_ARROW) { e.stopPropagation(); e.preventDefault();moveDodgerLeft()}
+  if(key === RIGHT_ARROW) { e.stopPropagation(); e.preventDefault();moveDodgerRight()}
 }
-
 function moveDodgerLeft() {
-  // console.log(`moveDodgerLeft called`)
   window.requestAnimationFrame(function(){
-    // console.log(`DODGER.style.left ${DODGER.style.left} ${parseInt(DODGER.style.left)}`)
-    if(parseInt(DODGER.style.left) > 0) {
-      DODGER.style.left = `${parseInt(DODGER.style.left)-4}px`
-    }
-    // DODGER.style.left
+    if(parseInt(DODGER.style.left) > 0) { DODGER.style.left = `${parseInt(DODGER.style.left)-4}px` }
   })
-  // implement me!
-  /**
-   * This function should move DODGER to the left
-   * (mabye 4 pixels?). Use window.requestAnimationFrame()!
-   */
 }
-
 function moveDodgerRight() {
-  var left = DODGER.style.left;
-  // console.log(`moveDodgerRight called`)
   window.requestAnimationFrame(function(){
-    // console.log(`DODGER.style.left ${DODGER.style.left} ${parseInt(DODGER.style.left)}`)
-    if(parseInt(DODGER.style.left) < 360) {      DODGER.style.left = `${parseInt(DODGER.style.left)+4}px`    }
+    if(parseInt(DODGER.style.left) < 360) { DODGER.style.left = `${parseInt(DODGER.style.left)+4}px`    }
   })
-  // implement me!
-  /**
-   * This function should move DODGER to the right
-   * (mabye 4 pixels?). Use window.requestAnimationFrame()!
-   */
 }
-
+// *****************************************************************************
 /**
  * @param {string} p The position property
  * @returns {number} The position as an integer (without 'px')
@@ -204,7 +173,7 @@ function moveDodgerRight() {
 function positionToInteger(p) {
   return parseInt(p.split('px')[0]) || 0
 }
-
+// *****************************************************************************
 function start() {
   console.log("start was called")
   window.addEventListener('keydown', moveDodger)
@@ -215,5 +184,3 @@ function start() {
     createRock(Math.floor(Math.random() *  (GAME_WIDTH - 20)))
   }, 1000)
 }
-//console.log("EYYYYY")
-// start() //remove this later, for testing only
