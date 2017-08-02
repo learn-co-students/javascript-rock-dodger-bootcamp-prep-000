@@ -92,7 +92,9 @@ function createRock(x) {
     rock.style.top = `${parseInt(rock.style.top)+2}px`
     if(checkCollision(rock)){ endGame()}
      else if( parseInt(rock.style.top) < GAME_HEIGHT) {  window.requestAnimationFrame(moveRock) }
-     else if( parseInt(rock.style.top) >= GAME_HEIGHT ) { rock.parentNode.removeChild(rock) }
+     else if( parseInt(rock.style.top) >= GAME_HEIGHT ) {
+      rock.remove()// rock.parentNode.removeChild(rock)
+     }
   }
 
   // We should kick of the animation of the rock around here
@@ -166,7 +168,7 @@ function positionToInteger(p) {
 }
 // *****************************************************************************
 function start() {
-  console.log("start was called")
+  // console.log("start was called")
   window.addEventListener('keydown', moveDodger)
 
   START.style.display = 'none'
