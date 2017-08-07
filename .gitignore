@@ -42,5 +42,6 @@ jspm_packages
 # Learn-specific .results.json
 .results.json
 
-# Learn-specific solutions
-*.solution.*
+ # Learn-specific solutions
+-*.solution.*
++# *.solution.*
