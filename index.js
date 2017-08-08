@@ -124,7 +124,9 @@ function createRock(x) {
  * Finally, alert "YOU LOSE!" to the player.
  */
 function endGame() {
-  while (ROCKS.length){ROCKS.pop()}
+  ROCKS.forEach(function(dogs){
+    dogs.remove()
+  })
   window.removeEventListener('keydown',moveDodger);
   clearInterval('gameInterval');
   alert("YOU LOSE!");
