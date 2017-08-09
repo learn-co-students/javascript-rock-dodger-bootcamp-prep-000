@@ -38,11 +38,10 @@ function checkCollision(rock) {
     // FIXME: The rock is 20 pixel's wide -- how do we get the right edge?
     const rockRightEdge = positionToInteger(rock.style.left) + 20;
 
-    if ( ((rockLeftEdge < dodgerLeftEdge) && (rockRightEdge > dodgerLeftEdge)) ||
-           ((rockLeftEdge > dodgerLeftEdge) && (rockRightEdge < dodgerRightEdge)) ||
-           ((rockLeftEdge < dodgerRightEdge) && (rockRightEdge > dodgerRightEdge))
+    if ( ((rockLeftEdge <= dodgerLeftEdge) && (rockRightEdge >= dodgerLeftEdge)) ||
+           ((rockLeftEdge >= dodgerLeftEdge) && (rockRightEdge <= dodgerRightEdge)) ||
+           ((rockLeftEdge <= dodgerRightEdge) && (rockRightEdge >= dodgerRightEdge))
          ) {
-
       return true;
         }
       }
@@ -101,6 +100,7 @@ function createRock(x) {
   // Add the rock to ROCKS so that we can remove all rocks
   // when there's a collision
   ROCKS.push(rock)
+  console.log(ROCKS)
   // Finally, return the rock element you've created
   return rock
 
@@ -112,9 +112,11 @@ function createRock(x) {
  */
 function endGame() {
   clearInterval(gameInterval);
-  $('.rock').remove();
+  removeEventListener('keydown', moveDodger);
+
+  $('#game').remove(ROCKS);
   alert('You Lose');
-  window.removeEventListener('keydown', moveDodger);
+
 
 
 
@@ -124,21 +126,29 @@ function endGame() {
 function moveDodger(e) {
 
    document.addEventListener('keydown', function(e){
-   	if(e.which === LEFT_ARROW){
-   		moveDodgerLeft(DODGER);
+     if((e.which !== LEFT_ARROW) && (e.which !==RIGHT_ARROW)){
+
+     }
+   	else if(e.which === LEFT_ARROW){
+      e.preventDefault(e);
+      e.stopPropagation();
+      moveDodgerLeft(DODGER);
        }
-     if(e.which === RIGHT_ARROW){
+     else if(e.which === RIGHT_ARROW){
        moveDodgerRight(DODGER);
+       e.preventDefault();
+       e.stopPropagation();
      }
      });
 }
 
 function moveDodgerLeft(DODGER) {
   var leftNumbers = DODGER.style.left.replace('px', '')
-	var left = parseInt(leftNumbers, 10);
+  var left = parseInt(leftNumbers, 10);
+
   function move(){
     DODGER.style.left = `${left-4}px`
-	 if(left > 0){
+	 if(left >= 0){
      window.requestAnimationFrame(move);
    }
   }
