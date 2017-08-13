@@ -58,14 +58,16 @@ function createRock(x) {
   GAME.appendChild(rock);
 
   function moveRock() {
+    var newpos = positionToInteger(rock.style.top) + 2 // "0px" 0 += 2
+    rock.style.top =  `${newpos}px`
+
      if (checkCollision(rock)) {
        endGame()
      }
-     else if (rock.style.top < 380) {
-        rock.style.top += 2
+     if (newpos < GAME_HEIGHT) {
         window.requestAnimationFrame(moveRock)
-    }
-    else {
+     } else {
+        console.log('removed')
         GAME.removeChild(rock) //remove the rock from the DOM
     }
   }
