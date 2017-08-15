@@ -1,6 +1,6 @@
 /**
  * Don't change these constants!
- */
+ *
 const DODGER = document.getElementById('dodger')
 const GAME = document.getElementById('game')
 const GAME_HEIGHT = 400
@@ -15,7 +15,7 @@ var gameInterval = null
 /**
  * Be aware of what's above this line,
  * but all of your work should happen below.
- */
+ *
 
 function checkCollision(rock) {
   // implement me!
@@ -45,7 +45,7 @@ function checkCollision(rock) {
                *    and the rock's right edge is < the DODGER's right edge;
                * 3. The rock's left edge is < the DODGER's right edge,
                *    and the rock's right edge is > the DODGER's right edge
-               */) {
+               *) {
       return true
     }
   }
@@ -88,7 +88,7 @@ function createRock(x) {
     /**
      * But if the rock *has* reached the bottom of the GAME,
      * we should remove the rock from the DOM
-     */
+     *
   }
 
   // We should kick of the animation of the rock around here
@@ -106,7 +106,7 @@ function createRock(x) {
  * removing all ROCKS from the DOM,
  * and removing the `moveDodger` event listener.
  * Finally, alert "YOU LOSE!" to the player.
- */
+ *
 function endGame() {
 }
 
@@ -118,7 +118,7 @@ function moveDodger(e) {
    * if the right arrow is pressed. (Check the constants
    * we've declared for you above.)
    * And be sure to use the functions declared below!
-   */
+   *
 }
 
 function moveDodgerLeft() {
@@ -126,21 +126,20 @@ function moveDodgerLeft() {
   /**
    * This function should move DODGER to the left
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
-   */
+   *
 }
 
 function moveDodgerRight() {
   // implement me!
   /**
    * This function should move DODGER to the right
-   * (mabye 4 pixels?). Use window.requestAnimationFrame()!
-   */
+   * (ma
 }
 
-/**
+**
  * @param {string} p The position property
  * @returns {number} The position as an integer (without 'px')
- */
+ *
 function positionToInteger(p) {
   return parseInt(p.split('px')[0]) || 0
 }

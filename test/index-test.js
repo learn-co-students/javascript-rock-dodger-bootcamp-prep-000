@@ -1,3 +1,4 @@
+/**
 describe('Rock Dodger', () => {
   afterEach(function() {
     expect.restoreSpies()
@@ -6,7 +7,7 @@ describe('Rock Dodger', () => {
   describe('checkCollision(rock)', () => {
     /**
      * DODGER starts out at left = 180px
-     */
+     *
     describe('rock is <= 360px from the top of GAME', () => {
       it('does not collide', () => {
         const rock = document.createElement('div')
@@ -315,4 +316,4 @@ describe('Rock Dodger', () => {
       expect(dodger.style.left).toEqual('360px')
     })
   })
-})
+})   **/
