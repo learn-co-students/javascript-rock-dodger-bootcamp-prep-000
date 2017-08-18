@@ -31,28 +31,28 @@ describe('Rock Dodger', () => {
         rock.style.left = '0px'
 
         expect(checkCollision(rock)).toNotBe(true);
-        done();
+        
       })
 
       it("collides if the rock's left edge is <= the DODGER's left edge and the rock's right edge is >= the DODGER's left edge", () => {
         rock.style.left = '170px'
 
         expect(checkCollision(rock)).toBe(true);
-        done();
+        
       })
 
       it("collides if the rock's left edge is >= the DODGER's left edge and the rock's right edge is <= the DODGER's right edge", () => {
         rock.style.left = '180px'
 
         expect(checkCollision(rock)).toBe(true);
-        done();
+        
       })
 
       it("collides if the rock's left edge is <= the DODGER's right edge and the rock's right edge is >= the DODGER's right edge", () => {
         rock.style.left = '219px'
 
         expect(checkCollision(rock)).toBe(true);
-        done();
+        
       })
     })
   })
