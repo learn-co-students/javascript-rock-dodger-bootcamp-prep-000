@@ -30,25 +30,29 @@ describe('Rock Dodger', () => {
       it('does not collide if not within DODGER\'s bounds', () => {
         rock.style.left = '0px'
 
-        expect(checkCollision(rock)).toNotBe(true)
+        expect(checkCollision(rock)).toNotBe(true);
+        
       })
 
       it("collides if the rock's left edge is <= the DODGER's left edge and the rock's right edge is >= the DODGER's left edge", () => {
         rock.style.left = '170px'
 
-        expect(checkCollision(rock)).toBe(true)
+        expect(checkCollision(rock)).toBe(true);
+        
       })
 
       it("collides if the rock's left edge is >= the DODGER's left edge and the rock's right edge is <= the DODGER's right edge", () => {
         rock.style.left = '180px'
 
-        expect(checkCollision(rock)).toBe(true)
+        expect(checkCollision(rock)).toBe(true);
+        
       })
 
       it("collides if the rock's left edge is <= the DODGER's right edge and the rock's right edge is >= the DODGER's right edge", () => {
         rock.style.left = '219px'
 
-        expect(checkCollision(rock)).toBe(true)
+        expect(checkCollision(rock)).toBe(true);
+        
       })
     })
   })
