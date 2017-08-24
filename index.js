@@ -28,13 +28,13 @@ function checkCollision(rock) {
   if (top > 360) {
     const dodgerLeftEdge = positionToInteger(DODGER.style.left)
 
-    // FIXME: The DODGER is 40 pixels wide -- how do we get the right edge?
-    const dodgerRightEdge = 0;
+    // FIXME: The DODGER is 40 pixels wide -- how do we get the right edge? (ATTEMPTED - originally 0)
+    const dodgerRightEdge = dodgerLeftEdge + 40;
 
     const rockLeftEdge = positionToInteger(rock.style.left)
 
-    // FIXME: The rock is 20 pixel's wide -- how do we get the right edge?
-    const rockRightEdge = 0;
+    // FIXME: The rock is 20 pixels wide -- how do we get the right edge? (ATTEMPTED - originally 0)
+    const rockRightEdge = rockLeftEdge + 20;
 
     if (false /**
                * Think about it -- what's happening here?
@@ -119,6 +119,18 @@ function moveDodger(e) {
    * we've declared for you above.)
    * And be sure to use the functions declared below!
    */
+    console.log("MoveDodger String")
+     if (e.which === 37){
+       console.log("Dodger-Left If")
+       moveDodgerLeft()
+
+     }
+     elsif(e.which === 39){
+       console.log("Dodger-right If")
+       moveDodgerRight()
+     }
+
+
 }
 
 function moveDodgerLeft() {
@@ -127,6 +139,17 @@ function moveDodgerLeft() {
    * This function should move DODGER to the left
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
+   console.log("move-dodger-left")
+    var leftCorner = DODGER.style.left.replace('px','')
+    var left = parseInt(leftCorner,10)
+
+      function step (){
+        DODGER.style.left = `${left-4}px`
+        if (DODGER.style.left > 0){
+          window.requestAnimationFrame(step)
+        }
+      }
+    window.requestAnimationFrame(step)
 }
 
 function moveDodgerRight() {
@@ -135,6 +158,18 @@ function moveDodgerRight() {
    * This function should move DODGER to the right
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
+   console.log("Move-dodger-right")
+   var rightCorner = DODGER.style.left.replace('px','') + 40
+   var right = parseInt(rightCorner,10)
+
+     function step(){
+       DODGER.style.left = `${right+4}px`
+       if ((DODGER.style.left + 40) < 400){
+         window.requestAnimationFrame(step)
+       }
+     }
+   window.requestAnimationFrame(step)
+
 }
 
 /**
@@ -146,6 +181,7 @@ function positionToInteger(p) {
 }
 
 function start() {
+  console.log("start method")
   window.addEventListener('keydown', moveDodger)
 
   START.style.display = 'none'
