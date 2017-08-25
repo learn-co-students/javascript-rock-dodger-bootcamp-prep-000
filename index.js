@@ -67,10 +67,11 @@ function createRock(x) {
 
   rock.className = 'rock'
   rock.style.left = `${x}px`
-
-  // Hmmm, why would we have used `var` here?
   var top = 0
-  rock.style.top = top
+  // Hmmm, why would we have used `var` here?
+  rock.style.top = `${top}px`
+
+
   /**
    * Now that we have a rock, we'll need to append
    * it to GAME and move it downwards.
@@ -85,10 +86,13 @@ function createRock(x) {
    }
 
   function moveRock() {
-    console.log("Move Rock Log")
+    // console.log("Move Rock Log")
     // implement me!
     // (use the comments below to guide you!)
-      top = `${top += 2}px`
+      console.log("rocktop pre: " + rock.style.top)
+      // top = `${top}px`
+      rock.style.top = `${top+=2}px`
+      console.log("rocktop post: " + rock.style.top)
     //  * If a rock collides with the DODGER,
     //  * we should call endGame()
     //  */
@@ -102,8 +106,9 @@ function createRock(x) {
 
      if (top < 400) {
         window.requestAnimationFrame(moveRock)
+        console.log("if-top increment")
         } else {
-          rock.remove()
+          // rock.remove()
         }
 
     /**
