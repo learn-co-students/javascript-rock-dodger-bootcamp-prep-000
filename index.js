@@ -61,7 +61,7 @@ function createRock(x) {
   // Hmmm, why would we have used `var` here?
   var top = 0
 
-  top = rock.style.top
+  rock.style.top = top
 
   /**
    * Now that we have a rock, we'll need to append
@@ -82,7 +82,8 @@ GAME.appendChild(rock)
      * we should call endGame()
      */
      if (checkCollision(rock) == true) {
-       return endGame()
+       endGame();
+       return;
      } else if (top < 400){
        window.requestAnimationFrame(moveRock)
      } else if (top == 400){
@@ -98,7 +99,7 @@ GAME.appendChild(rock)
      * But if the rock *has* reached the bottom of the GAME,
      * we should remove the rock from the DOM
      */
-  }
+
 
   // We should kick of the animation of the rock around here
 window.requestAnimationFrame(moveRock)
@@ -117,22 +118,24 @@ window.requestAnimationFrame(moveRock)
  * Finally, alert "YOU LOSE!" to the player.
  */
 function endGame() {
-  clearInterval(gameInterval);
+  clearInterval(gameInterval)
   for (var i = 0; i < ROCKS.length; i++){
     ROCKS[i].remove();
   }
-  document.removeEventListener(`keydown`, moveDodger);
+  window.removeEventListener(`keydown`, moveDodger);
   alert("YOU LOSE!");
 }
 
 function moveDodger(e) {
-  document.addEventListener('keydown', function(e) {
-    if (e.which === LEFT_ARROW) {
-      moveDodgerLeft()
-    } else if (e.which === RIGHT_ARROW) {
+  if (e.which === LEFT_ARROW) {
+    e.stopPropagation();
+    e.preventDefault();
+    moveDodgerLeft()
+  } else if (e.which === RIGHT_ARROW) {
+      e.stopPropagation();
+      e.preventDefault();
       moveDodgerRight()
     }
-  })
 
   // implement me!
   /**
@@ -165,6 +168,7 @@ function moveDodgerRight() {
     var left = parseInt(leftNumbers, 10)
     if (left < 360) {
       dodger.style.left = `${left + 4}px`
+    }
   })// implement me!
   /**
    * This function should move DODGER to the right
