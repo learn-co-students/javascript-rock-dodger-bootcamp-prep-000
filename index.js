@@ -29,25 +29,24 @@ function checkCollision(rock) {
     const dodgerLeftEdge = positionToInteger(DODGER.style.left)
 
     // FIXME: The DODGER is 40 pixels wide -- how do we get the right edge?
-    const dodgerRightEdge = 0;
+    const dodgerRightEdge = dodgerLeftEdge + 40;
 
     const rockLeftEdge = positionToInteger(rock.style.left)
 
     // FIXME: The rock is 20 pixel's wide -- how do we get the right edge?
-    const rockRightEdge = 0;
+    const rockRightEdge = rockLeftEdge+ 20;
 
-    if (false /**
-               * Think about it -- what's happening here?
-               * There's been a collision if one of three things is true:
-               * 1. The rock's left edge is < the DODGER's left edge,
-               *    and the rock's right edge is > the DODGER's left edge;
-               * 2. The rock's left edge is > the DODGER's left edge,
-               *    and the rock's right edge is < the DODGER's right edge;
-               * 3. The rock's left edge is < the DODGER's right edge,
-               *    and the rock's right edge is > the DODGER's right edge
-               */) {
-      return true
-    }
+    if (rockLeftEdge < dodgerLeftEdge && rockRightEdge > dodgerLeftEdge) {
+
+    return true
+  } if (rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge) {
+
+    return true
+  } if (rockLeftEdge < dodgerRightEdge && rockRightEdge > dodgerRightEdge) {
+
+    return true
+  }
+  return false
   }
 }
 
@@ -66,7 +65,7 @@ function createRock(x) {
    * Now that we have a rock, we'll need to append
    * it to GAME and move it downwards.
    */
-
+ GAME.appendChild(rock)
 
   /**
    * This function moves the rock. (2 pixels at a time
@@ -79,6 +78,23 @@ function createRock(x) {
      * If a rock collides with the DODGER,
      * we should call endGame()
      */
+     rock.style.top = `${top += 2}px`
+     var rockPos = rock.style.top.replace('px', '')
+     rockPos = parseInt(rockPos, 10)
+     //console.log(`rock position ${rock.style.top}`)
+     if(checkCollision(rock)) {
+       endGame()
+       alert("You Lose!")
+     } else {
+
+     if (rockPos > GAME_HEIGHT) {
+       //console.log(GAME)
+       rock.remove()
+       ROCKS.shift()
+     }
+   }
+
+
 
     /**
      * Otherwise, if the rock hasn't reached the bottom of
@@ -89,10 +105,12 @@ function createRock(x) {
      * But if the rock *has* reached the bottom of the GAME,
      * we should remove the rock from the DOM
      */
+    // window.requestAnimationFrame(moveRock)
   }
+  window.requestAnimationFrame(moveRock)
 
   // We should kick of the animation of the rock around here
-
+//moveRock()
   // Add the rock to ROCKS so that we can remove all rocks
   // when there's a collision
   ROCKS.push(rock)
@@ -108,9 +126,26 @@ function createRock(x) {
  * Finally, alert "YOU LOSE!" to the player.
  */
 function endGame() {
+  clearInterval(gameInterval)
+  for (i = 0; i < ROCKS.length; i++) {
+   var currRock = ROCKS[i]
+   //console.log(ROCKS)
+   currRock.remove()
+
+ }
+ window.removeEventListener('keydown', moveDodger)
 }
 
 function moveDodger(e) {
+  if (e.which === LEFT_ARROW) {
+    e.preventDefault()
+    e.stopPropagation()
+    moveDodgerLeft()
+  } if (e.which === RIGHT_ARROW) {
+    e.preventDefault()
+    e.stopPropagation()
+    moveDodgerRight()
+  }
   // implement me!
   /**
    * This function should call `moveDodgerLeft()`
@@ -127,6 +162,15 @@ function moveDodgerLeft() {
    * This function should move DODGER to the left
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
+   var positionStr = DODGER.style.left.replace('px', '')
+  var currPos = parseInt(positionStr, 10)
+
+  if (currPos <= 0 ) {
+    DODGER.style.left = `${0}px`
+  } else {
+
+  DODGER.style.left = `${currPos -= 4}px`
+  }
 }
 
 function moveDodgerRight() {
@@ -135,6 +179,15 @@ function moveDodgerRight() {
    * This function should move DODGER to the right
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
+   var positionStr = DODGER.style.left.replace('px', '')
+ var currPos = parseInt(positionStr, 10)
+ if (currPos >= 360  ) {
+   DODGER.style.left = `${360}px`
+ } else {
+
+ DODGER.style.left = `${currPos += 4}px`
+
+  }
 }
 
 /**
