@@ -115,38 +115,28 @@ if (e.which === LEFT_ARROW)
 {moveDodgerLeft()}
 if (e.which === RIGHT_ARROW)
 {moveDodgerRight()}
-/*
-   * This function should call `moveDodgerLeft()`
-   * if the left arrow is pressed and `moveDodgerRight()`
-   * if the right arrow is pressed. (Check the constants
-   * we've declared for you above.)
-   * And be sure to use the functions declared below!
-   */
+
 }
 
 function moveDodgerLeft() {
-  DODGER.addEventListener('keydown',function(e)
-  {
-if (e.which === LEFT_ARROW)
-    {
-      var leftNumbers = dodger.style.left.replace( 'px',' ')
+window.requestAnimationFrame(function(){
+      var leftNumbers = dodger.style.left.replace( 'px','')
       var left= parseInt(leftNumbers,10)
-      DODGER.style.left =`$(left-4)px`
-    }
-  })
-}
+if(left>0)
+      {DODGER.style.left =`$(left-4)px`}
+
+})}
 
 function moveDodgerRight() {
-  DODGER.addEventListener('keydown',function(e)
-  {
-if (e.which === RIGHT_ARROW)
-    {
-      var leftNumbers = DODGER.style.left.replace( 'px',' ')
+window.requestAnimationFrame(function() {
+      var leftNumbers = DODGER.style.left.replace( 'px','')
       var left= parseInt(leftNumbers,10)
-      DODGER.style.left =`$(left+4)px`
-    }
-  })
-}
+if (left <360)
+      {DODGER.style.left =`$(left+4)px`}
+
+})}
+
+
 
 /**
  * @param {string} p The position property
