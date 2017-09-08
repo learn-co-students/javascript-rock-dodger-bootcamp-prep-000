@@ -17,26 +17,27 @@ var gameInterval = null
  * but all of your work should happen below.
  */
 
-function checkCollision(rock) {
+function checkCollision(el) {
 
-  const top = positionToInteger(rock.style.top)
+  const top2 = positionToInteger(el.style.top)
 
 
-  if (top > 360) {
+  if (top2 > 360) {
     const dodgerLeftEdge = positionToInteger(DODGER.style.left)
-    const dodgerRightEdge = positionToIntger(DODGER.style.left)+40
-    const rockLeftEdge = positionToInteger(rock.style.left)
-    const rockRightEdge = positionToInteger(rock.style.left)+20;
+    const dodgerRightEdge = positionToInteger(DODGER.style.left)+40
+    const rockLeftEdge = positionToInteger(el.style.left)
+    const rockRightEdge = positionToInteger(el.style.left)+20
 
     if (
-      ((rockLeftEdge < dodgerLeftEdge) && (rockRightEdge > dodgerLeftEdge))
+      ((rockLeftEdge < dodgerLeftEdge) && (rockRightEdge >= dodgerLeftEdge))
       ||
-      ((rockLeftEdge > dodgerLeftEdge) && (rockRightEdge < dodgerRightEdge))
+      ((rockLeftEdge >= dodgerLeftEdge) && (rockRightEdge <= dodgerRightEdge))
       ||
-      ((rockLeftEdge < dodgerRightEdge) && (rockRightEdge > dodgerRightEdge))
+      ((rockLeftEdge <= dodgerRightEdge) && (rockRightEdge > dodgerRightEdge))
     )
-      {endGame()}
-      return false
+      {
+      return true}
+return false
     }
   return false}
 
@@ -50,19 +51,31 @@ function createRock(x) {
   var top = 0
 
   rock.style.top = top
-
+  GAME.appendChild(rock)
 
   function moveRock() {
 
 
-      function step() {
         rock.style.top = `${top += 2}px`
 
-        if (top < 400) {
-          window.requestAnimationFrame(step)
+        if (top < GAME_HEIGHT) {
+          if (checkCollision(rock) === false) {
+          window.requestAnimationFrame(moveRock)}
+          if (checkCollision(rock)===true)
+          {endGame()}
+        } else {
+            rock.remove()
         }
-      window.requestAnimationFrame(step)
-    }
+
+        //{GAME.removeChild(rock)}
+  }
+
+window.requestAnimationFrame(moveRock)
+
+
+
+
+
 
     // implement me!
     // (use the comments below to guide you!)
@@ -80,15 +93,14 @@ function createRock(x) {
      * But if the rock *has* reached the bottom of the GAME,
      * we should remove the rock from the DOM
      */
-  }
+
 
   // We should kick of the animation of the rock around here
 
-  // Add the rock to ROCKS so that we can remove all rocks
-  // when there's a collision
+
   ROCKS.push(rock)
 
-  // Finally, return the rock element you've created
+
   return rock
 }
 
@@ -100,14 +112,23 @@ function createRock(x) {
  */
 function endGame() {
   clearInterval(gameInterval);
-  alert("YOU LOSE!")
+var numberOfRocks=ROCKS.length
+for (i=0;i<numberOfRocks;i++)
+{ROCKS[i].remove()}
+window.removeEventListener('keydown', moveDodger)
+  return alert("YOU LOSE!")
+
 }
 
 function moveDodger(e) {
 if (e.which === LEFT_ARROW)
-{moveDodgerLeft()}
+{moveDodgerLeft()
+e.preventDefault()
+e.stopPropagation()
+}
 if (e.which === RIGHT_ARROW)
-{moveDodgerRight()}
+{moveDodgerRight()
+e.preventDefault()}
 
 }
 
@@ -146,5 +167,5 @@ function start() {
 
   gameInterval = setInterval(function() {
     createRock(Math.floor(Math.random() *  (GAME_WIDTH - 20)))
-  }, 1000)
+  }, 5000)
 }
