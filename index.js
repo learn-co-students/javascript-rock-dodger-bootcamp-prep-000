@@ -62,8 +62,7 @@ function createRock(x) {
 
   // Hmmm, why would we have used `var` here?
   var top = 0
-
-  rock.style.top = top
+  rock.style.top = top;
 
   /**
    * Now that we have a rock, we'll need to append
@@ -79,7 +78,7 @@ function createRock(x) {
     // implement me!
     // (use the comments below to guide you!)
 
-    top += 2;
+    rock.style.top = `${top += 2}px`;
 
     /**
      * If a rock collides with the DODGER,
@@ -92,15 +91,14 @@ function createRock(x) {
      * the GAME, we want to move it again.
      */
      if(top < 380){
-       rock.style.top = top;
-       moveRock();
+       window.requestAnimationFrame(moveRock);
      }
 
     /**
      * But if the rock *has* reached the bottom of the GAME,
      * we should remove the rock from the DOM
      */
-     else rock.parentNode.removeChild(rock);
+     else rock.remove();
   }
 
   // We should kick of the animation of the rock around here
@@ -131,6 +129,7 @@ function endGame() {
   window.removeEventListener('keydown', moveDodger);
 
   alert("YOU LOSE!");
+  location.reload();
 }
 
 function moveDodger(e) {
@@ -193,5 +192,5 @@ function start() {
 
   gameInterval = setInterval(function() {
     createRock(Math.floor(Math.random() *  (GAME_WIDTH - 20)))
-  }, 1000)
+  }, 1000);
 }
