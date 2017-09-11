@@ -162,16 +162,17 @@ function moveDodger(e) {
    * we've declared for you above.)
    * And be sure to use the functions declared below!
    */
-   if ([LEFT_ARROW, RIGHT_ARROW].indexOf(e.which) > -1) {
-       e.preventDefault()
-       e.stopPropagation()
-     }
+
 
 if (e.which == "37") {
+  e.preventDefault()
+  e.stopPropagation()
 	moveDodgerLeft();
 }
 
 else if (e.which == "39") {
+  e.preventDefault()
+  e.stopPropagation()
 	moveDodgerRight();
 }
 }
