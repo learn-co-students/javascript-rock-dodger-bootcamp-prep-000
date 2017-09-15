@@ -1,6 +1,3 @@
-/**
- * Don't change these constants!
- */
 const DODGER = document.getElementById('dodger')
 const GAME = document.getElementById('game')
 const GAME_HEIGHT = 400
@@ -15,41 +12,19 @@ var gameInterval = null
 function checkCollision(rock) {
   const top = positionToInteger(rock.style.top)
 
-  // rocks are 20px high
-  // DODGER is 20px high
-  // GAME_HEIGHT - 20 - 20 = 360px;
   if (top > 360) {
     const dodgerLeftEdge = positionToInteger(DODGER.style.left)
-
-    // FIXME: The DODGER is 40 pixels wide -- how do we get the right edge?
-    const dodgerRightEdge = dodgerLeftEdge + 40; // if dodgerLeftEdge = 0, dodgerRightEdge = dodger.clientWidth = 40
-
+    const dodgerRightEdge = dodgerLeftEdge + 40;
     const rockLeftEdge = positionToInteger(rock.style.left)
-
-    // FIXME: The rock is 20 pixel's wide -- how do we get the right edge?
     const rockRightEdge = rockLeftEdge + 20;
 
     if (
       rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge
       || rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge
       || rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge
-
-      // rockLeftEdge < dodgerLeftEdge && rockRightEdge > dodgerLeftEdge
-      // || rockLeftEdge > dodgerLeftEdge && rockRightEdge < dodgerRightEdge
-      // || rockLeftEdge < dodgerRightEdge && rockRightEdge > dodgerRightEdge
     ) {
-              /**
-               * Think about it -- what's happening here?
-               * There's been a collision if one of three things is true:
-               * 1. The rock's left edge is < the DODGER's left edge,
-               *    and the rock's right edge is > the DODGER's left edge;
-               * 2. The rock's left edge is > the DODGER's left edge,
-               *    and the rock's right edge is < the DODGER's right edge;
-               * 3. The rock's left edge is < the DODGER's right edge,
-               *    and the rock's right edge is > the DODGER's right edge
-               */
-               // Airbnb style guide on multi-line if statements:
-               // https://github.com/airbnb/javascript/issues/1380
+       // Airbnb style guide on multi-line if statements:
+       // https://github.com/airbnb/javascript/issues/1380
       return true
     }
   }
@@ -67,7 +42,7 @@ function createRock(x) {
   GAME.appendChild(rock) // TODO: Pull request? GAME.prepend(rock) throws error in testing: "GAME.prepend is not a function" but ParentNode.prepend is a property on GAME, and GAME.prepend(rock) runs error free in console (prepend inserts Node before first child, while appendChild inserts Node at end of list of child Nodes). The .prepend() return value is undefined, while .appendChild() return value is the appended child Node. Is this why test fails?).
 
   function moveRock() {
-    rock.style.top = `${top += 2}px`; // top += 2 increments top and also returns the incrementer value, (value on right side of operator)
+    rock.style.top = `${top += 2}px`; // top += 2 increments top and also returns the incremented value, (value on right side of operator)
 
     if ( checkCollision(rock) ) {
       endGame();
@@ -145,7 +120,7 @@ function moveDodgerRight() {
   function stepRight() {
 
     if ( leftNumber < GAME_WIDTH - 40 ) {
-      DODGER.style.left = `${leftNumber += 4}px`; // increment position number and return decremented value into string '${/\d+/}px'
+      DODGER.style.left = `${leftNumber += 4}px`; // increment position number and return incremented value into string '${/\d+/}px'
       window.requestAnimationFrame(stepRight)
     }
   }
@@ -158,7 +133,7 @@ function moveDodgerRight() {
  * @returns {number} The position as an integer (without 'px')
  */
 function positionToInteger(p) {
-  return parseInt(p.split('px')[0]) || 0 // split string at 'px' returns array, pull left side of split out of array (only two elements since only one 'px')
+  return parseInt(p.split('px')[0]) || 0 // split string at 'px' which returns array, pull left side of split out of array (only two elements since only one 'px')
 }
 
 function start() {
