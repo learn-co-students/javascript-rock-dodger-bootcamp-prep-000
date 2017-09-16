@@ -78,25 +78,21 @@ function createRock(x) {
      if (top < 360) {
        window.requestAnimationFrame(moveRock);
      }
-
-    //  function step() {
-    //    rock.style.top = `${top += 2}px`;
-     //
-    //    if (top < 360) {
-    //      window.requestAnimationFrame(step);
-    //    }
-    //  }
+     //moveRock();
 
     /**
      * Otherwise, if the rock hasn't reached the bottom of
      * the GAME, we want to move it again.
      */
-    //  window.requestAnimationFrame(moveRock);
+
     /**
      * But if the rock *has* reached the bottom of the GAME,
      * we should remove the rock from the DOM
      */
-     rock.remove();
+     if (top === 380) {
+       rock.remove();
+     }
+
   }
 
   // We should kick of the animation of the rock around here
@@ -131,59 +127,42 @@ function moveDodger(e) {
    * we've declared for you above.)
    * And be sure to use the functions declared below!
    */
-   if (e.keyCode === RIGHT_ARROW) {
-     e.preventDefault();
-     e.stopPropagation()
-     e.moveDodgerRight();
-   } else if (e.keyCode === LEFT_ARROW) {
+   if (e.which === RIGHT_ARROW) {
      e.preventDefault();
      e.stopPropagation();
-     e.moveDodgerLeft();
-   } else {
+     moveDodgerRight();
+   } else if (e.which === LEFT_ARROW) {
+     e.preventDefault();
+     e.stopPropagation();
+     moveDodgerLeft();
+   } else  if ((e.which !== RIGHT_ARROW) && (e.which !== LEFT_ARROW)){
      return;
    }
 }
 
 function moveDodgerLeft() {
-  // implement me!
   /**
    * This function should move DODGER to the left
-   * (mabye 4 pixels?). Use window.requestAnimationFrame()!
+   * (mabye 4 pixels?). Use window.requestAnimationFrame()!---?????????
    */
    var leftNumber = DODGER.style.left.replace('px', '');
    var left = parseInt(leftNumber, 10);
-
-   function step() {
+   if (left > 0) {
      DODGER.style.left = `${left - 4}px`;
-
-     if (left > 0) {
-       window.requestAnimationFrame(step);
-     } else {
-       return;
-     }
    }
-   //window.requestAnimationFrame(step);
 }
 
 function moveDodgerRight() {
-  // implement me!
   /**
    * This function should move DODGER to the right
-   * (mabye 4 pixels?). Use window.requestAnimationFrame()!
+   * (mabye 4 pixels?). Use window.requestAnimationFrame()!---?????????
    */
    var rightNumber = DODGER.style.left.replace('px', '');
    var right = parseInt(rightNumber, 10);
 
-   function step() {
+   if (right < 360) {
      DODGER.style.left = `${right + 4}px`;
-
-     if (right < 360) {
-       window.requestAnimationFrame(step);
-     } else {
-       return;
-     }
    }
-   //window.requestAnimationFrame(step);
 }
 
 /**
@@ -195,9 +174,9 @@ function positionToInteger(p) {
 }
 
 function start() {
-  window.addEventListener('keydown', moveDodger)
+  window.addEventListener('keydown', moveDodger);
 
-  START.style.display = 'none'
+  START.style.display = 'none';
 
   gameInterval = setInterval(function() {
     createRock(Math.floor(Math.random() *  (GAME_WIDTH - 20)))
