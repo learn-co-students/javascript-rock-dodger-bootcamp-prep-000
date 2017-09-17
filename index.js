@@ -96,8 +96,9 @@ function createRock(x) {
      * we should call endGame()
      */
      if(checkCollision(rock) === true){
-       return endGame();
        rock.remove()
+       return endGame();
+
      }
     /**
      * Otherwise, if the rock hasn't reached the bottom of
@@ -105,10 +106,10 @@ function createRock(x) {
      */
 
      ///////My addition
-     if(top < GAME_WIDTH){
+     if(top < GAME_HEIGHT){
        window.requestAnimationFrame(moveRock)
      }else{
-       window.requestAnimationFrame(moveRock)
+       rock.remove()
      }
     /**
      * But if the rock *has* reached the bottom of the GAME,
@@ -135,7 +136,6 @@ function createRock(x) {
 function endGame() {
   clearInterval(gameInterval);
   alert("YOU LOSE!");
-  ROCKS = []
 }
 
 function moveDodger(e) {
@@ -155,24 +155,31 @@ function moveDodger(e) {
    }
 }
 function moveDodgerLeft() {
-  var leftNumbers = dodger.style.left.replace('px', '')
-  var left = parseInt(leftNumbers, 10)
-  if(left > 0){
-    dodger.style.left = `${left - 4}px`
-}
+  var left = positionToInteger(DODGER.style.left)
+  DODGER.style.left = `${left - 4}px`;
+  if(left > 0+4){
+    window.requestAnimationFrame(moveDodgerLeft)
+  }
+//   if(left > 0){
+//     window.requestAnimationFrame(moveDodger);
+// }
   // implement me!
   /**
    * This function should move DODGER to the left
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
+
 }
 
 function moveDodgerRight() {
-  var leftNumbers = dodger.style.left.replace('px', '')
-  var left = parseInt(leftNumbers, 10)
-  if(left < GAME_WIDTH){
-    dodger.style.left = `${left + 4}px`
+  var left = positionToInteger(DODGER.style.left)
+  DODGER.style.left = `${left + 4}px`;
+  if(left < GAME_WIDTH-44){
+    window.requestAnimationFrame(moveDodgerRight)
   }
+  // if(right < GAME_WIDTH){
+  //   window.requestAnimationFrame(moveDodger)
+  // }
   // implement me!
   /**
    * This function should move DODGER to the right
