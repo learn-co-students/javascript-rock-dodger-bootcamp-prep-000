@@ -100,8 +100,7 @@ function createRock(x) {
          if (top < GAME_HEIGHT) {
            window.requestAnimationFrame(step)
          } else {
-           document.getElementsByClassName('rock').GAME.removeChild(getElementsByClassName('rock'))
-           document.getElementById('info').innerHTML = `${ROCKS.length}`
+           rock.remove()
          }
        }
      }
@@ -173,10 +172,9 @@ function createRock(x) {
 
 function endGame() {
   clearInterval(gameInterval)
-  while (ROCKS.length > 0) {
 
-  }
-//  $('.rock').remove() //the test is asking for the jQuery version
+  ROCKS.forEach(function(rock) { rock.remove() })
+
   window.removeEventListener('keydown', moveDodger)
   alert('YOU LOSE!')
 }
