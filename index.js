@@ -42,8 +42,7 @@ function createRock(x) {
   GAME.appendChild(rock) // TODO: Pull request? GAME.prepend(rock) throws error in testing: "GAME.prepend is not a function" but ParentNode.prepend is a property on GAME, and GAME.prepend(rock) runs error free in console (prepend inserts Node before first child, while appendChild inserts Node at end of list of child Nodes). The .prepend() return value is undefined, while .appendChild() return value is the appended child Node. Is this why test fails?).
 
   function moveRock() {
-    rock.style.top = `${top += 2}px`; // top += 2 increments top and also returns the incremented value, (value on right side of operator)
-
+    rock.style.top = `${top += 2}px`; // top += 2 increments top and also returns the incremented value
     if ( checkCollision(rock) ) {
       endGame();
     } else if ( top < 380 ) {
