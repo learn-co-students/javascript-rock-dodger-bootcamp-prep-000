@@ -76,23 +76,35 @@ function createRock(x) {
   function moveRock() {
     // implement me!
     // (use the comments below to guide you!)
+    rock.style.top = `${top += 1}px`;
+
     /**
      * If a rock collides with the DODGER,
      * we should call endGame()
      */
+     if (checkCollision(rock)) {
+         endGame();
+     }
 
     /**
      * Otherwise, if the rock hasn't reached the bottom of
      * the GAME, we want to move it again.
      */
+     if (top < 400) {
+         window.requestAnimationFrame(moveRock);
+     }
 
     /**
      * But if the rock *has* reached the bottom of the GAME,
      * we should remove the rock from the DOM
      */
+     if (top > 400) {
+         GAME.removeChild(rock);
+     }
   }
 
   // We should kick off the animation of the rock around here
+  window.requestAnimationFrame(moveRock);
 
   // Add the rock to ROCKS so that we can remove all rocks
   // when there's a collision
@@ -139,8 +151,13 @@ function moveDodgerLeft() {
    */
    var leftNumber = DODGER.style.left.replace('px', '');
    var left = parseInt(leftNumber, 10);
-   if (left > 0) {
 
+   function moveLeft() {
+       DODGER.style.left = `${left -= 5}px`;
+   }
+
+   if (left > 0) {
+       requestAnimationFrame(moveLeft);
    }
 }
 
@@ -152,8 +169,13 @@ function moveDodgerRight() {
    */
    var leftNumber = DODGER.style.left.replace('px', '');
    var left = parseInt(leftNumber, 10);
-   if ((left + 40) < 400) {
 
+   function moveRight() {
+       DODGER.style.left = `${left += 5}px`;
+   }
+
+   if ((left + 40) < 400) {
+       requestAnimationFrame(moveRight);
    }
 }
 
