@@ -92,14 +92,15 @@ function createRock(x) {
      */
      if (rock.style.bottom!=0){
        rock.style.bottom += 2
-       moveRock()
+       //moveRock()
+       window.requestAnimationFrame(moveRock)
      } else{
-<<<<<<< HEAD
+//<<<<<<< HEAD
        //document.removeChild(rock)
        GAME.removeChild(rock)
-=======
-       document.removeChild(rock)
->>>>>>> 6b0fee4a9d66781a0fb0cfb8386d0be06dcb4949
+//=======
+       //document.removeChild(rock)
+//>>>>>>> 6b0fee4a9d66781a0fb0cfb8386d0be06dcb4949
      }
 
     /**
@@ -109,12 +110,12 @@ function createRock(x) {
   }
 
   // We should kick of the animation of the rock around here
-<<<<<<< HEAD
-  window.requestAnimationFrame(moveRock)
-=======
-  window.requestAnimationFrame()
->>>>>>> 6b0fee4a9d66781a0fb0cfb8386d0be06dcb4949
+//<<<<<<< HEAD
   //window.requestAnimationFrame(moveRock)
+//=======
+  //window.requestAnimationFrame()
+//>>>>>>> 6b0fee4a9d66781a0fb0cfb8386d0be06dcb4949
+  window.requestAnimationFrame(moveRock)
 
   // Add the rock to ROCKS so that we can remove all rocks
   // when there's a collision
@@ -131,7 +132,7 @@ function createRock(x) {
  * Finally, alert "YOU LOSE!" to the player.
  */
 function endGame() {
-<<<<<<< HEAD
+//<<<<<<< HEAD
   //gameInterval = null
   clearInterval(gameInterval)
   for (var i=0;i<ROCKS.length;i++){
@@ -140,15 +141,15 @@ function endGame() {
     ROCKS[i].remove()
   }
   //ROCKS=[]
-  ROCKS.length=0
-=======
-  gameInterval = null
-  for (var i=0;i<ROCKS.length;i++){
-    document.removeChild(ROCKS[i])
-  }
->>>>>>> 6b0fee4a9d66781a0fb0cfb8386d0be06dcb4949
+  //ROCKS.length=0
+//=======
+  //gameInterval = null
+  //for (var i=0;i<ROCKS.length;i++){
+  //  document.removeChild(ROCKS[i])
+//  }
+//>>>>>>> 6b0fee4a9d66781a0fb0cfb8386d0be06dcb4949
   window.removeEventListener('keydown',moveDodger)
-  alert("YOU LOSE!")
+  return alert("YOU LOSE!")
 }
 
 function moveDodger(e) {
@@ -161,16 +162,17 @@ function moveDodger(e) {
    * And be sure to use the functions declared below!
    */
    if (e.which==LEFT_ARROW) {
-<<<<<<< HEAD
+//<<<<<<< HEAD
      e.preventDefault()
      e.stopPropagation()
      moveDodgerLeft()
    } else if (e.which==RIGHT_ARROW){
      e.preventDefault()
-=======
-     moveDodgerLeft()
-   } else if (e.which==RIGHT_ARROW){
->>>>>>> 6b0fee4a9d66781a0fb0cfb8386d0be06dcb4949
+     e.stopPropagation()
+//=======
+     //moveDodgerLeft()
+   //} else if (e.which==RIGHT_ARROW){
+//>>>>>>> 6b0fee4a9d66781a0fb0cfb8386d0be06dcb4949
      moveDodgerRight()
    }
 }
@@ -181,24 +183,29 @@ function moveDodgerLeft() {
    * This function should move DODGER to the left
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
-<<<<<<< HEAD
+//<<<<<<< HEAD
    //window.requestAnimationFrame(DODGER.style.left-=4)
    //var amt = 0
-   var amt = 0
+   //var amt = 0
    var left = positionToInteger(DODGER.style.left)
-   function step(){
-     DODGER.style.left = `${left-=1}px`
-     amt++
-     if (amt<4) {
-       window.requestAnimationFrame(step)
-     }
-   }
-   if (left != 0) {
-     window.requestAnimationFrame(step)
-   }
-=======
-   window.requestAnimationFrame(DODGER.style.left-=4)
->>>>>>> 6b0fee4a9d66781a0fb0cfb8386d0be06dcb4949
+   //function step(){
+    // DODGER.style.left = `${left-=1}px`
+     //amt++
+     //if (amt<4) {
+      // window.requestAnimationFrame(step)
+    // }
+   //}
+   //if (left != 0) {
+    // window.requestAnimationFrame(step)
+   //}
+//=======
+   //window.requestAnimationFrame(DODGER.style.left-=4)
+//>>>>>>> 6b0fee4a9d66781a0fb0cfb8386d0be06dcb4949
+    if (left!=0) {
+      window.requestAnimationFrame(function(){
+        DODGER.style.left = `${left-=4}px`
+      })
+  }
 }
 
 function moveDodgerRight() {
@@ -207,24 +214,30 @@ function moveDodgerRight() {
    * This function should move DODGER to the right
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
-<<<<<<< HEAD
+//<<<<<<< HEAD
    //window.requestAnimationFrame(DODGER.style.right+=4)
    //window.requestAnimationFrame()
-   var amt = 0
+   //var amt = 0
    var left = positionToInteger(DODGER.style.left)
-   function step(){
-     DODGER.style.left = `${left+=1}px`
-     amt++
-     if (amt<4) {
-       window.requestAnimationFrame(step)
-     }
-   }
-   if (left != 360) {
-     window.requestAnimationFrame(step)
-   }
-=======
-   window.requestAnimationFrame(DODGER.style.right+=4)
->>>>>>> 6b0fee4a9d66781a0fb0cfb8386d0be06dcb4949
+   //var right = positionToInteger(DODGER.style.right)
+   if (left+8<360) {
+   window.requestAnimationFrame(function(){
+     DODGER.style.left = `${left+=4}px`
+   })
+ }
+   //function step(){
+     //DODGER.style.left = `${left+=1}px`
+     //amt++
+     //if (amt<4) {
+       //window.requestAnimationFrame(step)
+     //}
+   //}
+   //if (left != 360) {
+     //window.requestAnimationFrame(step)
+   //}
+//=======
+   //window.requestAnimationFrame(DODGER.style.right+=4)
+//>>>>>>> 6b0fee4a9d66781a0fb0cfb8386d0be06dcb4949
 }
 
 /**
