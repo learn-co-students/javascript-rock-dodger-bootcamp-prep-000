@@ -36,14 +36,12 @@ function checkCollision(rock) {
     // FIXME: The rock is 20 pixel's wide -- how do we get the right edge?
     const rockRightEdge = rockLeftEdge + 20;
 
-    if ((rockLeftEdge < dodgerLeftEdge && rockRightEdge > dodgerLeftEdge) ||
-                  (rockLeftEdge >= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge) ||
+    return ((rockLeftEdge < dodgerLeftEdge && rockRightEdge > dodgerLeftEdge) ||
+                  (rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge) ||
                   (rockLeftEdge < dodgerRightEdge && rockRightEdge > dodgerRightEdge))
-                  {
-      return true;
     }
   }
-}
+
 
 function createRock(x) {
   const rock = document.createElement('div');
@@ -74,11 +72,10 @@ function createRock(x) {
      * we should call endGame()
      */
      if (checkCollision(rock)) {
-       endGame();
+       return endGame();
      }
 
-    //  if (top < 400) {
-     if (top <= 360) {
+     if (top < 400) {
 
        window.requestAnimationFrame(moveRock);
      } else {
@@ -119,7 +116,7 @@ for (var i = 0; i < ROCKS.length; i++) {
   ROCKS[i].remove();
 }
 window.removeEventListener('keydown', moveDodger);
-alert ("YOU LOSE!");
+return alert ("YOU LOSE!");
 }
 
 function moveDodger(e) {
