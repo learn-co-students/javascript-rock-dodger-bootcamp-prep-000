@@ -109,7 +109,7 @@ function moveRock() {
 
   // Finally, return the rock element you've created
   return rock
-}
+} // end of createRock
 
 /**
  * End the game by clearing `gameInterval`,
@@ -127,6 +127,16 @@ function moveRock() {
  }
 
 function moveDodger(e) {
+  if (e.which === LEFT_ARROW) {
+      e.preventDefault()
+      e.stopPropagation()
+      moveDodgerLeft()
+  }
+  else if (e.which === RIGHT_ARROW) {
+      e.preventDefault()
+      e.stopPropagation()
+      moveDodgerRight()
+  }
   // implement me!
   /**
    * This function should call `moveDodgerLeft()`
@@ -135,7 +145,7 @@ function moveDodger(e) {
    * we've declared for you above.)
    * And be sure to use the functions declared below!
    */
-}
+ }
 
 function moveDodgerLeft() {
   // implement me!
