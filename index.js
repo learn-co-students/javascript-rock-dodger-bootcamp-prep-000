@@ -16,7 +16,8 @@ var gameInterval = null
  * Be aware of what's above this line,
  * but all of your work should happen below.
  */
-
+var left = 180;
+var set = 0;
 function checkCollision(rock) {
   // implement me!
   // use the comments below to guide you!
@@ -110,7 +111,7 @@ function createRock(x) {
 function endGame() {
 }
 
-function moveDodger(e) {
+function moveDodger(key) {
   // implement me!
   /**
    * This function should call `moveDodgerLeft()`
@@ -119,23 +120,49 @@ function moveDodger(e) {
    * we've declared for you above.)
    * And be sure to use the functions declared below!
    */
+
+  if(key.which === LEFT_ARROW){
+    set = 1;
+    moveDodgerLeft();
+  }
+  else if(key.which === RIGHT_ARROW){
+    set = 1;
+    moveDodgerRight();
+  }
 }
 
 function moveDodgerLeft() {
+
   // implement me!
   /**
    * This function should move DODGER to the left
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
-}
 
+     if (left >= 0){
+       DODGER.style.left=`${left}px`;
+       left = left - 4;
+       if (set === 1){
+       window.requestAnimationFrame(moveDodgerLeft)
+     }
+ }
+ }
 function moveDodgerRight() {
   // implement me!
   /**
    * This function should move DODGER to the right
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
+
+   if (left <= 360){
+     DODGER.style.left=`${left}px`;
+    left = left + 4;
+    if (set === 1){
+    window.requestAnimationFrame(moveDodgerRight)
+   }
 }
+}
+
 
 /**
  * @param {string} p The position property
@@ -146,10 +173,13 @@ function positionToInteger(p) {
 }
 
 function start() {
-  window.addEventListener('keydown', moveDodger)
-
+  if (set === 0){
+    window.addEventListener('keydown', moveDodger)
+}
+window.addEventListener('keyup', function(){
+  set = 0;
+})
   START.style.display = 'none'
-
   gameInterval = setInterval(function() {
     createRock(Math.floor(Math.random() *  (GAME_WIDTH - 20)))
   }, 1000)
