@@ -112,8 +112,10 @@ function createRock(x) {
 function endGame() {
   alert("YOU LOSE!")
   var a = document.getElementsByClassName('rock')
-  for(var i = 0; i < a.length; i++) {
-    a[i].parentNode.removeChild(a[i])
+
+  //Every time an element is removed, a new element becomes the first element
+  while(a[0]) {
+    a[0].parentNode.removeChild(a[0])
   }
 }
 
