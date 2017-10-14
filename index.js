@@ -25,7 +25,7 @@ function checkCollision(rock) {
   // rocks are 20px high
   // DODGER is 20px high
   // GAME_HEIGHT - 20 - 20 = 360px;
-  if (top < 400) {
+  if (top > 360) {
     const dodgerLeftEdge = positionToInteger(DODGER.style.left)
 
     // FIXME: The DODGER is 40 pixels wide -- how do we get the right edge?
@@ -68,6 +68,7 @@ function createRock(x) {
    * Now that we have a rock, we'll need to append
    * it to GAME and move it downwards.
    */
+   GAME.appendChild(rock)
 
 
 
@@ -82,25 +83,34 @@ function createRock(x) {
      * If a rock collides with the DODGER,
      * we should call endGame()
      */
-     if (checkCollision(true)) {
-       endGame()
+    //  debugger
+     rock.style.top = `${top += 2}px`
+
+     if (checkCollision(rock)) {
+       return endGame()
      }
 
     /**
      * Otherwise, if the rock hasn't reached the bottom of
      * the GAME, we want to move it again.
      */
-     else {
-       rock.style.top += 2
+     if ( top < 400) {
+       window.requestAnimationFrame(moveRock)
+
+       /**var topNumbers = dodger.style.top.replace('px', '')**/
+       /**var top = parseInt(topNumbers, 10)**/
+
+      //  rock.style.top = `${top += 2}px`
+      //  debugger
      }
 
     /**
      * But if the rock *has* reached the bottom of the GAME,
      * we should remove the rock from the DOM
      */
-     if (rock.style.top === 20) {
+     /**if (rock.style.top === 20) {
 
-     }
+     }**/
   }
 
   // We should kick of the animation of the rock around here
@@ -120,14 +130,13 @@ function createRock(x) {
  * and removing the `moveDodger` event listener.
  * Finally, alert "YOU LOSE!" to the player.
  */
-function endGame(ROCKS) {
+function endGame() {
   window.removeEventListener("keydown", moveDodger)
   window.clearInterval()
 
-  var length = ROCKS.length
-  for (let i = 0; i < length; i++) {
-    ROCKS.remove(0)
-  }
+  ROCKS.forEach(function(element) {
+    element.remove()
+  })
 
   alert('YOU LOSE!')
 }
