@@ -75,10 +75,10 @@ function createRock(x) {
        endGame()
      } else {
        let distFromTop = positionToInteger(rock.style.top)
-       if ((distFromTop + ROCK_HEIGHT) > GAME_HEIGHT) {
+       if ((distFromTop - ROCK_HEIGHT) > GAME_HEIGHT) {
          rock.remove()
        } else {
-         setTimeout(100, function() {
+         window.requestAnimationFrame(function() {
            rock.style.top = `${distFromTop + ROCK_SPEED}px`
            moveRock()
          })
