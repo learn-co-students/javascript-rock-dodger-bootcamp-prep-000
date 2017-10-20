@@ -60,7 +60,9 @@ function checkCollision(rock) {
 */
       return true
     }
-  } else {return false}
+  } else {
+    return false
+  }
 }
 
 function createRock(x) {
@@ -92,29 +94,31 @@ function createRock(x) {
      * If a rock collides with the DODGER,
      * we should call endGame()
      */
-     if (checkCollision) {
+     if (rock.style.top < 360) {
+       var rocktop = positionToInteger(rock.style.top)
+       rock.style.top = `${rocktop + 2}px`
+       window.requestAnimationFrame(moveRock)
+     }
+     if (checkCollision(rock)) {
        endGame()
      }
     /**
      * Otherwise, if the rock hasn't reached the bottom of
      * the GAME, we want to move it again.
      */
-     if (rock.style.top < 360) {
-       var rocktop = positionToInteger(rock.style.top)
-       rock.style.top = `${rocktop + 2}px`
-     }
+
 
     /**
      * But if the rock *has* reached the bottom of the GAME,
      * we should remove the rock from the DOM
      */
      if (rock.style.top >= 360) {
-       delete rock
+       document.getElementById(`game`).removeChild(rock)
      }
   }
 
   // We should kick of the animation of the rock around here
-  window.requestAnimationFrame(moveRock())
+  window.requestAnimationFrame(moveRock)
   // Add the rock to ROCKS so that we can remove all rocks
   // when there's a collision
   ROCKS.push(rock)
@@ -130,10 +134,17 @@ function createRock(x) {
  * Finally, alert "YOU LOSE!" to the player.
  */
 function endGame() {
+    window.removeEventListener(`keydown`, moveDodger)
+    clearInterval(gameInterval)
+    alert("YOU LOSE!")
   //why cant doesn't ROCKS = [] work
-  ROCKS.length = 0
-  clearInterval(gameInterval)
-  window.removeEventListener(`keydown`, moveDodger)
+
+  //fuigure out how to gram the rocks class and delete themfromt eh dom
+  while (ROCKS.length) {
+    var game = document.getElementById(`game`)
+    game.removeChild(game.firstChild)
+    ROCKS.unshift()
+  }
 }
 
 function moveDodger(e) {
@@ -147,10 +158,12 @@ function moveDodger(e) {
    */
    if (e.which == LEFT_ARROW) {
      moveDodgerLeft()
+     //window.requestAnimationFrame(moveDodgerLeft)
    } else if (e.which == RIGHT_ARROW) {
      moveDodgerRight()
+     //window.requestAnimationFrame(moveDodgerRight)
    }
-   window.requestAnimationFrame(moveDodger)
+   //window.requestAnimationFrame(moveDodger)
 }
 
 function moveDodgerLeft() {
@@ -164,8 +177,8 @@ function moveDodgerLeft() {
 
    if (left > 0) {
      dodger.style.left = `${left - 4}px`
+     window.requestAnimationFrame(moveDodgerLeft)
    }
-  // window.requestAnimationFrame(moveDodger)
 }
 
 function moveDodgerRight() {
@@ -179,8 +192,8 @@ function moveDodgerRight() {
 
    if (left < 360) {
      dodger.style.left = `${left + 4}px`
+     window.requestAnimationFrame(moveDodgerRight)
    }
-  // window.requestAnimationFrame(moveDodger)
 }
 
 /**
