@@ -23,7 +23,9 @@ function checkCollision(rock) {
   const top = positionToInteger(rock.style.top)
 
   // rocks are 20px high
+  rock.style.top = '20px'
   // DODGER is 20px high
+  dodger.style.top = '20px'
   // GAME_HEIGHT - 20 - 20 = 360px;
   if (top > 360) {
     const dodgerLeftEdge = positionToInteger(DODGER.style.left)
@@ -119,6 +121,17 @@ function moveDodger(e) {
    * we've declared for you above.)
    * And be sure to use the functions declared below!
    */
+
+  document.addEventListener('keydown', function(e) {
+  if (e.which === LEFT_ARROW) {
+    moveDodgerLeft()
+  }
+  if (e.which === RIGHT_ARROW) {
+    moveDodgerRight()
+  }
+});
+
+
 }
 
 function moveDodgerLeft() {
@@ -127,6 +140,20 @@ function moveDodgerLeft() {
    * This function should move DODGER to the left
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
+
+var leftNumbers = dodger.style.left.replace('px', '')
+var left = parseInt(leftNumbers, 10)
+
+   function step() {
+     dodger.style.left = `${left -= 4}px`
+
+     if (left >= 0) {
+       window.requestAnimationFrame(step)
+     }
+   }
+
+   window.requestAnimationFrame(step)
+
 }
 
 function moveDodgerRight() {
@@ -135,6 +162,19 @@ function moveDodgerRight() {
    * This function should move DODGER to the right
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
+   var rightNumbers = dodger.style.left.replace('px', '')
+   var right = parseInt(rightNumbers, 10)
+
+      function step() {
+        dodger.style.right = `${right -= 4}px`
+
+        if (right >= 180) {
+          window.requestAnimationFrame(step)
+        }
+      }
+
+      window.requestAnimationFrame(step)
+
 }
 
 /**
