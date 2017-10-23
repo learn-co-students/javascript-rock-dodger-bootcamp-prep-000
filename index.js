@@ -50,14 +50,6 @@ function checkCollision(rock) {
                rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerLeftEdge ||
                rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge
              ) {
-/*               if (rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge) {
-                 return true
-               } if (rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerLeftEdge) {
-                return true
-              } if (rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge) {
-                return true
-               }
-*/
       return true
     }
   } else {
@@ -80,7 +72,6 @@ function createRock(x) {
    * Now that we have a rock, we'll need to append
    * it to GAME and move it downwards.
    */
-   //$(`#game`).append(`.rock`)  why don't i work?
    document.getElementById(`game`).appendChild(rock)
 
   /**
@@ -94,26 +85,26 @@ function createRock(x) {
      * If a rock collides with the DODGER,
      * we should call endGame()
      */
-     if (rock.style.top < 360) {
-       var rocktop = positionToInteger(rock.style.top)
+     var rocktop = positionToInteger(rock.style.top)
+     if (rocktop < 380) {
        rock.style.top = `${rocktop + 2}px`
-       window.requestAnimationFrame(moveRock)
      }
      if (checkCollision(rock)) {
        endGame()
+       return
      }
     /**
      * Otherwise, if the rock hasn't reached the bottom of
      * the GAME, we want to move it again.
      */
-
+     window.requestAnimationFrame(moveRock)
 
     /**
      * But if the rock *has* reached the bottom of the GAME,
      * we should remove the rock from the DOM
      */
-     if (rock.style.top >= 360) {
-       document.getElementById(`game`).removeChild(rock)
+     if (rocktop >= 380) {
+       rock.remove()
      }
   }
 
@@ -133,19 +124,18 @@ function createRock(x) {
  * and removing the `moveDodger` event listener.
  * Finally, alert "YOU LOSE!" to the player.
  */
-function endGame() {
-    window.removeEventListener(`keydown`, moveDodger)
-    clearInterval(gameInterval)
+ function endGame() {
+   clearInterval(gameInterval)
+   window.removeEventListener(`keydown`, moveDodger)
+   for (var i = 0; i < ROCKS.length; i++) {
+     ROCKS[i].remove()
+/*     if (i === ROCKS.length - 1) {
+     alert("YOU LOSE!")
+   }*/
+    }
     alert("YOU LOSE!")
-  //why cant doesn't ROCKS = [] work
-
-  //fuigure out how to gram the rocks class and delete themfromt eh dom
-  while (ROCKS.length) {
-    var game = document.getElementById(`game`)
-    game.removeChild(game.firstChild)
-    ROCKS.unshift()
-  }
-}
+    ROCKS.length = 0
+ }
 
 function moveDodger(e) {
   // implement me!
@@ -158,12 +148,13 @@ function moveDodger(e) {
    */
    if (e.which == LEFT_ARROW) {
      moveDodgerLeft()
-     //window.requestAnimationFrame(moveDodgerLeft)
+     e.preventDefault()
+     e.stopPropagation()
    } else if (e.which == RIGHT_ARROW) {
      moveDodgerRight()
-     //window.requestAnimationFrame(moveDodgerRight)
+     e.preventDefault()
+     e.stopPropagation()
    }
-   //window.requestAnimationFrame(moveDodger)
 }
 
 function moveDodgerLeft() {
