@@ -47,7 +47,7 @@ function checkCollision(rock) {
                *    and the rock's right edge is > the DODGER's right edge
                */
                rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge ||
-               rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerLeftEdge ||
+               rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge ||
                rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge
              ) {
       return true
@@ -86,10 +86,15 @@ function createRock(x) {
      * we should call endGame()
      */
      var rocktop = positionToInteger(rock.style.top)
-     if (rocktop < 380) {
+  //   if (rocktop === 398) {debugger}
+     if (rocktop < 400) {
        rock.style.top = `${rocktop + 2}px`
-     }
-     if (checkCollision(rock)) {
+       rocktop = rocktop + 2
+     } if (rocktop >= 400) {
+        rock.remove()
+        ROCKS.shift()
+        return
+    } else if (checkCollision(rock)) {
        endGame()
        return
      }
@@ -103,9 +108,7 @@ function createRock(x) {
      * But if the rock *has* reached the bottom of the GAME,
      * we should remove the rock from the DOM
      */
-     if (rocktop >= 380) {
-       rock.remove()
-     }
+
   }
 
   // We should kick of the animation of the rock around here
@@ -129,13 +132,12 @@ function createRock(x) {
    window.removeEventListener(`keydown`, moveDodger)
    for (var i = 0; i < ROCKS.length; i++) {
      ROCKS[i].remove()
-     debugger
 /*     if (i === ROCKS.length - 1) {
      alert("YOU LOSE!")
    }*/
     }
-    alert("YOU LOSE!")
     ROCKS.length = 0
+    alert("YOU LOSE!")
  }
 
 function moveDodger(e) {
