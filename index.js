@@ -50,6 +50,9 @@ function checkCollision(rock) {
                */ {
       return true
     }
+    else{
+      return false
+    }
   }
 }
 
@@ -82,27 +85,32 @@ function createRock(x) {
      * If a rock collides with the DODGER,
      * we should call endGame()
      */
-     rock.style.top = `${top += 2}px`
+    rock.style.top = `${top += 2}px`
+    if(START.style.display === 'initial'){
+      return
+    }
 
-      if(checkCollision(rock) === true){
-        endGame()
-      }
+    if(checkCollision(rock) === true){
+      endGame()
+    }
     /**
      * Otherwise, if the rock hasn't reached the bottom of
      * the GAME, we want to move it again.
      */
-     if(positionToInteger(rock.style.top) < 400){
-       window.requestAnimationFrame(moveRock)
-     }
+    else if(positionToInteger(rock.style.top) < 400){
+      window.requestAnimationFrame(moveRock)
+    }
     /**
      * But if the rock *has* reached the bottom of the GAME,
      * we should remove the rock from the DOM
      */
-     else{
-       rock.remove()
-       ROCKS.shift()
-     }
-  }
+    else{
+      rock.remove()
+      ROCKS.shift()
+      var count = document.getElementById('count')
+      count.innerHTML = parseInt(count.innerHTML) + 1
+    }
+ }
 
   // We should kick of the animation of the rock around here
   window.requestAnimationFrame(moveRock)
@@ -122,7 +130,6 @@ function createRock(x) {
  */
 function endGame() {
   clearInterval(gameInterval)
-  //var l = ROCKS.length
   var rockObjs = document.querySelectorAll(".rock")
   for(i=0;i<rockObjs.length;i++){
     rockObjs[i].remove()
@@ -130,6 +137,8 @@ function endGame() {
   }
   window.removeEventListener('keydown', moveDodger)
   alert("YOU LOSE!")
+  START.style.display = 'initial'
+  DODGER.style.left = '180px'
 }
 
 function moveDodger(e) {
@@ -195,6 +204,8 @@ function start() {
   window.addEventListener('keydown', moveDodger)
 
   START.style.display = 'none'
+  var count = document.getElementById('count')
+  count.innerHTML = 0
   gameInterval = setInterval(function() {
     createRock(Math.floor(Math.random() *  (GAME_WIDTH - 20)))
   }, 1000)

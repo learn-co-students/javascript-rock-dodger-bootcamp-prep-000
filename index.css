@@ -20,7 +20,11 @@
   font-size: 4rem;
   position: relative;
   text-decoration: none;
-  top: 4rem;
+}
+
+#count {
+  color: white;
+  font-size: 2rem;
 }
 
 .rock {
