@@ -128,9 +128,6 @@ function endGame() {
     rockObjs[i].remove()
     ROCKS.shift()
   }
-  // while(ROCKS !== []){
-  //   ROCKS.shift()
-  // }
   window.removeEventListener('keydown', moveDodger)
   alert("YOU LOSE!")
 }
