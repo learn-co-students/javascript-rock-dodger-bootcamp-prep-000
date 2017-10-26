@@ -3,6 +3,7 @@
   height: 20px;
   position: absolute;
   width: 40px;
+  transition: 0.2s;
 }
 
 #game {
