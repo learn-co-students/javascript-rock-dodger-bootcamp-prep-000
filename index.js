@@ -68,7 +68,7 @@ function createRock(x) {
    * Now that we have a rock, we'll need to append
    * it to GAME and move it downwards.
    */
-
+  //$(#game).append(rock)
 
   /**
    * This function moves the rock. (2 pixels at a time
@@ -81,6 +81,9 @@ function createRock(x) {
      * If a rock collides with the DODGER,
      * we should call endGame()
      */
+     /**if (checkCollision() == true) {
+       endGame()
+     } else if ()
 
     /**
      * Otherwise, if the rock hasn't reached the bottom of
@@ -110,6 +113,12 @@ function createRock(x) {
  * Finally, alert "YOU LOSE!" to the player.
  */
 function endGame() {
+  clearInterval(gameInterval);
+  for (i = 0; i < ROCKS.length; i++) {
+    ROCKS[i].remove();
+  };
+  window.removeEventListener('keydown', moveDodger);
+  alert("YOU LOSE!")
 }
 
 function moveDodger(e) {
@@ -121,6 +130,16 @@ function moveDodger(e) {
    * we've declared for you above.)
    * And be sure to use the functions declared below!
    */
+   GAME.addEventListener('keydown',function(e) {
+     if (e.which === LEFT_ARROW) {
+       e.preventDefault();
+       e.stopPropagation();
+       moveDodgerLeft()
+     } else if (e.which === RIGHT_ARROW) {
+       e.preventDefault();
+       moveDodgerRight()
+     }
+   })
 }
 
 function moveDodgerLeft() {
@@ -129,6 +148,14 @@ function moveDodgerLeft() {
    * This function should move DODGER to the left
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
+  document.addEventListener('keydown', function(e) {
+  if (e.which === LEFT_ARROW) {
+    var leftNumbers = dodger.style.left.replace('px', '')
+    var left = parseInt(leftNumbers, 10)
+
+    dodger.style.left = `${left - 4}px`
+  }
+})
 }
 
 function moveDodgerRight() {
