@@ -74,9 +74,9 @@ function createRock(x) {
 
      if (rock.style.top < 380) {
        window.requestAnimationFrame(moveRock)
+     } else {
+       GAME.removeChild(rock)
      }
-
-     GAME.removeChild(rock)
   }
   window.requestAnimationFrame(moveRock);
   ROCKS.push(rock);
@@ -98,25 +98,25 @@ function endGame() {
   alert("YOU LOSE!")
 }
 
+// implement me!
+/**
+ * This function should call `moveDodgerLeft()`
+ * if the left arrow is pressed and `moveDodgerRight()`
+ * if the right arrow is pressed. (Check the constants
+ * we've declared for you above.)
+ * And be sure to use the functions declared below!
+ */
+
 function moveDodger(e) {
-  // implement me!
-  /**
-   * This function should call `moveDodgerLeft()`
-   * if the left arrow is pressed and `moveDodgerRight()`
-   * if the right arrow is pressed. (Check the constants
-   * we've declared for you above.)
-   * And be sure to use the functions declared below!
-   */
-   GAME.addEventListener('keydown',function(e) {
-     if (e.which === LEFT_ARROW) {
-       e.preventDefault();
-       e.stopPropagation();
-       moveDodgerLeft()
-     } else if (e.which === RIGHT_ARROW) {
-       e.preventDefault();
-       moveDodgerRight()
-     }
-   })
+  if (e.which === LEFT_ARROW) {
+    e.preventDefault();
+    e.stopPropagation();
+    moveDodgerLeft()
+  } else if (e.which === RIGHT_ARROW) {
+    e.preventDefault();
+    e.stopPropagation();
+    moveDodgerRight()
+  }
 }
 
 function moveDodgerLeft() {
