@@ -37,9 +37,9 @@ function checkCollision(rock) {
     // FIXME: The rock is 20 pixel's wide -- how do we get the right edge?
     const rockRightEdge = positionToInteger(rock.style.left) + 20;
 
-    if ((rockLeftEdge<dodgerLeftEdge && rockRightEdge>dodgerLeftEdge)||
+    if ((rockLeftEdge<=dodgerLeftEdge && rockRightEdge>=dodgerLeftEdge)||
         (rockLeftEdge>=dodgerLeftEdge && rockRightEdge<=dodgerRightEdge)||
-        (rockLeftEdge<dodgerRightEdge && rockRightEdge>dodgerRightEdge)
+        (rockLeftEdge<=dodgerRightEdge && rockRightEdge>=dodgerRightEdge)
 
       //false
       /**
@@ -76,16 +76,24 @@ function createRock(x) {
   document.querySelector('#game').appendChild(rock);
 
 //function that moves rock down page 2 pixels at a time
+
+
   function moveRock() {
     if (checkCollision(rock)) {
-      console.log('you suck');
-      endGame();
+       return endGame();
     }
 
     rock.style.top = `${positionToInteger(rock.style.top) +2}px`
-    //  if (positionToInteger(rock.style.top)<360) {
 
+    if (positionToInteger(rock.style.top)<400) {
+      window.requestAnimationFrame(moveRock)
+    } else {
+      rock.remove()
     }
+
+
+  }
+  window.requestAnimationFrame(moveRock)
 
 
      /* If a rock collides with the DODGER,
@@ -99,7 +107,7 @@ function createRock(x) {
     //debugger;
 
      //while (positionToInteger(rock.style.top) < 400) {
-  var movementInterval = setInterval(function() {moveRock()}, 100)
+
       //debugger;
    /*
     } else if (positionToInteger(rock.style.top) == 400) {
@@ -114,6 +122,7 @@ function createRock(x) {
   // Add the rock to ROCKS so that we can remove all rocks
   // when there's a collision
   ROCKS.push(rock)
+  //debugger;
 
   // Finally, return the rock element you've created
   return rock
@@ -128,13 +137,14 @@ function createRock(x) {
 function endGame() {
   clearInterval(gameInterval);
   //var allRocks = document.getElementsByClassName('rock');
+  //debugger;
   Array.prototype.slice.call(document.getElementsByClassName('rock')).forEach(function(item) {
     item.remove();
   });
-  //debugger;
   ROCKS.length = 0;
+  //debugger;
   window.removeEventListener('keydown', moveDodger);
-  console.log('YOU LOSE!');
+  return alert('YOU LOSE!');
   //debugger;
 }
 
@@ -148,9 +158,13 @@ function moveDodger(e) {
    * And be sure to use the functions declared below!
    */
   if (e.which === 37) {
+    e.preventDefault();
+    e.stopPropagation();
     moveDodgerLeft()
   }
   if (e.which === 39) {
+    e.preventDefault();
+    e.stopPropagation();
     moveDodgerRight()
   }
 }
@@ -167,7 +181,8 @@ function moveDodgerLeft() {
   var left = positionToInteger(DODGER.style.left)
 
     if (left > 0) {
-      dodger.style.left = `${left - 4}px`
+      dodger.style.left = `${left - 4}px`;
+      window.requestAnimationFrame(moveDodgerLeft)
     }
 
 
@@ -184,8 +199,10 @@ function moveDodgerRight() {
   var rightNumbers = dodger.style.left.replace('px', '')
   var left = parseInt(rightNumbers, 10)
 
+
     if (left < 360) {
       dodger.style.left = `${left + 4}px`
+      window.requestAnimationFrame(moveDodgerRight)
     }
 }
 
@@ -206,4 +223,5 @@ function start() {
   gameInterval = setInterval(function() {
     createRock(Math.floor(Math.random() *  (GAME_WIDTH - 20)))
   }, 1000)
+
 }
