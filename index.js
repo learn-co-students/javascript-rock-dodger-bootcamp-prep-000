@@ -86,21 +86,24 @@ GAME.appendChild(rock)
      * Otherwise, if the rock hasn't reached the bottom of
      * the GAME, we want to move it again.
      */
-/*     var top = positionToInteger(rock.style.top);
-     console.log('position', top); */
+
 
          var top = 0
 
          function step() {
            rock.style.top = `${top += 2}px`
 
-           if (top < 390) {
-             window.requestAnimationFrame(step)
-           }
+
            var check = checkCollision(rock)
 
            if (check === true) {
-             endGame();
+             return endGame();
+           }
+           if (top < GAME_HEIGHT) {
+             window.requestAnimationFrame(step)
+           } else
+           {
+             rock.remove();
            }
          }
 
@@ -110,11 +113,7 @@ GAME.appendChild(rock)
      * But if the rock *has* reached the bottom of the GAME,
      * we should remove the rock from the DOM
      */
-/*     if (top >= 385){
-       var list = document.querySelector('div.rock')
-       console.log(list);
-       list.remove();
-     } */
+
   }
 
   // We should kick of the animation of the rock around here
@@ -137,11 +136,9 @@ moveRock();
  */
 function endGame() {
   clearInterval(gameInterval);
-//var list = document.querySelector('div.rock')
-//console.log(list);
-//list.remove();
+  ROCKS.forEach(function(rock) { rock.remove() })
 window.removeEventListener('keydown', moveDodger)
-alert('YOU LOSE!');
+return alert('YOU LOSE!');
 
 }
 
@@ -154,27 +151,32 @@ function moveDodger(e) {
    * we've declared for you above.)
    * And be sure to use the functions declared below!
    */
+   var key = e.which;
 var pos = positionToInteger(dodger.style.left);
-console.log(pos)
-   if (e.which === RIGHT_ARROW) {
+if ([LEFT_ARROW, RIGHT_ARROW].indexOf(key) > -1) {
+   e.preventDefault()
+   e.stopPropagation()
+ }
+
+   if (key === RIGHT_ARROW) {
      if (pos < 360){
        moveDodgerRight()
      }
-     else
+     else if (pos >= 360)
      e.stopPropagation()
-     return e.preventDefault();
+     e.preventDefault();
    }
   else if (e.which === LEFT_ARROW) {
-    if (pos > 0) {
-      moveDodgerLeft()
+        if (pos > 0) {
+          moveDodgerLeft()
 
+        }
+        else if (pos <= 0) {
+          e.preventDefault()
+          e.stopPropagation();
     }
-    else
-    e.stopPropagation()
-    return e.preventDefault();
-  }
+ }
 }
-
   function moveDodgerRight() {
     // implement me!
     /**
