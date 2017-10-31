@@ -98,7 +98,7 @@ function createRock(x) {
          window.requestAnimationFrame(moveRock);
        } else {
          ROCKS.shift();
-         rock.parentElement.removeChild(rock);
+         rock.remove();
        }
      }
   }
@@ -128,6 +128,8 @@ function endGame() {
     ROCKS[i].remove();
   }
   window.removeEventListener('keydown', moveDodger);
+
+  return alert('YOU LOSE!');
 }
 
 function moveDodger(e) {
