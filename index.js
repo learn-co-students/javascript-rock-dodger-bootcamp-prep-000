@@ -11,7 +11,7 @@ const ROCKS = []
 const START = document.getElementById('start')
 
 var gameInterval = null
-var alertFlag = true;
+
 
 /**
  * Be aware of what's above this line,
@@ -85,7 +85,7 @@ function createRock(x) {
      * we should call endGame()
      */
      if(checkCollision(rock)){
-       endGame()
+       return endGame()
      }
 
     /**
@@ -135,12 +135,10 @@ function endGame() {
 
   window.removeEventListener('keydown', moveDodger)
 
-  if(alertFlag){
-    alert('YOU LOSE!');
-    alertFlag = false;
-  }
+  START.innerHTML = 'Play again?'
+  START.style.display = 'inline'
 
-
+  return alert('YOU LOSE!')
 
 }
 
@@ -153,7 +151,7 @@ function moveDodger(e) {
    * we've declared for you above.)
    * And be sure to use the functions declared below!
    */
-   console.log(e.which)
+
    if(e.which===LEFT_ARROW){
      e.preventDefault();
      e.stopPropagation();
