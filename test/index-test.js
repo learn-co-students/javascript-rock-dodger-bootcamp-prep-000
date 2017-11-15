@@ -3,6 +3,7 @@ describe('Rock Dodger', () => {
     expect.restoreSpies()
   })
 
+
   describe('checkCollision(rock)', () => {
     /**
      * DODGER starts out at left = 180px
