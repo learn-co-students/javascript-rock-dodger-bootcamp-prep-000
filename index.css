@@ -23,6 +23,16 @@
   top: 4rem;
 }
 
+.score {
+  display: flex;
+  border: 5px solid black;
+  border-radius: 30px;
+  padding: 10px;
+  width: 100px;
+  background-color: #bdbfc1;
+  align-content: center;
+}
+
 .rock {
   width: 20px;
   height: 20px;
