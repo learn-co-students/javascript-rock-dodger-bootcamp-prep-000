@@ -21,18 +21,10 @@ function checkCollision(rock) {
     const rockLeftEdge = positionToInteger(rock.style.left)
     const rockRightEdge = rockLeftEdge+20;
 
-    if (rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge) {
-      return true;
-    }
-    else if(rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge){
-      return true;
-    }
-    else if(rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge){
-      return true;
-    }
-    else {
-      return false;
-    }
+    return (
+      (rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge) ||
+      (rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge) ||
+      (rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge))
   }
 }
 
@@ -76,6 +68,8 @@ function endGame() {
   clearInterval(gameInterval);
   window.removeEventListener('keydown', moveDodger);
   alert("YOU LOSE!");
+  START.innerHTML = 'Play again?'
+  START.style.display = 'inline'
 }
 
 function moveDodger(e) {
