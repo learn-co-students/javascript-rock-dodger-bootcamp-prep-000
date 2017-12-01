@@ -100,7 +100,7 @@ function createRock(x) {
               */
                 if (top = GAME_HEIGHT) {
                   ROCKS.shift();
-                  GAME.removeChild(rock);
+//                  GAME.removeChild(rock);
                 }
               }
           }
@@ -129,10 +129,19 @@ function endGame() {
 //
 
   clearInterval(gameInterval);
-  for (var i = ROCKS.length; i >= 0; i--) {
-    ROCKS.pop();
-  }
+
   window.removeEventListener('keydown', moveDodger);
+
+//  var rockLength = document.getElementById("game").getElementsByClassName("rock").length
+//  var rocks = document.getElementById("game").getElementsByClassName("rock")
+
+  for (var i = 0; i < ROCKS.length; i++) {
+//      rocks[i].parentNode.removeChild(rocks[i]);
+      ROCKS[i].remove();
+  }
+
+
+  window.alert("YOU LOSE!");
 }
 
 function moveDodger(e) {
@@ -145,15 +154,19 @@ function moveDodger(e) {
    * And be sure to use the functions declared below!
    */
 
-  window.addEventListener('keydown', function(e) {
+
   if (e.which === LEFT_ARROW) {
+      e.preventDefault();
+      e.stopPropagation();
       moveDodgerLeft();
   }
 
   if (e.which === RIGHT_ARROW) {
+      e.preventDefault();
+      e.stopPropagation();
       moveDodgerRight();
   }
-});
+
 }
 
 function moveDodgerLeft() {
