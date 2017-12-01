@@ -67,6 +67,7 @@ function createburger(x) {
 
 function endGame() {
   var button = document.createElement('BUTTON');
+  var lineBR = document.createElement('br');
   button.addEventListener('click', function() {
     window.location.reload();
   })
@@ -76,6 +77,7 @@ function endGame() {
   window.clearInterval(gameInterval);
   window.removeEventListener('keydown', moveDodger);
   GAMEOVER.innerHTML = 'GAME OVER';
+  GAMEOVER.appendChild(lineBR)
   GAMEOVER.appendChild(button);
   button.innerHTML = 'Restart';
   COUNTER = undefined;
