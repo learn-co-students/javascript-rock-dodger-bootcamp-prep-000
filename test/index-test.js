@@ -163,6 +163,7 @@ describe('Rock Dodger', () => {
       window.requestAnimationFrame = () => {}
     })
 
+
     describe('e.which !== LEFT_ARROW && e.which !== RIGHT_ARROW', () => {
       it('does nothing', () => {
         const e = {
