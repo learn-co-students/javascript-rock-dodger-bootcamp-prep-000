@@ -116,7 +116,10 @@ function endGame() {
 
   clearInterval(gameInterval); //Laura
 
-  ROCKS.forEach( function (rock) { rock.remove() } );
+//  ROCKS.forEach( function (rock) { rock.remove() } );
+  for (let i = 0; i < ROCKS.length; i++) {
+    ROCKS[i].remove()
+  }
 
   window.removeEventListener('keydown', moveDodger); //Laura
   return alert('You Lose!')     //Laura
