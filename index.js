@@ -37,7 +37,7 @@ function checkCollision(rock) {
     const rockRightEdge = rockLeftEdge + 20;
 
     if ((rockLeftEdge < dodgerLeftEdge && rockRightEdge > dodgerLeftEdge) ||
-        (rockLeftEdge > dodgerLeftEdge && rockRightEdge < dodgerRightEdge) ||
+        (rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge) ||
         (rockLeftEdge < dodgerRightEdge && rockRightEdge > dodgerRightEdge)
               /**
                * Think about it -- what's happening here?
@@ -125,9 +125,8 @@ function createRock(x) {
 function endGame() {
   clearInterval(gameInterval)
   for(let i=0;i<ROCKS.length;i++) {
-    //GAME.removeChild(ROCKS[i])
+    ROCKS[i].remove()
   }
-  document.querySelectorAll('.rock').forEach(e => GAME.removeChild(e))
   window.removeEventListener('keydown', moveDodger)
   alert("YOU LOSE!")
 }
