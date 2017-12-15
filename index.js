@@ -36,9 +36,9 @@ function checkCollision(rock) {
     const rockRightEdge = rockLeftEdge + 20;
 
     if (
-      (rockLeftEdge < dodgerLeftEdge && rockRightEdge > dodgerLeftEdge) ||
-      (rockLeftEdge < dodgerRightEdge && rockRightEdge > dodgerRightEdge) ||
-      (rockLeftEdge > dodgerLeftEdge && rockRightEdge < dodgerRightEdge)
+      (rockLeftEdge < dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge) ||
+      (rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge) ||
+      (rockLeftEdge >= dodgerLeftEdge && rockRightEdge < dodgerRightEdge)
         /**
                * Think about it -- what's happening here?
                * There's been a collision if one of three things is true:
@@ -70,7 +70,7 @@ function createRock(x) {
    * it to GAME and move it downwards.
    */
    GAME.appendChild(rock);
-   requestAnimationFrame(moveRock);
+
    /**
    * This function moves the rock. (2 pixels at a time
    * seems like a good pace.)
@@ -92,15 +92,17 @@ function createRock(x) {
      * Otherwise, if the rock hasn't reached the bottom of
      * the GAME, we want to move it again.
      */
-     if(top <= GAME_HEIGHT){
+     else if(top < GAME_HEIGHT){
        requestAnimationFrame(moveRock);
-     } else if(top > 200){
+     }
     /**
      * But if the rock *has* reached the bottom of the GAME,
      * we should remove the rock from the DOM
      */
+     else if(top >= GAME_HEIGHT){
+         GAME.removeChild(rock);
+         ROCKS.pop();
 
-       GAME.removeChild(rock);
      }
   }
   // We should kick of the animation of the rock around here
@@ -113,20 +115,25 @@ function createRock(x) {
   return rock
 }
 
+function endGame() {
+  clearInterval(gameInterval);
+  console.log(ROCKS);
+  console.log(GAME);
+
+  for(let i = 0; i < ROCKS.length; i++){
+     ROCKS[i].remove();
+  }
+  window.removeEventListener('keydown', moveDodger);
+  alert('YOU LOSE!');
+}
 /**
  * End the game by clearing `gameInterval`,
  * removing all ROCKS from the DOM,
  * and removing the `moveDodger` event listener.
  * Finally, alert "YOU LOSE!" to the player.
  */
-function endGame() {
-  clearInterval(gameInterval);
-  while(ROCKS.length > 0){
-    ROCKS.pop();
-  }
-  window.removeEventListener('keydown', moveDodger);
-  alert('YOU LOSE!');
-}
+
+
 
 function moveDodger(e) {
   // implement me!
@@ -138,9 +145,12 @@ function moveDodger(e) {
    * And be sure to use the functions declared below!
    */
      if(e.which === LEFT_ARROW){
+       e.preventDefault();
+       e.stopPropagation();
        moveDodgerLeft();
      }
      if(e.which === RIGHT_ARROW){
+       e.preventDefault();
        moveDodgerRight();
      }
 }
