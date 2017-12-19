@@ -19,7 +19,7 @@ var gameInterval = null;
 
 function checkCollision(rock) {
   const top = positionToInteger(rock.style.top)
-  debugger; 
+
   // rocks are 20px high
   // DODGER is 20px high
   // GAME_HEIGHT - 20 - 20 = 360px;
@@ -60,26 +60,22 @@ function createRock(x) {
 
 
   function moveRock() {
+    rock.style.top = `${top += 2}px`;
     console.log("Reached!");
+
      if(checkCollision(rock)){
        console.log('REACHED Inside checkCollision');
-       endGame();
+        return endGame();
      }
 
-
-    function step() {
-      rock.style.top = `${top += 2}px`;
-
-      if (top < 400) {
-        window.requestAnimationFrame(step);
+      if (top < GAME_HEIGHT) {
+        window.requestAnimationFrame(moveRock);
       } else {
         rock.remove(); // remove rock from the DOM
       }
-    }
 
-    window.requestAnimationFrame(step);
   }
-window.requestAnimationFrame(moveRock);// kick off the animation of the rock around here
+  window.requestAnimationFrame(moveRock);// kick off the animation of the rock around here
 
   // Add the rock to ROCKS so that we can remove all rocks
   // when there's a collision
