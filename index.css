@@ -1,55 +1,53 @@
-#dodger {
-  background-color: white;
-  height: 20px;
+body {
+  background-color: black;
+  color: white;
+  font-family: Helvetica;
+  text-align: center;
+}
+
+h1 {
+  font-size: 60px;
+}
+
+#bg-img {
+  content:url("bg_image.jpg");
+  height: 250px;
+  width: 250px;
   position: absolute;
-  width: 40px;
+  bottom: 0;
+}
+
+#dodger {
+  content:url("Pikachu.png");
+  background-color: none;
+  height: 50px;
+  position: absolute;
+  width: 50px;
 }
 
 #game {
-  background-color: #111;
+  background-color: #C1C1C1;
   height: 400px;
-  margin: 0 auto;
   overflow: hidden;
   position: relative;
+  margin: 0 auto;
   text-align: center;
   width: 400px;
 }
 
 #start {
-  color: white;
-  font-size: 4rem;
+  color: black;
+  font-size: 3rem;
   position: relative;
   text-decoration: none;
   top: 4rem;
+  font-family: Helvetica;
 }
 
 .rock {
-  width: 20px;
-  height: 20px;
-  background: tan;
+  content:url("Pokeball.png");
+  width: 25px;
+  height: 25px;
+  background: none;
   position: absolute;
-}
-
-.rock:before {
-  content: "";
-  border-bottom: 6px solid tan;
-  border-left: 6px solid #111;
-  border-right: 6px solid #111;
-  height: 0;
-  left: 0;
-  position: absolute;
-  top: 0;
-  width: 9px;
-}
-
-.rock:after {
-  content: "";
-  border-left: 6px solid #111;
-  border-right: 6px solid #111;
-  border-top: 6px solid tan;
-  bottom: 0;
-  height: 0;
-  left: 0;
-  position: absolute;
-  width: 9px;
 }
