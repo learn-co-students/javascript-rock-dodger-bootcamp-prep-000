@@ -90,31 +90,20 @@ function endGame() {
   for (var i = 0; i < totalRocks; i++) {
     ROCKS[i].remove()
   }
-  alert("YOU LOSE!");
-  document.removeEventListener('keydown', function (e) {
-   if (e.which === LEFT_ARROW) {
-     e.preventDefault()
-     e.stopPropagation()
-     moveDodgerLeft()
-   }
-   if (e.which === RIGHT_ARROW) {
-     e.preventDefault()
-     e.stopPropagation()
-     moveDodgerRight()
-   }
-   })
+  window.removeEventListener('keydown', moveDodger)
+  return alert("YOU LOSE!");
 }
 
 function moveDodger(e) {
-  // implement me!
-  /**
-   * This function should call `moveDodgerLeft()`
-   * if the left arrow is pressed and `moveDodgerRight()`
-   * if the right arrow is pressed. (Check the constants
-   * we've declared for you above.)
-   * And be sure to use the functions declared below!
-   */
-   document.addEventListener('keydown', function (e) {
+  // // implement me!
+  // /**
+  //  * This function should call `moveDodgerLeft()`
+  //  * if the left arrow is pressed and `moveDodgerRight()`
+  //  * if the right arrow is pressed. (Check the constants
+  //  * we've declared for you above.)
+  //  * And be sure to use the functions declared below!
+  //  */
+  //
     if (e.which === LEFT_ARROW) {
       e.preventDefault()
       e.stopPropagation()
@@ -125,7 +114,6 @@ function moveDodger(e) {
       e.stopPropagation()
       moveDodgerRight()
     }
-    })
 }
 
   function moveDodgerLeft() {
