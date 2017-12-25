@@ -80,33 +80,34 @@ function createRock(x) {
     // (use the comments below to guide you!)
     var bottomNumbers = rock.style.top.replace('px', '')
     var bottom = parseInt(bottomNumbers, 10)
-    /**
-     * If a rock collides with the DODGER,
-     * we should call endGame()
-     */
+
      function moveDown() {
        rock.style.top = `${bottom + 2}px`
 
          if (bottom >= 400) {
            GAME.removeChild(rock);
-           clearInterval(myInterval)
+           clearInterval(myInterval);
          }
          /**
-          * Otherwise, if the rock hasn't reached the bottom of
-          * the GAME, we want to move it again.
+          * If a rock collides with the DODGER,
+          * we should call endGame()
           */
-          if (checkCollision(rock) == true) {
+          if (checkCollision(rock) === true) {
             clearInterval(myInterval)
             return endGame();
           }
+          /**
+           * Otherwise, if the rock hasn't reached the bottom of
+           * the GAME, we want to move it again.
+           */
          else {
            window.requestAnimationFrame(moveDown)
          }
      }
+       // We should kick of the animation of the rock around here
      window.requestAnimationFrame(moveDown)
   }
-  myInterval = setInterval(moveRock, 50)
-  // We should kick of the animation of the rock around here
+  const myInterval = setInterval(moveRock, 50)
 
   // Add the rock to ROCKS so that we can remove all rocks
   // when there's a collision
@@ -126,9 +127,8 @@ function endGame() {
    * Finally, alert "YOU LOSE!" to the player.
    */
   clearInterval(gameInterval);
-  clearInterval(myInterval);
 
-for (i = 0; i > ROCKS.length; i++) {
+for (i = 0; i < ROCKS.length; i++) {
     ROCKS[i].pop();
   }
 
