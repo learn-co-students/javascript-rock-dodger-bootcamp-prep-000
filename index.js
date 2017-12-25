@@ -36,9 +36,9 @@ function checkCollision(rock) {
     // FIXME: The rock is 20 pixel's wide -- how do we get the right edge?
     const rockRightEdge = (positionToInteger(rock.style.left) + 20)
 
-    if ((rockLeftEdge < dodgerLeftEdge && rockRightEdge > dodgerLeftEdge) ||
-        (rockLeftEdge > dodgerLeftEdge && rockRightEdge < dodgerRightEdge) ||
-        (rockLeftEdge < dodgerRightEdge && rockRightEdge > dodgerRightEdge)
+    if ((rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge) ||
+        (rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge) ||
+        (rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge)
       /**
                * Think about it -- what's happening here?
                * There's been a collision if one of three things is true:
@@ -85,14 +85,14 @@ function createRock(x) {
        rock.style.top = `${bottom + 2}px`
 
          if (bottom >= 400) {
-           GAME.removeChild(rock);
+           rock.parentNode.removeChild(rock);
            clearInterval(myInterval);
          }
          /**
           * If a rock collides with the DODGER,
           * we should call endGame()
           */
-          if (checkCollision(rock) === true) {
+          if (checkCollision(rock) == true) {
             clearInterval(myInterval)
             return endGame();
           }
@@ -105,8 +105,10 @@ function createRock(x) {
          }
      }
        // We should kick of the animation of the rock around here
-     window.requestAnimationFrame(moveDown)
+    window.requestAnimationFrame(moveDown)
   }
+  window.requestAnimationFrame(moveRock)
+
   const myInterval = setInterval(moveRock, 50)
 
   // Add the rock to ROCKS so that we can remove all rocks
@@ -129,13 +131,11 @@ function endGame() {
   clearInterval(gameInterval);
 
 for (i = 0; i < ROCKS.length; i++) {
-    ROCKS[i].pop();
+    ROCKS.pop();
   }
-
   /* while(ROCKS.length > 0){
     ROCKS.pop();
   } */
-
   /*for (let i = 0; i < child.length; i++) {
         GAME.removeChild(child[i]);
   }*/
