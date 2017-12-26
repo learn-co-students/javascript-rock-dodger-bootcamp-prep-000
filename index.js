@@ -84,32 +84,36 @@ function createRock(x) {
      function moveDown() {
        rock.style.top = `${bottom + 2}px`
 
-         if (bottom >= 400) {
-           rock.parentNode.removeChild(rock);
+       if (checkCollision {
+         clearInterval(myInterval);
+         return endGame();
+       }
+       if (bottom >= 400) {
+           //var roc = document.getElementsByClassName( 'rock' );
+           //roc.parentNode.removeChild( roc );
+           rock.remove();
            clearInterval(myInterval);
          }
          /**
           * If a rock collides with the DODGER,
           * we should call endGame()
           */
-          if (checkCollision(rock) == true) {
-            clearInterval(myInterval)
-            return endGame();
-          }
+
           /**
            * Otherwise, if the rock hasn't reached the bottom of
            * the GAME, we want to move it again.
            */
          else {
-           window.requestAnimationFrame(moveDown)
+           window.requestAnimationFrame(moveDown);
          }
      }
        // We should kick of the animation of the rock around here
     window.requestAnimationFrame(moveDown)
   }
+  myInterval = setInterval(moveRock, 50)
   window.requestAnimationFrame(moveRock)
 
-  const myInterval = setInterval(moveRock, 50)
+
 
   // Add the rock to ROCKS so that we can remove all rocks
   // when there's a collision
