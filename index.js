@@ -77,7 +77,7 @@ GAME.appendChild(rock);
    * This function moves the rock. (2 pixels at a time
    * seems like a good pace.)
    */
-  function moveRock() { if (top >= 380) {rock.style.left = '-20px'; rock.remove()}
+  function moveRock() { 
   
     // implement me!
     // (use the comments below to guide you!)
@@ -89,10 +89,16 @@ GAME.appendChild(rock);
     rock.style.top = `${top += 2}px`
   
   if (checkCollision(rock) ===  true && called === false){endGame()} 
- 
-   window.requestAnimationFrame(moveRock) }
-   if (checkCollision(rock) ===  true && called === false){endGame()
-   }
+  if (top >= 380) {
+      rock.style.left = '-20px';
+      rock.remove()
+    } else {
+      window.requestAnimationFrame(moveRock);
+    }}
+// if (top < 381) {
+//   window.requestAnimationFrame(moveRock) }}
+  /* if (checkCollision(rock) ===  true && called === false){endGame()
+   } */
   
   window.requestAnimationFrame(moveRock)
    
