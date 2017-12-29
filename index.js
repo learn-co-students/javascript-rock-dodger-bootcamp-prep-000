@@ -123,14 +123,18 @@ function createRock(x) {
  */
 function endGame() {
   clearInterval(gameInterval);
-  ROCKS.forEach(function(rock)
-      {rock.remove()
-      });
-  document.removeEventListener('keydown',moveDodger);
+  
+  //ROCKS.forEach(rock => rock.remove())
+  ROCKS.forEach(function(rock) { 
+    rock.remove()
+  });
+  document.removeEventListener('keydown', moveDodger);
   return alert('YOU LOSE!');
 }
 
 function moveDodger(e) {
+  //e.stopkProbagation() 
+ // e.preventDefault()
   if (e.which === LEFT_ARROW){
     moveDodgerLeft()
   }if (e.which === RIGHT_ARROW){
