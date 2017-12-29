@@ -110,7 +110,18 @@ function createRock(x) {
 function endGame() {
 }
 
+
+
 function moveDodger(e) {
+
+  
+  if (e.which == LEFT_ARROW) {
+    moveDodgerLeft();
+  }
+  if (e.which == RIGHT_ARROW) {
+    moveDodgerRight();
+  }
+
   // implement me!
   /**
    * This function should call `moveDodgerLeft()`
@@ -122,6 +133,17 @@ function moveDodger(e) {
 }
 
 function moveDodgerLeft() {
+
+  var left = DODGER.style.left.replace("px", '')
+
+  function step() {
+    if (left > 0) {
+      DODGER.style.left = `${left -= 4}px`;
+    }
+  }
+
+
+  window.requestAnimationFrame(step)
   // implement me!
   /**
    * This function should move DODGER to the left
@@ -130,6 +152,17 @@ function moveDodgerLeft() {
 }
 
 function moveDodgerRight() {
+  var left = DODGER.style.left.replace("px", '')
+  console.log(left)
+
+  function step() {
+    if (left < 360) {
+      DODGER.style.left = `${(left*1) + 4}px`;
+    }
+  }
+
+
+  window.requestAnimationFrame(step)
   // implement me!
   /**
    * This function should move DODGER to the right
@@ -150,7 +183,7 @@ function start() {
 
   START.style.display = 'none'
 
-  gameInterval = setInterval(function() {
-    createRock(Math.floor(Math.random() *  (GAME_WIDTH - 20)))
+  gameInterval = setInterval(function () {
+    createRock(Math.floor(Math.random() * (GAME_WIDTH - 20)))
   }, 1000)
 }
