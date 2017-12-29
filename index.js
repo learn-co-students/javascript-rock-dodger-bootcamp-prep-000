@@ -29,12 +29,12 @@ function checkCollision(rock) {
     const dodgerLeftEdge = positionToInteger(DODGER.style.left)
 
     // FIXME: The DODGER is 40 pixels wide -- how do we get the right edge?
-    const dodgerRightEdge = 0;
+    const dodgerRightEdge = 40;
 
     const rockLeftEdge = positionToInteger(rock.style.left)
 
     // FIXME: The rock is 20 pixel's wide -- how do we get the right edge?
-    const rockRightEdge = 0;
+    const rockRightEdge = 20;
 
     if (false /**
                * Think about it -- what's happening here?
@@ -58,7 +58,7 @@ function createRock(x) {
   rock.style.left = `${x}px`
 
   // Hmmm, why would we have used `var` here?
-  var top = 0
+
 
   rock.style.top = top
 
@@ -98,7 +98,8 @@ function createRock(x) {
   ROCKS.push(rock)
 
   // Finally, return the rock element you've created
-  return rock
+
+   return rock
 }
 
 /**
@@ -110,7 +111,7 @@ function createRock(x) {
 function endGame() {
 }
 
-function moveDodger(e) {
+function moveDodgerRight(e) {
   // implement me!
   /**
    * This function should call `moveDodgerLeft()`
