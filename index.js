@@ -90,9 +90,29 @@ return rock
 * Finally, alert "YOU LOSE!" to the player.
 */
 function endGame() {
-}
+  clearInterval(gameInterval);
+   gameInterval = null;
+   ROCKS.forEach(function(rock){
+     rock.remove();
+   })
 
+ document.removeEventListener('keydown', moveDodger);
+ ROCKS.splice(0);
+
+ alert('over');
+ START.style.display = 'inline'
+}
 function moveDodger(e) {
+  if(e.which == RIGHT_ARROW) {
+    moveDodgerRight()
+    e.preventDefault();
+  };
+  if(e.which == LEFT_ARROW) {
+    moveDodgerLeft()
+    e.preventDefault();
+    e.stopPropagation()
+  };
+}
   // implement me!
   /**
   * This function should call `moveDodgerLeft()`
@@ -104,13 +124,18 @@ function moveDodger(e) {
 }
 
 function moveDodgerLeft() {
-  // implement me!
+  const left = positionToInteger(DODGER.style.left);
+  if(left > 0 ) {
+    window.requestAnimationFrame(function() {
+         DODGER.style.left = `${left - 4}px`
+       })
+     }
+   }
+// implement me!
   /**
   * This function should move DODGER to the left
-  * (mabye 4 pixels?). Use window.requestAnimationFrame()!
+  * (maybe 4 pixels?). Use window.requestAnimationFrame()!
   */
-}
-
 function moveDodgerRight() {
   // implement me!
   /**
