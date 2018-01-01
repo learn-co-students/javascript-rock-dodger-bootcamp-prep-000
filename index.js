@@ -39,85 +39,90 @@ function createRock(x) {
   rock.style.top = top
 
   /**
-   * Now that we have a rock, we'll need to append it to GAME and move it downwards.
-   */
-GAME.appendChild(rock)
+  * Now that we have a rock, we'll need to append it to GAME and move it downwards.
+  */
+  GAME.appendChild(rock)
   /**
-   * This function moves the rock. (2 pixels at a time
-   * seems like a good pace.)
-   */
+  * This function moves the rock. (2 pixels at a time
+  * seems like a good pace.)
+  */
   function moveRock() {
-    // implement me!
-    // (use the comments below to guide you!)
-    /**
-     * If a rock collides with the DODGER,
-     * we should call endGame()
-     */
-     rock.style.top = `${top += 2}px`
+    /*if(setInterval==null){
+    return
+  }*/
+  rock.style.top = `${top += 2}px`
 
-
-    /**
-     * Otherwise, if the rock hasn't reached the bottom of
-     * the GAME, we want to move it again.
-     */
-
-    /**
-     * But if the rock *has* reached the bottom of the GAME,
-     * we should remove the rock from the DOM
-   */
+  if (top > 400){
+    const index = ROCKS.indexOf(rock) ;
+    ROCKS.splice(index,1); //removing rocks from array
+    rock.remove(); //removing rocks from screen
+    return
   }
-  window.requestAnimationFrame(moveRock)
 
-   // We should kick of the animation of the rock around here
+  if (checkCollision(rock)){
+    endGame();
+    return;
+  }
 
-  // Add the rock to ROCKS so that we can remove all rocks
-  // when there's a collision
-  ROCKS.push(rock)
+  window.requestAnimationFrame(moveRock);
+}
 
-  // Finally, return the rock element you've created
-  return rock
+// We should kick of the animation of the rock around here
+window.requestAnimationFrame(moveRock);
+// Add the rock to ROCKS so that we can remove all rocks
+// when there's a collision
+ROCKS.push(rock)
+
+// Finally, return the rock element you've created
+return rock
 }
 
 /**
- * End the game by clearing `gameInterval`,
- * removing all ROCKS from the DOM,
- * and removing the `moveDodger` event listener.
- * Finally, alert "YOU LOSE!" to the player.
- */
+* End the game by clearing `gameInterval`,
+* removing all ROCKS from the DOM,
+* and removing the `moveDodger` event listener.
+* Finally, alert "YOU LOSE!" to the player.
+*/
+/**
+* End the game by clearing `gameInterval`,
+* removing all ROCKS from the DOM,
+* and removing the `moveDodger` event listener.
+* Finally, alert "YOU LOSE!" to the player.
+*/
 function endGame() {
 }
 
 function moveDodger(e) {
   // implement me!
   /**
-   * This function should call `moveDodgerLeft()`
-   * if the left arrow is pressed and `moveDodgerRight()`
-   * if the right arrow is pressed. (Check the constants
-   * we've declared for you above.)
-   * And be sure to use the functions declared below!
-   */
+  * This function should call `moveDodgerLeft()`
+  * if the left arrow is pressed and `moveDodgerRight()`
+  * if the right arrow is pressed. (Check the constants
+  * we've declared for you above.)
+  * And be sure to use the functions declared below!
+  */
 }
 
 function moveDodgerLeft() {
   // implement me!
   /**
-   * This function should move DODGER to the left
-   * (mabye 4 pixels?). Use window.requestAnimationFrame()!
-   */
+  * This function should move DODGER to the left
+  * (mabye 4 pixels?). Use window.requestAnimationFrame()!
+  */
 }
 
 function moveDodgerRight() {
   // implement me!
   /**
-   * This function should move DODGER to the right
-   * (mabye 4 pixels?). Use window.requestAnimationFrame()!
-   */
+  * This function should move DODGER to the right
+  * (mabye 4 pixels?). Use window.requestAnimationFrame()!
+  */
 }
 
 /**
- * @param {string} p The position property
- * @returns {number} The position as an integer (without 'px')
- */
+* @param {string} p The position property
+* @returns {number} The position as an integer (without 'px')
+*/
 function positionToInteger(p) {
   return parseInt(p.split('px')[0]) || 0
 }
