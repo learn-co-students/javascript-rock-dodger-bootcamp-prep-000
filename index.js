@@ -104,6 +104,9 @@ function endGame() {
     }
 
     window.alert("YOU LOSE!")
+
+    START.innerHTML = 'Play again?'
+    START.style.display = 'inline'
 }
 
 function moveDodger(e) {
