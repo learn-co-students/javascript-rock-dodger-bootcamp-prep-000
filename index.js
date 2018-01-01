@@ -9,7 +9,8 @@ const START = document.getElementById('start')
 const SCORE = document.getElementById('score')
 
 var gameInterval = null
-var score = 0;
+var score = 0
+var itsOver = false
 
 function checkCollision(rock) {
   const top = positionToInteger(rock.style.top)
@@ -47,18 +48,15 @@ function createRock(x) {
   rock.style.left = `${x}px`
 
   var top = 0
-
   rock.style.top = top
-
   GAME.appendChild(rock)
 
   // moves rock 2 pixels at a time
   function moveRock() {
-
-    if (checkCollision(rock)) {
+    if (checkCollision(rock) && !itsOver) {
       //If a rock collides with the DODGER, call endGame()
-      endGame()
-      return rock
+      rock.remove()
+      return endGame()
     }
     else if (positionToInteger(rock.style.top) < GAME_HEIGHT) {
        //Otherwise, if the rock hasn't reached the bottom of
@@ -67,17 +65,17 @@ function createRock(x) {
        rock.style.top = `${top += 4}px`
        window.requestAnimationFrame(moveRock)
      }
-     else if (positionToInteger(rock.style.top) === GAME_HEIGHT) {
+     else if (positionToInteger(rock.style.top) === GAME_HEIGHT && !itsOver) {
        //If the rock *has* reached the bottom of the GAME,
-       // we should remove the rock from the DOM
-      score++
+       // remove the rock from the DOM and update the score
       rock.remove()
+      score++
+      runningScore.innerHTML = `Score: ${score}`;
     }
   }
-
   // Kick of the animation of the rock
-  window.requestAnimationFrame(moveRock)
 
+  window.requestAnimationFrame(moveRock)
   // Add the rock to ROCKS so that we can remove all rocks
   // when there's a collision
   ROCKS.push(rock)
@@ -93,23 +91,25 @@ function createRock(x) {
  * Finally, alert "YOU LOSE!" to the player.
  */
 function endGame() {
+    itsOver = true;
+
     clearInterval(gameInterval)
+    ROCKS.forEach(function(rock) { rock.remove() })
+    window.removeEventListener('keydown', moveDodger)
 
-    for (i = 0; i < ROCKS.length; i++) {
-      ROCKS.shift()
-    }
-
-    removeEventListener('keydown', moveDodger)
-
-    var rockNodeList = document.querySelectorAll('.rock')
-    for (i = 0; i < rockNodeList.length; i++) {
-      (rockNodeList[i]).remove()
-    }
+    rockNodeList = document.querySelectorAll('.rock')
+    rockNodeList.forEach(function(rock) { rock.remove() })
 
     window.alert("YOU LOSE!")
-
     START.innerHTML = 'Play again?'
-    SCORE.innerHTML += ` ${score} points!`
+
+    if (score === 1) {
+      SCORE.innerHTML = `Score: ${score} point!`
+    }
+    else {
+      SCORE.innerHTML = `Score: ${score} points!`
+    }
+
     START.style.display = 'inline'
     SCORE.style.display = 'inline'
 }
@@ -136,7 +136,7 @@ function moveDodgerLeft() {
 
     function step() {
        if (left > 0) {
-         DODGER.style.left = `${left -= 4}px`
+         DODGER.style.left = `${left -= 20}px`
        }
      }
 
@@ -149,7 +149,7 @@ function moveDodgerRight() {
 
    function step() {
       if (left <360) {
-        DODGER.style.left = `${left += 4}px`
+        DODGER.style.left = `${left += 20}px`
       }
     }
 
@@ -166,11 +166,13 @@ function positionToInteger(p) {
 
 function start() {
   window.addEventListener('keydown', moveDodger)
-
+  DODGER.style = "bottom: 0px; left: 180px;"
   START.style.display = 'none'
   SCORE.style.display = 'none'
   SCORE.innerHTML = 'Score: '
+  runningScore.innerHTML = 'Score: ';
   score = 0;
+  itsOver = false;
 
   // every 1 second, create a new rock of random size
   gameInterval = setInterval(function() {

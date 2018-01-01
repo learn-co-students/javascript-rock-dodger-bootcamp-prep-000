@@ -15,12 +15,34 @@
   width: 400px;
 }
 
-#start, #score {
+#start {
   color: white;
+  font-family: "Arial", Gadget, sans-serif;
   font-size: 4rem;
   position: relative;
   text-decoration: none;
   top: 4rem;
+}
+
+#score {
+  color: pink;
+  font-family: "Arial", Gadget, sans-serif;
+  font-size: 2rem;
+  position: relative;
+  top: 5rem;
+}
+
+#runningScore {
+  color: black;
+  font-family: "Arial Black", Gadget, sans-serif;
+  font-size: 2rem;
+  margin: auto;
+  border: 8px solid pink;
+  width: 23%;
+  padding: 5px;
+  text-align: left;
+  position: relative;
+  top:20px;
 }
 
 .rock {
@@ -32,7 +54,7 @@
 
 .rock:before {
   content: "";
-  border-bottom: 6px solid tan;
+  border-bottom: 6px solid pink;
   border-left: 6px solid #111;
   border-right: 6px solid #111;
   height: 0;
@@ -46,7 +68,7 @@
   content: "";
   border-left: 6px solid #111;
   border-right: 6px solid #111;
-  border-top: 6px solid tan;
+  border-top: 6px solid pink;
   bottom: 0;
   height: 0;
   left: 0;
