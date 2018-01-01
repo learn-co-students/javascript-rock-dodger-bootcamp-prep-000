@@ -2,13 +2,17 @@ const DODGER = document.getElementById('dodger')
 const GAME = document.getElementById('game')
 const GAME_HEIGHT = 400
 const GAME_WIDTH = 400
-const LEFT_ARROW = 37
-const RIGHT_ARROW = 39
+const LEFT_ARROW = 37 // use e.which!
+const RIGHT_ARROW = 39 // use e.which!
 const ROCKS = []
 const START = document.getElementById('start')
 
 var gameInterval = null
 
+/**
+ * Be aware of what's above this line,
+ * but all of your work should happen below.
+ */
 
 function checkCollision(rock) {
   const top = positionToInteger(rock.style.top)
@@ -33,76 +37,67 @@ function createRock(x) {
   rock.className = 'rock'
   rock.style.left = `${x}px`
 
-  // Hmmm, why would we have used `var` here?
   var top = 0
 
   rock.style.top = top
 
-  /**
-  * Now that we have a rock, we'll need to append it to GAME and move it downwards.
-  */
-  GAME.appendChild(rock)
-  /**
-  * This function moves the rock. (2 pixels at a time
-  * seems like a good pace.)
-  */
+  GAME.appendChild(rock);
+
   function moveRock() {
     /*if(setInterval==null){
-    return
-  }*/
-  rock.style.top = `${top += 2}px`
+      return
+    }*/
+    rock.style.top = `${top += 2}px`
 
-  if (top > 400){
-    const index = ROCKS.indexOf(rock) ;
-    ROCKS.splice(index,1); //removing rocks from array
-    rock.remove(); //removing rocks from screen
-    return
+    if (top > 400){
+      const index = ROCKS.indexOf(rock) ;
+      ROCKS.splice(index,1); //removing rocks from array
+      rock.remove(); //removing rocks from screen
+      return
+    }
+
+    if (checkCollision(rock)){
+      endGame();
+      return;
+    }
+
+    window.requestAnimationFrame(moveRock);
   }
 
-  if (checkCollision(rock)){
-    endGame();
-    return;
-  }
+  // We should kick of the animation of the rock around here
+   window.requestAnimationFrame(moveRock);
+  // Add the rock to ROCKS so that we can remove all rocks
+  // when there's a collision
+  ROCKS.push(rock)
 
-  window.requestAnimationFrame(moveRock);
-}
-
-// We should kick of the animation of the rock around here
-window.requestAnimationFrame(moveRock);
-// Add the rock to ROCKS so that we can remove all rocks
-// when there's a collision
-ROCKS.push(rock)
-
-// Finally, return the rock element you've created
-return rock
+  // Finally, return the rock element you've created
+  return rock
 }
 
 /**
-* End the game by clearing `gameInterval`,
-* removing all ROCKS from the DOM,
-* and removing the `moveDodger` event listener.
-* Finally, alert "YOU LOSE!" to the player.
-*/
-/**
-* End the game by clearing `gameInterval`,
-* removing all ROCKS from the DOM,
-* and removing the `moveDodger` event listener.
-* Finally, alert "YOU LOSE!" to the player.
-*/
+ * End the game by clearing `gameInterval`,
+ * removing all ROCKS from the DOM,
+ * and removing the `moveDodger` event listener.
+ * Finally, alert "YOU LOSE!" to the player.
+ */
 function endGame() {
+
   clearInterval(gameInterval);
-   gameInterval = null;
-   ROCKS.forEach(function(rock){
-     rock.remove();
-   })
+  gameInterval = null;
+  ROCKS.forEach(function(rock){
+    rock.remove();
+  })
+  document.removeEventListener('keydown', moveDodger);
+  ROCKS.splice(0);
 
- document.removeEventListener('keydown', moveDodger);
- ROCKS.splice(0);
+  alert('over');
 
- alert('over');
- START.style.display = 'inline'
+   START.style.display = 'inline'
 }
+
+
 function moveDodger(e) {
+  // implemented
   if(e.which == RIGHT_ARROW) {
     moveDodgerRight()
     e.preventDefault();
@@ -113,42 +108,33 @@ function moveDodger(e) {
     e.stopPropagation()
   };
 }
-  // implement me!
-  /**
-  * This function should call `moveDodgerLeft()`
-  * if the left arrow is pressed and `moveDodgerRight()`
-  * if the right arrow is pressed. (Check the constants
-  * we've declared for you above.)
-  * And be sure to use the functions declared below!
-  */
-}
 
 function moveDodgerLeft() {
+  // implemented
   const left = positionToInteger(DODGER.style.left);
   if(left > 0 ) {
     window.requestAnimationFrame(function() {
-         DODGER.style.left = `${left - 4}px`
-       })
-     }
-   }
-// implement me!
-  /**
-  * This function should move DODGER to the left
-  * (maybe 4 pixels?). Use window.requestAnimationFrame()!
-  */
+      DODGER.style.left = `${left - 4}px`
+    })
+  }
+}
+
+
 function moveDodgerRight() {
-  // implement me!
-  /**
-  * This function should move DODGER to the right
-  * (mabye 4 pixels?). Use window.requestAnimationFrame()!
-  */
+  // implemented
+  const left = positionToInteger(DODGER.style.left);
+  if(left < 360) {
+    window.requestAnimationFrame(function() {
+      DODGER.style.left = `${left + 4}px`
+    })
+  }
 }
 
 /**
-* @param {string} p The position property
-* @returns {number} The position as an integer (without 'px')
-*/
-function positionToInteger(p) {
+ * @param {string} p The position property
+ * @returns {number} The position as an integer (without 'px')
+ */
+function positionToInteger(p) {  //gives location of dogger from style on screen
   return parseInt(p.split('px')[0]) || 0
 }
 
