@@ -6,8 +6,10 @@ const LEFT_ARROW = 37
 const RIGHT_ARROW = 39
 const ROCKS = []
 const START = document.getElementById('start')
+const SCORE = document.getElementById('score')
 
 var gameInterval = null
+var score = 0;
 
 function checkCollision(rock) {
   const top = positionToInteger(rock.style.top)
@@ -68,6 +70,7 @@ function createRock(x) {
      else if (positionToInteger(rock.style.top) === GAME_HEIGHT) {
        //If the rock *has* reached the bottom of the GAME,
        // we should remove the rock from the DOM
+      score++
       rock.remove()
     }
   }
@@ -106,7 +109,9 @@ function endGame() {
     window.alert("YOU LOSE!")
 
     START.innerHTML = 'Play again?'
+    SCORE.innerHTML += ` ${score} points!`
     START.style.display = 'inline'
+    SCORE.style.display = 'inline'
 }
 
 function moveDodger(e) {
@@ -163,6 +168,9 @@ function start() {
   window.addEventListener('keydown', moveDodger)
 
   START.style.display = 'none'
+  SCORE.style.display = 'none'
+  SCORE.innerHTML = 'Score: '
+  score = 0;
 
   // every 1 second, create a new rock of random size
   gameInterval = setInterval(function() {

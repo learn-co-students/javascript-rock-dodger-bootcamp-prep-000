@@ -15,7 +15,7 @@
   width: 400px;
 }
 
-#start {
+#start, #score {
   color: white;
   font-size: 4rem;
   position: relative;
