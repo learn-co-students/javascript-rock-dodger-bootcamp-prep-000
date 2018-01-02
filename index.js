@@ -65,7 +65,6 @@ function createRock(x) {
       rock.remove()
     }
   }
-
   moveRock()
 
 
@@ -95,7 +94,7 @@ function createRock(x) {
  * Finally, alert "YOU LOSE!" to the player.
  */
 function endGame() {
-  gameInterval = null
+  clearInterval()
   for (let i = 0; i < ROCKS.length; i++) {
     ROCKS[i].remove()
   }
@@ -103,6 +102,9 @@ function endGame() {
   return alert('YOU LOSE!'))
 
 
+}
+function clearInterval() {
+  gameInterval = null
 }
 
 
