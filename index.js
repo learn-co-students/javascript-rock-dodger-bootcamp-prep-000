@@ -51,17 +51,22 @@ function createRock(x) {
    * Now that we have a rock, we'll need to append
    * it to GAME and move it downwards.
    */
+
+  GAME.appendChild(rock)
+
   function moveRock() {
-    top = `${top += 2}px`
+    rock.style.top = `${top += 2}px`
     if (checkCollision(rock)) {
       return endGame()
     }
-    if (positionToInteger(top) < 400) {
+    if (positionToInteger(rock.style.top) < 400) {
           window.requestAnimationFrame(moveRock)
     } else {
       rock.remove()
     }
   }
+
+  moveRock()
 
 
 
@@ -74,20 +79,8 @@ function createRock(x) {
    * seems like a good pace.)
    */
 
-  function moveRock() {
-    if (checkCollision(rock)) {
-      endGame()
-    } else {
-      if (top < 400) {
-        moveRock()
-      } else {
-        GAME.removeChild(rock)
-      }
-    }
 
 
-
-  }
 
   ROCKS.push(rock)
 
@@ -103,11 +96,12 @@ function createRock(x) {
  */
 function endGame() {
   gameInterval = null
-  for (let i = 0; i < ROCK.length; i++) {
-    ROCKS.
+  for (let i = 0; i < ROCKS.length; i++) {
+    ROCKS[i].remove()
   }
   window.removeEventListener('keydown', moveDodger)
   alert('YOU LOSE!')
+
 
 }
 
@@ -120,10 +114,15 @@ function moveDodger(e) {
    * we've declared for you above.)
    * And be sure to use the functions declared below!
    */
+
    if (e.which === 37) {
+     e.stopPropagation()
+     e.preventDefault()
      moveDodgerLeft()
    }
    if (e.which === 39) {
+     e.stopPropagation()
+     e.preventDefault()
      moveDodgerRight()
    }
 
@@ -135,15 +134,12 @@ function moveDodgerLeft() {
    * This function should move DODGER to the left
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
-   window.requestAnimationFrame(function() {
+  window.requestAnimationFrame(function() {
      var left = positionToInteger(DODGER.style.left)
      if (left > 0) {
        DODGER.style.left = `${left - 4}px`
      }
    })
-
-
-
 }
 
 function moveDodgerRight() {
@@ -152,6 +148,12 @@ function moveDodgerRight() {
    * This function should move DODGER to the right
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
+   window.requestAnimationFrame(function() {
+     var left = positionToInteger(DODGER.style.left)
+     if (left < 360) {
+       DODGER.style.left = `${left + 4}px`
+     }
+   })
 }
 
 /**
