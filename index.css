@@ -24,6 +24,15 @@
   top: 4rem;
 }
 
+#faster {
+  color: lime;
+  font-family: "Arial", Gadget, sans-serif;
+  font-size: 3rem;
+  position: relative;
+  text-decoration: underline lime;
+  top: 5rem;
+}
+
 #score {
   color: pink;
   font-family: "Arial", Gadget, sans-serif;

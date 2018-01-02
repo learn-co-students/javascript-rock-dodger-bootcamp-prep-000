@@ -7,10 +7,13 @@ const RIGHT_ARROW = 39
 const ROCKS = []
 const START = document.getElementById('start')
 const SCORE = document.getElementById('score')
+const FASTER = document.getElementById('faster')
 
 var gameInterval = null
 var score = 0
 var itsOver = false
+var rockSpeed = 4
+var increasedSpeed = []
 
 function checkCollision(rock) {
   const top = positionToInteger(rock.style.top)
@@ -58,19 +61,23 @@ function createRock(x) {
       rock.remove()
       return endGame()
     }
-    else if (positionToInteger(rock.style.top) < GAME_HEIGHT) {
-       //Otherwise, if the rock hasn't reached the bottom of
+    else if ((positionToInteger(rock.style.top) < GAME_HEIGHT) && !itsOver) {
+       // Otherwise, if the rock hasn't reached the bottom of
        // the GAME, we want to move it again.
        var top = positionToInteger(rock.style.top)
-       rock.style.top = `${top += 4}px`
+
+       console.log(`score is ${score}`)
+       rock.style.top = `${top += rockSpeed}px`
+       console.log(`rock.style.top is: ${rock.style.top}`);
        window.requestAnimationFrame(moveRock)
      }
-     else if (positionToInteger(rock.style.top) === GAME_HEIGHT && !itsOver) {
-       //If the rock *has* reached the bottom of the GAME,
+     else if (positionToInteger(rock.style.top) >= GAME_HEIGHT && !itsOver) {
+       // If the rock *has* reached the bottom of the GAME,
        // remove the rock from the DOM and update the score
+      console.log(`${score}`)
       rock.remove()
-      score++
-      runningScore.innerHTML = `Score: ${score}`;
+      score++ // increment score if rock is dodged
+      runningScore.innerHTML = `Score: ${score}`; // update score box on screen
     }
   }
   // Kick of the animation of the rock
@@ -79,9 +86,16 @@ function createRock(x) {
   // Add the rock to ROCKS so that we can remove all rocks
   // when there's a collision
   ROCKS.push(rock)
-
+  if (score > 0 && score % 3 === 0 && !increasedSpeed[score] && !itsOver) { faster() }
   // Return the rock element created
   return rock
+}
+
+function faster() {
+  rockSpeed += 1  // increase rock speed by 1 px
+  FASTER.style.display = 'inline'
+  increasedSpeed[score] = true
+  setTimeout(function(){ FASTER.style.display = 'none'; }, 1000);
 }
 
 /**
@@ -94,6 +108,7 @@ function endGame() {
     itsOver = true;
 
     clearInterval(gameInterval)
+    FASTER.style.display = 'none';
     ROCKS.forEach(function(rock) { rock.remove() })
     window.removeEventListener('keydown', moveDodger)
 
@@ -169,10 +184,19 @@ function start() {
   DODGER.style = "bottom: 0px; left: 180px;"
   START.style.display = 'none'
   SCORE.style.display = 'none'
+  FASTER.style.display = 'none'
+
   SCORE.innerHTML = 'Score: '
-  runningScore.innerHTML = 'Score: ';
+  runningScore.innerHTML = 'Score: 0';
+  FASTER.innerHTML = 'Faster!'
+
   score = 0;
   itsOver = false;
+  rockSpeed = 2
+
+  for (i = 0; i < increasedSpeed.length; i++) {
+    increasedSpeed[i] = false;
+  }
 
   // every 1 second, create a new rock of random size
   gameInterval = setInterval(function() {
