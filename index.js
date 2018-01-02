@@ -65,16 +65,12 @@ function createRock(x) {
        // Otherwise, if the rock hasn't reached the bottom of
        // the GAME, we want to move it again.
        var top = positionToInteger(rock.style.top)
-
-       console.log(`score is ${score}`)
        rock.style.top = `${top += rockSpeed}px`
-       console.log(`rock.style.top is: ${rock.style.top}`);
        window.requestAnimationFrame(moveRock)
      }
      else if (positionToInteger(rock.style.top) >= GAME_HEIGHT && !itsOver) {
        // If the rock *has* reached the bottom of the GAME,
        // remove the rock from the DOM and update the score
-      console.log(`${score}`)
       rock.remove()
       score++ // increment score if rock is dodged
       runningScore.innerHTML = `Score: ${score}`; // update score box on screen
@@ -86,6 +82,8 @@ function createRock(x) {
   // Add the rock to ROCKS so that we can remove all rocks
   // when there's a collision
   ROCKS.push(rock)
+  // every 3 points, increase the rocks' speed if the game is still on and we haven't already
+  // increased the speed before at this score
   if (score > 0 && score % 3 === 0 && !increasedSpeed[score] && !itsOver) { faster() }
   // Return the rock element created
   return rock
