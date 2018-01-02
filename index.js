@@ -100,10 +100,11 @@ function endGame() {
     ROCKS[i].remove()
   }
   window.removeEventListener('keydown', moveDodger)
-  return alert('YOU LOSE!')
+  return alert('YOU LOSE!'))
 
 
 }
+
 
 function moveDodger(e) {
   // implement me!
