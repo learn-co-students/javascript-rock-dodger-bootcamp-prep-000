@@ -77,6 +77,7 @@ function createRock(x) {
        window.requestAnimationFrame(step);
      
     }
+    window.requestAnimationFrame(moveRock);
 
   // We should kick of the animation of the rock around here
 
@@ -110,18 +111,40 @@ function moveDodger(e) {
    * we've declared for you above.)
    * And be sure to use the functions declared below!
    */
-   moveDodgerLeft();
-   moveDodgerRight();
+   if (e.which !== LEFT_ARROW && e.which !== RIGHT_ARROW){
+     return;
+   }
+   if (e.which == LEFT_ARROW){
+     e.preventDefault();
+     e.stopPropagation();
+     moveDodgerLeft();
+   } else if (e.which == RIGHT_ARROW){
+     e.preventDefault();
+     e.stopPropagation();
+     moveDodgerRight();
+   } else {
+     return e.preventDefault();
+   }
 }
 
 function moveDodgerLeft() {
   // implement me!
+  const dodgerLeftEdge = positionToInteger(DODGER.style.left)
+  const dodgerRightEdge = dodgerLeftEdge + 40;
+  
+  function step() {
+    dodger.style.left = `${dodgerLeftEdge -= 4}px`
+     
+    if (dodgerLeftEdge > 0) {
+      window.requestAnimationFrame(step)
+    }
+  }
+
   document.addEventListener('keydown',function(e){
-    if (e.which === LEFT_ARROW) {
     var leftNumbers = dodger.style.left.replace('px', '')
     var left = parseInt(leftNumbers, 10)
- 
-    dodger.style.left = `${left - 4}px`
+    if (e.which === LEFT_ARROW) {
+      window.requestAnimationFrame(step);
   }})
   /**
    * This function should move DODGER to the left
@@ -130,12 +153,22 @@ function moveDodgerLeft() {
 }
 
 function moveDodgerRight() {
+  const dodgerLeftEdge = positionToInteger(DODGER.style.left)
+  const dodgerRightEdge = dodgerLeftEdge + 40;
+  
+  function step() {
+    dodger.style.left = `${dodgerLeftEdge += 4}px`
+     
+    if (dodgerRightEdge < 360) {
+      window.requestAnimationFrame(step)
+    }
+  }
+
   document.addEventListener('keydown',function(e){
-    if (e.which === RIGHT_ARROW) {
     var leftNumbers = dodger.style.left.replace('px', '')
     var left = parseInt(leftNumbers, 10)
- 
-    dodger.style.left = `${left + 4}px`
+    if (e.which === RIGHT_ARROW) {
+      window.requestAnimationFrame(step);
   }})
   // implement me!
   /**
