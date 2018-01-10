@@ -98,8 +98,13 @@ function createRock(x) {
 function endGame() {
   clearInterval(gameInterval);
   //ROCKS.forEach(remove());
+  //document.querySelector('.rock')
+  //document.querySelector('.rock').remove();
+  for(i = 0; ROCKS.length > i; i++){
+    ROCKS[i].remove();}
+  window.removeEventListener('keydown', moveDodger);
   // remove moveDodger event listener
-  dodger.removeEventListener("keydown", moveDodger);
+  //dodger.removeEventListener("keydown", moveDodger);
   //DODGER.removeEventListener("keydown", moveDodgerRight);
   alert("YOU LOSE!");
   
@@ -125,30 +130,20 @@ function moveDodger(e) {
      e.preventDefault();
      e.stopPropagation();
      moveDodgerRight();
-   } else {
-     return e.preventDefault();
    }
 }
 
 function moveDodgerLeft() {
   // implement me!
-  const dodgerLeftEdge = positionToInteger(DODGER.style.left)
-  const dodgerRightEdge = dodgerLeftEdge + 40;
+  var dodgerLeftEdge = positionToInteger(DODGER.style.left)
+  var dodgerRightEdge = dodgerLeftEdge + 40;
   
   function step() {
-    dodger.style.left = `${dodgerLeftEdge -= 4}px`
-     
     if (dodgerLeftEdge > 0) {
-      window.requestAnimationFrame(step)
+      dodger.style.left = `${dodgerLeftEdge -= 4}px`
     }
   }
-
-  document.addEventListener('keydown',function(e){
-    var leftNumbers = dodger.style.left.replace('px', '')
-    var left = parseInt(leftNumbers, 10)
-    if (e.which === LEFT_ARROW) {
-      window.requestAnimationFrame(step);
-  }})
+  window.requestAnimationFrame(step);
   /**
    * This function should move DODGER to the left
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
@@ -156,23 +151,23 @@ function moveDodgerLeft() {
 }
 
 function moveDodgerRight() {
-  const dodgerLeftEdge = positionToInteger(DODGER.style.left)
-  const dodgerRightEdge = dodgerLeftEdge + 40;
+  var dodgerLeftEdge = positionToInteger(DODGER.style.left)
+  var dodgerRightEdge = dodgerLeftEdge + 40;
   
   function step() {
-    dodger.style.left = `${dodgerLeftEdge += 4}px`
      
     if (dodgerRightEdge < 360) {
-      window.requestAnimationFrame(step)
+      dodger.style.left = `${dodgerLeftEdge += 4}px`
     }
   }
-
+  window.requestAnimationFrame(step)
+/*
   document.addEventListener('keydown',function(e){
     var leftNumbers = dodger.style.left.replace('px', '')
     var left = parseInt(leftNumbers, 10)
     if (e.which === RIGHT_ARROW) {
       window.requestAnimationFrame(step);
-  }})
+  }})*/
   // implement me!
   /**
    * This function should move DODGER to the right
