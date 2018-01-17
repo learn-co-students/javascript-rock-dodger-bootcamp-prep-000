@@ -35,7 +35,7 @@ function checkCollision(rock) {
       boundsData[2] = dodgerLeftEdge;
       boundsData[3] = dodgerRightEdge;
     }
-    //Make this an if statement that returns nothing if false if this doesnt pass the test - that's how the original code worked
+
       return (withinRange(boundsData[0], boundsData[1], boundsData[2]) || withinRange(boundsData[0], boundsData[1], boundsData[3])) 
   }
 }
