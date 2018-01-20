@@ -26,17 +26,15 @@ function checkCollision(rock) {
   // GAME_HEIGHT - 20 - 20 = 360px;
   if (top > 360) {
     const dodgerLeftEdge = positionToInteger(DODGER.style.left)
-    const dodgerRightEdge = positionToInteger(DODGER.style.left + 40);
+    const dodgerRightEdge = positionToInteger(DODGER.style.left) + 40;
     const rockLeftEdge = positionToInteger(rock.style.left)
-    const rockRightEdge = positionToInteger(rock.style.left + 20);
+    const rockRightEdge = positionToInteger(rock.style.left) + 20;
 
-    console.log(`dodger left is ${dodgerLeftEdge}, rock left is ${rockLeftEdge}`)
-
-    if (rockLeftEdge <= dodgerLeftEdge && (rockRightEdge >= dodgerLeftEdge)) {
+    if (rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge) {
       return true;
-    } else if (rockLeftEdge >= dodgerLeftEdge && (rockRightEdge <= dodgerRightEdge)) {
+    } else if (rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge) {
       return true;
-    } else if (rockLeftEdge <= dodgerRightEdge && (rockRightEdge >= dodgerRightEdge)) {
+    } else if (rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge) {
       return true;
     }
   }
@@ -69,12 +67,9 @@ function createRock(x) {
   }
 
   window.requestAnimationFrame(moveRock)
-  // Add the rock to ROCKS so we can remove all rocks upon collision
   ROCKS.push(rock)
-  return rock
+  //return rock
 }
-
-
 
 /**
  * End the game by clearing `gameInterval`,
@@ -82,25 +77,58 @@ function createRock(x) {
  * and removing the `moveDodger` event listener.
  * Finally, alert "YOU LOSE!" to the player.
  */
-  function endGame() {
-    clearInterval(gameInterval);
-    for (let rock of ROCKS) {
-      console.log(rock);
-      rock.remove();
-    }
+
+// ******** HAVE TO FIND OUT WHY ALERT RUNS 10X ARRRRRGHHHHH!!!!!!! *************
+
+function endGame() {
+
+  function doFirst() {
+    window.clearInterval(gameInterval)
+    clearRocksAndReset();
     window.removeEventListener('keydown', moveDodger);
+    return true
+  }
+
+  if (doFirst()) {
     alert("YOU LOSE!");
+    console.log("I'm alerting again -- who knows why!!")
+    return
+  }
 }
 
-  function moveDodger(e) {
+function clearRocksAndReset() {
+  for (let i = 0; i < ROCKS.length; i++) {
+    ROCKS[i].remove();
+  }
+  START.style.display = '';
+  return true
+}
 
-    if(e.which === 37) {
-      moveDodgerLeft()
-    } else if (e.which === 39) {
-      moveDodgerRight()
-    } else if (e.which === 81 || e.which === 113) {
-      endGame();
-    }
+// async function endGameASYNC() {
+
+//   let interval = await clearInterval(gameInterval);
+//   let events = await function() {
+//     window.removeEventListener('keydown', moveDodger)
+//   };
+//   let reset = await clearRocksAndReset();
+//   let done = await function() {
+//     return alert("YOU LOSE!");
+//   }
+
+//doIHaveToWrapEverythingInJavaScript()
+//return alert("YOU LOSE!");
+//  }
+
+
+function moveDodger(e) {
+
+  if(e.which === 37) {
+    moveDodgerLeft()
+  } else if (e.which === 39) {
+    moveDodgerRight()
+  } else if (e.which === 81 || e.which === 113) {
+    endGame();
+  }
 }
 
 function moveDodgerLeft() {
@@ -137,7 +165,7 @@ function start() {
 
   START.style.display = 'none'
 
-  gameInterval = setInterval(function() {
+  gameInterval = window.setInterval(function() {
     createRock(Math.floor(Math.random() *  (GAME_WIDTH - 20)))
   }, 1000)
 }
