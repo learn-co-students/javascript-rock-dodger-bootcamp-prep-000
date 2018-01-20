@@ -83,37 +83,39 @@ function createRock(x) {
 
 function endGame() {
   window.clearInterval(gameInterval)
+  
   for (let i = 0; i < ROCKS.length; i++) {
     ROCKS[i].remove();
   }
   window.removeEventListener('keydown', moveDodger);
+  START.style.display = '';
   alert("YOU LOSE!");
 }
 
 
-function endGameAnotherWay() {
+// function endGameAnotherWay() {
 
-  function doFirst() {
-    window.clearInterval(gameInterval)
-    clearRocksAndReset();
-    window.removeEventListener('keydown', moveDodger);
-    return true
-  }
+//   function doFirst() {
+//     window.clearInterval(gameInterval)
+//     clearRocksAndReset();
+//     window.removeEventListener('keydown', moveDodger);
+//     return true
+//   }
 
-  if (doFirst()) {
-    alert("YOU LOSE!");
-    console.log("I'm alerting again -- who knows why!!")
-    return
-  }
-}
+//   if (doFirst()) {
+//     alert("YOU LOSE!");
+//     console.log("I'm alerting again -- who knows why!!")
+//     return
+//   }
+// }
 
-function clearRocksAndReset() {
-  for (let i = 0; i < ROCKS.length; i++) {
-    ROCKS[i].remove();
-  }
-  START.style.display = '';
-  return true
-}
+// function clearRocksAndReset() {
+//   for (let i = 0; i < ROCKS.length; i++) {
+//     ROCKS[i].remove();
+//   }
+//   START.style.display = '';
+//   return true
+// }
 
 // async function endGameASYNC() {
 
