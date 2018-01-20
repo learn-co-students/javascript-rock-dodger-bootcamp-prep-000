@@ -67,8 +67,9 @@ function createRock(x) {
   }
 
   window.requestAnimationFrame(moveRock)
-  ROCKS.push(rock)
-  //return rock
+  ROCKS.push(rock) //to enable easy removal at end of game
+  // directions say return rock but there is really no need and MDN docs say none expected
+  //return rock 
 }
 
 /**
@@ -81,6 +82,16 @@ function createRock(x) {
 // ******** HAVE TO FIND OUT WHY ALERT RUNS 10X ARRRRRGHHHHH!!!!!!! *************
 
 function endGame() {
+  window.clearInterval(gameInterval)
+  for (let i = 0; i < ROCKS.length; i++) {
+    ROCKS[i].remove();
+  }
+  window.removeEventListener('keydown', moveDodger);
+  alert("YOU LOSE!");
+}
+
+
+function endGameAnotherWay() {
 
   function doFirst() {
     window.clearInterval(gameInterval)
