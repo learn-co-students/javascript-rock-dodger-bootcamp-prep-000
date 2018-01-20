@@ -55,7 +55,7 @@ function createRock(x) {
   function moveRock() {
     rock.style.top = `${top += 2}px`
 
-    if (checkCollision(rock)) {
+    if (checkCollision(rock) && gameInterval) {
       endGame()
     }
 
@@ -82,7 +82,8 @@ function createRock(x) {
 // ******** HAVE TO FIND OUT WHY ALERT RUNS 10X ARRRRRGHHHHH!!!!!!! *************
 
 function endGame() {
-  //window.clearInterval(gameInterval)
+  window.clearInterval(gameInterval)
+  gameInterval = null;
   
   for (let i = 0; i < ROCKS.length; i++) {
     ROCKS[i].remove();
@@ -178,9 +179,9 @@ function start() {
 
   START.style.display = 'none'
 
-  createRock(Math.floor(Math.random() *  (GAME_WIDTH - 20)))
+  //createRock(Math.floor(Math.random() *  (GAME_WIDTH - 20)))
 
-  // gameInterval = window.setInterval(function() {
-  //   createRock(Math.floor(Math.random() *  (GAME_WIDTH - 20)))
-  // }, 1000)
+   gameInterval = window.setInterval(function() {
+     createRock(Math.floor(Math.random() *  (GAME_WIDTH - 20)))
+   }, 1000)
 }
