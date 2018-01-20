@@ -20,8 +20,8 @@ var gameInterval = null
 function checkCollision(rock) {
   const top = positionToInteger(rock.style.top)
   // rocks are 20px high
-  // rocks are 20px wide
-  // DODGER is 20px high
+  // rocks are 20px widex
+  // DODGER is 20px highxx
   // DODGER is 40px wide  
   // GAME_HEIGHT - 20 - 20 = 360px;
   if (top > 360) {
@@ -54,7 +54,7 @@ function createRock(x) {
 
   function moveRock() {
     rock.style.top = `${top += 2}px`
-
+    //check for gameInterval to ensure endGame() called only once
     if (checkCollision(rock) && gameInterval) {
       endGame()
     }
@@ -92,47 +92,6 @@ function endGame() {
   START.style.display = '';
   alert("YOU LOSE!");
 }
-
-
-// function endGameAnotherWay() {
-
-//   function doFirst() {
-//     window.clearInterval(gameInterval)
-//     clearRocksAndReset();
-//     window.removeEventListener('keydown', moveDodger);
-//     return true
-//   }
-
-//   if (doFirst()) {
-//     alert("YOU LOSE!");
-//     console.log("I'm alerting again -- who knows why!!")
-//     return
-//   }
-// }
-
-// function clearRocksAndReset() {
-//   for (let i = 0; i < ROCKS.length; i++) {
-//     ROCKS[i].remove();
-//   }
-//   START.style.display = '';
-//   return true
-// }
-
-// async function endGameASYNC() {
-
-//   let interval = await clearInterval(gameInterval);
-//   let events = await function() {
-//     window.removeEventListener('keydown', moveDodger)
-//   };
-//   let reset = await clearRocksAndReset();
-//   let done = await function() {
-//     return alert("YOU LOSE!");
-//   }
-
-//doIHaveToWrapEverythingInJavaScript()
-//return alert("YOU LOSE!");
-//  }
-
 
 function moveDodger(e) {
 
