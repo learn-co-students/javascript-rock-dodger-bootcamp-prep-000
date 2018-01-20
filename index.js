@@ -82,7 +82,7 @@ function createRock(x) {
 // ******** HAVE TO FIND OUT WHY ALERT RUNS 10X ARRRRRGHHHHH!!!!!!! *************
 
 function endGame() {
-  window.clearInterval(gameInterval)
+  //window.clearInterval(gameInterval)
   
   for (let i = 0; i < ROCKS.length; i++) {
     ROCKS[i].remove();
@@ -178,7 +178,9 @@ function start() {
 
   START.style.display = 'none'
 
-  gameInterval = window.setInterval(function() {
-    createRock(Math.floor(Math.random() *  (GAME_WIDTH - 20)))
-  }, 1000)
+  createRock(Math.floor(Math.random() *  (GAME_WIDTH - 20)))
+
+  // gameInterval = window.setInterval(function() {
+  //   createRock(Math.floor(Math.random() *  (GAME_WIDTH - 20)))
+  // }, 1000)
 }
