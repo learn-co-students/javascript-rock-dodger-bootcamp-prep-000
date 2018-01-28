@@ -12,14 +12,7 @@ const START = document.getElementById('start')
 
 var gameInterval = null
 
-/**
- * Be aware of what's above this line,
- * but all of your work should happen below.
- */
-
 function checkCollision(rock) {
-  // implement me!
-  // use the comments below to guide you!
   const top = positionToInteger(rock.style.top)
 
   // rocks are 20px high
@@ -29,14 +22,23 @@ function checkCollision(rock) {
     const dodgerLeftEdge = positionToInteger(DODGER.style.left)
 
     // FIXME: The DODGER is 40 pixels wide -- how do we get the right edge?
-    const dodgerRightEdge = 0;
+    const dodgerRightEdge = dodgerLeftEdge + 40; // if dodgerLeftEdge = 0, dodgerRightEdge = dodger.clientWidth = 40
 
     const rockLeftEdge = positionToInteger(rock.style.left)
 
     // FIXME: The rock is 20 pixel's wide -- how do we get the right edge?
-    const rockRightEdge = 0;
+    const rockRightEdge = rockLeftEdge + 20;
 
-    if (false /**
+    if (
+      rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge
+      || rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge
+      || rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge
+
+      // rockLeftEdge < dodgerLeftEdge && rockRightEdge > dodgerLeftEdge
+      // || rockLeftEdge > dodgerLeftEdge && rockRightEdge < dodgerRightEdge
+      // || rockLeftEdge < dodgerRightEdge && rockRightEdge > dodgerRightEdge
+    ) {
+              /**
                * Think about it -- what's happening here?
                * There's been a collision if one of three things is true:
                * 1. The rock's left edge is < the DODGER's left edge,
@@ -45,7 +47,9 @@ function checkCollision(rock) {
                *    and the rock's right edge is < the DODGER's right edge;
                * 3. The rock's left edge is < the DODGER's right edge,
                *    and the rock's right edge is > the DODGER's right edge
-               */) {
+               */
+               // Airbnb style guide on multi-line if statements:
+               // https://github.com/airbnb/javascript/issues/1380
       return true
     }
   }
@@ -57,84 +61,96 @@ function createRock(x) {
   rock.className = 'rock'
   rock.style.left = `${x}px`
 
-  // Hmmm, why would we have used `var` here?
-  var top = 0
-
+  var top = 0 // The value of top needs to be mutable: we use it as a counter to store the current value of "top" in this scope.
   rock.style.top = top
 
-  /**
-   * Now that we have a rock, we'll need to append
-   * it to GAME and move it downwards.
-   */
+  GAME.appendChild(rock) // TODO: Pull request? GAME.prepend(rock) throws error in testing: "GAME.prepend is not a function" but ParentNode.prepend is a property on GAME, and GAME.prepend(rock) runs error free in console (prepend inserts Node before first child, while appendChild inserts Node at end of list of child Nodes). The .prepend() return value is undefined, while .appendChild() return value is the appended child Node. Is this why test fails?).
 
-
-  /**
-   * This function moves the rock. (2 pixels at a time
-   * seems like a good pace.)
-   */
   function moveRock() {
-    // implement me!
-    // (use the comments below to guide you!)
-    /**
-     * If a rock collides with the DODGER,
-     * we should call endGame()
-     */
+    rock.style.top = `${top += 2}px`; // top += 2 increments top and also returns the incrementer value, (value on right side of operator)
 
-    /**
-     * Otherwise, if the rock hasn't reached the bottom of
-     * the GAME, we want to move it again.
-     */
-
-    /**
-     * But if the rock *has* reached the bottom of the GAME,
-     * we should remove the rock from the DOM
-     */
+    if ( checkCollision(rock) ) {
+      endGame();
+    } else if ( top < 380 ) {
+      window.requestAnimationFrame(moveRock);
+    } else {
+      rock.remove();
+    }
   }
 
-  // We should kick of the animation of the rock around here
-
-  // Add the rock to ROCKS so that we can remove all rocks
-  // when there's a collision
+  window.requestAnimationFrame(moveRock);
   ROCKS.push(rock)
-
-  // Finally, return the rock element you've created
-  return rock
+  return rock // Why?
 }
 
-/**
- * End the game by clearing `gameInterval`,
- * removing all ROCKS from the DOM,
- * and removing the `moveDodger` event listener.
- * Finally, alert "YOU LOSE!" to the player.
- */
 function endGame() {
+  clearInterval(gameInterval);
+  for (let i = 0; i < ROCKS.length; i++) {
+    ROCKS[i].remove();
+  }
+  window.removeEventListener('keydown', moveDodger);
+  alert("YOU LOSE!");
 }
 
 function moveDodger(e) {
-  // implement me!
-  /**
-   * This function should call `moveDodgerLeft()`
-   * if the left arrow is pressed and `moveDodgerRight()`
-   * if the right arrow is pressed. (Check the constants
-   * we've declared for you above.)
-   * And be sure to use the functions declared below!
-   */
+  let leftEdgeOnKeyboardEvent = positionToInteger(DODGER.style.left);
+  let rightEdgeOnKeyboardEvent = GAME_WIDTH - leftEdgeOnKeyboardEvent - 20 ;
+
+  if ( e.which === LEFT_ARROW ) {
+    e.preventDefault();
+    e.stopPropagation();
+    if ( leftEdgeOnKeyboardEvent > 0 ) {
+      moveDodgerLeft();
+    }
+  }
+  if ( e.which === RIGHT_ARROW ) {
+    e.preventDefault();
+    e.stopPropagation();
+    if ( rightEdgeOnKeyboardEvent > 0 ) {
+      moveDodgerRight();
+    }
+  }
+  /*
+    Why not use "if (e.key === 'ArrowLeft') and "if (e.key === 'ArrowRight')"?
+    https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent :
+    KeyboardEvent.which:
+    "This attribute is deprecated; you should use KeyboardEvent.key instead, if available."
+
+    e.which: 37 (number), e.key: ArrowLeft (string)
+    e.which: 39 (number), e.key: ArrowRight (string)
+
+    document.addEventListener('keydown', function(e) {
+      console.log(`e.which: ${e.which} (${typeof e.which}), e.key: ${e.key} (${typeof e.key})`);
+    });
+  */
 }
 
 function moveDodgerLeft() {
-  // implement me!
-  /**
-   * This function should move DODGER to the left
-   * (mabye 4 pixels?). Use window.requestAnimationFrame()!
-   */
+  let leftNumber = positionToInteger(DODGER.style.left); // get a position number in the outer scope
+
+  function stepLeft() {
+
+    if ( leftNumber > 0 ) {
+      DODGER.style.left = `${leftNumber -= 4}px`; // decrement position number in inner scope and return decremented value into string '${/\d+/}px'
+      window.requestAnimationFrame(stepLeft);
+    }
+  }
+
+  window.requestAnimationFrame(stepLeft);
 }
 
 function moveDodgerRight() {
-  // implement me!
-  /**
-   * This function should move DODGER to the right
-   * (mabye 4 pixels?). Use window.requestAnimationFrame()!
-   */
+  let leftNumber = positionToInteger( DODGER.style.left);
+
+  function stepRight() {
+
+    if ( leftNumber < GAME_WIDTH - 40 ) {
+      DODGER.style.left = `${leftNumber += 4}px`; // increment position number and return decremented value into string '${/\d+/}px'
+      window.requestAnimationFrame(stepRight)
+    }
+  }
+
+  window.requestAnimationFrame(stepRight)
 }
 
 /**
@@ -142,7 +158,7 @@ function moveDodgerRight() {
  * @returns {number} The position as an integer (without 'px')
  */
 function positionToInteger(p) {
-  return parseInt(p.split('px')[0]) || 0
+  return parseInt(p.split('px')[0]) || 0 // split string at 'px' returns array, pull left side of split out of array (only two elements since only one 'px')
 }
 
 function start() {
