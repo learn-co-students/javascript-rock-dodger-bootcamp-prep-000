@@ -34,7 +34,7 @@ function checkCollision(rock) {
     const rockLeftEdge = positionToInteger(rock.style.left)
 
     // FIXME: The rock is 20 pixel's wide -- how do we get the right edge?
-    const rockRightEdge = rockLeftEdge+20;
+    const rockRightEdge = rockRightEdge+20;
 
     if ((rockLeftEdge<dodgerLeftEdge && rockRightEdge>dodgerLeftEdge)
           || (rockLeftEdge>dodgerLeftEdge && rockRightLedge<dodgerRightEdge)
@@ -81,15 +81,14 @@ function createRock(x) {
     function step(){
       rock.style.top=`${top += 2}px`
 
-      if (top<380){
+      if (top<380 && !checkCollision(rock)){
         window.requestAnimationFrame(step)
       }
-      else if (top===380){
+      else if (top===380 && !checkCollision(rock)){
         rock.remove();
       }
-      else if (checkCollision()){
-        endGame();
-      }
+      else if (checkCollision(rock)){
+        alert("Game Over!")
     }
 
     window.requestAnimationFrame(step)
@@ -129,7 +128,7 @@ moveRock();
  * Finally, alert "YOU LOSE!" to the player.
  */
 function endGame() {
-  console.log("You got to endGame")
+  alert("You got to endGame")
 }
 
 function moveDodger(e) {
