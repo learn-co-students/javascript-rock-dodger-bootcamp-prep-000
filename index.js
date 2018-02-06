@@ -143,11 +143,11 @@ function moveDodger(e) {
    * we've declared for you above.)
    * And be sure to use the functions declared below!
    */
-   document.addEventListener('keydown', function(e){
-    if(e.which===37){
+   window.addEventListener('keydown', function(e){
+    if(e.which===LEFT_ARROW){
       moveDodgerLeft(dodger);
     }
-    if (e.which===39){
+    if (e.which===RIGHT_ARROW){
       moveDodgerRight(dodger);
     }
    })
