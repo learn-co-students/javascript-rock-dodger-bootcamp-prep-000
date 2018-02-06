@@ -66,6 +66,7 @@ function createRock(x) {
    * Now that we have a rock, we'll need to append
    * it to GAME and move it downwards.
    */
+   document.getElementById('game').appendChild(rock);
 
 
   /**
@@ -73,6 +74,17 @@ function createRock(x) {
    * seems like a good pace.)
    */
   function moveRock() {
+    var top=0;
+
+    function step(){
+      rock.style.top=`${top += 2}px`
+
+      if (top<380){
+        window.requestAnimationFrame(step)
+      }
+    }
+
+    window.requestAnimationFrame(step)
     // implement me!
     // (use the comments below to guide you!)
     /**
@@ -134,12 +146,12 @@ function moveDodgerLeft(dodger) {
    * This function should move DODGER to the left
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
-   var leftNumbers=dodger.style.left.replace('px', '');
+   var leftNumbers=DODGER.style.left.replace('px', '');
    var left=parseInt(leftNumbers, 10);
 
    function step(){
-     dodger.style.left=`${left-=4}px`;
-      if (left<400){
+     dodger.style.left=`${left-4}px`;
+      if (left>0){
         window.requestAnimationFrame(step);
       }
    }
@@ -157,7 +169,7 @@ function moveDodgerRight() {
 
    function step(){
      dodger.style.left=`${right+4}px`;
-      if (right<400){
+      if (right<360){
         window.requestAnimationFrame(step);
       }
    }
