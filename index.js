@@ -110,9 +110,9 @@ function createRock(x) {
      */
   }
 
-moveRock();
-  // We should kick of the animation of the rock around here
 
+  // We should kick of the animation of the rock around here
+moveRock();
   // Add the rock to ROCKS so that we can remove all rocks
   // when there's a collision
   ROCKS.push(rock)
@@ -129,7 +129,8 @@ moveRock();
  */
 function endGame() {
   clearInterval(gameInterval);
-  ROCKS.length=0;
+  ROCKS.splice(0)
+  window.removeEventListener('keydown', moveDodger);
   alert("YOU LOSE!");
 }
 
@@ -145,8 +146,9 @@ function moveDodger(e) {
    document.addEventListener('keydown', function(e){
     if(e.which===37){
       moveDodgerLeft(dodger);
-    } else if (e.which===39){
-      moveDodgerRight(dodger)
+    }
+    if (e.which===39){
+      moveDodgerRight(dodger);
     }
    })
 }
@@ -157,7 +159,8 @@ function moveDodgerLeft(dodger) {
    * This function should move DODGER to the left
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
-   var leftNumbers=DODGER.style.left.replace('px', '');
+   dodger = document.getElementById('dodger')
+   var leftNumbers=dodger.style.left.replace('px', '');
    var left=parseInt(leftNumbers, 10);
 
    function step(){
@@ -174,7 +177,8 @@ function moveDodgerRight() {
    * This function should move DODGER to the right
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
-   var rightNumbers=DODGER.style.left.replace('px', '');
+   dodger = document.getElementById('dodger')
+   var rightNumbers=dodger.style.left.replace('px', '');
    var right=parseInt(rightNumbers, 10);
 
    function step(){
