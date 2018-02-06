@@ -145,17 +145,21 @@ function moveDodger(e) {
    * we've declared for you above.)
    * And be sure to use the functions declared below!
    */
-   window.addEventListener('keydown', function(e){
-    if(e.which===LEFT_ARROW){
+   e.preventDefault();
+   e.stopPropagation();
+    if(e.which === LEFT_ARROW){
+//      e.preventDefault();
+//      e.stopPropagation();
       moveDodgerLeft();
     }
-    if (e.which===RIGHT_ARROW){
+    if (e.which === RIGHT_ARROW){
+//      e.preventDefault();
+//      e.stopPropagation();
       moveDodgerRight();
-    }
-   })
+   }
 }
 
-function moveDodgerLeft(dodger) {
+function moveDodgerLeft() {
   // implement me!
   /**
    * This function should move DODGER to the left
