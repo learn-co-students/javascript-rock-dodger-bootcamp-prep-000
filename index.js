@@ -129,7 +129,9 @@ moveRock();
  */
 function endGame() {
   clearInterval(gameInterval);
-  ROCKS.splice(0)
+  for (let i=0; i<ROCKS.length; i++){
+    ROCKS[i].remove()
+  }
   window.removeEventListener('keydown', moveDodger);
   alert("YOU LOSE!");
 }
@@ -145,10 +147,10 @@ function moveDodger(e) {
    */
    window.addEventListener('keydown', function(e){
     if(e.which===LEFT_ARROW){
-      moveDodgerLeft(dodger);
+      moveDodgerLeft();
     }
     if (e.which===RIGHT_ARROW){
-      moveDodgerRight(dodger);
+      moveDodgerRight();
     }
    })
 }
