@@ -82,6 +82,9 @@ function createRock(x) {
       if (top<380){
         window.requestAnimationFrame(step)
       }
+      else if (top>380){
+        rock.remove();
+      }
     }
 
     window.requestAnimationFrame(step)
@@ -103,6 +106,7 @@ function createRock(x) {
      */
   }
 
+moveRock();
   // We should kick of the animation of the rock around here
 
   // Add the rock to ROCKS so that we can remove all rocks
