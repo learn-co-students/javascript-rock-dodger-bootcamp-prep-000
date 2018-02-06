@@ -34,11 +34,11 @@ function checkCollision(rock) {
     const rockLeftEdge = positionToInteger(rock.style.left)
 
     // FIXME: The rock is 20 pixel's wide -- how do we get the right edge?
-    const rockRightEdge = rockRightEdge+20;
+    const rockRightEdge = rockLeftEdge+20;
 
-    if ((rockLeftEdge<dodgerLeftEdge && rockRightEdge>dodgerLeftEdge)
-          || (rockLeftEdge>dodgerLeftEdge && rockRightLedge<dodgerRightEdge)
-              || (rockLeftEdge<dodgerRightEdge && rockRightEdge>dodgerRightEdge)) /**
+    if ((rockLeftEdge<=dodgerLeftEdge && rockRightEdge>=dodgerLeftEdge)
+          || (rockLeftEdge>=dodgerLeftEdge && rockRightEdge<=dodgerRightEdge)
+              || (rockLeftEdge<=dodgerRightEdge && rockRightEdge>=dodgerRightEdge)) /**
                * Think about it -- what's happening here?
                * There's been a collision if one of three things is true:
                * 1. The rock's left edge is < the DODGER's left edge,
@@ -81,15 +81,15 @@ function createRock(x) {
     function step(){
       rock.style.top=`${top += 2}px`
 
-      if (top<380 && !checkCollision(rock)){
-        window.requestAnimationFrame(step)
+      if (checkCollision(rock)){
+        endGame();
       }
-      else if (top===380 && !checkCollision(rock)){
+      if (top<380){
+        window.requestAnimationFrame(step)
+      } else if (top===380){
         rock.remove();
       }
-      else if (checkCollision(rock)){
-        alert("Game Over!")
-    }
+  }
 
     window.requestAnimationFrame(step)
     // implement me!
@@ -128,7 +128,9 @@ moveRock();
  * Finally, alert "YOU LOSE!" to the player.
  */
 function endGame() {
-  alert("You got to endGame")
+  clearInterval(gameInterval);
+  Rocks.length=0;
+  alert("YOU LOSE!");
 }
 
 function moveDodger(e) {
@@ -159,9 +161,8 @@ function moveDodgerLeft(dodger) {
    var left=parseInt(leftNumbers, 10);
 
    function step(){
-     dodger.style.left=`${left-4}px`;
       if (left>0){
-        window.requestAnimationFrame(step);
+        dodger.style.left=`${left-4}px`;
       }
    }
    window.requestAnimationFrame(step);
@@ -177,9 +178,8 @@ function moveDodgerRight() {
    var right=parseInt(rightNumbers, 10);
 
    function step(){
-     dodger.style.left=`${right+4}px`;
       if (right<360){
-        window.requestAnimationFrame(step);
+        dodger.style.left=`${right+4}px`;
       }
    }
    window.requestAnimationFrame(step);
