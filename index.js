@@ -129,7 +129,7 @@ moveRock();
  */
 function endGame() {
   clearInterval(gameInterval);
-  Rocks.length=0;
+  ROCKS.length=0;
   alert("YOU LOSE!");
 }
 
