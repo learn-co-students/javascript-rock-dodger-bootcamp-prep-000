@@ -82,12 +82,15 @@ function createRock(x) {
       if (top<380){
         window.requestAnimationFrame(step)
       }
-      else if (top>380){
+      else if (top===380){
         rock.remove();
+      }
+      else if (checkCollision()){
+        endGame();
       }
     }
 
-    window.requestAnimationFrame(step)
+    window.requestAnimationFrame(step)    
     // implement me!
     // (use the comments below to guide you!)
     /**
