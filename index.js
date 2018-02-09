@@ -121,16 +121,17 @@ function moveDodger(e) {
    * in order to avoid the stutter between the first and
    * second keydown events when hoding down the arrow keys
    */
+  console.log(e)
   if (e.type === 'keydown') {
-    if (e.which === LEFT_ARROW) {
+    if (e.key === 'ArrowLeft') {
       IS_PRESSED.left = true
-    } else if (e.which === RIGHT_ARROW) {
+    } else if (e.key === 'ArrowRight') {
       IS_PRESSED.right = true
     }
   } else if (e.type === 'keyup') {
-    if (e.which === LEFT_ARROW) {
+    if (e.key === 'ArrowLeft') {
       IS_PRESSED.left = false
-    } else if (e.which === RIGHT_ARROW) {
+    } else if (e.key === 'ArrowRight') {
       IS_PRESSED.right = false
     }
   }
@@ -139,9 +140,6 @@ function moveDodger(e) {
 function moveDodgerLeft() {
   if (IS_PRESSED.left) {
     DODGER.style.left = (positionToInteger(DODGER.style.left) - 4) + 'px'
-    //console.log('LEFT_ARROW')
-    //console.log(IS_PRESSED)
-    // console.log(e)
   }
   window.requestAnimationFrame(moveDodgerLeft)
 }
