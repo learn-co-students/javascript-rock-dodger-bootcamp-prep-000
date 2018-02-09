@@ -123,15 +123,15 @@ function moveDodger(e) {
    */
   console.log(e)
   if (e.type === 'keydown') {
-    if (e.key === 'ArrowLeft') {
+    if (e.key === 'ArrowLeft' || e.key === 'Left') {
       IS_PRESSED.left = true
-    } else if (e.key === 'ArrowRight') {
+    } else if (e.key === 'ArrowRight' || e.key === 'Right') {
       IS_PRESSED.right = true
     }
   } else if (e.type === 'keyup') {
-    if (e.key === 'ArrowLeft') {
+    if (e.key === 'ArrowLeft' || e.key === 'Left') {
       IS_PRESSED.left = false
-    } else if (e.key === 'ArrowRight') {
+    } else if (e.key === 'ArrowRight' || e.key === 'Right') {
       IS_PRESSED.right = false
     }
   }
