@@ -115,20 +115,19 @@ function createRock(x) {
  */
 function endGame() {}
 
-function moveDodger(e) {
-  /* this if else statment keeks track of which keys are
+function trackPressedKeys(e) {
+  /* this function keeks track of which keys are
    * pressed and which aren't,
    * in order to avoid the stutter between the first and
    * second keydown events when hoding down the arrow keys
    */
-  console.log(e)
   if (e.type === 'keydown') {
     if (e.key === 'ArrowLeft' || e.key === 'Left') {
       IS_PRESSED.left = true
     } else if (e.key === 'ArrowRight' || e.key === 'Right') {
       IS_PRESSED.right = true
     }
-  } else {// if (e.type === 'keyup'){ is this necessary?
+  } else { // if (e.type === 'keyup'){ is this necessary?
     if (e.key === 'ArrowLeft' || e.key === 'Left') {
       IS_PRESSED.left = false
     } else if (e.key === 'ArrowRight' || e.key === 'Right') {
@@ -137,21 +136,24 @@ function moveDodger(e) {
   }
 }
 
-function moveDodgerLeft() {
+function moveDodger() {
   if (IS_PRESSED.left) {
-    DODGER.style.left = (positionToInteger(DODGER.style.left) - 4) + 'px'
+    console.log()
+    moveDodgerLeft()
   }
-  window.requestAnimationFrame(moveDodgerLeft)
+  if (IS_PRESSED.right) {
+    console.log()
+    moveDodgerRight()
+  }
+  window.requestAnimationFrame(moveDodger)
+}
+
+function moveDodgerLeft() {
+  DODGER.style.left = (positionToInteger(DODGER.style.left) - 4) + 'px'
 }
 
 function moveDodgerRight() {
-  if (IS_PRESSED.right) {
-    DODGER.style.left = (positionToInteger(DODGER.style.left) + 4) + 'px'
-    //console.log('RIGHT_ARROW')
-    //console.log(IS_PRESSED)
-    // console.log(e)
-  }
-  window.requestAnimationFrame(moveDodgerRight)
+  DODGER.style.left = (positionToInteger(DODGER.style.left) + 4) + 'px'
 }
 
 /**
@@ -163,14 +165,13 @@ function positionToInteger(p) {
 }
 
 function start() {
-  window.addEventListener('keydown', moveDodger)
-  window.addEventListener('keyup', moveDodger)
+  window.addEventListener('keydown', trackPressedKeys)
+  window.addEventListener('keyup', trackPressedKeys)
   /* moveDodgerRight and moveDodgerLeft are called here
    * (as aposed to in moveDodger) so it is only called
    * once per frame even after multiple keyboard events
    */
-  window.requestAnimationFrame(moveDodgerLeft)
-  window.requestAnimationFrame(moveDodgerRight)
+  window.requestAnimationFrame(moveDodger)
 
   START.style.display = 'none'
 
