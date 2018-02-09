@@ -128,7 +128,7 @@ function moveDodger(e) {
     } else if (e.key === 'ArrowRight' || e.key === 'Right') {
       IS_PRESSED.right = true
     }
-  } else if (e.type === 'keyup') {
+  } else {// if (e.type === 'keyup'){ is this necessary?
     if (e.key === 'ArrowLeft' || e.key === 'Left') {
       IS_PRESSED.left = false
     } else if (e.key === 'ArrowRight' || e.key === 'Right') {
@@ -165,7 +165,6 @@ function positionToInteger(p) {
 function start() {
   window.addEventListener('keydown', moveDodger)
   window.addEventListener('keyup', moveDodger)
-
   /* moveDodgerRight and moveDodgerLeft are called here
    * (as aposed to in moveDodger) so it is only called
    * once per frame even after multiple keyboard events
