@@ -167,6 +167,11 @@ function positionToInteger(p) {
 function start() {
   window.addEventListener('keydown', moveDodger)
   window.addEventListener('keyup', moveDodger)
+
+  /* moveDodgerRight and moveDodgerLeft are called here
+   * (as aposed to in moveDodger) so it is only called
+   * once per frame even after multiple keyboard events
+   */
   window.requestAnimationFrame(moveDodgerLeft)
   window.requestAnimationFrame(moveDodgerRight)
 
