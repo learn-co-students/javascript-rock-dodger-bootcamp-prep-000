@@ -110,13 +110,13 @@ function createRock(x) {
  * Finally, alert "YOU LOSE!" to the player.
  */
 function endGame() {
-  clearInterval(gameInterval);
+  clearInterval(gameInterval); //stops rocks from being generated.
 
-  ROCKS.forEach(function(rock) {rock.remove()});
+  ROCKS.forEach(function(rock) {rock.remove()}); //clears rocks from the screen 
 
-  document.removeEventListener('keydown', moveDodger);
+  window.removeEventListener('keydown', moveDodger);
 
-  START.innerHTML('PLAY AGAIN?');
+  START.innerHTML = 'PLAY AGAIN?';
   START.style.display = 'inline';
 
   return alert('GAME OVER: You lose!');
@@ -125,7 +125,7 @@ function endGame() {
 function moveDodger(e) {
   const input = e.which;
 
-  if ([LEFT_ARROW, RIGHT_ARROW]).indexOf(input) > -1) { //ignores non left and right arrow key inputs
+  if (([LEFT_ARROW, RIGHT_ARROW]).indexOf(input) > -1) { //ignores non left and right arrow key inputs
     e.preventDefault();
     e.stopPropagation();
   }
@@ -149,7 +149,7 @@ function moveDodgerLeft() {
 
 function moveDodgerRight() {
   window.requestAnimationFrame(function() {
-    const right = positionToInteger(DODGER.style.right);
+    const left = positionToInteger(DODGER.style.left);
 
     if (left < 360) { //if the left right isnt at 400-40 = 360(because the rock is 40px wide)
       DODGER.style.left = `${left + 4}px`;
