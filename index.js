@@ -134,13 +134,16 @@ function moveDodger(e) {
 }
 
 function moveDodgerLeft() {
-  DODGER.style.left = (positionToInteger(DODGER.style.left) - 4) + 'px'
-  //window.requestAnimationFrame(moveDodgerLeft)
+  if (positionToInteger(DODGER.style.left) > 0) {
+    DODGER.style.left = (positionToInteger(DODGER.style.left) - 4) + 'px'
+  }
 }
 
 function moveDodgerRight() {
-  DODGER.style.left = (positionToInteger(DODGER.style.left) + 4) + 'px'
-  //window.requestAnimationFrame(moveDodgerRight)
+  if (positionToInteger(DODGER.style.left) < GAME_WIDTH - 40) {
+    DODGER.style.left = (positionToInteger(DODGER.style.left) + 4) + 'px'
+    console.log(DODGER.style.left)
+  }
 }
 
 /**
