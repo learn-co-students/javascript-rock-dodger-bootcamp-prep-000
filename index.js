@@ -13,6 +13,7 @@ const IS_PRESSED = {
   right: false,
   left: false
 }
+DODGER_MOVED = false
 
 var gameInterval = null
 
@@ -72,7 +73,7 @@ function createRock(x) {
    * Now that we have a rock, we'll need to append
    * it to GAME and move it downwards.
    */
-
+  game.appendChild(rock)
 
   /**
    * This function moves the rock. (2 pixels at a time
@@ -90,7 +91,8 @@ function createRock(x) {
      * Otherwise, if the rock hasn't reached the bottom of
      * the GAME, we want to move it again.
      */
-
+    rock.style.top = (positionToInteger(rock.style.top) + 4) + 'px'
+    window.requestAnimationFrame(moveRock)
     /**
      * But if the rock *has* reached the bottom of the GAME,
      * we should remove the rock from the DOM
@@ -99,6 +101,7 @@ function createRock(x) {
 
   // We should kick of the animation of the rock around here
 
+  window.requestAnimationFrame(moveRock)
   // Add the rock to ROCKS so that we can remove all rocks
   // when there's a collision
   ROCKS.push(rock)
@@ -113,47 +116,58 @@ function createRock(x) {
  * and removing the `moveDodger` event listener.
  * Finally, alert "YOU LOSE!" to the player.
  */
-function endGame() {}
+function endGame() {
 
-function trackPressedKeys(e) {
-  /* this function keeks track of which keys are
+    clearInterval(gameInterval)
+    for (var i = 0; i < rocks.length; i++) {
+      game.removeChild(rocks[i])
+    }
+    window.removeEventListener(keyup)
+    window.removeEventListener(keydown)
+}
+
+function moveDodger(e) {
+  /* this block keeks track of which keys are
    * pressed and which aren't,
    * in order to avoid the stutter between the first and
    * second keydown events when hoding down the arrow keys
+   *
+   * idealy this should be used instead of e.which
+   * (e.key === 'ArrowLeft' || e.key === 'Left')
+   * (e.key === 'ArrowRight' || e.key === 'Right')
    */
   if (e.type === 'keydown') {
-    if (e.key === 'ArrowLeft' || e.key === 'Left') {
+    if (e.which === LEFT_ARROW) {
       IS_PRESSED.left = true
-    } else if (e.key === 'ArrowRight' || e.key === 'Right') {
+    } else if (e.which === RIGHT_ARROW) {
       IS_PRESSED.right = true
     }
   } else { // if (e.type === 'keyup'){ is this necessary?
-    if (e.key === 'ArrowLeft' || e.key === 'Left') {
+    if (e.which === LEFT_ARROW) {
       IS_PRESSED.left = false
-    } else if (e.key === 'ArrowRight' || e.key === 'Right') {
+    } else if (e.which === RIGHT_ARROW) {
       IS_PRESSED.right = false
     }
   }
-}
-
-function moveDodger() {
-  if (IS_PRESSED.left) {
-    console.log()
-    moveDodgerLeft()
+  if(!DODGER_MOVED){
+    window.requestAnimationFrame(moveDodgerLeft)
+    window.requestAnimationFrame(moveDodgerRight)
+    DODGER_MOVED = true
   }
-  if (IS_PRESSED.right) {
-    console.log()
-    moveDodgerRight()
-  }
-  window.requestAnimationFrame(moveDodger)
 }
 
 function moveDodgerLeft() {
-  DODGER.style.left = (positionToInteger(DODGER.style.left) - 4) + 'px'
+  if (IS_PRESSED.left) {
+    DODGER.style.left = (positionToInteger(DODGER.style.left) - 4) + 'px'
+  }
+  window.requestAnimationFrame(moveDodgerLeft)
 }
 
 function moveDodgerRight() {
-  DODGER.style.left = (positionToInteger(DODGER.style.left) + 4) + 'px'
+  if (IS_PRESSED.right) {
+    DODGER.style.left = (positionToInteger(DODGER.style.left) + 4) + 'px'
+  }
+  window.requestAnimationFrame(moveDodgerRight)
 }
 
 /**
@@ -165,13 +179,12 @@ function positionToInteger(p) {
 }
 
 function start() {
-  window.addEventListener('keydown', trackPressedKeys)
-  window.addEventListener('keyup', trackPressedKeys)
+  window.addEventListener('keydown', moveDodger)
+  window.addEventListener('keyup', moveDodger)
   /* moveDodgerRight and moveDodgerLeft are called here
    * (as aposed to in moveDodger) so it is only called
    * once per frame even after multiple keyboard events
    */
-  window.requestAnimationFrame(moveDodger)
 
   START.style.display = 'none'
 
