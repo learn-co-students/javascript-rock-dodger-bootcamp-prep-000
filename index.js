@@ -7,7 +7,7 @@ const GAME_HEIGHT = 400
 const GAME_WIDTH = 400
 const LEFT_ARROW = 37 // use e.which!
 const RIGHT_ARROW = 39 // use e.which!
-const ROCKS = []
+ROCKS = []
 const START = document.getElementById('start')
 
 var gameInterval = null
@@ -23,7 +23,7 @@ function checkCollision(rock) {
   // rocks are 20px high
   // DODGER is 20px high
   // GAME_HEIGHT - 20 - 20 = 360px
-  if (top > 360) {
+  if (top > 360 && top < 400) {
     const dodgerLeftEdge = positionToInteger(DODGER.style.left)
     const dodgerRightEdge = dodgerLeftEdge + 40
     const rockLeftEdge = positionToInteger(rock.style.left)
@@ -76,17 +76,22 @@ function createRock(x) {
        */
     } else {
       rock.style.top = (positionToInteger(rock.style.top) + 2) + 'px'
-      if(!over){
+      if(!over || positionToInteger(rock.style.top) < 400){
+        console.log(positionToInteger(rock.style.top))
         window.requestAnimationFrame(moveRock)
       }
       /**
        * But if the rock *has* reached the bottom of the GAME,
        * we should remove the rock from the DOM
        */
-      if (positionToInteger(rock.style.top) >= 400) { // passes tests but doesnt work !!
-        ROCKS[0].parentElement.removeChild(ROCKS[0])
-        ROCKS.shift()
-      }
+       //console.log(positionToInteger(rock.style.top))
+      // if (positionToInteger(rock.style.top) >= 400) { // passes tests but doesnt work !!
+      //   console.log(rock)
+      //   rock.remove()
+      //   console.log(rock)
+      //   ROCKS.shift()
+      //   console.log(ROCKS)
+      // }
     }
   }
   // We should kick of the animation of the rock around here
@@ -107,10 +112,9 @@ function createRock(x) {
 function endGame() {
   over = true
   clearInterval(gameInterval)
-  for (var i = ROCKS.length; i > 0; i--) {
-    ROCKS[i - 1].parentElement.removeChild(ROCKS[i - 1])
-    // game.removeChild(ROCKS[i - 1])
-    ROCKS.pop()
+  while (ROCKS[0]) {
+    ROCKS[0].remove()
+    ROCKS.shift()
   }
   window.removeEventListener('keydown', moveDodger)
   alert("YOU LOSE!")
@@ -150,7 +154,7 @@ function positionToInteger(p) {
 }
 
 function start() {
-  listener = window.addEventListener('keydown', moveDodger)
+  keydownListener = window.addEventListener('keydown', moveDodger)
 
   START.style.display = 'none'
 
