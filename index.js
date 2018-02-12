@@ -26,7 +26,7 @@ function checkCollision(rock) {
     const rockLeftEdge = positionToInteger(rock.style.left)
     const rockRightEdge = (rockLeftEdge + 20);
 
-    return(
+    return (
     /*if (false /**
                * Think about it -- what's happening here?
                * There's been a collision if one of three things is true:
@@ -81,7 +81,7 @@ function createRock(x) {
      }
      else {
        if (top < GAME_HEIGHT) {
-         window.requestAnimationFrame(moveRock())
+         window.requestAnimationFrame(moveRock)
        }
        else {
          rock.remove()
@@ -108,30 +108,28 @@ function createRock(x) {
  * Finally, alert "YOU LOSE!" to the player.
  */
 function endGame() {
+  document.removeEventListener('keydown', moveDodger);
   clearInterval(gameInterval);
   ROCKS.forEach(function(rock) {
     rock.remove()
-  }) //ROCKS.style.display = 'none';
-  document.removeEventListener('keydown', moveDodger);
+  });
   return alert("YOU LOSE!");
 }
 
 function moveDodger(e) {
-  // implement me!
-
   if ([LEFT_ARROW, RIGHT_ARROW].indexOf(e.which) > -1) {
     e.preventDefault()
     e.stopPropagation()
   }
 
-  document.addEventListener('keydown', function(e) {
+  //document.addEventListener(`keydown`, function(e) {
     if (e.which === LEFT_ARROW) {
       moveDodgerLeft()
     }
     else if (e.which === RIGHT_ARROW) {
       moveDodgerRight()
     }
-  })
+  //})
 }
 
 function moveDodgerLeft() {
@@ -139,9 +137,9 @@ function moveDodgerLeft() {
     const dodgerLeftEdge = positionToInteger(DODGER.style.left)
 
     if (dodgerLeftEdge > 0) {
-     dodger.style.left = `${left - 4}px`
+     DODGER.style.left = `${dodgerLeftEdge - 4}px`
     }
-  }
+  })
 }
 
 function moveDodgerRight() {
@@ -149,10 +147,10 @@ function moveDodgerRight() {
     const dodgerLeftEdge = positionToInteger(DODGER.style.left)
     //var leftnumbers = dodger.style.left.replace('px','')
     //var left = parseInt(leftnumbers, 10)
-    if (left < 360) {
-      dodger.style.left = `${left + 4}px`
+    if (dodgerLeftEdge < 360) {
+      DODGER.style.left = `${dodgerLeftEdge + 4}px`
     }
-  }
+  })
 }
 
 /**
@@ -164,7 +162,7 @@ function positionToInteger(p) {
 }
 
 function start() {
-  window.addEventListener('keydown', moveDodger)
+  window.addEventListener(`keydown`, moveDodger)
 
   START.style.display = 'none'
 
