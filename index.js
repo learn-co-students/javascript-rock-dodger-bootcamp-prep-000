@@ -68,6 +68,12 @@ function createRock(x) {
      * If a rock collides with the DODGER,
      * we should call endGame()
      */
+    if (positionToInteger(rock.style.top) >= 400) {
+      rock.remove()
+      console.log('removed')
+      ROCKS.shift()
+      return
+    }
     if (checkCollision(rock)) {
       endGame()
       /**
@@ -76,8 +82,7 @@ function createRock(x) {
        */
     } else {
       rock.style.top = (positionToInteger(rock.style.top) + 2) + 'px'
-      if(!over || positionToInteger(rock.style.top) < 400){
-        console.log(positionToInteger(rock.style.top))
+      if(!over){
         window.requestAnimationFrame(moveRock)
       }
       /**
