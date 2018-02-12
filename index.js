@@ -23,7 +23,7 @@ function checkCollision(rock) {
   // rocks are 20px high
   // DODGER is 20px high
   // GAME_HEIGHT - 20 - 20 = 360px
-  if (top > 360 && top < 400) {
+  if (top > 360) {
     const dodgerLeftEdge = positionToInteger(DODGER.style.left)
     const dodgerRightEdge = dodgerLeftEdge + 40
     const rockLeftEdge = positionToInteger(rock.style.left)
@@ -64,39 +64,18 @@ function createRock(x) {
    * seems like a good pace.)
    */
   function moveRock() {
-    /**
-     * If a rock collides with the DODGER,
-     * we should call endGame()
-     */
     if (positionToInteger(rock.style.top) >= 400) {
       rock.remove()
-      console.log('removed')
       ROCKS.shift()
       return
     }
     if (checkCollision(rock)) {
       endGame()
-      /**
-       * Otherwise, if the rock hasn't reached the bottom of
-       * the GAME, we want to move it again.
-       */
-    } else {
-      rock.style.top = (positionToInteger(rock.style.top) + 2) + 'px'
-      if(!over){
-        window.requestAnimationFrame(moveRock)
-      }
-      /**
-       * But if the rock *has* reached the bottom of the GAME,
-       * we should remove the rock from the DOM
-       */
-       //console.log(positionToInteger(rock.style.top))
-      // if (positionToInteger(rock.style.top) >= 400) { // passes tests but doesnt work !!
-      //   console.log(rock)
-      //   rock.remove()
-      //   console.log(rock)
-      //   ROCKS.shift()
-      //   console.log(ROCKS)
-      // }
+      return
+    }
+    rock.style.top = (positionToInteger(rock.style.top) + 2) + 'px'
+    if (!over) {
+      window.requestAnimationFrame(moveRock)
     }
   }
   // We should kick of the animation of the rock around here
@@ -159,7 +138,7 @@ function positionToInteger(p) {
 }
 
 function start() {
-  keydownListener = window.addEventListener('keydown', moveDodger)
+  window.addEventListener('keydown', moveDodger)
 
   START.style.display = 'none'
 
