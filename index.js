@@ -89,7 +89,7 @@ function createRock(x) {
        rock.style.top = `${top}px`;
        window.requestAnimationFrame(moveRock)
      } else {
-       document.getElementById('game').removeChild(rock);
+       rock.remove();
      }
     /**
      * But if the rock *has* reached the bottom of the GAME,
@@ -116,7 +116,7 @@ function createRock(x) {
 function endGame() {
   clearInterval(gameInterval);
   for (let i = 0; i < ROCKS.length; i++) {
-    ROCKS.pop();
+    ROCKS[i].remove();
   }
   window.removeEventListener('keydown', moveDodger);
   alert("YOU LOSE!");
