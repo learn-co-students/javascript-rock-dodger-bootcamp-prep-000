@@ -89,11 +89,11 @@ function createRock(x) {
 }
 
 function endGame() {
-  gameInterval = 0;
+  clearInterval(gameInterval);
   ROCKS.forEach(function(rock) {
-    document.remove(rock);
+    document.remove(document.getElementsBy rock);
   });
-  document.removeEventListener("keydown", moveDodger);
+  window.removeEventListener("keydown", moveDodger);
   alert("YOU LOSE!");
 }
 
@@ -111,8 +111,11 @@ function moveDodger(e) {
 function moveDodgerLeft() {
   var left = positionToInteger(dodger.style.left);
  
-  if (left > 0) {
+  function step() {
     dodger.style.left = `${left - 4}px`;
+    if (left > 0) {
+      window.requestAnimationFrame(step);
+    }
   }
 }
 
