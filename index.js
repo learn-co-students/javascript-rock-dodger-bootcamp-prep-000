@@ -91,21 +91,24 @@ function createRock(x) {
 function endGame() {
   clearInterval(gameInterval);
   ROCKS.forEach(function(rock) {
-    document.remove(document.getElementsBy rock);
+    document.remove(document.getElementsByClassName('rock'));
   });
   window.removeEventListener("keydown", moveDodger);
   alert("YOU LOSE!");
 }
 
 function moveDodger(e) {
-  // implement me!
-  /**
-   * This function should call `moveDodgerLeft()`
-   * if the left arrow is pressed and `moveDodgerRight()`
-   * if the right arrow is pressed. (Check the constants
-   * we've declared for you above.)
-   * And be sure to use the functions declared below!
-   */
+  if (e.which === LEFT_ARROW) {
+    moveDodgerLeft();
+    e.preventDefault();
+    e.stopPropagation();
+  }
+  
+  if (e.which === RIGHT_ARROW) {
+    moveDodgerRight();
+    e.preventDefault();
+    e.stopPropagation();
+  }
 }
 
 function moveDodgerLeft() {
