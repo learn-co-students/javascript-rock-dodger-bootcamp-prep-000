@@ -90,9 +90,10 @@ function createRock(x) {
 
 function endGame() {
   clearInterval(gameInterval);
-  ROCKS.forEach(function(rock) {
-    document.remove(document.getElementsByClassName('rock'));
-  });
+  while(ROCKS.length > 0){
+        ROCKS[0].parentNode.removeChild(ROCKS[0]);
+        ROCKS.shift();
+    }
   window.removeEventListener("keydown", moveDodger);
   alert("YOU LOSE!");
 }
