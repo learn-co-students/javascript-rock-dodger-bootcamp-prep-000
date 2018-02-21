@@ -71,11 +71,11 @@ function createRock(x) {
       
       if(checkCollision(rock)) {
          endGame();
-      } else if (top < GAME_HEIGHT) {
-        window.requestAnimationFrame(step);
-      } else {
+      } else if (top >= GAME_HEIGHT) {
         GAME.removeChild(rock);
         ROCKS.shift();
+      } else {
+        window.requestAnimationFrame(step);
       }
     }
     window.requestAnimationFrame(step);  
@@ -88,16 +88,13 @@ function createRock(x) {
   return rock;
 }
 
-function removeRock(rock) {
-  GAME.removeChild(rock);
-  ROCKS.shift();
-}
-
 function endGame() {
   clearInterval(gameInterval);
-  ROCKS.forEach(function(rck){
-    removeRock(rock);
-  });
+  var rocks = document.getElementsByClassName('rock');
+  while(rocks[0]) {
+    GAME.removeChild(rocks[0]);
+    ROCKS.shift();
+  }
   window.removeEventListener("keydown", moveDodger);
   alert("YOU LOSE!");
 }
