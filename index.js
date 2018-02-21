@@ -88,10 +88,15 @@ function createRock(x) {
   return rock;
 }
 
+function removeRock(rock) {
+  GAME.removeChild(rock);
+  ROCKS.shift();
+}
+
 function endGame() {
   clearInterval(gameInterval);
   ROCKS.forEach(function(rck){
-    GAME.removeChild(rck);
+    removeRock(rock);
   });
   window.removeEventListener("keydown", moveDodger);
   alert("YOU LOSE!");
