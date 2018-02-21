@@ -56,32 +56,32 @@ function createRock(x) {
 
   rock.className = 'rock';
   rock.style.left = `${x}px`;
-
-  // Hmmm, why would we have used `var` here?
   var top = 0;
-
   rock.style.top = top;
 
-  document.appendChild(rock);
-  moveRock();
-
+  GAME.appendChild(rock);
 
   /**
    * This function moves the rock 2px
    */
-  function moveRock() {
+  function moveRock(rock) {
     
-    if(checkCollision(rock)) {
-       endGame();
-    } else if (positionToInteger(rock.style.bottom) !== 0) {
-      moveRock();
-    } else {
-      document.remove(rock);
+    function step() {
+      rock.style.top = `${top -= 2}px`;
+      
+      if(checkCollision(rock)) {
+         endGame();
+      } else if (top < GAME_HEIGHT) {
+        window.requestAnimationFrame(step);
+      } else {
+        GAME.removeChild(rock);
+        ROCKS.shift();
+      }
     }
-    top = `${positionToInteger(top) - 2}px`;
+    window.requestAnimationFrame(step);  
   }
 
-  moveRock();
+  moveRock(rock);
 
   ROCKS.push(rock);
 
@@ -90,13 +90,14 @@ function createRock(x) {
 
 function endGame() {
   clearInterval(gameInterval);
-  while(ROCKS.length > 0){
-        ROCKS[0].parentNode.removeChild(ROCKS[0]);
-        ROCKS.shift();
-    }
+  ROCKS.forEach(function(rck){
+    GAME.removeChild(rck);
+  });
   window.removeEventListener("keydown", moveDodger);
   alert("YOU LOSE!");
 }
+
+var paras = document.getElementsByClassName('hi');
 
 function moveDodger(e) {
   if (e.which === LEFT_ARROW) {
@@ -116,19 +117,22 @@ function moveDodgerLeft() {
   var left = positionToInteger(dodger.style.left);
  
   function step() {
-    dodger.style.left = `${left - 4}px`;
     if (left > 0) {
-      window.requestAnimationFrame(step);
+      dodger.style.left = `${left - 4}px`;
     }
   }
+  window.requestAnimationFrame(step);
 }
 
 function moveDodgerRight() {
-  // implement me!
-  /**
-   * This function should move DODGER to the right
-   * (mabye 4 pixels?). Use window.requestAnimationFrame()!
-   */
+  var left = positionToInteger(dodger.style.left);
+ 
+  function step() {
+    if (left < (GAME_WIDTH - 40)) {
+      dodger.style.left = `${left + 4}px`;
+    }
+  }
+  window.requestAnimationFrame(step);
 }
 
 /**
