@@ -123,14 +123,8 @@ function endGame() {
   for (var i = 0; i<ROCKS.length; i++){
     ROCKS[i].remove();
   }
- //while (ROCKS.length) {
-   //ROCKS.pop();
- //}
-//$( "div .rock" ).remove();
-//var allRocks = document.getElementsByClassName("rock");
-//allRocks.remove();
- window.removeEventListener('keydown', moveDodger);
- //$( "div .rock" ).remove();
+  window.removeEventListener('keydown', moveDodger);
+
   alert ("YOU LOSE!");
   
 }
