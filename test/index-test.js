@@ -288,6 +288,7 @@ describe('Rock Dodger', () => {
 
       expect(dodger.style.left).toEqual('0px')
     })
+
   })
 
   describe('moveDodgerRight', () => {
