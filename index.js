@@ -9,7 +9,7 @@ const START = document.getElementById('start')
 const SPEED = 10
 const ROCK_SPEED = 2
 
-var gameInterval = null
+let gameInterval = null
 
 
 function checkCollision(rock) {
@@ -38,13 +38,10 @@ function checkCollision(rock) {
 
 function createRock(x) {
   const rock = document.createElement('div')
-  console.log("Creating a rock...")
+  // console.log("Creating a rock...")
   rock.className = 'rock'
   rock.style.left = `${x}px`
-
-  var rockHeight = 0
-
-  rock.style.top = `${rockHeight}px`
+  rock.style.top = '0px'
 
   /* Append rock to GAME */
   GAME.appendChild(rock)
@@ -52,9 +49,9 @@ function createRock(x) {
   // Add the rock to ROCKS so that we can remove all rocks when there's a collision
   ROCKS.push(rock)
 
-  //Moves the rock ROCK_SPEED number of pixels at a time
+  // Moves the rock ROCK_SPEED number of pixels at a time
   function moveRock() {
-    var rockTop = positionToInteger(rock.style.top)
+    let rockTop = positionToInteger(rock.style.top)
 
     function drop() {
       // If a rock collides with the DODGER, we should call endGame()
@@ -105,7 +102,7 @@ function moveDodger(e) {
 }
 
 function moveDodgerLeft() {
-  var left = positionToInteger(DODGER.style.left)
+  const left = positionToInteger(DODGER.style.left)
 
   function moveLeft() {
     DODGER.style.left = `${left - SPEED}px`
@@ -118,7 +115,7 @@ function moveDodgerLeft() {
 
 function moveDodgerRight() {
   /*This function should move DODGER to the right using window.requestAnimationFrame() */
-  var left = positionToInteger(DODGER.style.left)
+  const left = positionToInteger(DODGER.style.left)
 
   function moveRight() {
     dodger.style.left = `${left + SPEED}px`
@@ -144,5 +141,5 @@ function start() {
 
   gameInterval = setInterval(function() {
     createRock(Math.floor(Math.random() *  (GAME_WIDTH - 20)))
-  }, 10000)
+  }, 1000)
 }
