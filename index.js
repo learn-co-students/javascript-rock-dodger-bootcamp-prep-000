@@ -61,7 +61,8 @@ function createRock(x) {
        endGame();
      } else if (top < 360)
      {
-        window.requestAnimationFrame(moveRock;
+        window.requestAnimationFrame(moveRock);
+        
      } else 
      {
        GAME.removeChild(rock);
@@ -69,24 +70,19 @@ function createRock(x) {
      
   }
 
-  window.requestAnimationFrame(moveRock());
+  window.requestAnimationFrame(moveRock);
   
   ROCKS.push(rock);
 
   return rock;
 }
 
-/**
- * End the game by clearing `gameInterval`,
- * removing all ROCKS from the DOM,
- * and removing the `moveDodger` event listener.
- * Finally, alert "YOU LOSE!" to the player.
- */
+
 function endGame() {
-  gameInterval=null;
+  clearInterval(gameInterval);
   for (var x = 0; x <ROCKS.length; x++)
   {
-    GAME.removeChild(ROCKS.childNodes[x]);
+    ROCKS[x].remove();
   }
   window.removeEventListener('keydown', moveDodger);
   alert("YOU LOSE!");
@@ -102,23 +98,29 @@ function moveDodger(e) {
    * we've declared for you above.)
    * And be sure to use the functions declared below!
    */
+   if(e.which===37)
+   {
+     e.stopPropagation();
+     e.preventDefault();
+     moveDodgerLeft();
+   }
+   else if (e.which ===39)
+   {
+     e.stopPropagation();
+     e.preventDefault();
+     moveDodgerRight();
+   }
 }
 
 function moveDodgerLeft() {
-  // implement me!
-  /**
-   * This function should move DODGER to the left
-   * (mabye 4 pixels?). Use window.requestAnimationFrame()!
-   */
+ 
+   window.requestAnimationFrame(function(){if(positionToInteger(DODGER.style.left)>0)DODGER.style.left=`${positionToInteger(DODGER.style.left)+4}px`});
+   
 }
 
 function moveDodgerRight() {
-  // implement me!
-  /**
-   * This function should move DODGER to the right
-   * (mabye 4 pixels?). Use window.requestAnimationFrame()!
-   */
-   dodger.style.right = `${dodge.style.right+4}px`;
+  
+   window.requestAnimationFrame(function(){if(positionToInteger(DODGER.style.right)<360)DODGER.style.right = `${DODGER.style.right+4}px`});
 }
 
 /**
