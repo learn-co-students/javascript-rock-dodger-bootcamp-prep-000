@@ -58,8 +58,8 @@ function createRock(x) {
      rock.style.top = `${top}px`;
      if (checkCollision(rock))
      {
-       endGame();
-     } else if (top < 360)
+       return endGame();
+     } else if (top < GAME_HEIGHT)
      {
         window.requestAnimationFrame(moveRock);
         
@@ -114,13 +114,13 @@ function moveDodger(e) {
 
 function moveDodgerLeft() {
  
-   window.requestAnimationFrame(function(){if(positionToInteger(DODGER.style.left)>0)DODGER.style.left=`${positionToInteger(DODGER.style.left)+4}px`});
+   window.requestAnimationFrame(function(){if(positionToInteger(DODGER.style.left)>0)DODGER.style.left=`${positionToInteger(DODGER.style.left)-4}px`});
    
 }
 
 function moveDodgerRight() {
   
-   window.requestAnimationFrame(function(){if(positionToInteger(DODGER.style.right)<360)DODGER.style.right = `${DODGER.style.right+4}px`});
+   window.requestAnimationFrame(function(){if(positionToInteger(DODGER.style.left)<360)DODGER.style.left = `${positionToInteger(DODGER.style.left)+4}px`});
 }
 
 /**
@@ -128,15 +128,14 @@ function moveDodgerRight() {
  * @returns {number} The position as an integer (without 'px')
  */
 function positionToInteger(p) {
-  return parseInt(p.split('px')[0]) || 0
+  return parseInt(p.split('px')[0]) || 0;
 }
 
 function start() {
-  window.addEventListener('keydown', moveDodger)
+  window.addEventListener('keydown', moveDodger);
 
-  START.style.display = 'none'
+  START.style.display = 'none';
 
   gameInterval = setInterval(function() {
-    createRock(Math.floor(Math.random() *  (GAME_WIDTH - 20)))
-  }, 1000)
+    createRock(Math.floor(Math.random() *  (GAME_WIDTH - 20)))}, 1000);
 }
