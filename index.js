@@ -81,14 +81,14 @@ function createRock(x) {
 
 function endGame() {
   clearInterval(gameInterval)
-  
-  ROCKS.foreach(function(rock) {rock.remove()})
-  
-  document.removeEventListener('keydown', moveDodger)
-  
+
+  ROCKS.forEach(function(rock) {rock.remove() })
+
+  window.removeEventListener('keydown', moveDodger)
+
   START.innerHTML = 'Play again?'
   START.style.display = 'inline'
-  
+
   return alert('YOU LOSE!')
 }
 
@@ -113,7 +113,7 @@ function moveDodgerLeft() {
   window.requestAnimationFrame(function() {
     const left = positionToInteger(DODGER.style.left)
     if (left > 0) {
-      DODGER.style.left = `${left + 4}px`
+      DODGER.style.left = `${left - 4}px`
     }
   })
   
@@ -122,7 +122,7 @@ function moveDodgerLeft() {
 function moveDodgerRight() {
   window.requestAnimationFrame(function() {
     const left = positionToInteger(DODGER.style.left)
-    if (left > 360) {
+    if (left < 360) {
       DODGER.style.left = `${left + 4}px`
     }
   })
