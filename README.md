@@ -1,3 +1,5 @@
+This site displays the ability to use JavaScript to manipulate objects in the DOM.
+
 JavaScript Rock Dodger
 ---
 
