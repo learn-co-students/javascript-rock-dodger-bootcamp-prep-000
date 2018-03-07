@@ -57,20 +57,20 @@ function checkCollision(rock) {
 function createRock(x) {
   const rock = document.createElement('div');
 
-  rock.className = 'rock'
-  rock.style.left = `${x}px`
+  rock.className = 'rock';
+  rock.style.left = `${x}px`;
 
   // Hmmm, why would we have used `var` here?
-  var top = 0
+  var top = 0;
 
-  rock.style.top = top
-
+  rock.style.top = top;
   
+
   /**
    * Now that we have a rock, we'll need to append
    * it to GAME and move it downwards.
    */
-  $('#game').append(rock);
+
 
   /**
    * This function moves the rock. (2 pixels at a time
@@ -85,7 +85,7 @@ function createRock(x) {
      * If a rock collides with the DODGER,
      * we should call endGame()
      */
-    if (checkCollision(rock) === TRUE )
+    if (checkCollision(rock))
       {
         endGame();
       }
@@ -118,10 +118,10 @@ function createRock(x) {
 window.requestAnimationFrame(moveRock);
   // Add the rock to ROCKS so that we can remove all rocks
   // when there's a collision
-  ROCKS.push(rock)
+  ROCKS.push(rock);
 
   // Finally, return the rock element you've created
-  return rock
+  return rock;
 }
 
 /**
@@ -130,7 +130,11 @@ window.requestAnimationFrame(moveRock);
  * and removing the `moveDodger` event listener.
  * Finally, alert "YOU LOSE!" to the player.
  */
-function endGame() {
+function endGame(rock) {
+  clearInterval(gameInterval);  // this is correct
+  ROCKS.push(rock);
+  window.removeEventListener('keydown', moveDodger);
+  alert('YOU LOSE!');
 }
 
 function moveDodger(e) {
