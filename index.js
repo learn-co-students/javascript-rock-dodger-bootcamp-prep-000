@@ -130,10 +130,15 @@ window.requestAnimationFrame(moveRock);
  * and removing the `moveDodger` event listener.
  * Finally, alert "YOU LOSE!" to the player.
  */
-function endGame(rock) {
+function endGame() {
   clearInterval(gameInterval);  // this is correct
-  ROCKS.push(rock);
+  
+  var allrocks = document.getElementsByClassName('rock')
+  allrocks.outerHTML = "";
+  delete allrocks;
+  
   window.removeEventListener('keydown', moveDodger);
+  
   alert('YOU LOSE!');
 }
 
