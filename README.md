@@ -8,7 +8,7 @@ JavaScript Rock Dodger
 3. Explain how to use `setInterval()`
 4. Show off your JavaScript know-how
 
-## Instructions
+## Instructions___--_
 
 You did it — you've made it to the end of the introductory JavaScript curriculum. You've learned how to write JavaScript and how to use JavaScript to manipulate the DOM. Now, only this lab stands between you and ~~freedom~~ the end of this course!
 
@@ -17,6 +17,8 @@ So that we don't catch you off-guard, know that this project is meant to be diff
 ### `window.requestAnimationFrame()`
 
 This function tells the browser that we want to animate some change on the page. We'll use it in this lab for animating the movement of rocks and the dodger.
+
+tyr
 
 We can use [`window.requestAnimationFrame()`](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame) by passing it a callback that contains our animation:
 
