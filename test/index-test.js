@@ -1,7 +1,7 @@
 describe('Rock Dodger', () => {
   afterEach(function() {
-    expect.restoreSpies()
-  })
+    expect.restoreSpies();
+  });
 
   describe('checkCollision(rock)', () => {
     /**
@@ -9,12 +9,12 @@ describe('Rock Dodger', () => {
      */
     describe('rock is <= 360px from the top of GAME', () => {
       it('does not collide', () => {
-        const rock = document.createElement('div')
-        rock.className = 'rock'
-        rock.style.top = '2px'
-        rock.style.left = '0px'
+        const rock = document.createElement('div');
+        rock.className = 'rock';
+        rock.style.top = '2px';
+        rock.style.left = '0px';
 
-        expect(checkCollision(rock)).toNotBe(true)
+        expect(checkCollision(rock)).toNotBe(true);
       })
     })
 
@@ -94,14 +94,14 @@ describe('Rock Dodger', () => {
 
         window.requestAnimationFrame = cb => {
           cb()
-        }
+        };
 
-        createRock(182)
+        createRock(182);
 
-        expect(spy).toHaveBeenCalled()
+        expect(spy).toHaveBeenCalled();
 
-        window.checkCollision.restore()
-      })
+        window.checkCollision.restore();
+      });
 
 //       it('removes the rock once it falls of the screen', done => {
 //         window.requestAnimationFrame = cb => {
