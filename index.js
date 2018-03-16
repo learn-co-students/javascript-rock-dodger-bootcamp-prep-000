@@ -100,7 +100,7 @@ function createRock(x) {
       endGame();
     }
 
-    if (top < 360) {
+    if (top < 380) {
       window.requestAnimationFrame(moveRock)
     } else {
       rock.remove()
