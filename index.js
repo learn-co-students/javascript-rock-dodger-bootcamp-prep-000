@@ -1,4 +1,3 @@
-//errors 6
 /**
  * Don't change these constants!
  */
@@ -128,7 +127,6 @@ function createRock(x) {
  */
 function endGame() {
   clearInterval(gameInterval);
-  // ROCKS.splice(0, ROCKS.length);
   for(i = 0; i < ROCKS.length; i++) {
     ROCKS[i].remove();
   }
@@ -137,7 +135,6 @@ function endGame() {
 }
 
 function moveDodger(e) {
-  //37 left arrow 39 right arrow
   if (e.which === LEFT_ARROW) {
     e.preventDefault();
     e.stopPropagation();
