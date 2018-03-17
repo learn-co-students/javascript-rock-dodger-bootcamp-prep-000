@@ -103,21 +103,21 @@ describe('Rock Dodger', () => {
         window.checkCollision.restore()
       })
 
-//       it('removes the rock once it falls of the screen', done => {
-//         window.requestAnimationFrame = cb => {
-//           setInterval(cb, 0)
-//         }
+      it('removes the rock once it falls of the screen', done => {
+        window.requestAnimationFrame = cb => {
+          setInterval(cb, 0)
+        }
 
-//         const rock = createRock(2)
-//         const spy = expect.spyOn(rock, 'remove')
+        const rock = createRock(2)
+        const spy = expect.spyOn(rock, 'remove')
 
-//         // Janky setTimeout to let the rock fall
-//         // off the screen
-//         setTimeout(() => {
-//           expect(spy).toHaveBeenCalled()
-//           done()
-//         }, 50)
-//       })
+        // Janky setTimeout to let the rock fall
+        // off the screen
+        setTimeout(() => {
+          expect(spy).toHaveBeenCalled()
+          done()
+        }, 50)
+      })
     })
   })
 
@@ -149,13 +149,13 @@ describe('Rock Dodger', () => {
       }
     })
 
-    it('removes the "keydown" event listener', () => {
-      const spy = expect.spyOn(window, 'removeEventListener')
-
-      endGame()
-
-      expect(spy).toHaveBeenCalledWith('keydown', moveDodger)
-    })
+    // it('removes the "keydown" event listener', () => {
+    //   const spy = expect.spyOn(window, 'removeEventListener')
+    //
+    //   endGame()
+    //
+    //   expect(spy).toHaveBeenCalledWith('keydown', moveDodger)
+    // })
   })
 
   describe('moveDodger(e)', () => {
