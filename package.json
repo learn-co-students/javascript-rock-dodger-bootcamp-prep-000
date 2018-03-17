@@ -3,9 +3,7 @@
   "version": "0.1.0",
   "description": "Build a simple game in JavaScript",
   "main": "index.js",
-  "scripts": {
-    "test": "mocha -R mocha-multi --reporter-options nyan=-,json=.results.json"
-  },
+  "scripts": { "test": "mocha --timeout 5000 -R mocha-multi --reporter-options nyan=-,json=.results.json" },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/learn-co-curriculum/java-script-rock-dodger.git"
