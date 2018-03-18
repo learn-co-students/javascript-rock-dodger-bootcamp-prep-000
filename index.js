@@ -47,7 +47,7 @@ function checkCollision(rock) {
                *    and the rock's right edge is > the DODGER's right edge
                */
              (rockLeftEdge<dodgerLeftEdge && rockRightEdge > dodgerLeftEdge) ||
-             (rockLeftEdge>dodgerLeftEdge && rockRightEdge < dodgerRightEdge) ||
+             (rockLeftEdge>=dodgerLeftEdge && rockRightEdge <= dodgerRightEdge) ||
              (rockLeftEdge<dodgerRightEdge && rockRightEdge > dodgerRightEdge)) {
       return true
     }
@@ -133,7 +133,10 @@ function createRock(x) {
  */
 function endGame() {
   clearInterval(gameInterval);
-  ROCKS.length = 0;
+  for(var elm of ROCKS){
+    if(GAME.contains(elm))
+      GAME.removeChild(elm)
+  }
   window.removeEventListener('keydown', moveDodger);
   alert("YOU LOSE!");
 }
@@ -148,10 +151,16 @@ function moveDodger(e) {
    * And be sure to use the functions declared below!
    */
 
-  if(e.which === LEFT_ARROW)
+  if(e.which === LEFT_ARROW){
     moveDodgerLeft();
-  else if (e.which === RIGHT_ARROW)
+    e.stopPropagation();
+    e.preventDefault();
+  }
+  else if (e.which === RIGHT_ARROW){
     moveDodgerRight();
+    e.stopPropagation();
+    e.preventDefault();
+  }
 }
 
 function moveDodgerLeft() {
