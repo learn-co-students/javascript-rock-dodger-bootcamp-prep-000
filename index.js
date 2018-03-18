@@ -107,7 +107,8 @@ function createRock(x) {
          window.requestAnimationFrame(step)
        }
        else if (top + 20 == GAME_HEIGHT){
-         GAME.removeChild(rock);
+         //GAME.removeChild(rock);
+         rock.remove();
        }
 
      }
@@ -134,8 +135,9 @@ function createRock(x) {
 function endGame() {
   clearInterval(gameInterval);
   for(var elm of ROCKS){
-    if(GAME.contains(elm))
-      GAME.removeChild(elm)
+    //if(GAME.contains(elm))
+      //GAME.removeChild(elm)
+      elm.remove();
   }
   window.removeEventListener('keydown', moveDodger);
   alert("YOU LOSE!");
