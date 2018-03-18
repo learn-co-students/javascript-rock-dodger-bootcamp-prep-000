@@ -46,9 +46,9 @@ function checkCollision(rock) {
                * 3. The rock's left edge is < the DODGER's right edge,
                *    and the rock's right edge is > the DODGER's right edge
                */
-             (rockLeftEdge<dodgerLeftEdge && rockRightEdge > dodgerLeftEdge) ||
+             (rockLeftEdge<=dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge) ||
              (rockLeftEdge>=dodgerLeftEdge && rockRightEdge <= dodgerRightEdge) ||
-             (rockLeftEdge<dodgerRightEdge && rockRightEdge > dodgerRightEdge)) {
+             (rockLeftEdge<=dodgerRightEdge && rockRightEdge >= dodgerRightEdge)) {
       return true
     }
     else {
@@ -100,20 +100,20 @@ function createRock(x) {
 
      function step(){
        rock.style.top = `${top += 2}px`;
-       if(top + 20 < GAME_HEIGHT){
-         if(top > 359 && checkCollision(rock)){
-           endGame();
+       var collision = checkCollision(rock);
+       if(!collision){
+         if(top > 379){
+           rock.remove()
          }
-         window.requestAnimationFrame(step)
+         else {
+           window.requestAnimationFrame(step)
+         }
        }
-       else if (top + 20 == GAME_HEIGHT){
-         //GAME.removeChild(rock);
-         rock.remove();
+       else {
+         endGame()
        }
-
      }
     window.requestAnimationFrame(step)
-
 }
   // We should kick of the animation of the rock around here
   moveRock();
