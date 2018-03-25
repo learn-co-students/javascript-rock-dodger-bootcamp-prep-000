@@ -19,12 +19,10 @@ function checkCollision(rock) {
     const rockLeftEdge = positionToInteger(rock.style.left);
     const rockRightEdge = rockLeftEdge + 20;
 
-    if (
+    return (
       (rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge) ||
       (rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge) ||
-      (rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge)) {
-      return true;
-    }
+      (rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge)) 
   }
 }
 
@@ -34,7 +32,7 @@ function createRock(x) {
   rock.style.left = `${x}px`;
 
   var top = 0;
-  rock.style.top = top;
+  top = rock.style.top;
   GAME.appendChild(rock);
 
   function moveRock() {
@@ -42,7 +40,9 @@ function createRock(x) {
 
     if (checkCollision(rock)) {
       return endGame();
-    } else if (top < GAME_HEIGHT) {
+    } 
+    
+    if (top < GAME_HEIGHT) {
       window.requestAnimationFrame(moveRock);
     } else {
       rock.remove();
@@ -55,7 +55,7 @@ function createRock(x) {
 
 function endGame() {
   clearInterval(gameInterval);
-  ROCKS.forEach(rock => rock.remove());
+  ROCKS.forEach(function(rock) {rock.remove()});
   document.removeEventListener('keydown', moveDodger);  
   START.innerHTML = 'Play again?';
   START.style.display = 'inline';
