@@ -2,8 +2,8 @@ const DODGER = document.getElementById('dodger');
 const GAME = document.getElementById('game');
 const GAME_HEIGHT = 400;
 const GAME_WIDTH = 400;
-const LEFT_ARROW = 37; // use e.which!
-const RIGHT_ARROW = 39; // use e.which!
+const LEFT_ARROW = 37;
+const RIGHT_ARROW = 39;
 const DODGER_SPEED = 4;
 const ROCK_SPEED = 2;
 const ROCKS = [];
@@ -12,13 +12,8 @@ const START = document.getElementById('start');
 var gameInterval = null;
 
 function checkCollision(rock) {
-  // implement me!
-  // use the comments below to guide you!
   const top = positionToInteger(rock.style.top);
 
-  // rocks are 20px high
-  // DODGER is 20px high
-  // GAME_HEIGHT - 20 - 20 = 360px;
   if (top > 360) {
     const dodgerLeftEdge = positionToInteger(DODGER.style.left);
 
@@ -43,36 +38,17 @@ function createRock(x) {
   rock.className = 'rock';
   rock.style.left = IntegerToPosition(x);
 
-  // Hmmm, why would we have used `var` here?
   var top = 0, myRq;
 
   rock.style.top = "0px";
 
-  /**
-   * Now that we have a rock, we'll need to append
-   * it to GAME and move it downwards.
-   */
   GAME.append(rock);
 
-  /**
-   * This function moves the rock. (2 pixels at a time
-   * seems like a good pace.)
-   */
   function moveRock() {
-    // implement me!
-    // (use the comments below to guide you!)
-    /**
-     * If a rock collides with the DODGER,
-     * we should call endGame()
-     */
     if (checkCollision(rock)){
       window.cancelAnimationFrame(myRq);
       endGame();
     }
-    /**
-     * Otherwise, if the rock hasn't reached the bottom of
-     * the GAME, we want to move it again.
-     */
     else if (positionToInteger(rock.style.top) < GAME_HEIGHT + 20){
       let top = positionToInteger(rock.style.top);
       
@@ -82,11 +58,7 @@ function createRock(x) {
       
       myRq = window.requestAnimationFrame(moveRock);
     }
-    /**
-     * But if the rock *has* reached the bottom of the GAME,
-     * we should remove the rock from the DOM
-     */
-     else{
+    else{
        window.cancelAnimationFrame(myRq);
        if (rock.parentNode && rock.parentNode.id === 'game'){
         GAME.removeChild(rock);
@@ -94,13 +66,9 @@ function createRock(x) {
      }
   }
 
-  // We should kick of the animation of the rock around here
   myRq = window.requestAnimationFrame(moveRock);
-  // Add the rock to ROCKS so that we can remove all rocks
-  // when there's a collision
   ROCKS.push(rock);
 
-  // Finally, return the rock element you've created
   return rock;
 }
 
@@ -116,8 +84,6 @@ function endGame() {
 
 function moveDodger(e) {
    let key = e.which;
-   //console.log(`Key: ${key}`);
-  
    
    if (key === LEFT_ARROW){
      e.stopPropagation();
@@ -168,6 +134,7 @@ function step(vector){
   DODGER.style.left = IntegerToPosition(left);
 }
 
+//Turns integer back into proper format ('<i>px')
 function IntegerToPosition(i){
   return `${i}px`;
 }
