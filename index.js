@@ -112,29 +112,33 @@ function endGame() {
 
 function moveDodger(e) {
   // implement me!
-  /**
-   * This function should call `moveDodgerLeft()`
-   * if the left arrow is pressed and `moveDodgerRight()`
-   * if the right arrow is pressed. (Check the constants
-   * we've declared for you above.)
-   * And be sure to use the functions declared below!
-   */
+   if(e.which === LEFT_ARROW) {
+     moveDodgerLeft();
+     e.stopPropagation();
+     e.preventDefault();
+   } else if(e.which === RIGHT_ARROW) {
+     moveDodgerRight();
+     e.preventDefault();
+   }
 }
 
 function moveDodgerLeft() {
   // implement me!
-  /**
-   * This function should move DODGER to the left
-   * (mabye 4 pixels?). Use window.requestAnimationFrame()!
-   */
+  var leftNumbers = DODGER.style.left.replace('px', '')
+  var left = parseInt(leftNumbers, 10)
+ if(left != 0) {
+   DODGER.style.left = `${left - 4}px`
+ }
 }
 
 function moveDodgerRight() {
   // implement me!
-  /**
-   * This function should move DODGER to the right
-   * (mabye 4 pixels?). Use window.requestAnimationFrame()!
-   */
+  var leftNumbers = DODGER.style.left.replace('px', '')
+  var left = parseInt(leftNumbers, 10)
+ if(left != 360) {
+   DODGER.style.left = `${left + 4}px`
+ }
+  
 }
 
 /**
