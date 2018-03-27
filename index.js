@@ -29,12 +29,12 @@ function checkCollision(rock) {
     const dodgerLeftEdge = positionToInteger(DODGER.style.left)
 
     // FIXME: The DODGER is 40 pixels wide -- how do we get the right edge?
-    const dodgerRightEdge = 0;
+    const dodgerRightEdge = 220;
 
     const rockLeftEdge = positionToInteger(rock.style.left)
 
     // FIXME: The rock is 20 pixel's wide -- how do we get the right edge?
-    const rockRightEdge = 0;
+    const rockRightEdge = 200;
 
     if (false /**
                * Think about it -- what's happening here?
@@ -55,7 +55,7 @@ function createRock(x) {
   const rock = document.createElement('div')
 
   rock.className = 'rock'
-  rock.style.left = `${x}px`
+  rock.style.left = `${}px`
 
   // Hmmm, why would we have used `var` here?
   var top = 0
@@ -122,6 +122,16 @@ function moveDodger(e) {
 }
 
 function moveDodgerLeft() {
+  window.requestAnimationFrame(function() {
+    if (e.which===37) {
+
+      var leftNumbers = DODGER.style.left.replace('px','')
+      var left = parseInt(leftNumbers, 10)
+
+      DODGER.style.left = `${left - 4}px`
+    }
+  })
+
   // implement me!
   /**
    * This function should move DODGER to the left
