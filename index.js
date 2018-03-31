@@ -36,7 +36,11 @@ function checkCollision(rock) {
     // FIXME: The rock is 20 pixel's wide -- how do we get the right edge?
     const rockRightEdge = positionToInteger(rock.style.right);
 return true
+<<<<<<< HEAD
 }
+=======
+} 
+>>>>>>> 1426a24e9d34c0b680dd27039e7450385b0806f1
     /*if (false *
                * Think about it -- what's happening here?
                * There's been a collision if one of three things is true:
@@ -128,7 +132,11 @@ function createRock(x) {
  * Finally, alert "YOU LOSE!" to the player.
  */
 function endGame() {
+<<<<<<< HEAD
 
+=======
+  
+>>>>>>> 1426a24e9d34c0b680dd27039e7450385b0806f1
   alert('Game Over');
   ROCKS =[];
   window.requestAnimationFrame={};
