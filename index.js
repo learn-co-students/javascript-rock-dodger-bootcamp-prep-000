@@ -29,28 +29,25 @@ function checkCollision(rock) {
     const dodgerLeftEdge = positionToInteger(DODGER.style.left)
 
     // FIXME: The DODGER is 40 pixels wide -- how do we get the right edge?
-    const dodgerRightEdge = 0;
+    const dodgerRightEdge = dodgerLeftEdge + 40;
+    
 
     const rockLeftEdge = positionToInteger(rock.style.left)
 
     // FIXME: The rock is 20 pixel's wide -- how do we get the right edge?
-    const rockRightEdge = 0;
+    
+    const rockRightEdge = rockLeftEdge + 20;
 
-    if (false /**
-               * Think about it -- what's happening here?
-               * There's been a collision if one of three things is true:
-               * 1. The rock's left edge is < the DODGER's left edge,
-               *    and the rock's right edge is > the DODGER's left edge;
-               * 2. The rock's left edge is > the DODGER's left edge,
-               *    and the rock's right edge is < the DODGER's right edge;
-               * 3. The rock's left edge is < the DODGER's right edge,
-               *    and the rock's right edge is > the DODGER's right edge
-               */) {
+    if (true) {
+      if ((rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge) || (rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge) || (rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge)) {
+               
       return true
+    } else {
+      return false
     }
   }
 }
-
+}
 function createRock(x) {
   const rock = document.createElement('div')
 
@@ -68,6 +65,8 @@ function createRock(x) {
    */
 
 
+  GAME.appendChild(rock);
+  moveRock();
   /**
    * This function moves the rock. (2 pixels at a time
    * seems like a good pace.)
@@ -80,10 +79,21 @@ function createRock(x) {
      * we should call endGame()
      */
 
+     if (checkCollision(rock))
+      endGame();
+    else {
+      if (parseInt(rock.style.top.replace('px', '')) < 380) {
+        rock.style.top = `${top += 2}px`;
+        window.requestAnimationFrame(moveRock);
+      }
+      else
+        rock.remove();
+      }
     /**
      * Otherwise, if the rock hasn't reached the bottom of
      * the GAME, we want to move it again.
      */
+
 
     /**
      * But if the rock *has* reached the bottom of the GAME,
@@ -93,6 +103,7 @@ function createRock(x) {
 
   // We should kick of the animation of the rock around here
 
+  window.requestAnimationFrame(moveRock);
   // Add the rock to ROCKS so that we can remove all rocks
   // when there's a collision
   ROCKS.push(rock)
@@ -108,6 +119,10 @@ function createRock(x) {
  * Finally, alert "YOU LOSE!" to the player.
  */
 function endGame() {
+  clearInterval(gameInterval);
+  ROCKS.forEach(rock => rock.remove());
+  window.removeEventListener('keydown', moveDodger);
+  alert("YOU LOSE!");
 }
 
 function moveDodger(e) {
@@ -119,22 +134,45 @@ function moveDodger(e) {
    * we've declared for you above.)
    * And be sure to use the functions declared below!
    */
+   if (e.which === 37) {
+    e.preventDefault();
+    e.stopPropagation();
+    moveDodgerLeft();
+   }
+   if (e.which === 39) {
+    e.preventDefault();
+    moveDodgerRight();
+   }
 }
 
 function moveDodgerLeft() {
   // implement me!
   /**
    * This function should move DODGER to the left
-   * (mabye 4 pixels?). Use window.requestAnimationFrame()!
+   * (maybe 4 pixels?). Use window.requestAnimationFrame()!
    */
+   let leftNums = DODGER.style.left.replace('px', '');
+   let left = parseInt(leftNums, 10);
+
+   if (left > 0) {
+    DODGER.style.left = `${left-=4}px`;
+    window.requestAnimationFrame(moveDodgerLeft);
+   }
 }
 
 function moveDodgerRight() {
   // implement me!
   /**
    * This function should move DODGER to the right
-   * (mabye 4 pixels?). Use window.requestAnimationFrame()!
+   * (maybe 4 pixels?). Use window.requestAnimationFrame()!
    */
+  let rightNums = DODGER.style.left.replace('px', '');
+  let right = parseInt(rightNums, 10);
+
+   if (right < 360) {
+    DODGER.style.left = `${right+=4}px`;
+    window.requestAnimationFrame(moveDodgerRight);
+   }
 }
 
 /**
