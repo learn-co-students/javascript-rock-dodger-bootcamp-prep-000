@@ -20,18 +20,18 @@ var gameInterval = null
 function checkCollision(rock) {
   // implement me!
   // use the comments below to guide you!
-  const top = positionToInteger(rock.style.top)
+  const top = positionToInteger(rock.style.top);
 
   // rocks are 20px high
   // DODGER is 20px high
   // GAME_HEIGHT - 20 - 20 = 360px;
   if (top > 360) {
-    const dodgerLeftEdge = positionToInteger(DODGER.style.left)
+    const dodgerLeftEdge = positionToInteger(DODGER.style.left);
 
     // FIXME: The DODGER is 40 pixels wide -- how do we get the right edge?
     const dodgerRightEdge = positionToInteger(DODGER.style.left) + 40;
 
-    const rockLeftEdge = positionToInteger(rock.style.left)
+    const rockLeftEdge = positionToInteger(rock.style.left);
 
     // FIXME: The rock is 20 pixel's wide -- how do we get the right edge?
     const rockRightEdge = positionToInteger(rock.style.left) + 20;
@@ -47,7 +47,7 @@ function checkCollision(rock) {
                * 3. The rock's left edge is < the DODGER's right edge,
                *    and the rock's right edge is > the DODGER's right edge
                */ {
-      return true
+      return true;
     }
   }
 }
@@ -59,9 +59,9 @@ function createRock(x) {
   rock.style.left = `${x}px`
 
   // Hmmm, why would we have used `var` here?
-  var top = 0
+  var top = 0;
 
-  rock.style.top = `${top}px`
+  rock.style.top = `${top}px`;
 
   /**
    * Now that we have a rock, we'll need to append
@@ -154,7 +154,7 @@ function moveDodgerLeft() {
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
    if (positionToInteger(DODGER.style.left) !== 0) {
-    DODGER.style.left = `${positionToInteger(DODGER.style.left) - 4}px`
+    DODGER.style.left = `${positionToInteger(DODGER.style.left) - 4}px`;
    }
 }
 
@@ -167,7 +167,7 @@ function moveDodgerRight() {
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
    if (positionToInteger(DODGER.style.left) !== 360) {
-     DODGER.style.left = `${positionToInteger(DODGER.style.left) + 4}px`
+     DODGER.style.left = `${positionToInteger(DODGER.style.left) + 4}px`;
    }
 }
 
