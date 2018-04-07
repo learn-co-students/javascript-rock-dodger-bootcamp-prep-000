@@ -23,9 +23,7 @@ function checkCollision(rock) {
     let colMid = rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge
     let colRight = rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge
 
-    if (colLeft || colMid || colRight) {
-      return true
-    }
+    return colLeft || colMid || colRight
   }
 }
 
@@ -42,24 +40,21 @@ function createRock(x) {
   GAME.appendChild(rock)
   
   function moveRock() {
-    function step() {
-      rock.style.top = `${top += 1}px`
-      
-      if (checkCollision(rock)) {
-        return endGame()
-      }
-      
-      if (top < GAME_HEIGHT) {
-        window.requestAnimationFrame(step)
-      } else {
-        rock.remove()
-      }
+    rock.style.top = `${top += 1}px`
+    
+    if (checkCollision(rock)) {
+      return endGame()
     }
     
-    window.requestAnimationFrame(step)
+    if (top < GAME_HEIGHT) {
+      window.requestAnimationFrame(moveRock)
+    } else {
+      rock.remove()
+    }
   }
 
-  moveRock()
+  window.requestAnimationFrame(moveRock)
+
   ROCKS.push(rock)
 
   return rock
