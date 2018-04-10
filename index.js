@@ -42,9 +42,7 @@ function createRock(x) {
   function moveRock() {
     rock.style.top = `${top += 1}px`
     
-    if (checkCollision(rock)) {
-      return endGame()
-    }
+    if (checkCollision(rock)) return endGame()
     
     if (top < GAME_HEIGHT) {
       window.requestAnimationFrame(moveRock)
@@ -86,9 +84,7 @@ function moveDodgerLeft() {
   window.requestAnimationFrame(function() {
     let left = positionToInteger(DODGER.style.left)
     
-    if (left > 0) {
-      DODGER.style.left = `${left - 4}px`
-    }
+    if (left > 0) DODGER.style.left = `${left - 4}px`
   })
 }
 
@@ -97,9 +93,7 @@ function moveDodgerRight() {
   window.requestAnimationFrame(function() {
     let left = positionToInteger(DODGER.style.left)
     
-    if (left + 40 < GAME_WIDTH) {
-      DODGER.style.left = `${left + 4}px`
-    }
+    if (left + 40 < GAME_WIDTH) DODGER.style.left = `${left + 4}px`
   })
 }
 
