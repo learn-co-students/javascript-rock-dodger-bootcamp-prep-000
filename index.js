@@ -69,7 +69,7 @@ var gameInterval = null
    ROCKS.forEach(function(rock){
      rock.remove()
    })
-   window.removeEventListener("keydown",moveDodger)
+   window.removeEventListener('keydown',moveDodger)
    alert('YOU LOSE!')
  }
  /** This function let's you know if you have lost.  */
@@ -87,7 +87,7 @@ var gameInterval = null
  
  function moveDodgerLeft (){
    window.requestAnimationFrame(function(){
-     var leftNumbers=DODGER.style.left.replace("px","")
+     var leftNumbers=DODGER.style.left.replace('px','')
      var left=parseInt(leftNumbers,10)
      if(left>0){
        DODGER.style.left=`${left-14}px`
@@ -97,7 +97,7 @@ var gameInterval = null
  
 function moveDodgerRight() {
   window.requestAnimationFrame(function() {
-    var leftNumbers=DODGER.style.left.replace("px","")
+    var leftNumbers=DODGER.style.left.replace('px',''
     var left=parseInt(leftNumbers,10)
     if(left<360){
       DODGER.style.left=`${left+14}px`
