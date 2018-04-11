@@ -11,6 +11,7 @@ var gameInterval = null
 
 function checkCollision(rock) {
   const top = positionToInteger(rock.style.top)
+
   if (top > 360) {
     //dodger
     const dodgerLeftEdge = positionToInteger(DODGER.style.left)
@@ -27,6 +28,7 @@ function checkCollision(rock) {
        }
   }
 }
+
 function createRock(x) {
   const rock = document.createElement('div')    //adding rock
   rock.className = 'rock'
@@ -36,6 +38,7 @@ function createRock(x) {
   GAME.appendChild(rock);                 // rock added
 
   function moveRock(){
+
     if(checkCollision(rock)){
       endGame();
     }
@@ -54,6 +57,7 @@ function createRock(x) {
 
   return rock
 }
+
 function endGame(){
   for(var i=0;i<ROCKS.length;i++){
     ROCKS[i].remove();
@@ -62,6 +66,7 @@ function endGame(){
   window.removeEventListener('keydown', moveDodger);
   alert("You lose.")
 }
+
 function moveDodger(e){
   if(e.which == LEFT_ARROW){
     e.preventDefault();
@@ -75,8 +80,10 @@ function moveDodger(e){
     e.stopPropagation();
   }
 }
+
 function moveDodgerLeft(){
   var left = positionToInteger(DODGER.style.left);
+
   if(left > 0){
   function step(){
     DODGER.style.left=`${left-4}px`;
@@ -84,15 +91,19 @@ function moveDodgerLeft(){
   window.requestAnimationFrame(step);
   }
 }
+
 function moveDodgerRight(){
   var right = positionToInteger(DODGER.style.left);
+
   function step(){
     DODGER.style.left=`${right+4}px`;
     }
+
   if(right < 360){
     window.requestAnimationFrame(step)
   }
 }
+
 function positionToInteger(p) {
   return parseInt(p.split('px')[0]) || 0
 }
