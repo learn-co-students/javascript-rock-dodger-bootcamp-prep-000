@@ -56,7 +56,7 @@ function checkCollision(rock) {
 
 function createRock(x) {
 
-  window.requestAnimationFrame(function (){
+
   const rock = document.createElement('div')
 
   rock.className = 'rock'
@@ -66,45 +66,46 @@ function createRock(x) {
   var top = 0
 
   rock.style.top = top
-})
+
+  GAME.appendChild(rock)
+
   /**
    * Now that we have a rock, we'll need to append
    * it to GAME and move it downwards.
    */
+
+
+   function moveRock() {
+
+   rock.style.top = `${top += 2}px`
+
+   if (checkCollision()){
+     return endGame()
+   }
+
+
+   if (top < 360){
+      window.requestAnimationFrame(moveRock)
+    }
+    else {rock.remove()}
+}
+
+window.requestAnimationFrame(moveRock)
+   // We should kick of the animation of the rock around here
+
+   // Add the rock to ROCKS so that we can remove all rocks
+   // when there's a collision
+   ROCKS.push(rock)
+
+   // Finally, return the rock element you've created
+   return rock
 }
 
   /**
    * This function moves the rock. (2 pixels at a time
    * seems like a good pace.)
    */
-  function moveRock() {
-    // implement me!
-    // (use the comments below to guide you!)
-    /**
-     * If a rock collides with the DODGER,
-     * we should call endGame()
-     */
 
-    /**
-     * Otherwise, if the rock hasn't reached the bottom of
-     * the GAME, we want to move it again.
-     */
-
-    /**
-     * But if the rock *has* reached the bottom of the GAME,
-     * we should remove the rock from the DOM
-     */
-
-
-  // We should kick of the animation of the rock around here
-
-  // Add the rock to ROCKS so that we can remove all rocks
-  // when there's a collision
-  ROCKS.push(rock)
-
-  // Finally, return the rock element you've created
-  return rock
-}
 
 /**
  * End the game by clearing `gameInterval`,
@@ -113,15 +114,34 @@ function createRock(x) {
  * Finally, alert "YOU LOSE!" to the player.
  */
 function endGame() {
+  clearInterval(gameInterval);
+  for (let i=ROCKS.length; i--; ){
+    ROCKS[i].remove();
+  }
+  window.removeEventListener('keydown', moveDodger);
+  alert('YOU LOSE!')
 }
 
 function moveDodger(e) {
+
+  //if (e.which !== LEFT_ARROW && e.which !== RIGHT_ARROW) {
+  //  e.preventDefault();
+  //  e.stopPropagation();
+  //
+//  }
   if (e.which === LEFT_ARROW) {
+    e.preventDefault();
+    e.stopPropagation();
     moveDodgerLeft()
   }
   else if (e.which === RIGHT_ARROW) {
+    e.preventDefault();
+    e.stopPropagation();
     moveDodgerRight()
   }
+
+
+
   // implement me!
   /**
    * This function should call `moveDodgerLeft()`
