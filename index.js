@@ -82,14 +82,14 @@ function createRock(x) {
      */
     rock.style.top = `${top += 2}px`
     if (checkCollision(rock)) {
-      endGame()
+      return endGame()
     
     /**
      * Otherwise, if the rock hasn't reached the bottom of
      * the GAME, we want to move it again.
      */
 
-    } else if (top < 360) {
+    } else if (top < GAME_HEIGHT) {
       
       window.requestAnimationFrame(moveRock)
     } else {
@@ -145,9 +145,7 @@ function moveDodger(e) {
       moveDodgerRight();
       e.preventDefault()
     e.stopPropagation()
-    } else if (e.which !== LEFT_ARROW && e.which !== RIGHT_ARROW) {
-      
-    }
+    } 
     
 
 }
