@@ -110,8 +110,8 @@ function createRock(x) {
      } else {
        rock.remove();
      }
-     window.requestAnimationFrame(moveRock);
   }
+  window.requestAnimationFrame(moveRock);
 
   // We should kick of the animation of the rock around here
 
@@ -132,7 +132,9 @@ function createRock(x) {
 function endGame() {
   clearInterval(gameInterval);
   ROCKS.forEach(function(rock) {rock.remove()})
-  document.removeEventListener('keydown', moveDodger);
+
+  window.removeEventListener('keydown', moveDodger)
+
   START.innerHTML = 'Play Again?'
   START.style.display = 'inline';
   return alert('YOU LOSE!');
