@@ -20,17 +20,19 @@ function checkCollision(rock) {
     const rockLeftEdge = positionToInteger(rock.style.left);
     const rockRightEdge = positionToInteger(rock.style.left)+20;
 
-    if ( (rockLeftEdge <= dodgerLeftEdge) && (rockRightEdge >= dodgerLeftEdge) ){
-      return true;
-    }else if( (rockLeftEdge >= dodgerLeftEdge) && (rockRightEdge <= dodgerRightEdge) ){
-      return true;
-    }else if( (rockLeftEdge <= dodgerRightEdge) && (rockRightEdge >= dodgerRightEdge) ){
-      return true;
-    }else{
+    if(
+      ((rockLeftEdge <= dodgerLeftEdge) && (rockRightEdge >= dodgerLeftEdge))  ||
+      ((rockLeftEdge >= dodgerLeftEdge) && (rockRightEdge <= dodgerRightEdge)) ||
+      ((rockLeftEdge <= dodgerRightEdge) && (rockRightEdge >= dodgerRightEdge))
+      ){
+        return true;
+      }else{
       return false;
     }
   }
 }
+
+
 
 function createRock(x) {
   const rock = document.createElement('div');
@@ -40,48 +42,68 @@ function createRock(x) {
   rock.style.top = top;
   GAME.appendChild(rock);
   
-  
-  function moveRock() {
-    
+  function moveRock(rock) {
+    function step(){
+      rock.style.top = `${top += 2}px`; //our step
+    }
+    if(checkCollision(rock)){ //if collision, end game.
+      endGame();
+    }else if(positionToInteger(rock.style.top) === GAME_HEIGHT-20){
+      ROCKS.splice(ROCKS.length-1,1); // if a rock makes it to the bottom, remove it.
+    }else{
+      window.requestAnimationFrame(step); //otherwise step.
+    }
   }
-
-  // We should kick of the animation of the rock around here
-
-  // Add the rock to ROCKS so that we can remove all rocks
-  // when there's a collision
-  ROCKS.push(rock);
-
-  // Finally, return the rock element you've created
-  return rock;
+  
+  ROCKS.push(rock); //add rock to stack
+  
+  moveRock(rock); //start moving it
+  return rock; //return the created rock
 }
 
-/**
- * End the game by clearing `gameInterval`,
- * removing all ROCKS from the DOM,
- * and removing the `moveDodger` event listener.
- * Finally, alert "YOU LOSE!" to the player.
- */
 function endGame() {
+  clearInterval(gameInterval);
+  ROCKS.forEach(rock => rock.remove());
+  window.removeEventListener('keydown', moveDodger);
+  alert('YOU LOSE!');
 }
 
 function moveDodger(e) {
-  e.which === 37
-    ? moveDodgerLeft()
-    : e.which === 39
-      ? moveDodgerRight()
-      : null;
+  if(e.which === LEFT_ARROW){
+    moveDodgerLeft();
+    e.preventDefault();
+    e.stopPropagation();
+  }else if(e.which === RIGHT_ARROW){
+    moveDodgerRight();
+    e.preventDefault();
+    e.stopPropagation();
+  }
 }
 function moveDodgerLeft() {
    // (mabye 4 pixels?). Use window.requestAnimationFrame()!
-   
+   let xL = positionToInteger(DODGER.style.left);
+   function step(){
+     if(xL === 0){
+       DODGER.style.left = 0;
+     }else{
+       DODGER.style.left = `${xL-4}px`;
+     }
+   }
+  window.requestAnimationFrame(step);
 }
 function moveDodgerRight() {
-  // (mabye 4 pixels?). Use window.requestAnimationFrame()!
+   // (mabye 4 pixels?). Use window.requestAnimationFrame()!
+   //get current position of Right edge
+   let xL = positionToInteger(DODGER.style.left); 
+   function step(){
+     if(positionToInteger(DODGER.style.left) === 360){ //if current right edge 
+       DODGER.style.left = DODGER.style.left;
+     }else{
+       DODGER.style.left = `${xL+4}px`;
+     }
+   }
+  window.requestAnimationFrame(step);
 }
-
-
-
-
 
 function positionToInteger(p) {
   return parseInt(p.split('px')[0]) || 0
