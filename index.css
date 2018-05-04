@@ -1,8 +1,9 @@
 #dodger {
-  background-color: white;
+  background-color: maroon;
   height: 20px;
   position: absolute;
   width: 40px;
+  border-radius: 2px;
 }
 
 #game {
@@ -13,13 +14,15 @@
   position: relative;
   text-align: center;
   width: 400px;
+  border-radius: 2px;
 }
 
 #start {
   color: white;
   font-size: 4rem;
   position: relative;
-  text-decoration: none;
+  text-decoration: underline;
+  text-shadow:grey 2px 2px;
   top: 4rem;
 }
 
