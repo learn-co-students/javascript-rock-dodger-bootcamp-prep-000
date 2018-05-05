@@ -97,10 +97,9 @@ function moveDodgerLeft() {
   function step() {
     if (left > 0) {
       DODGER.style.left = `${left - 4}px`;
-      window.requestAnimationFrame(step);
     }
+    window.requestAnimationFrame(step);
   }
-
   window.requestAnimationFrame(step);
 }
 
@@ -110,10 +109,9 @@ function moveDodgerRight() {
   function move() {
     if (west < 360) {
       DODGER.style.left = `${west + 4}px`;
-      window.requestAnimationFrame(move);
     }
+    window.requestAnimationFrame(move);
   }
-
   window.requestAnimationFrame(move);
 }
 
