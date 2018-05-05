@@ -119,9 +119,9 @@ function createRock(x) {
      * the GAME, we want to move it again.
      */
 
-    rock.style.top = `${top += 2}px`;
+    if (top <= 400) {
+      rock.style.top = `${top += 2}px`;
 
-    if (top <= GAME_HEIGHT) {
       window.requestAnimationFrame(moveRock);
     } else {
       rock.remove();
@@ -151,7 +151,7 @@ function createRock(x) {
  * and removing the `moveDodger` event listener.
  * Finally, alert "YOU LOSE!" to the player.
  */
-let finished = 0;
+// let finished = 0;
 
 function endGame() {
   clearInterval(gameInterval);
@@ -164,13 +164,15 @@ function endGame() {
 
   window.removeEventListener("keydown", moveDodger);
 
-  finished++;
+  // finished++;
 
-  if (finished === 1) {
+  /*if (finished === 1) {
     alert("YOU LOSE!");
-  } /*else {
+  } else {
     console.log(`At ${gameInterval} I ran ${finished} times because I'm broke`);
   } */
+
+  alert("YOU LOSE!");
 }
 
 function moveDodger(e) {
@@ -183,11 +185,11 @@ function moveDodger(e) {
    * And be sure to use the functions declared below!
    */
 
-  if (e.which === LEFT_ARROW) {
+  if (e.which === 37) {
     e.stopPropagation();
     e.preventDefault();
     moveDodgerLeft();
-  } else if (e.which === RIGHT_ARROW) {
+  } else if (e.which === 39) {
     e.stopPropagation();
     e.preventDefault();
     moveDodgerRight();
@@ -200,11 +202,11 @@ function moveDodgerLeft() {
    * This function should move DODGER to the left
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
-  const dodgerLeftEdge = positionToInteger(DODGER.style.left);
+  const left = positionToInteger(DODGER.style.left);
 
   function step() {
-    if (dodgerLeftEdge > 0) {
-      DODGER.style.left = `${dodgerLeftEdge - 4}px`;
+    if (left > 0) {
+      DODGER.style.left = `${left - 4}px`;
 
       window.requestAnimationFrame(step);
     }
@@ -219,12 +221,12 @@ function moveDodgerRight() {
    * This function should move DODGER to the right
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
-  const dodgerLeftEdge = positionToInteger(DODGER.style.left);
+  const west = positionToInteger(DODGER.style.left);
 
   function move() {
-    if (dodgerLeftEdge < 360) {
-      DODGER.style.left = `${dodgerLeftEdge + 4}px`;
-      
+    if (west < 360) {
+      DODGER.style.left = `${west + 4}px`;
+
       window.requestAnimationFrame(move);
     }
   }
