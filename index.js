@@ -95,10 +95,11 @@ function moveDodgerLeft() {
   const left = parseInt(dodger.style.left.replace(`px`, ``));
 
   function step() {
+    DODGER.style.left = `${left - 4}px`;
+    
     if (left > 0) {
-      DODGER.style.left = `${left - 4}px`;
+      window.requestAnimationFrame(step);
     }
-    window.requestAnimationFrame(step);
   }
   window.requestAnimationFrame(step);
 }
@@ -107,10 +108,11 @@ function moveDodgerRight() {
   const west = parseInt(dodger.style.left.replace(`px`, ``));
 
   function move() {
+    DODGER.style.left = `${west + 4}px`;
+    
     if (west < 360) {
-      DODGER.style.left = `${west + 4}px`;
+      window.requestAnimationFrame(move);
     }
-    window.requestAnimationFrame(move);
   }
   window.requestAnimationFrame(move);
 }
