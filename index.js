@@ -92,26 +92,24 @@ function moveDodger(e) {
 }
 
 function moveDodgerLeft() {
-  const left = parseInt(dodger.style.left.replace(`px`, ``));
+  let left = parseInt(dodger.style.left.replace(`px`, ``));
 
   function step() {
-    window.requestAnimationFrame(step);
-
     if (left > 0) {
-      DODGER.style.left = `${left - 4}px`;
+      DODGER.style.left = `${left -= 4}px`;
+      window.requestAnimationFrame(step);
     }
   }
   window.requestAnimationFrame(step);
 }
 
 function moveDodgerRight() {
-  const west = parseInt(dodger.style.left.replace(`px`, ``));
+  let west = parseInt(dodger.style.left.replace(`px`, ``));
 
   function move() {
-    window.requestAnimationFrame(move);
-
     if (west < 360) {
-      DODGER.style.left = `${west + 4}px`;
+      DODGER.style.left = `${west += 4}px`;
+      window.requestAnimationFrame(move);
     }
   }
   window.requestAnimationFrame(move);
