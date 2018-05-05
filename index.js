@@ -17,6 +17,8 @@ var gameInterval = null;
  * but all of your work should happen below.
  */
 
+dodger.style.backgroundColor = `#FF69B4`;
+
 function checkCollision(rock) {
   // implement me!
   // use the comments below to guide you!
@@ -103,13 +105,25 @@ function createRock(x) {
      * the GAME, we want to move it again.
      */
 
+     let up = parseInt(rock.style.top.replace(`px`, ``));
+
+     rock.style.top = `${top += 2}px`;
+
     /**
      * But if the rock *has* reached the bottom of the GAME,
      * we should remove the rock from the DOM
      */
+
+      if (up < 380) {
+        window.requestAnimationFrame(moveRock);
+      } else {
+        rock.remove();
+      }
   }
 
-  // We should kick of the animation of the rock around here
+  // We should kick off the animation of the rock around here
+
+  window.requestAnimationFrame(moveRock);
 
   // Add the rock to ROCKS so that we can remove all rocks
   // when there's a collision
@@ -125,7 +139,25 @@ function createRock(x) {
  * and removing the `moveDodger` event listener.
  * Finally, alert "YOU LOSE!" to the player.
  */
-function endGame() {}
+let finished = 0;
+
+function endGame() {
+  clearInterval(gameInterval);
+
+  window.removeEventListener("keydown", moveDodger);
+
+  for (let a = 0; a < ROCKS.length; a++) {
+    ROCKS[a].remove();
+  }
+
+  finished += 1;
+
+  if (finished === 1) {
+    alert("YOU LOSE!");
+  } else {
+    console.log(gameInterval + ' ' + finished);
+  }
+}
 
 function moveDodger(e) {
   // implement me!
@@ -136,6 +168,12 @@ function moveDodger(e) {
    * we've declared for you above.)
    * And be sure to use the functions declared below!
    */
+
+   if (e.which === LEFT_ARROW) {
+     moveDodgerLeft();
+   } else if (e.which === RIGHT_ARROW) {
+     moveDodgerRight();
+   }
 }
 
 function moveDodgerLeft() {
@@ -144,6 +182,17 @@ function moveDodgerLeft() {
    * This function should move DODGER to the left
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
+   let left = parseInt(DODGER.style.left.replace(`px`, ``));
+
+   function step() {
+     DODGER.style.left = `${left - 4}px`;
+
+     if (left > 0) {
+       window.requestAnimationFrame(step);
+     }
+   }
+
+   window.requestAnimationFrame(step);
 }
 
 function moveDodgerRight() {
@@ -152,6 +201,17 @@ function moveDodgerRight() {
    * This function should move DODGER to the right
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
+   let left = parseInt(DODGER.style.left.replace(`px`, ``));
+
+   function move() {
+     DODGER.style.left = `${left + 4}px`;
+
+     if (left < 360) {
+       window.requestAnimationFrame(move);
+     }
+   }
+
+   window.requestAnimationFrame(move);
 }
 
 /**
