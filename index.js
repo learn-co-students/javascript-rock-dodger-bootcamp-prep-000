@@ -48,31 +48,31 @@ function checkCollision(rock) {
      */
 
     if (rockLeftEdge < dodgerLeftEdge && rockRightEdge > dodgerLeftEdge) {
-      console.log(
+      /*console.log(
         `1. dodgerLeftEdge = ${dodgerLeftEdge}, dodgerRightEdge = ${
           dodgerRightEdge
         }, rockLeftEdge = ${rockLeftEdge}, rockRightEdge = ${rockRightEdge}`
-      );
+      );*/
       return true;
     } else if (
       rockLeftEdge > dodgerLeftEdge &&
       rockRightEdge < dodgerRightEdge
     ) {
-      console.log(
+      /*console.log(
         `2. dodgerLeftEdge = ${dodgerLeftEdge}, dodgerRightEdge = ${
           dodgerRightEdge
         }, rockLeftEdge = ${rockLeftEdge}, rockRightEdge = ${rockRightEdge}`
-      );
+      );*/
       return true;
     } else if (
       rockLeftEdge < dodgerRightEdge &&
       rockRightEdge > dodgerRightEdge
     ) {
-      console.log(
+      /*console.log(
         `3. dodgerLeftEdge = ${dodgerLeftEdge}, dodgerRightEdge = ${
           dodgerRightEdge
         }, rockLeftEdge = ${rockLeftEdge}, rockRightEdge = ${rockRightEdge}`
-      );
+      );*/
       return true;
     }
   }
@@ -117,7 +117,7 @@ function createRock(x) {
      * the GAME, we want to move it again.
      */
 
-     rock.style.top = `${(top += 2)}px`;
+    rock.style.top = `${top += 2}px`;
 
     if (top <= GAME_HEIGHT) {
       window.requestAnimationFrame(moveRock);
@@ -165,10 +165,10 @@ function endGame() {
   finished++;
 
   if (finished === 1) {
-    return alert("YOU LOSE!");
-  } else {
+    alert("YOU LOSE!");
+  } /*else {
     console.log(`At ${gameInterval} I ran ${finished} times because I'm broke`);
-  }
+  } */
 }
 
 function moveDodger(e) {
@@ -182,12 +182,12 @@ function moveDodger(e) {
    */
 
   if (e.which === LEFT_ARROW) {
-    e.stopPropagation()
-    e.preventDefault()
+    e.stopPropagation();
+    e.preventDefault();
     moveDodgerLeft();
   } else if (e.which === RIGHT_ARROW) {
-    e.stopPropagation()
-    e.preventDefault()
+    e.stopPropagation();
+    e.preventDefault();
     moveDodgerRight();
   }
 }
