@@ -17,8 +17,6 @@ var gameInterval = null;
  * but all of your work should happen below.
  */
 
-dodger.style.backgroundColor = `#FF69B4`;
-
 function checkCollision(rock) {
   // implement me!
   // use the comments below to guide you!
@@ -48,20 +46,21 @@ function checkCollision(rock) {
      * 3. The rock's left edge is < the DODGER's right edge,
      *    and the rock's right edge is > the DODGER's right edge
      */
-    if (rockLeftEdge < dodgerLeftEdge && rockRightEdge > dodgerLeftEdge) {
-      return false;
-    } else if (
-      rockLeftEdge > dodgerLeftEdge &&
-      rockRightEdge < dodgerRightEdge
-    ) {
-      return false;
-    } else if (
-      rockLeftEdge < dodgerRightEdge &&
-      rockRightEdge > dodgerRightEdge
-    ) {
-      return false;
-    } else {
+
+    if (rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge) {
       return true;
+    } else if (
+      rockLeftEdge >= dodgerLeftEdge &&
+      rockRightEdge <= dodgerRightEdge
+    ) {
+      return true;
+    } else if (
+      rockLeftEdge <= dodgerRightEdge &&
+      rockRightEdge >= dodgerRightEdge
+    ) {
+      return true;
+    } else {
+      return false;
     }
   }
 }
@@ -96,7 +95,7 @@ function createRock(x) {
      * we should call endGame()
      */
 
-    if (checkCollision(rock)) {
+    if (checkCollision(rock) === true) {
       endGame();
     }
 
@@ -105,20 +104,18 @@ function createRock(x) {
      * the GAME, we want to move it again.
      */
 
-     let up = parseInt(rock.style.top.replace(`px`, ``));
-
-     rock.style.top = `${top += 2}px`;
+    rock.style.top = `${top += 2}px`;
 
     /**
      * But if the rock *has* reached the bottom of the GAME,
      * we should remove the rock from the DOM
      */
 
-      if (up < 380) {
-        window.requestAnimationFrame(moveRock);
-      } else {
-        rock.remove();
-      }
+    if (top < 380) {
+      window.requestAnimationFrame(moveRock);
+    } else {
+      rock.remove();
+    }
   }
 
   // We should kick off the animation of the rock around here
@@ -146,17 +143,21 @@ function endGame() {
 
   window.removeEventListener("keydown", moveDodger);
 
-  for (let a = 0; a < ROCKS.length; a++) {
-    ROCKS[a].remove();
-  }
+  DODGER.remove();
 
-  finished += 1;
+  ROCKS.forEach(rock => {
+    rock.remove();
+  });
+
+  finished++;
 
   if (finished === 1) {
     alert("YOU LOSE!");
   } else {
-    console.log(gameInterval + ' ' + finished);
+    console.log(`At ${gameInterval} I ran ${finished} times because I'm broke`);
   }
+
+  return console.log(`At ${gameInterval} I've ran ${finished} times but at least we're in endgame`);
 }
 
 function moveDodger(e) {
@@ -169,11 +170,11 @@ function moveDodger(e) {
    * And be sure to use the functions declared below!
    */
 
-   if (e.which === LEFT_ARROW) {
-     moveDodgerLeft();
-   } else if (e.which === RIGHT_ARROW) {
-     moveDodgerRight();
-   }
+  if (e.which === LEFT_ARROW) {
+    moveDodgerLeft();
+  } else if (e.which === RIGHT_ARROW) {
+    moveDodgerRight();
+  }
 }
 
 function moveDodgerLeft() {
@@ -182,17 +183,17 @@ function moveDodgerLeft() {
    * This function should move DODGER to the left
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
-   let left = parseInt(DODGER.style.left.replace(`px`, ``));
+  let left = parseInt(DODGER.style.left.replace(`px`, ``));
 
-   function step() {
-     DODGER.style.left = `${left - 4}px`;
+  function step() {
+    DODGER.style.left = `${left - 4}px`;
 
-     if (left > 0) {
-       window.requestAnimationFrame(step);
-     }
-   }
+    if (left > 0) {
+      window.requestAnimationFrame(step);
+    }
+  }
 
-   window.requestAnimationFrame(step);
+  window.requestAnimationFrame(step);
 }
 
 function moveDodgerRight() {
@@ -201,17 +202,17 @@ function moveDodgerRight() {
    * This function should move DODGER to the right
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
-   let left = parseInt(DODGER.style.left.replace(`px`, ``));
+  let left = parseInt(DODGER.style.left.replace(`px`, ``));
 
-   function move() {
-     DODGER.style.left = `${left + 4}px`;
+  function move() {
+    DODGER.style.left = `${left + 4}px`;
 
-     if (left < 360) {
-       window.requestAnimationFrame(move);
-     }
-   }
+    if (left < 360) {
+      window.requestAnimationFrame(move);
+    }
+  }
 
-   window.requestAnimationFrame(move);
+  window.requestAnimationFrame(move);
 }
 
 /**
