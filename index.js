@@ -47,7 +47,7 @@ function checkCollision(rock) {
      *    and the rock's right edge is > the DODGER's right edge
      */
 
-    if (rockLeftEdge < dodgerLeftEdge && rockRightEdge > dodgerLeftEdge) {
+    if (rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge) {
       /*console.log(
         `1. dodgerLeftEdge = ${dodgerLeftEdge}, dodgerRightEdge = ${
           dodgerRightEdge
@@ -55,8 +55,8 @@ function checkCollision(rock) {
       );*/
       return true;
     } else if (
-      rockLeftEdge > dodgerLeftEdge &&
-      rockRightEdge < dodgerRightEdge
+      rockLeftEdge >= dodgerLeftEdge &&
+      rockRightEdge <= dodgerRightEdge
     ) {
       /*console.log(
         `2. dodgerLeftEdge = ${dodgerLeftEdge}, dodgerRightEdge = ${
@@ -65,8 +65,8 @@ function checkCollision(rock) {
       );*/
       return true;
     } else if (
-      rockLeftEdge < dodgerRightEdge &&
-      rockRightEdge > dodgerRightEdge
+      rockLeftEdge <= dodgerRightEdge &&
+      rockRightEdge >= dodgerRightEdge
     ) {
       /*console.log(
         `3. dodgerLeftEdge = ${dodgerLeftEdge}, dodgerRightEdge = ${
@@ -74,6 +74,8 @@ function checkCollision(rock) {
         }, rockLeftEdge = ${rockLeftEdge}, rockRightEdge = ${rockRightEdge}`
       );*/
       return true;
+    } else {
+      return false;
     }
   }
 }
@@ -201,9 +203,9 @@ function moveDodgerLeft() {
   const dodgerLeftEdge = positionToInteger(DODGER.style.left);
 
   function step() {
-    DODGER.style.left = `${dodgerLeftEdge - 4}px`;
-
     if (dodgerLeftEdge > 0) {
+      DODGER.style.left = `${dodgerLeftEdge - 4}px`;
+
       window.requestAnimationFrame(step);
     }
   }
@@ -220,9 +222,9 @@ function moveDodgerRight() {
   const dodgerLeftEdge = positionToInteger(DODGER.style.left);
 
   function move() {
-    DODGER.style.left = `${dodgerLeftEdge + 4}px`;
-
     if (dodgerLeftEdge < 360) {
+      DODGER.style.left = `${dodgerLeftEdge + 4}px`;
+
       window.requestAnimationFrame(move);
     }
   }
