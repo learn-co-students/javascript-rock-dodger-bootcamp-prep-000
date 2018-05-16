@@ -136,8 +136,8 @@ function createRock(x) {
  
 function endGame() {
   window.clearInterval(gameInterval);
-  while (GAME.querySelector('.rock')) {
-    GAME.removeChild(GAME.querySelector('.rock'));
+  while (ROCKS.length > 0) {
+    ROCKS.shift().remove();
   }
   window.removeEventListener('keydown', moveDodger);
   alert("YOU LOSE!");
