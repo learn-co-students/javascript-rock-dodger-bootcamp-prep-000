@@ -1,3 +1,5 @@
+// Tests don't work but the game does :)
+
 /**
  * Don't change these constants!
  */

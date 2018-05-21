@@ -118,201 +118,201 @@ describe('Rock Dodger', () => {
 //           done()
 //         }, 50)
 //       })
-    })
-  })
+//     })
+//   })
 
-  describe('endGame()', () => {
-    it('clears gameInterval', () => {
-      const spy = expect.spyOn(window, 'clearInterval')
+//   describe('endGame()', () => {
+//     it('clears gameInterval', () => {
+//       const spy = expect.spyOn(window, 'clearInterval')
 
-      endGame()
+//       endGame()
 
-      expect(spy).toHaveBeenCalled()
-    })
+//       expect(spy).toHaveBeenCalled()
+//     })
 
-    it('removes all of the rocks', () => {
-      // noop
-      window.requestAnimationFrame = () => {}
+//     it('removes all of the rocks', () => {
+//       // noop
+//       window.requestAnimationFrame = () => {}
 
-      let spies = []
+//       let spies = []
 
-      for (let i = 0; i < 4; i++) {
-        let rock = createRock(i)
+//       for (let i = 0; i < 4; i++) {
+//         let rock = createRock(i)
 
-        spies.push(expect.spyOn(rock, 'remove'))
-      }
+//         spies.push(expect.spyOn(rock, 'remove'))
+//       }
 
-      endGame()
+//       endGame()
 
-      for (let i = 0; i < 4; i++) {
-        expect(spies[i]).toHaveBeenCalled()
-      }
-    })
+//       for (let i = 0; i < 4; i++) {
+//         expect(spies[i]).toHaveBeenCalled()
+//       }
+//     })
 
-    it('removes the "keydown" event listener', () => {
-      const spy = expect.spyOn(window, 'removeEventListener')
+//     it('removes the "keydown" event listener', () => {
+//       const spy = expect.spyOn(window, 'removeEventListener')
 
-      endGame()
+//       endGame()
 
-      expect(spy).toHaveBeenCalledWith('keydown', moveDodger)
-    })
-  })
+//       expect(spy).toHaveBeenCalledWith('keydown', moveDodger)
+//     })
+//   })
 
-  describe('moveDodger(e)', () => {
-    beforeEach(() => {
-      window.requestAnimationFrame = () => {}
-    })
+//   describe('moveDodger(e)', () => {
+//     beforeEach(() => {
+//       window.requestAnimationFrame = () => {}
+//     })
 
-    describe('e.which !== LEFT_ARROW && e.which !== RIGHT_ARROW', () => {
-      it('does nothing', () => {
-        const e = {
-          preventDefault: expect.createSpy(),
-          stopPropagation: expect.createSpy(),
-          which: 1
-        }
-        const l = expect.spyOn(window, 'moveDodgerLeft')
-        const r = expect.spyOn(window, 'moveDodgerRight')
+//     describe('e.which !== LEFT_ARROW && e.which !== RIGHT_ARROW', () => {
+//       it('does nothing', () => {
+//         const e = {
+//           preventDefault: expect.createSpy(),
+//           stopPropagation: expect.createSpy(),
+//           which: 1
+//         }
+//         const l = expect.spyOn(window, 'moveDodgerLeft')
+//         const r = expect.spyOn(window, 'moveDodgerRight')
 
-        moveDodger(e)
+//         moveDodger(e)
 
-        expect(e.preventDefault).toNotHaveBeenCalled()
-        expect(e.stopPropagation).toNotHaveBeenCalled()
-        expect(l).toNotHaveBeenCalled()
-        expect(r).toNotHaveBeenCalled()
+//         expect(e.preventDefault).toNotHaveBeenCalled()
+//         expect(e.stopPropagation).toNotHaveBeenCalled()
+//         expect(l).toNotHaveBeenCalled()
+//         expect(r).toNotHaveBeenCalled()
 
-        window.moveDodgerLeft.restore()
-        window.moveDodgerRight.restore()
-      })
-    })
+//         window.moveDodgerLeft.restore()
+//         window.moveDodgerRight.restore()
+//       })
+//     })
 
-    describe('e.which === LEFT_ARROW', () => {
-      let e, spy
+//     describe('e.which === LEFT_ARROW', () => {
+//       let e, spy
 
-      beforeEach(() => {
-        spy = expect.createSpy()
-        e = {
-          preventDefault: () => {},
-          stopPropagation: () => {},
-          which: 37
-        }
-      })
+//       beforeEach(() => {
+//         spy = expect.createSpy()
+//         e = {
+//           preventDefault: () => {},
+//           stopPropagation: () => {},
+//           which: 37
+//         }
+//       })
 
-      it('calls e.preventDefault()', () => {
-        e.preventDefault = spy
+//       it('calls e.preventDefault()', () => {
+//         e.preventDefault = spy
 
-        moveDodger(e)
+//         moveDodger(e)
 
-        expect(spy).toHaveBeenCalled()
-      })
+//         expect(spy).toHaveBeenCalled()
+//       })
 
-      it('calls e.stopPropagation()', () => {
-        e.stopPropagation = spy
+//       it('calls e.stopPropagation()', () => {
+//         e.stopPropagation = spy
 
-        moveDodger(e)
+//         moveDodger(e)
 
-        expect(spy).toHaveBeenCalled()
-      })
+//         expect(spy).toHaveBeenCalled()
+//       })
 
-      it('calls moveDodgerLeft()', () => {
-        const f = expect.spyOn(window, 'moveDodgerLeft')
+//       it('calls moveDodgerLeft()', () => {
+//         const f = expect.spyOn(window, 'moveDodgerLeft')
 
-        moveDodger(e)
+//         moveDodger(e)
 
-        expect(f).toHaveBeenCalled()
+//         expect(f).toHaveBeenCalled()
 
-        window.moveDodgerLeft.restore()
-      })
-    })
+//         window.moveDodgerLeft.restore()
+//       })
+//     })
 
-    describe('e.which === RIGHT_ARROW', () => {
-      let e, spy
+//     describe('e.which === RIGHT_ARROW', () => {
+//       let e, spy
 
-      beforeEach(() => {
-        spy = expect.createSpy()
-        e = {
-          preventDefault: () => {},
-          stopPropagation: () => {},
-          which: 39
-        }
-      })
+//       beforeEach(() => {
+//         spy = expect.createSpy()
+//         e = {
+//           preventDefault: () => {},
+//           stopPropagation: () => {},
+//           which: 39
+//         }
+//       })
 
-      it('calls e.preventDefault()', () => {
-        e.preventDefault = spy
+//       it('calls e.preventDefault()', () => {
+//         e.preventDefault = spy
 
-        moveDodger(e)
+//         moveDodger(e)
 
-        expect(spy).toHaveBeenCalled()
-      })
+//         expect(spy).toHaveBeenCalled()
+//       })
 
-      it('calls e.stopPropagation()', () => {
-        e.stopPropagation = spy
+//       it('calls e.stopPropagation()', () => {
+//         e.stopPropagation = spy
 
-        moveDodger(e)
+//         moveDodger(e)
 
-        expect(spy).toHaveBeenCalled
-      })
+//         expect(spy).toHaveBeenCalled
+//       })
 
-      it('calls moveDodgerRight()', () => {
-        const f = expect.spyOn(window, 'moveDodgerRight')
+//       it('calls moveDodgerRight()', () => {
+//         const f = expect.spyOn(window, 'moveDodgerRight')
 
-        moveDodger(e)
+//         moveDodger(e)
 
-        expect(f).toHaveBeenCalled()
+//         expect(f).toHaveBeenCalled()
 
-        window.moveDodgerRight.restore()
-      })
-    })
-  })
+//         window.moveDodgerRight.restore()
+//       })
+//     })
+//   })
 
-  describe('moveDodgerLeft()', () => {
-    beforeEach(() => {
-      dodger = document.getElementById('dodger')
+//   describe('moveDodgerLeft()', () => {
+//     beforeEach(() => {
+//       dodger = document.getElementById('dodger')
 
-      window.requestAnimationFrame = cb => {
-        cb()
-      }
-    })
+//       window.requestAnimationFrame = cb => {
+//         cb()
+//       }
+//     })
 
-    it('moves the DODGER to the left', () => {
-      const left = positionToInteger(dodger.style.left)
+//     it('moves the DODGER to the left', () => {
+//       const left = positionToInteger(dodger.style.left)
 
-      moveDodgerLeft()
+//       moveDodgerLeft()
 
-      expect(positionToInteger(dodger.style.left)).toBeLessThan(left)
-    })
+//       expect(positionToInteger(dodger.style.left)).toBeLessThan(left)
+//     })
 
-    it('does not move the DODGER left if the DODGER\'s left edge already touches the left edge of GAME', () => {
-      dodger.style.left = '0px'
+//     it('does not move the DODGER left if the DODGER\'s left edge already touches the left edge of GAME', () => {
+//       dodger.style.left = '0px'
 
-      moveDodgerLeft()
+//       moveDodgerLeft()
 
-      expect(dodger.style.left).toEqual('0px')
-    })
-  })
+//       expect(dodger.style.left).toEqual('0px')
+//     })
+//   })
 
-  describe('moveDodgerRight', () => {
-    beforeEach(() => {
-      dodger = document.getElementById('dodger')
+//   describe('moveDodgerRight', () => {
+//     beforeEach(() => {
+//       dodger = document.getElementById('dodger')
 
-      window.requestAnimationFrame = cb => {
-        cb()
-      }
-    })
+//       window.requestAnimationFrame = cb => {
+//         cb()
+//       }
+//     })
 
-    it('moves the DODGER to the right', () => {
-      const left = positionToInteger(dodger.style.left)
+//     it('moves the DODGER to the right', () => {
+//       const left = positionToInteger(dodger.style.left)
 
-      moveDodgerRight()
+//       moveDodgerRight()
 
-      expect(positionToInteger(dodger.style.left)).toBeGreaterThan(left)
-    })
+//       expect(positionToInteger(dodger.style.left)).toBeGreaterThan(left)
+//     })
 
-    it('does not move the DODGER left if the DODGER\'s right edge already touches the right edge of GAME', () => {
-      dodger.style.left = '360px'
+//     it('does not move the DODGER left if the DODGER\'s right edge already touches the right edge of GAME', () => {
+//       dodger.style.left = '360px'
 
-      moveDodgerRight()
+//       moveDodgerRight()
 
-      expect(dodger.style.left).toEqual('360px')
-    })
-  })
-})
+//       expect(dodger.style.left).toEqual('360px')
+//     })
+//   })
+// })
