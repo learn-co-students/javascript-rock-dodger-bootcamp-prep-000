@@ -11,6 +11,7 @@ const START = document.getElementById('start')
 var gameInterval = null
 
 
+
 function checkCollision(rock) {
   const top = positionToInteger(rock.style.top);
   if (top > 360) {
@@ -78,7 +79,8 @@ function moveDodger(e) {
 function moveDodgerLeft() {
   var left = positionToInteger(DODGER.style.left);
   if (left < 4) {
-    return DODGER.style.left = '0px';
+    DODGER.style.left = '0px';
+    return;
   } else {
   function step() {
     DODGER.style.left = `${left -= 4}px`;
@@ -93,7 +95,8 @@ function moveDodgerLeft() {
 function moveDodgerRight() {
   var right = positionToInteger(DODGER.style.left);
   if (right > 356) {
-    return DODGER.style.left = '360px';
+    DODGER.style.left = '360px';
+    return;
   } else {
   function step() {
     DODGER.style.left = `${right += 4}px`;
