@@ -98,8 +98,7 @@ if (window.checkCollision(rock) === true) {
   }
   window.requestAnimationFrame(step);
        
-  //     if (window.checkCollision(rock) === true) {
-// window.endGame()}
+
 }
     /**
      * But if the rock *has* reached the bottom of the GAME,
@@ -127,7 +126,7 @@ moveRock();
 function endGame() {
   clearInterval(gameInterval);
   ROCKS.forEach(function(rock) { rock.remove() });
-  document.removeEventListener('keydown', moveDodger);
+  window.removeEventListener("keydown", moveDodger);
   alert('YOU LOSE!');
 }
 
@@ -201,7 +200,7 @@ function positionToInteger(p) {
 
 
 function start() {
-  window.addEventListener('keydown', moveDodger);
+  window.addEventListener('keydown',moveDodger);
 
   START.style.display = 'none';
 
