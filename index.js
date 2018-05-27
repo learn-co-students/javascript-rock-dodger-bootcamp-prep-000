@@ -81,6 +81,8 @@ GAME.appendChild(rock);
      * If a rock collides with the DODGER,
      * we should call endGame()
      */
+if (window.checkCollision(rock) === true) {
+ window.endGame()}
 
     /**
      * Otherwise, if the rock hasn't reached the bottom of
@@ -96,8 +98,8 @@ GAME.appendChild(rock);
   }
   window.requestAnimationFrame(step);
        
-       if (window.checkCollision(rock) === true) {
- window.endGame()}
+  //     if (window.checkCollision(rock) === true) {
+// window.endGame()}
 }
     /**
      * But if the rock *has* reached the bottom of the GAME,
@@ -123,15 +125,10 @@ moveRock();
  * Finally, alert "YOU LOSE!" to the player.
  */
 function endGame() {
- //clearInterval(gameInterval);
-  //ROCKS.forEach(function(rock) { rock.remove() });
-  //document.removeEventListener('keydown', moveDodger);
-  alert('YOU LOSE!');
-  
   clearInterval(gameInterval);
   ROCKS.forEach(function(rock) { rock.remove() });
   document.removeEventListener('keydown', moveDodger);
-  
+  alert('YOU LOSE!');
 }
 
 
