@@ -119,22 +119,63 @@ function moveDodger(e) {
    * we've declared for you above.)
    * And be sure to use the functions declared below!
    */
+   
+   if(e.which === LEFT_ARROW){
+     moveDodgerLeft();
+     e.preventDefault();
+     e.stopPropagation();
+   }
+   else if(e.which === RIGHT_ARROW) {
+     moveDodgerRight();
+     e.preventDefault();
+     e.stopPropagation();
+   }
 }
 
 function moveDodgerLeft() {
   // implement me!
   /**
    * This function should move DODGER to the left
-   * (mabye 4 pixels?). Use window.requestAnimationFrame()!
+   * (maybe 4 pixels?). Use window.requestAnimationFrame()!
    */
+   
+   var leftNumbers = DODGER.style.left.replace("px", "");
+   var left = parseInt(leftNumbers, 10);
+   
+   function stepLeft() {
+     DODGER.style.left = `${left - 4}px`;
+     
+     /*if(left > 0){
+       window.requestAnimationFrame(step);
+     } This part of the code may not be needed */
+   }
+   
+   if(left > 0) {
+     window.requestAnimationFrame(stepLeft);
+   } 
+   
 }
 
 function moveDodgerRight() {
   // implement me!
   /**
    * This function should move DODGER to the right
-   * (mabye 4 pixels?). Use window.requestAnimationFrame()!
+   * (maybe 4 pixels?). Use window.requestAnimationFrame()!
    */
+   
+   var rightNumbers = DODGER.style.left.replace("px", "");
+   var right = parseInt(rightNumbers, 10);
+   
+   function stepRight() {
+     DODGER.style.left = `${right + 4}px`;
+   }
+   
+   /* Below, I could try having the program calculate the difference between the position of the dodger and the edge of the game for ANY position, ANY width of the dodger, and ANY width of the game. But, I'll limit it to just this game and avoid a bunch of unnecessary calculations on the program's part. I know that the dodger should move right as long as  right < (400 - 40 = 360px). */
+   
+   if(right < 360){
+     window.requestAnimationFrame(stepRight);
+   }
+   /* I should note that there's a typo with one of the test descriptions. It should say that moveDodgerRight does not move the dodger RIGHT (not LEFT) if the dodger is touching the game's right edge. */
 }
 
 /**
