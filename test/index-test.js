@@ -96,7 +96,7 @@ describe('Rock Dodger', () => {
           cb()
         }
 
-        createRock(182)
+        createRock(182);
 
         expect(spy).toHaveBeenCalled()
 
