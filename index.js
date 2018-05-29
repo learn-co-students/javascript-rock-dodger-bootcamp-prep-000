@@ -20,13 +20,13 @@ var gameInterval = null
 function checkCollision(rock) {
   // implement me!
   // use the comments below to guide you!
-  const top = positionToInteger(rock.style.top)
+  const top = positionToInteger(rock.style.top);
 
   // rocks are 20px high
   // DODGER is 20px high
   // GAME_HEIGHT - 20 - 20 = 360px;
   if (top > 360) {
-    const dodgerLeftEdge = positionToInteger(DODGER.style.left)
+    const dodgerLeftEdge = positionToInteger(DODGER.style.left);
 
     // FIXME: The DODGER is 40 pixels wide -- how do we get the right edge?
     const dodgerRightEdge = 0;
@@ -52,21 +52,21 @@ function checkCollision(rock) {
 }
 
 function createRock(x) {
-  const rock = document.createElement('div')
+  const rock = document.createElement('div');
 
-  rock.className = 'rock'
-  rock.style.left = `${x}px`
+  rock.className = 'rock';
+  rock.style.left = `${x}px`;
 
   // Hmmm, why would we have used `var` here?
-  var top = 0
+  var top = 0;
 
-  rock.style.top = top
+  rock.style.top = top;
 
   /**
    * Now that we have a rock, we'll need to append
    * it to GAME and move it downwards.
    */
-
+  GAME.appendChild(rock);
 
   /**
    * This function moves the rock. (2 pixels at a time
@@ -79,26 +79,36 @@ function createRock(x) {
      * If a rock collides with the DODGER,
      * we should call endGame()
      */
-
+    if( checkCollision(rock) ) {
+      endGame();
+    }
+    
     /**
      * Otherwise, if the rock hasn't reached the bottom of
      * the GAME, we want to move it again.
      */
-
+    else if( top < GAME_HEIGHT ) { /* I think this actually passes the tests no matter what I value of top I check for here... */
+      rock.style.top = `${top += 2}px`;
+      window.requestAnimationFrame(moveRock);
+    }
+    
     /**
      * But if the rock *has* reached the bottom of the GAME,
      * we should remove the rock from the DOM
      */
+     else{
+      rock.remove(); 
+     }
   }
 
-  // We should kick of the animation of the rock around here
-
+  // We should kick off the animation of the rock around here
+  window.requestAnimationFrame(moveRock);
   // Add the rock to ROCKS so that we can remove all rocks
   // when there's a collision
-  ROCKS.push(rock)
+  ROCKS.push(rock);
 
   // Finally, return the rock element you've created
-  return rock
+  return rock;
 }
 
 /**
@@ -108,6 +118,9 @@ function createRock(x) {
  * Finally, alert "YOU LOSE!" to the player.
  */
 function endGame() {
+  //clearInterval(gameInterval);
+  
+  
 }
 
 function moveDodger(e) {
@@ -139,20 +152,28 @@ function moveDodgerLeft() {
    * (maybe 4 pixels?). Use window.requestAnimationFrame()!
    */
    
-   var leftNumbers = DODGER.style.left.replace("px", "");
-   var left = parseInt(leftNumbers, 10);
+   var left = positionToInteger(DODGER.style.left);
+   // I don't need the code below because positionToInteger does that for me.
+   //var leftNumbers = DODGER.style.left.replace("px", "");
+   //var left = parseInt(leftNumbers, 10);
    
    function stepLeft() {
      DODGER.style.left = `${left - 4}px`;
      
+     /*DODGER.style.left = `${left -= 4}px`;
+     if(left>0){
+       window.requestAnimationFrame(stepLeft);
+     } DO NOT IMPLEMENT THIS! It causes the dodger to go left automatically until it reaches the edge. However, I can't override it with the right arrow key until it's at the left edge.*/
+     
      /*if(left > 0){
-       window.requestAnimationFrame(step);
-     } This part of the code may not be needed */
+       DODGER.style.left = `${left - 4}px`;
+       window.requestAnimationFrame(stepLeft);
+     } This part of the code may not be needed. For whatever reason, it messes up the test for this function (the one that moves the dodger left), and it prevents movement of the dodger to the right. I had thought that it would just cause the dodger to move left automatically after I hit the left arrow key, but I was wrong. */
    }
    
-   if(left > 0) {
-     window.requestAnimationFrame(stepLeft);
-   } 
+  if(left > 0) {
+    window.requestAnimationFrame(stepLeft);
+  }
    
 }
 
@@ -163,14 +184,16 @@ function moveDodgerRight() {
    * (maybe 4 pixels?). Use window.requestAnimationFrame()!
    */
    
-   var rightNumbers = DODGER.style.left.replace("px", "");
-   var right = parseInt(rightNumbers, 10);
+   var right = positionToInteger(DODGER.style.left);
+   // I don't need the code below because positionToInteger does that for me.
+   //var rightNumbers = DODGER.style.left.replace("px", "");
+   //var right = parseInt(rightNumbers, 10);
    
    function stepRight() {
      DODGER.style.left = `${right + 4}px`;
    }
    
-   /* Below, I could try having the program calculate the difference between the position of the dodger and the edge of the game for ANY position, ANY width of the dodger, and ANY width of the game. But, I'll limit it to just this game and avoid a bunch of unnecessary calculations on the program's part. I know that the dodger should move right as long as  right < (400 - 40 = 360px). */
+   /* Below, I could try having the program calculate the difference between the position of the dodger and the edge of the game for ANY position, ANY width of the dodger, and ANY width of the game. But, I'll limit it to just this game and avoid a bunch of unnecessary calculations on the program's part. I know that the dodger should move right as long as  right < (GAME_WIDTH - DODGER's width = 400 - 40 = 360px). */
    
    if(right < 360){
      window.requestAnimationFrame(stepRight);
