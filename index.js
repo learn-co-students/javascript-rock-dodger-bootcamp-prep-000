@@ -62,8 +62,8 @@ function checkCollision(rock) {
 function createRock(x) {
   const rock = document.createElement('div')
 
-  rock.className = 'rock'
-  rock.style.left = `${x}px`
+  rock.className = 'rock';
+  rock.style.left = `${x}px`;
 
   // Hmmm, why would we have used `var` here?
   var top = 0
@@ -110,10 +110,10 @@ function createRock(x) {
 
   // Add the rock to ROCKS so that we can remove all rocks
   // when there's a collision
-  ROCKS.push(rock)
+  ROCKS.push(rock);
 
   // Finally, return the rock element you've created
-  return rock
+  return rock;
 }
 
 /**
@@ -123,21 +123,27 @@ function createRock(x) {
  * Finally, alert "YOU LOSE!" to the player.
  */
 function endGame() {
-  
   clearInterval(gameInterval);
   
-  for (i = 0; i++; i < ROCKS.length()) {
-    GAME.removeChild(ROCKS[i]);
+  var i;
+  for (i = 0; i < ROCKS.length; i++) {
+    ROCKS[i].remove();
   }
   
   window.removeEventListener('keydown', moveDodger);
   
   alert("You LOSE, (wo)man!!");
-  
 }
 
 function moveDodger(e) {
   // implement me!
+  /**
+   * This function should call `moveDodgerLeft()`
+   * if the left arrow is pressed and `moveDodgerRight()`
+   * if the right arrow is pressed. (Check the constants
+   * we've declared for you above.)
+   * And be sure to use the functions declared below!
+   */
   
   if( e.which === 37 ) { 
     e.preventDefault(); 
@@ -156,15 +162,8 @@ function moveDodger(e) {
       moveDodgerRight(); 
     }
   }
-
-   
-  /**
-   * This function should call `moveDodgerLeft()`
-   * if the left arrow is pressed and `moveDodgerRight()`
-   * if the right arrow is pressed. (Check the constants
-   * we've declared for you above.)
-   * And be sure to use the functions declared below!
-   */
+  
+  dodgerRightEdge = dodgerLeftEdge + 40;
 }
 
 function moveDodgerLeft() {
@@ -173,19 +172,11 @@ function moveDodgerLeft() {
    * This function should move DODGER to the left
    * (maybe 4 pixels?). Use window.requestAnimationFrame()!
    */
-   // var left = positionToInteger(DODGER.style.left);
-   
-   window.requestAnimationFrame(moveLeft);
-   
-   function moveLeft () {
      
      if(dodgerLeftEdge >= 4){
       DODGER.style.left = `${dodgerLeftEdge -= 4}px`;
-      window.requestAnimationFrame(moveLeft);
+      window.requestAnimationFrame(moveDodgerLeft);
      }
-   }
-   
-   dodgerRightEdge = dodgerLeftEdge + 40;
 }
 
 function moveDodgerRight() {
@@ -194,17 +185,11 @@ function moveDodgerRight() {
    * This function should move DODGER to the right
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
-  window.requestAnimationFrame(moveRight);
-  
-   function moveRight () {
-     
+
      if(dodgerLeftEdge <= 356) {
       DODGER.style.left = `${dodgerLeftEdge += 4}px`;
-      window.requestAnimationFrame(moveRight);
+      window.requestAnimationFrame(moveDodgerRight);
      }
-   }
-   
-   dodgerRightEdge = dodgerLeftEdge + 40;
 }
 
 /**
