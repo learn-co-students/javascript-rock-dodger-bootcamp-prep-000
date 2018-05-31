@@ -131,11 +131,22 @@ function moveDodger(e) {
   // implement me!
   /**
    * This function should call `moveDodgerLeft()`
-   * if the left arrow is pressed and `moveDodgerRight()`
-   * if the right arrow is pressed. (Check the constants
-   * we've declared for you above.)
+   * if the left arrow is pressed 
+   */
+   if(e.which === LEFT_ARROW) {
+     e.preventDefault();
+     e.stopPropagation();
+     moveDodgerLeft();
+   } 
+  /**
+   * and `moveDodgerRight()` if the right arrow is pressed
+   * (Check the constants we've declared for you above.)
    * And be sure to use the functions declared below!
    */
+   else if(e.which === RIGHT_ARROW){
+     e.preventDefault();
+     moveDodgerRight();
+   }
 }
 
 function moveDodgerLeft() {
@@ -146,13 +157,9 @@ function moveDodgerLeft() {
    */
    var leftNumbers = DODGER.style.left.replace('px', '');
    var left = parseInt(leftNumbers, 10);
-   function step() {
-     DODGER.style.left = `${left -= 4}px`
-     if(left > 0) {
-       window.requestAnimationFrame(step)
-     }
+   if(left > 0) {
+     DODGER.style.left = `${left - 4}px`
    }
-   window.requestAnimationFrame(step)
 }
 
 function moveDodgerRight() {
