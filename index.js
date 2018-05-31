@@ -80,7 +80,7 @@ function createRock(x) {
      * If a rock collides with the DODGER,
      * we should call endGame()
      */
-    if( checkCollision(rock) ) {
+    if(checkCollision(rock)) {
       endGame();
     }
     
@@ -119,6 +119,7 @@ function createRock(x) {
  * Finally, alert "YOU LOSE!" to the player.
  */
 function endGame() {
+  
   clearInterval(gameInterval);
   
   for(let i = 0; i < ROCKS.length; i++) {
@@ -127,18 +128,13 @@ function endGame() {
   
   window.removeEventListener('keydown', moveDodger);
   
-  return alert("YOU LOSE!");
+  /* Some nice extra stuff from the solution:
+  START.innerHTML = 'Play again?'
+  START.style.display = 'inline' */
   
-  /* I wanted to use ROCKS = ROCKS.slice(ROCKS.length) to make ROCKS a blank array, like it was before. But I can't because ROCKS is a constant array. That may be unnecessary since the game is over. Restarting the game should reset the array, anyway.*/
-  /* However, this WILL reset the ROCKS array:
-  while(ROCKS[0] != null) {
-    ROCKS.pop();
-  } */
+  alert("YOU LOSE!");
   
-  /* This won't work, as it doesn't remove the 'moveDodger' eventListener: 
-  DODGER.addEventListener("keydown", function (ev) {
-    ev.stopPropagation;
-  }); */
+  START.style.display = "";
   
 }
 
