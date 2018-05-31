@@ -119,8 +119,26 @@ function createRock(x) {
  * Finally, alert "YOU LOSE!" to the player.
  */
 function endGame() {
-  //clearInterval(gameInterval);
+  clearInterval(gameInterval);
   
+  for(let i = 0; i < ROCKS.length; i++) {
+    ROCKS[i].remove();
+  }
+  
+  window.removeEventListener('keydown', moveDodger);
+  
+  return alert("YOU LOSE!");
+  
+  /* I wanted to use ROCKS = ROCKS.slice(ROCKS.length) to make ROCKS a blank array, like it was before. But I can't because ROCKS is a constant array. That may be unnecessary since the game is over. Restarting the game should reset the array, anyway.*/
+  /* However, this WILL reset the ROCKS array:
+  while(ROCKS[0] != null) {
+    ROCKS.pop();
+  } */
+  
+  /* This won't work, as it doesn't remove the 'moveDodger' eventListener: 
+  DODGER.addEventListener("keydown", function (ev) {
+    ev.stopPropagation;
+  }); */
   
 }
 
