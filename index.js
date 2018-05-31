@@ -66,7 +66,7 @@ function createRock(x) {
     rock.style.top = `${top += 2}px`;
 
      if(checkCollision(rock)){
-       return endGame()
+       return endGame();
      }
 
      if(top < GAME_HEIGHT) {
@@ -90,13 +90,23 @@ function createRock(x) {
  * Finally, alert "YOU LOSE!" to the player.
  */
 function endGame() {
-  window.removeEventListener('keydown', moveDodger);
   clearInterval(gameInterval);
+  window.removeEventListener('keydown', moveDodger);
+  //ROCKS.forEach(function(rock) { rock.remove() })
   for(let i = 0; i < ROCKS.length; i++){
     ROCKS[i].remove();
+    //ROCKS.splice(i);
   }
+  //for(let i = 0; i < ROCKS.length; i++){
+    //ROCKS[i].remove();
+  //  ROCKS.shift();
+//  }
+  //console.log(ROCKS)
+
+  START.innerHTML = 'Play again?'
+  START.style.display = 'inline'
   alert("YOU LOSE!")
-  START.style.display = ""
+  //START.style.display = ""
 }
 
 function moveDodger(e) {
