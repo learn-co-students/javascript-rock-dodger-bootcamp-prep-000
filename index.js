@@ -125,12 +125,12 @@ function endGame() {
   for(let i = 0; i < ROCKS.length; i++) {
     ROCKS[i].remove();
   }
-  
+
   window.removeEventListener('keydown', moveDodger);
   
-  /* Some nice extra stuff from the solution:
-  START.innerHTML = 'Play again?'
-  START.style.display = 'inline' */
+  // Some nice extra stuff from the solution:
+  START.innerHTML = 'Play again?';
+  START.style.display = 'inline';
   
   alert("YOU LOSE!");
   
