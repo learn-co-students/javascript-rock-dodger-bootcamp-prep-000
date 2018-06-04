@@ -108,14 +108,10 @@ function moveDodger(e) {
 function moveDodgerLeft() {
   var left = positionToInteger(DODGER.style.left);
   
-  function step() {
-    DODGER.style.left = `${left -= 4}px`;
+    function step() {
+      if (left > 0) {DODGER.style.left = `${left -= 4}px`;
+    }
   }
-    
-  if (left > 0) {
-    window.requestAnimationFrame(step);
-  }
-    
   window.requestAnimationFrame(step);
 }
 
@@ -123,13 +119,9 @@ function moveDodgerRight() {
   var left = positionToInteger(DODGER.style.left);
   
   function step() {
-    DODGER.style.left = `${left += 4}px`;
+    if (left < (GAME_WIDTH - 40)) {DODGER.style.left = `${left += 4}px`;
+    }
   }
-  
-  if (left < (GAME_WIDTH - 40)) {
-    window.requestAnimationFrame(step);
-  }
-  
   window.requestAnimationFrame(step);
 }
 
