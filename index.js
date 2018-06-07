@@ -21,7 +21,7 @@ function checkCollision(rock) {
 
     const rockLeftEdge = positionToInteger(rock.style.left);
     const rockRightEdge = rockLeftEdge + 20;
-    
+
     /**
      * There's been a collision if one of three things is true:
      * 1. The rock's left edge is < the DODGER's left edge,
@@ -45,21 +45,22 @@ function checkCollision(rock) {
 
 function createRock(x) {
   const rock = document.createElement('div');
-  
+
   rock.className = 'rock';
   rock.style.left = `${x}px`;
 
   var top = 0;
-  rock.style.top = top;
+  rock.style.top = `${top}px`;
 
   GAME.append(rock);
 
   function moveRock() {
     if (checkCollision(rock)) {
       endGame();
-    } else if (top < GAME_HEIGHT - 20) {
+    } else if (top < GAME_HEIGHT) {
       top += 2;
-      moveRock();
+      rock.style.top = `${top}px`;
+      window.requestAnimationFrame(moveRock);
     } else {
       rock.remove();
     }
@@ -73,11 +74,11 @@ function createRock(x) {
 
 function endGame() {
   clearInterval(gameInterval);
-  
+
   for (var i = 0; i < ROCKS.length; i++) {
     ROCKS[i].remove();
   }
-  
+
   window.removeEventListener('keydown', moveDodger);
   alert('YOU LOSE!');
 }
@@ -102,7 +103,7 @@ function moveDodgerLeft() {
     }
     DODGER.style.left = `${newPosition}px`;
   }
-   
+
    window.requestAnimationFrame(step);
 }
 
@@ -114,7 +115,7 @@ function moveDodgerRight() {
     }
     DODGER.style.left = `${newPosition}px`;
   }
-   
+
    window.requestAnimationFrame(step);
 }
 
