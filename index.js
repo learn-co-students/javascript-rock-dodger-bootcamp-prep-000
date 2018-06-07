@@ -64,6 +64,8 @@ function createRock(x) {
     } else {
       rock.remove();
     }
+
+    location.reload();
   }
 
   window.requestAnimationFrame(moveRock);
