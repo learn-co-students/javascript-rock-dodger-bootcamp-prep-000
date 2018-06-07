@@ -76,12 +76,12 @@ describe('Rock Dodger', () => {
 
         const spy = expect.spyOn(window, 'checkCollision')
 
-        window.requestAnimationFrame = cb => {
+        window.requestAnimationFrame = ((cb) => {
           if (!called) {
             called = true
             cb()
           }
-        }
+        })
 
         createRock(4)
 
