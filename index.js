@@ -64,8 +64,6 @@ function createRock(x) {
     } else {
       rock.remove();
     }
-
-    location.reload();
   }
 
   window.requestAnimationFrame(moveRock);
@@ -83,6 +81,8 @@ function endGame() {
 
   window.removeEventListener('keydown', moveDodger);
   alert('YOU LOSE!');
+
+  location.reload();
 }
 
 function moveDodger(e) {
