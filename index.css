@@ -23,6 +23,14 @@
   top: 4rem;
 }
 
+#score {
+  color: white;
+  font-size: 4rem;
+  position: absolute;
+  margin: 20px;
+  display: none;
+}
+
 .rock {
   width: 20px;
   height: 20px;

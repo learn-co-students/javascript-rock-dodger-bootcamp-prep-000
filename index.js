@@ -1,5 +1,6 @@
 const DODGER = document.getElementById('dodger');
 const GAME = document.getElementById('game');
+const SCORE = document.getElementById('score');
 const GAME_HEIGHT = 400;
 const GAME_WIDTH = 400;
 const LEFT_ARROW = 37;
@@ -52,7 +53,9 @@ function createRock(x) {
   var top = 0;
   rock.style.top = `${top}px`;
 
-  GAME.append(rock);
+  // I'm prepending instead of appending so that the SCORE element sits
+  // on top of it.
+  GAME.prepend(rock);
 
   function moveRock() {
     if (checkCollision(rock)) {
@@ -63,6 +66,7 @@ function createRock(x) {
       window.requestAnimationFrame(moveRock);
     } else {
       rock.remove();
+      SCORE.innerHTML = parseInt(SCORE.innerHTML) + 1;
     }
   }
 
@@ -80,7 +84,7 @@ function endGame() {
   }
 
   window.removeEventListener('keydown', moveDodger);
-  alert('YOU LOSE!');
+  alert(`You lose. Your score was ${SCORE.innerHTML}.`);
 
   location.reload();
 }
@@ -133,6 +137,7 @@ function start() {
   window.addEventListener('keydown', moveDodger);
 
   START.style.display = 'none';
+  SCORE.style.display = 'block';
 
   gameInterval = setInterval(function() {
     createRock(Math.floor(Math.random() *  (GAME_WIDTH - 20)));
