@@ -38,6 +38,24 @@ function checkCollision(rock)
     // FIXME: The rock is 20 pixel's wide -- how do we get the right edge?
     const rockRightEdge = rockLeftEdge + 20;
     
+    if(rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge)
+    {
+      return true;
+    }
+    else if(rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge)
+    {
+      return true;
+    }
+    else if(rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge)
+    {
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+    
+    /*
     if (false /**
                * Think about it -- what's happening here?
                * There's been a collision if one of three things is true:
@@ -47,9 +65,9 @@ function checkCollision(rock)
                *    and the rock's right edge is < the DODGER's right edge;
                * 3. The rock's left edge is < the DODGER's right edge,
                *    and the rock's right edge is > the DODGER's right edge
-               */) {
+               *//*) {
       return true;
-    }
+    }*/
   }
 }
 
@@ -70,7 +88,7 @@ function createRock(x)
    * it to GAME and move it downwards.
    */
    
-   $(GAME).append(rock);
+   GAME.appendChild(rock);
 
 
   /**
@@ -140,20 +158,22 @@ function createRock(x)
  */
 function endGame() 
 {
-  // clear the rocks
-  for(let i = 0; i < ROCKS.length; i++)
+  // clear game interval
+  window.clearInterval();
+  
+  // remove all the rocks
+  while(GAME.getElementsByClassName('.rock').length > 0)
   {
-    document.remove(ROCKS[i]);
+    GAME.querySelector('.rock').remove();
   }
   
-  // clear game interval
-  gameInterval.clearInterval();
+  ROCKS.length = 0;
   
   // remove event listener
   window.removeEventListener('keydown', moveDodger);
   
   // log the death note
-  console.log('');
+  window.alert('YOU LOSE!');
 }
 
 function moveDodger(e) 
