@@ -118,14 +118,14 @@ function createRock(x)
        if(checkCollision(ROCKS[i]))
        {
          // a collision has happened
-         console.log("Endgame Has been called");
+         //console.log("Endgame Has been called");
          endGame();
        }
        else if(positionToInteger(ROCKS[i].style.top) >= 380)
        {
          // the rock has reached the bottom of the game
-         console.log("remove a rock Has been called");
-         console.log(positionToInteger(ROCKS[i].style.top));
+         //console.log("remove a rock Has been called");
+         //console.log(positionToInteger(ROCKS[i].style.top));
          GAME.remove(ROCKS.splice(i, 1));
        }
        else
@@ -162,13 +162,16 @@ function endGame()
   // clear game interval
   window.clearInterval();
   
-  // remove all the rocks
-  while(GAME.getElementsByClassName('.rock').length > 0)
-  {
-    GAME.querySelector('.rock').remove();
-  }
+  // reset rocks array
+  var count = ROCKS.length;
   
-  ROCKS.length = 0;
+  // remove all the rocks
+  for(let i = 0; i < ROCKS.length; i++)
+  {
+    GAME.remove(ROCKS[i]);
+    //document.querySelector('.rock').remove();
+    console.log("remove a rock Has been called");
+  }
   
   // remove event listener
   window.removeEventListener('keydown', moveDodger);
