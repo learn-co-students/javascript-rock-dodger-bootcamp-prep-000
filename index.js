@@ -121,7 +121,7 @@ function createRock(x)
          console.log("Endgame Has been called");
          endGame();
        }
-       else if(positionToInteger(ROCKS[i].style.top) > 400)
+       else if(positionToInteger(ROCKS[i].style.top) >= 380)
        {
          // the rock has reached the bottom of the game
          console.log("remove a rock Has been called");
@@ -175,6 +175,9 @@ function endGame()
   
   // log the death note
   window.alert('YOU LOSE!');
+  
+  // refresh the page
+  location.reload();
 }
 
 function moveDodger(e) 
