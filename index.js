@@ -70,7 +70,7 @@ function createRock(x)
    * it to GAME and move it downwards.
    */
    
-   GAME.append(rock);
+   $(GAME).append(rock);
 
 
   /**
@@ -140,7 +140,20 @@ function createRock(x)
  */
 function endGame() 
 {
+  // clear the rocks
+  for(let i = 0; i < ROCKS.length; i++)
+  {
+    document.remove(ROCKS[i]);
+  }
   
+  // clear game interval
+  gameInterval.clearInterval();
+  
+  // remove event listener
+  //window.addEventListener('keydown', moveDodger)
+  
+  // log the death note
+  console.log('');
 }
 
 function moveDodger(e) 
@@ -156,11 +169,15 @@ function moveDodger(e)
    if(e.which === LEFT_ARROW)
    {
      //console.log("left");
+     e.stopPropagation();
+     e.preventDefault();
      moveDodgerLeft();
    }
    if(e.which === RIGHT_ARROW)
    {
      //console.log("right");
+     e.stopPropagation();
+     e.preventDefault();
      moveDodgerRight();
    }
 }
@@ -179,15 +196,15 @@ function moveDodgerLeft()
   var newPosition = positionToInteger(DODGER.style.left) - 4;
   
   // ensure that the dodger doesn't leave the game boundaries
-  if(newPosition < 0)
+  if(newPosition <= 0)
   {
-    newPosition = 0;
+    moveDodgerRight();
   }
   
   function AnimStep()
   {
     // start animation step (one pixel per frame)
-    DODGER.style.left = `${position -= 2}px`;
+    DODGER.style.left = `${position -= 4}px`;
     if(position > newPosition)
     {
       window.requestAnimationFrame(AnimStep);
@@ -211,15 +228,15 @@ function moveDodgerRight()
   var newPosition = positionToInteger(DODGER.style.left) + 4;
   
   // ensure that the dodger doesn't leave the game boundaries
-  if(newPosition > 360)
+  if(newPosition >= 360)
   {
-    newPosition = 360;
+    moveDodgerLeft();
   }
   
   function AnimStep()
   {
     // start animation step (one pixel per frame)
-    DODGER.style.left = `${position += 2}px`;
+    DODGER.style.left = `${position += 4}px`;
     if(position < newPosition)
     {
       window.requestAnimationFrame(AnimStep);
