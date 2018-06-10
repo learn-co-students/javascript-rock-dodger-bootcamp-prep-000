@@ -112,6 +112,8 @@ function createRock(x)
          // keep moving the rock
          var position = positionToInteger(ROCKS[i].style.top);
          ROCKS[i].style.top = `${position += 2}px`;
+         
+         window.requestAnimationFrame(moveRock);
        }
        
      }
