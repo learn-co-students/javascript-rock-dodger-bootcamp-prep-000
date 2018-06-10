@@ -37,7 +37,7 @@ function checkCollision(rock)
 
     // FIXME: The rock is 20 pixel's wide -- how do we get the right edge?
     const rockRightEdge = rockLeftEdge + 20;
-
+    
     if (false /**
                * Think about it -- what's happening here?
                * There's been a collision if one of three things is true:
@@ -100,11 +100,13 @@ function createRock(x)
        if(checkCollision(ROCKS[i]))
        {
          // a collision has happened
+         console.log("Endgame Has been called");
          endGame();
        }
        else if(positionToInteger(ROCKS[i].style.top) > 400)
        {
          // the rock has reached the bottom of the game
+         console.log("remove a rock Has been called");
          GAME.remove(ROCKS.splice(i, 1));
        }
        else
@@ -112,7 +114,7 @@ function createRock(x)
          // keep moving the rock
          var position = positionToInteger(ROCKS[i].style.top);
          ROCKS[i].style.top = `${position += 2}px`;
-         
+         //console.log(position);
          window.requestAnimationFrame(moveRock);
        }
        
