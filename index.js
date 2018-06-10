@@ -150,7 +150,7 @@ function endGame()
   gameInterval.clearInterval();
   
   // remove event listener
-  //window.addEventListener('keydown', moveDodger)
+  window.removeEventListener('keydown', moveDodger);
   
   // log the death note
   console.log('');
@@ -198,7 +198,7 @@ function moveDodgerLeft()
   // ensure that the dodger doesn't leave the game boundaries
   if(newPosition <= 0)
   {
-    moveDodgerRight();
+    newPosition = 0;
   }
   
   function AnimStep()
@@ -224,22 +224,25 @@ function moveDodgerRight()
    
    // set current position of dodger
   var position = positionToInteger(DODGER.style.left);
+  
   // set expected new position of dodger
   var newPosition = positionToInteger(DODGER.style.left) + 4;
   
-  // ensure that the dodger doesn't leave the game boundaries
-  if(newPosition >= 360)
-  {
-    moveDodgerLeft();
-  }
-  
   function AnimStep()
   {
-    // start animation step (one pixel per frame)
-    DODGER.style.left = `${position += 4}px`;
-    if(position < newPosition)
+    // ensure that the dodger doesn't leave the game boundaries
+    if(newPosition >= 360)
     {
-      window.requestAnimationFrame(AnimStep);
+      DODGER.style.left = `${newPosition}px`;
+    }
+    else
+    {
+      // start animation step (one pixel per frame)
+      DODGER.style.left = `${position += 4}px`;
+      if(position < newPosition)
+      {
+        window.requestAnimationFrame(AnimStep);
+      }
     }
   }
   
