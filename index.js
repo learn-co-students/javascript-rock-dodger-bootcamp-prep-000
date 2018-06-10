@@ -160,7 +160,7 @@ function createRock(x)
 function endGame() 
 {
   // clear game interval
-  window.clearInterval();
+  window.clearInterval(gameInterval);
   
   // reset rocks array
   var count = ROCKS.length;
