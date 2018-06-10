@@ -55,8 +55,8 @@ function checkCollision(rock)
       return false;
     }
     
-    /*
-    if (false /**
+    
+    /*if (false *
                * Think about it -- what's happening here?
                * There's been a collision if one of three things is true:
                * 1. The rock's left edge is < the DODGER's left edge,
@@ -65,7 +65,7 @@ function checkCollision(rock)
                *    and the rock's right edge is < the DODGER's right edge;
                * 3. The rock's left edge is < the DODGER's right edge,
                *    and the rock's right edge is > the DODGER's right edge
-               *//*) {
+               ) {
       return true;
     }*/
   }
@@ -125,6 +125,7 @@ function createRock(x)
        {
          // the rock has reached the bottom of the game
          console.log("remove a rock Has been called");
+         console.log(positionToInteger(ROCKS[i].style.top));
          GAME.remove(ROCKS.splice(i, 1));
        }
        else
