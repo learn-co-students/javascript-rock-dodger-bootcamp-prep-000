@@ -31,12 +31,12 @@ function checkCollision(rock)
     const dodgerLeftEdge = positionToInteger(DODGER.style.left);
 
     // FIXME: The DODGER is 40 pixels wide -- how do we get the right edge?
-    const dodgerRightEdge = 20;
+    const dodgerRightEdge = dodgerLeftEdge + 40;
 
     const rockLeftEdge = positionToInteger(rock.style.left);
 
     // FIXME: The rock is 20 pixel's wide -- how do we get the right edge?
-    const rockRightEdge = 10;
+    const rockRightEdge = rockLeftEdge + 20;
 
     if (false /**
                * Think about it -- what's happening here?
@@ -97,6 +97,22 @@ function createRock(x)
      */
      for(let i = 0; i < ROCKS.length; i++)
      {
+       if(checkCollision(ROCKS[i]))
+       {
+         // a collision has happened
+         endGame();
+       }
+       else if(positionToInteger(ROCKS[i].style.top) > 400)
+       {
+         // the rock has reached the bottom of the game
+         GAME.remove(ROCKS.splice(i, 1));
+       }
+       else
+       {
+         // keep moving the rock
+         var position = positionToInteger(ROCKS[i].style.top);
+         ROCKS[i].style.top = `${position += 2}px`;
+       }
        
      }
   }
@@ -167,7 +183,7 @@ function moveDodgerLeft()
   function AnimStep()
   {
     // start animation step (one pixel per frame)
-    DODGER.style.left = `${position--}px`;
+    DODGER.style.left = `${position -= 2}px`;
     if(position > newPosition)
     {
       window.requestAnimationFrame(AnimStep);
@@ -199,7 +215,7 @@ function moveDodgerRight()
   function AnimStep()
   {
     // start animation step (one pixel per frame)
-    DODGER.style.left = `${position++}px`;
+    DODGER.style.left = `${position += 2}px`;
     if(position < newPosition)
     {
       window.requestAnimationFrame(AnimStep);
