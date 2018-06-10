@@ -128,10 +128,12 @@ function moveDodger(e)
    */
    if(e.which === LEFT_ARROW)
    {
+     //console.log("left");
      moveDodgerLeft();
    }
    if(e.which === RIGHT_ARROW)
    {
+     //console.log("right");
      moveDodgerRight();
    }
 }
@@ -143,6 +145,29 @@ function moveDodgerLeft()
    * This function should move DODGER to the left
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
+  
+  // set current position of dodger
+  var position = positionToInteger(DODGER.style.left);
+  // set expected new position of dodger
+  var newPosition = positionToInteger(DODGER.style.left) - 4;
+  
+  // ensure that the dodger doesn't leave the game boundaries
+  if(newPosition < 0)
+  {
+    newPosition = 0;
+  }
+  
+  function AnimStep()
+  {
+    // start animation step (one pixel per frame)
+    DODGER.style.left = `${position--}px`;
+    if(position > newPosition)
+    {
+      window.requestAnimationFrame(AnimStep);
+    }
+  }
+  
+  window.requestAnimationFrame(AnimStep);
 }
 
 function moveDodgerRight() 
@@ -152,6 +177,29 @@ function moveDodgerRight()
    * This function should move DODGER to the right
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
+   
+   // set current position of dodger
+  var position = positionToInteger(DODGER.style.left);
+  // set expected new position of dodger
+  var newPosition = positionToInteger(DODGER.style.left) + 4;
+  
+  // ensure that the dodger doesn't leave the game boundaries
+  if(newPosition > 360)
+  {
+    newPosition = 360;
+  }
+  
+  function AnimStep()
+  {
+    // start animation step (one pixel per frame)
+    DODGER.style.left = `${position++}px`;
+    if(position < newPosition)
+    {
+      window.requestAnimationFrame(AnimStep);
+    }
+  }
+  
+  window.requestAnimationFrame(AnimStep);
 }
 
 /**
