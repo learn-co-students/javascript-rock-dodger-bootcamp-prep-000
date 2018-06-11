@@ -154,7 +154,7 @@ function moveDodgerLeft() {
    
   if(dodgerLeftEdge > 0) {
     dodger.style.left = `${dodgerLeftEdge - 4}px`;
-    //window.requestAnimationFrame(moveDodgerLeft);
+    window.requestAnimationFrame(moveDodgerLeft);
   }
   
 }
@@ -170,7 +170,7 @@ function moveDodgerRight() {
    
   if(dodgerRightEdge < GAME_WIDTH) {
     dodger.style.left = `${dodgerLeftEdge + 4}px`;
-    //window.requestAnimationFrame(moveDodgerRight);
+    window.requestAnimationFrame(moveDodgerRight);
   }
 }
 
