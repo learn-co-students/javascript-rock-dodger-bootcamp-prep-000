@@ -61,7 +61,7 @@ function createRock(x) {
   // Hmmm, why would we have used `var` here?
   var top = 0
 
-  rock.style.top = top
+  rock.style.top = top;
 
   /**
    * Now that we have a rock, we'll need to append
@@ -88,7 +88,7 @@ function createRock(x) {
      * the GAME, we want to move it again.
      */
     rock.style.top = `${top += 2}px`; 
-    
+    window.requestAnimationFrame(moveRock);
     /**
      * But if the rock *has* reached the bottom of the GAME,
      * we should remove the rock from the DOM
@@ -134,10 +134,14 @@ function moveDodger(e) {
    * And be sure to use the functions declared below!
    */
    
-  if(e.which === LEFT_ARROW)
+  if(e.which === LEFT_ARROW) {
     moveDodgerLeft();
-  else if(e.which === RIGHT_ARROW)
+    //window.requestAnimationFrame(moveDodgerLeft);
+  }
+  else if(e.which === RIGHT_ARROW) {
     moveDodgerRight();
+    //window.requestAnimationFrame(moveDodgerRight);
+  }
 }
 
 function moveDodgerLeft() {
@@ -148,10 +152,11 @@ function moveDodgerLeft() {
    */
   var dodgerLeftEdge = positionToInteger(DODGER.style.left);
    
-  if(dodgerLeftEdge > 0)
+  if(dodgerLeftEdge > 0) {
     dodger.style.left = `${dodgerLeftEdge - 4}px`;
+    //window.requestAnimationFrame(moveDodgerLeft);
+  }
   
-  window.requestAnimationFrame(moveDodgerLeft);
 }
 
 function moveDodgerRight() {
@@ -160,13 +165,13 @@ function moveDodgerRight() {
    * This function should move DODGER to the right
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
-  var maxWidth = GAME_WIDTH - 40;
-  var dodgerRightEdge = positionToInteger(DODGER.style.left) + 40;
+  var dodgerLeftEdge = positionToInteger(DODGER.style.left); 
+  var dodgerRightEdge = dodgerLeftEdge + 40;
    
-  if(dodgerRightEdge < maxWidth)
-    dodger.style.left = `${dodgerRightEdge + 4}px`;
-  
-  window.requestAnimationFrame(moveDodgerRight);
+  if(dodgerRightEdge < GAME_WIDTH) {
+    dodger.style.left = `${dodgerLeftEdge + 4}px`;
+    //window.requestAnimationFrame(moveDodgerRight);
+  }
 }
 
 /**
