@@ -102,8 +102,9 @@ function createRock(x) {
      * we should remove the rock from the DOM
      */
     else {
-        GAME.removeChild(rock);
-        ROCKS.splice(0,1);
+        //GAME.removeChild(rock);
+        //ROCKS.splice(0,1);
+        rock.remove();
     }
   }
 
@@ -128,8 +129,12 @@ function endGame() {
   clearInterval(gameInterval);
   
   for(var i = 0; i < ROCKS.length; i++) {
-    GAME.removeChild(ROCKS[i]);
+    ROCKS[i].remove();
   }
+  
+  //for(var i = 0; i < ROCKS.length; i++) {
+  //  GAME.removeChild(ROCKS[i]);
+  //}
   
   window.removeEventListener('keydown', moveDodger);
   alert("YOU LOSE!");
@@ -149,13 +154,11 @@ function moveDodger(e) {
     moveDodgerLeft();
     e.preventDefault();
     e.stopPropagation();
-    //window.requestAnimationFrame(moveDodgerLeft);
   }
   else if(e.which === RIGHT_ARROW) {
     moveDodgerRight();
     e.preventDefault();
     e.stopPropagation();
-    //window.requestAnimationFrame(moveDodgerRight);
   }
 }
 
