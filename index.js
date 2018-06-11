@@ -111,7 +111,7 @@ function createRock(x) {
     }
     else if (positionToInteger(rock.style.top) >= 400) {
       // the rock has reached the bottom of the game
-      GAME.remove(ROCKS.unshift());
+      GAME.removeChild(ROCKS.unshift());
     }
     else {
       // keep moving the rock
