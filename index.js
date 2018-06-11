@@ -214,18 +214,18 @@ function moveDodgerRight() {
    */
 
   // set current position of dodger
-  var position, newPosition = positionToInteger(DODGER.style.left);
+  var position = positionToInteger(DODGER.style.left);
+  var newPosition = position += 4;
 
-  // set expected new position of dodger
-  if((newPosition += 4) > 360) {
-    newPosition = 360;
-  } else {
-    newPosition += 4;
-  }
+  
 
   function AnimStepMoveDodgerRight() {
-    DODGER.style.left = `${newPosition}px`;
-    window.requestAnimationFrame(AnimStepMoveDodgerRight);
+    if(newPosition > 360)
+    {
+      DODGER.style.left = `360px`;
+      window.requestAnimationFrame(AnimStepMoveDodgerRight);
+      
+    }
   }
 
   window.requestAnimationFrame(AnimStepMoveDodgerRight);
