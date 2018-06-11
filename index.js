@@ -139,25 +139,20 @@ function createRock(x) {
  * Finally, alert "YOU LOSE!" to the player.
  */
 function endGame() {
-  // clear game interval
-  window.clearInterval(gameInterval);
-
-  // reset rocks array
-  var count = ROCKS.length;
-
   // remove all the rocks
   for (let i = 0; i < ROCKS.length; i++) {
     GAME.remove(ROCKS[i]);
-    //document.querySelector('.rock').remove();
-    console.log("remove a rock Has been called");
   }
 
   // remove event listener
   window.removeEventListener('keydown', moveDodger);
-
+  
+  // clear game interval
+  window.clearInterval(gameInterval);
+  
   // log the death note
   window.alert('YOU LOSE!');
-
+  
   // refresh the page
   location.reload();
 }
@@ -219,23 +214,32 @@ function moveDodgerRight() {
    */
 
   // set current position of dodger
-  var position = positionToInteger(DODGER.style.left);
+  var position, newPosition = positionToInteger(DODGER.style.left);
 
   // set expected new position of dodger
-  var newPosition = positionToInteger(DODGER.style.left) + 4;
+  if((newPosition += 4) > 360)
+  {
+    newPosition = 360;
+  }
+  else
+  {
+    newPosition += 4;
+  }
+  
 
   function AnimStepMoveDodgerRight() {
     // ensure that the dodger doesn't leave the game boundaries
-    if (newPosition >= 360) {
+/*    if (newPosition >= 360) {
       DODGER.style.left = `${newPosition}px`;
+      window.requestAnimationFrame(AnimStepMoveDodgerRight);
     }
     else {
-      // start animation step (one pixel per frame)
-      DODGER.style.left = `${position += 4}px`;
+      // start animation step (one step per frame)
       if (position < newPosition) {
+        DODGER.style.left = `${position += 4}px`;
         window.requestAnimationFrame(AnimStepMoveDodgerRight);
       }
-    }
+    }*/
   }
 
   window.requestAnimationFrame(AnimStepMoveDodgerRight);
