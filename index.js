@@ -217,29 +217,15 @@ function moveDodgerRight() {
   var position, newPosition = positionToInteger(DODGER.style.left);
 
   // set expected new position of dodger
-  if((newPosition += 4) > 360)
-  {
+  if((newPosition += 4) > 360) {
     newPosition = 360;
-  }
-  else
-  {
+  } else {
     newPosition += 4;
   }
-  
 
   function AnimStepMoveDodgerRight() {
-    // ensure that the dodger doesn't leave the game boundaries
-/*    if (newPosition >= 360) {
-      DODGER.style.left = `${newPosition}px`;
-      window.requestAnimationFrame(AnimStepMoveDodgerRight);
-    }
-    else {
-      // start animation step (one step per frame)
-      if (position < newPosition) {
-        DODGER.style.left = `${position += 4}px`;
-        window.requestAnimationFrame(AnimStepMoveDodgerRight);
-      }
-    }*/
+    DODGER.style.left = `${newPosition}px`;
+    window.requestAnimationFrame(AnimStepMoveDodgerRight);
   }
 
   window.requestAnimationFrame(AnimStepMoveDodgerRight);
