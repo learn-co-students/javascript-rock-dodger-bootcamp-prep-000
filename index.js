@@ -70,7 +70,6 @@ function createRock(x) {
    * it to GAME and move it downwards.
    */
   GAME.appendChild(rock);
-
   /**
    * This function moves the rock. (2 pixels at a time
    * seems like a good pace.)
@@ -87,7 +86,7 @@ function createRock(x) {
      
     if(checkCollision(rock)) {
       endGame();
-      console.log("return from endgame");
+      //console.log("return from endgame");
       return;
     }
       
@@ -102,8 +101,10 @@ function createRock(x) {
      * But if the rock *has* reached the bottom of the GAME,
      * we should remove the rock from the DOM
      */
-    else 
-      GAME.removeChild(rock);
+    else {
+        GAME.removeChild(rock);
+        ROCKS.splice(0,1);
+    }
   }
 
   // We should kick of the animation of the rock around here
@@ -112,7 +113,7 @@ function createRock(x) {
   // Add the rock to ROCKS so that we can remove all rocks
   // when there's a collision
   ROCKS.push(rock)
-
+  
   // Finally, return the rock element you've created
   return rock
 }
@@ -126,13 +127,12 @@ function createRock(x) {
 function endGame() {
   clearInterval(gameInterval);
   
-  //for(var i = 0; i < ROCKS.length; i++) {
-  //  GAME.removeChild(ROCKS[i]);
-  //}
-  GAME.removeChild(ROCKS[0]);
+  for(var i = 0; i < ROCKS.length; i++) {
+    GAME.removeChild(ROCKS[i]);
+  }
+  
   window.removeEventListener('keydown', moveDodger);
   alert("YOU LOSE!");
-  return;
 }
 
 function moveDodger(e) {
@@ -148,10 +148,13 @@ function moveDodger(e) {
   if(e.which === LEFT_ARROW) {
     moveDodgerLeft();
     e.preventDefault();
+    e.stopPropagation();
     //window.requestAnimationFrame(moveDodgerLeft);
   }
   else if(e.which === RIGHT_ARROW) {
     moveDodgerRight();
+    e.preventDefault();
+    e.stopPropagation();
     //window.requestAnimationFrame(moveDodgerRight);
   }
 }
