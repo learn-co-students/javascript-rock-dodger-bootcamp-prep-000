@@ -116,8 +116,9 @@ function createRock(x) {
     else {
       // keep moving the rock
       rock.style.top = `${top += 2}px`;
+      window.requestAnimationFrame(moveRock);
     }
-    window.requestAnimationFrame(moveRock);
+    
   }
 
   // We should kick of the animation of the rock around here
@@ -139,17 +140,20 @@ function createRock(x) {
  * Finally, alert "YOU LOSE!" to the player.
  */
 function endGame() {
-  // remove all the rocks
-  for (let i = 0; i < ROCKS.length; i++) {
-    GAME.remove(ROCKS[i]);
-  }
-
-  // remove event listener
-  window.removeEventListener('keydown', moveDodger);
-  
   // clear game interval
   window.clearInterval(gameInterval);
   
+  // remove all the rocks
+  for (let i = 0; i < ROCKS.length; i++) {
+    GAME.removeChild(ROCKS[i]);
+  }
+  
+  // reset the array for rocks
+  ROCKS.length = 0;
+
+  // remove event listener
+  window.removeEventListener('keydown', moveDodger);
+
   // log the death note
   window.alert('YOU LOSE!');
   
@@ -190,15 +194,14 @@ function moveDodgerLeft() {
   // set expected new position of dodger
   var newPosition = positionToInteger(DODGER.style.left) - 4;
 
-  // ensure that the dodger doesn't leave the game boundaries
-  if (newPosition <= 0) {
-    newPosition = 0;
-  }
-
   function AnimStepMoveDodgeLeft() {
     // start animation step (one pixel per frame)
-    DODGER.style.left = `${position -= 4}px`;
-    if (position > newPosition) {
+    if(newPosition <= 0)
+    {
+      DODGER.style.left = `0px`;
+    }
+    else if (position > newPosition) {
+      DODGER.style.left = `${position -= 4}px`;
       window.requestAnimationFrame(AnimStepMoveDodgeLeft);
     }
   }
@@ -215,16 +218,18 @@ function moveDodgerRight() {
 
   // set current position of dodger
   var position = positionToInteger(DODGER.style.left);
-  var newPosition = position += 4;
-
-  
+  // set expected new position of dodger
+  var newPosition = positionToInteger(DODGER.style.left) + 4;
 
   function AnimStepMoveDodgerRight() {
-    if(newPosition > 360)
+    if(newPosition >= 360)
     {
       DODGER.style.left = `360px`;
+    }
+    else if(newPosition > position)
+    {
+      DODGER.style.left = `${position += 4}px`
       window.requestAnimationFrame(AnimStepMoveDodgerRight);
-      
     }
   }
 
