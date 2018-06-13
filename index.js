@@ -142,18 +142,18 @@ function createRock(x) {
 function endGame() {
   // clear game interval
   window.clearInterval(gameInterval);
-  
-  // remove all the rocks
-  for (let i = 0; i < ROCKS.length; i++) {
-    GAME.remove(ROCKS[i]);
-    console.log("Rock removed");
-  }
-  
-  // reset the array for rocks
-  ROCKS.length = 0;
 
   // remove event listener
   window.removeEventListener('keydown', moveDodger);
+  
+  // remove all the rocks
+  for (let i = 0; i < ROCKS.length; i++) {
+    ROCKS[i].remove();
+    console.log("Rock removed");
+  }
+  
+  // make sure the rocks array is empty
+  ROCKS.length = 0;
 
   // log the death note
   window.alert('YOU LOSE!');
