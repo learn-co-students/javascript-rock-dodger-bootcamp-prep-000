@@ -111,7 +111,7 @@ function createRock(x) {
     }
     else if (positionToInteger(rock.style.top) >= 400) {
       // the rock has reached the bottom of the game
-      GAME.removeChild(ROCKS.unshift());
+      GAME.removeChild(ROCKS.shift());
     }
     else {
       // keep moving the rock
@@ -145,7 +145,8 @@ function endGame() {
   
   // remove all the rocks
   for (let i = 0; i < ROCKS.length; i++) {
-    GAME.removeChild(ROCKS[i]);
+    GAME.remove(ROCKS[i]);
+    console.log("Rock removed");
   }
   
   // reset the array for rocks
@@ -156,9 +157,6 @@ function endGame() {
 
   // log the death note
   window.alert('YOU LOSE!');
-  
-  // refresh the page
-  location.reload();
 }
 
 function moveDodger(e) {
