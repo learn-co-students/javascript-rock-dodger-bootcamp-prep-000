@@ -18,7 +18,7 @@ function checkCollision(rock) {
     const rockRightEdge = rockLeftEdge + 20;
     if ((rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge) ||
     (rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge) ||
-    (rockLeftEdge <= dodgerRighttEdge && rockRightEdge >= dodgerRightEdge)) {
+    (rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge)) {
       return true
     }
   }
@@ -30,52 +30,53 @@ function createRock(x) {
   rock.style.left = `${x}px`
   var top = 0
   rock.style.top = top
+  GAME.appendChild(rock)
   function moveRock() {
+    rock.style.top = `${top += 2}px`
     if (checkCollision(rock)) {
-      endGame()
-    } else if(top < 360) {
-      top += 2
+      return endGame()
+    } if(top < GAME_HEIGHT) {
+      window.requestAnimationFrame(moveRock)
     } else {
-      div.remove(rock)
+      rock.remove()
     }
-  } ROCKS.push(rock)
+  } window.requestAnimationFrame(moveRock)
+  ROCKS.push(rock)
   return rock
 }
 
 function endGame() {
   clearInterval(gameInterval)
-  document.remove(ROCKS)
+  ROCKS.forEach(function(rock) {rock.remove()})
   window.removeEventListener('keydown', moveDodger)
   alert("YOU LOSE!")
  }
 
 function moveDodger(e) {
-  document.addEventListener('keydown', function(e) {
-    if (e.which === 39) {
-      moveDodgerRight()
-    } if (e.which === 37) {
-      moveDodgerLeft()
-    }
-  })
+  if ([RIGHT_ARROW, LEFT_ARROW].indexOf(e.which) > -1) {
+    e.preventDefault()
+    e.stopPropagation()
+  } if (e.which === RIGHT_ARROW) {
+    moveDodgerRight()
+  } if (e.which === LEFT_ARROW) {
+    moveDodgerLeft()
+  }
 }
 
 function moveDodgerLeft() {
-  var leftNumbers = DODGER.style.left.replace('px','')
-  var left = parseInt(leftNumbers, 10)
-  function l() {
-    DODGER.style.left = `${left - 4}px`
+  window.requestAnimationFrame(function() {
+    var left = positionToInteger(DODGER.style.left)
     if (left > 0) {
-      window.requestAnimationFrame(l)
-    }} window.requestAnimationFrame(l)
+      DODGER.style.left = `${left - 4}px`
+    }})
 }
 
 function moveDodgerRight() {
-  var right = 0
-  function r() {
-  DODGER.style.right = `${right += 4}px`
-  if (right < 360) {
-    window.requestAnimationFrame(r)
-  }} window.requestAnimationFrame(r)
+  window.requestAnimationFrame(function() {
+    var left = positionToInteger(DODGER.style.left)
+    if (left < 360) {
+      DODGER.style.left = `${left + 4}px`
+    }})
 }
 
 function positionToInteger(p) {
