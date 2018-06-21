@@ -12,6 +12,7 @@ JavaScript Rock Dodger
 
 You did it — you've made it to the end of the introductory JavaScript curriculum. You've learned how to write JavaScript and how to use JavaScript to manipulate the DOM. Now, only this lab stands between you and ~~freedom~~ the end of this course!
 
+
 So that we don't catch you off-guard, know that this project is meant to be difficult. We're really testing the limits of what we've learned so far. But know that we've solved the lab using only things that we've taught — well, mostly. There are two things (which we've partially implemented for you) that you should know about.
 
 ### `window.requestAnimationFrame()`
