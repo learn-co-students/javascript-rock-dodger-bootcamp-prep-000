@@ -96,11 +96,11 @@ describe('Rock Dodger', () => {
           cb()
         }
 
-        createRock(182)
+        createRock(182);
 
-        expect(spy).toHaveBeenCalled()
+        expect(spy).toHaveBeenCalled();
 
-        window.checkCollision.restore()
+        window.checkCollision.restore();
       })
 
 //       it('removes the rock once it falls of the screen', done => {
