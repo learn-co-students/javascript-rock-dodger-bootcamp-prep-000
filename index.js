@@ -75,7 +75,7 @@ function createRock(x) {
    * Now that we have a rock, we'll need to append
    * it to GAME and move it downwards.
    */
-   GAME.append(rock);
+  GAME.append(rock);  //Have to comment out to get learn test to pass. GS.
 
 
   /**
@@ -150,10 +150,18 @@ function createRock(x) {
  */
 function endGame() {
   clearInterval(gameInterval);
- 
+  
+/*  Added in to allow learn test to pass.  GS
+**
+** for(let i = 0; i < ROCKS.length; i++) {
+**    ROCKS[i].remove();
+**  }
+*/
+
   document.querySelectorAll('.rock').forEach(function(a){
 a.remove()
 })
+  
   document.removeEventListener('keydown', moveDodger);
   
   alert("YOU LOSE!");
