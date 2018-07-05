@@ -60,12 +60,11 @@ function createRock(x) {
 }
 
 function endGame() {
+clearInterval(gameInterval);
   while(ROCKS.length > 0){
     GAME.removeChild(ROCKS[0]);
     ROCKS.shift();
   }
-
-  clearInterval(gameInterval);
   window.removeEventListener('keydown', moveDodger);
   alert("YOU LOSE!");
   START.innerHTML = 'Play again?'
