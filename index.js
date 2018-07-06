@@ -70,6 +70,8 @@ function createRock(x) {
   var top = 0
 
   rock.style.top = top
+  
+  GAME.appendChild(rock)
 
   /**
    * Now that we have a rock, we'll need to append
@@ -133,8 +135,12 @@ function endGame() {
   for (let i = 0; i < ROCKS.length; i++){
     ROCKS[i].remove();
   }
-  DODGER.remove();
-  alert("YOU LOSE!")
+  window.removeEventListener('keydown', moveDodger)
+  
+  START.innerHTML = 'Play again?'
+  START.style.display = 'inline'
+  
+  return alert("YOU LOSE!")
 }
 
 function moveDodger(e) {
