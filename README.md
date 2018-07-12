@@ -75,4 +75,4 @@ Good luck!
 - [window.requestAnimationFrame()](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame)
 - [setInterval()](https://developer.mozilla.org/en-US/docs/Web/API/WindowTimers/setInterval)
 
-<p class='util--hide'>View <a href='https://learn.co/lessons/javascript-rock-dodger'>Rock Dodger</a> on Learn.co and start learning to code for free.</p>
+
