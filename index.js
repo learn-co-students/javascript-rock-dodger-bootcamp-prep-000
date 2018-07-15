@@ -51,9 +51,7 @@ function createRock(x) {
   rock.style.left = `${x}px`
 
   // Hmmm, why would we have used `var` here?
-  var top = rock.style.top
-
-  top = 0;
+  var top = rock.style.top = 0;
 
   /**
    * Now that we have a rock, we'll need to append
@@ -74,7 +72,7 @@ function createRock(x) {
      */
      
      if (checkCollision(rock)) {
-       endGame()
+       return endGame()
      }
 
     /**
@@ -94,7 +92,7 @@ function createRock(x) {
   }
 
   // We should kick of the animation of the rock around here
-  window.requestAnimationFrame(gameInterval)
+  window.requestAnimationFrame(moveRock)
 
   // Add the rock to ROCKS so that we can remove all rocks
   // when there's a collision
@@ -112,7 +110,12 @@ function createRock(x) {
  */
 function endGame() {
   clearInterval(gameInterval)
-  ROCKS = []
+  
+  for (var i = 0; i < ROCKS.length; i++) {
+    ROCKS[i].remove()
+  }
+  
+  document.removeEventListener('keydown', moveDodger)
   alert('YOU LOSE!')
 }
 
@@ -125,13 +128,11 @@ function moveDodger(e) {
    * we've declared for you above.)
    * And be sure to use the functions declared below!
    */
-   document.addEventListener('keydown', function(e){
-     if (e.which === LEFT_ARROW){
-       moveDodgerLeft();
-     } else if (e.which === RIGHT_ARROW){
-       moveDodgerRight();
-     }
-   })
+  if (e.which === LEFT_ARROW){
+    moveDodgerLeft();
+  } else if (e.which === RIGHT_ARROW){
+    moveDodgerRight();
+  }
 }
 
 function moveDodgerLeft() {
@@ -146,7 +147,6 @@ function moveDodgerLeft() {
   if (left > 0) {
     dodger.style.left = `${left - 4}px`
   }
-  window.requestAnimationFrame(gameInterval)
 }
 
 function moveDodgerRight() {
@@ -161,8 +161,6 @@ function moveDodgerRight() {
   if (left < 360) {
       dodger.style.left = `${left + 4}px`
   }
-  
-  window.requestAnimationFrame(gameInterval)
 }
 
 /**
