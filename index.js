@@ -56,31 +56,22 @@ function createRock(x) {
     }
     
   function moveRock() {
-
-    top = `${top += 2}px`
- 
-    if (top <= '360px') {
+    rock.style.top = `${top += 2}px`
+    
+    if (top < GAME_HEIGHT){
       window.requestAnimationFrame(moveRock)
+    } else {
+      rock.remove() 
     }
-   rock.remove()
-    /**
-     * But if the rock *has* reached the bottom of the GAME,
-     * we should remove the rock from the DOM
-     */
   }
-  window.requestAnimationFrame(moveRock)
-
+    window.requestAnimationFrame(moveRock)
+    
   ROCKS.push(rock)
 
   return rock
 }
 
-/**
- * End the game by clearing `gameInterval`,
- * removing all ROCKS from the DOM,
- * and removing the `moveDodger` event listener.
- * Finally, alert "YOU LOSE!" to the player.
- */
+
 function endGame() {
   clearInterval(gameInterval)
   ROCKS.forEach(function(rock) { rock.remove() })
