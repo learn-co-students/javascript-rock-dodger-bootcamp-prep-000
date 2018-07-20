@@ -13,6 +13,7 @@ const DODGER_WIDTH = 40
 var gameInterval = null
 
 function checkCollision(rock) {
+
   // implement me!
   // use the comments below to guide you!
   const top = positionToInteger(rock.style.top)
@@ -87,7 +88,7 @@ var leftDown = false
 var leftUp = false
 
 function moveDodger(e) {
-  if (e.which === LEFT_ARROW) {
+  if (e.which === LEFT_ARROW && !leftDown) {
     leftUp = false
     leftDown = true
     e.preventDefault()
@@ -95,7 +96,7 @@ function moveDodger(e) {
     moveDodgerLeft()
   }
   
-  if (e.which === RIGHT_ARROW) {
+  if (e.which === RIGHT_ARROW && !rightDown) {
     rightUp = false
     rightDown = true
     e.preventDefault()
@@ -105,34 +106,49 @@ function moveDodger(e) {
 }
 
 function moveDodgerLeft() {
-  window.requestAnimationFrame(function() {
   const left = positionToInteger(DODGER.style.left)
   if (left > 0) {
     DODGER.style.left = `${left - 4}px`;
   }
-  })
+  if (!leftUp) {
+    window.requestAnimationFrame(moveDodgerLeft)
+  }
 }
   
 function moveDodgerRight() {
-  window.requestAnimationFrame(function() {
   const left = positionToInteger(DODGER.style.left)
   if (left < 360) {
     DODGER.style.left = `${left + 4}px`;
   }
-  })
+  if (!rightUp) {
+    window.requestAnimationFrame(moveDodgerRight)
+  }
 }
 
 function positionToInteger(p) {
   return parseInt(p.split('px')[0]) || 0
 }
 
+function keyReleased(e) {
+  if (e.which === LEFT_ARROW) {
+    leftUp = true
+    leftDown = false
+  }
+  
+  if (e.which === RIGHT_ARROW) {
+    rightUp = true
+    rightDown = false
+  }
+}
+
 function start() {
   
   window.addEventListener('keydown', moveDodger)
+  window.addEventListener('keyup', keyReleased)
 
   START.style.display = 'none'
 
   gameInterval = setInterval(function() {
     createRock(Math.floor(Math.random() *  (GAME_WIDTH - 20)))
-  }, 1000)
+  }, 500)
 }
