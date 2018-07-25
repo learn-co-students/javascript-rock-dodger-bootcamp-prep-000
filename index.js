@@ -2,6 +2,7 @@
  * Don't change these constants!
  */
 const DODGER = document.getElementById('dodger')
+const DODGER_WIDTH=40        
 const GAME = document.getElementById('game')
 const GAME_HEIGHT = 400
 const GAME_WIDTH = 400
@@ -108,6 +109,11 @@ function createRock(x) {
  * Finally, alert "YOU LOSE!" to the player.
  */
 function endGame() {
+  clearInterval(gameInterval)
+  for (var i=0;i<ROCKS.length;i++) {
+    ROCKS[i].remove()
+  }
+  
 }
 
 function moveDodger(e) {
@@ -119,7 +125,21 @@ function moveDodger(e) {
    * we've declared for you above.)
    * And be sure to use the functions declared below!
    */
+  
+   
+   if (e.which===LEFT_ARROW) {
+     e.preventDefault()
+     moveDodgerLeft()
+     e.stopPropagation()
+   }
+   else if (e.which===RIGHT_ARROW) {
+     e.preventDefault()
+     moveDodgerRight()
+     e.stopPropagation()
+   }
 }
+
+
 
 function moveDodgerLeft() {
   // implement me!
@@ -127,7 +147,20 @@ function moveDodgerLeft() {
    * This function should move DODGER to the left
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
+   
+   
+  var left = positionToInteger(DODGER.style.left)  //current left edge of dodger
+
+  function step() {
+    if (left > 3) {
+      DODGER.style.left = `${left -= 4}px`
+      window.requestAnimationFrame(step)
+    }
+  }
+
+  window.requestAnimationFrame(step)
 }
+
 
 function moveDodgerRight() {
   // implement me!
@@ -135,7 +168,17 @@ function moveDodgerRight() {
    * This function should move DODGER to the right
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
+  var left = positionToInteger(DODGER.style.left)  //current left edge of dodger
+
+  function step() {
+    if (left < ((GAME_WIDTH-DODGER_WIDTH)-3)) {
+      DODGER.style.left = `${left += 4}px`
+      window.requestAnimationFrame(step)
+    } 
+  }
+  window.requestAnimationFrame(step)
 }
+
 
 /**
  * @param {string} p The position property
@@ -144,6 +187,8 @@ function moveDodgerRight() {
 function positionToInteger(p) {
   return parseInt(p.split('px')[0]) || 0
 }
+
+
 
 function start() {
   window.addEventListener('keydown', moveDodger)
@@ -154,3 +199,39 @@ function start() {
     createRock(Math.floor(Math.random() *  (GAME_WIDTH - 20)))
   }, 1000)
 }
+
+
+
+
+
+/*
+function move(el) {
+  var top = 0
+
+  function step() {
+    el.style.top = `${top += 2}px`
+
+    if (top < 200) {
+      window.requestAnimationFrame(step)
+    }
+  }
+
+  window.requestAnimationFrame(step)
+}
+
+
+
+function sayHello() {
+  console.log('hello')
+}
+
+const myInterval = setInterval(sayHello, 1000)
+```
+
+The above will print `'hello'` to console once every second.
+
+Note that `setInterval()` returns a reference to the interval. We can stop the
+interval from executing by calling `clearInterval(myInterval)`.
+
+
+*/
