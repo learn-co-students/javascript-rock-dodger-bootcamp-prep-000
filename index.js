@@ -21,7 +21,6 @@ function checkCollision(rock) {
   // implement me!
   // use the comments below to guide you!
   const top = positionToInteger(rock.style.top)
-
   // rocks are 20px high
   // DODGER is 20px high
   // GAME_HEIGHT - 20 - 20 = 360px;
@@ -29,14 +28,17 @@ function checkCollision(rock) {
     const dodgerLeftEdge = positionToInteger(DODGER.style.left)
 
     // FIXME: The DODGER is 40 pixels wide -- how do we get the right edge?
-    const dodgerRightEdge = 0;
+    //Game Width - 40 = 360px;
+    const dodgerRightEdge = positionToInteger(DODGER.style.right);
 
     const rockLeftEdge = positionToInteger(rock.style.left)
 
     // FIXME: The rock is 20 pixel's wide -- how do we get the right edge?
-    const rockRightEdge = 0;
+    const rockRightEdge = positionToInteger(rock.style.right);
 
-    if (false /**
+    if (rockRightEdge > dodgerRightEdge && rockLeftEdge > dodgerLeftEdge) {
+      return false
+    }/**
                * Think about it -- what's happening here?
                * There's been a collision if one of three things is true:
                * 1. The rock's left edge is < the DODGER's left edge,
@@ -45,7 +47,7 @@ function checkCollision(rock) {
                *    and the rock's right edge is < the DODGER's right edge;
                * 3. The rock's left edge is < the DODGER's right edge,
                *    and the rock's right edge is > the DODGER's right edge
-               */) {
+               */ else {
       return true
     }
   }
