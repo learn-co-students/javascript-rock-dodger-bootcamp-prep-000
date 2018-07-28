@@ -67,14 +67,15 @@ function createRock(x) {
    * This function moves the rock. (2 pixels at a time
    * seems like a good pace.)
    */
-  function moveRock(rock) {
+  function moveRock() {
     rock.style.top = `{top += 2} px`
+    if (checkCollision(rock) === true) {
+      return endGame()
+    }
     if (top < 400) {
       window.requestAnimationFrame(moveRock)
     }
-    if else (checkCollision(rock) === true) {
-      return endGame()
-    } else {
+      else {
       rock.remove()
     }
     // implement me!
@@ -114,7 +115,14 @@ function createRock(x) {
  * Finally, alert "YOU LOSE!" to the player.
  */
 function endGame() {
-}
+  function clearInteral() {
+    var gameInterval;
+    return gameInterval
+  }
+  ROCKS.length = 0;
+  moveDodger.remove;
+  alert("YOU LOSE!");
+  }
 
 function moveDodger(e) {
   // implement me!
