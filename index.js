@@ -130,8 +130,9 @@ window.requestAnimationFrame(moveRock)
    * we've declared for you above.)
    * And be sure to use the functions declared below!
    */
-   if(e.which === LEFT_ARROW){moveDodgerLeft();
-   }else if(e.which === RIGHT_ARROW){
+   if(e.which == LEFT_ARROW){
+     moveDodgerLeft();
+   }else if(e.which == RIGHT_ARROW){
    	moveDodgerRight();
    }
 }
@@ -141,12 +142,15 @@ function moveDodgerLeft() {
    * This function should move DODGER to the left
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
-   function moving(){
-     dodgerLeftEdge = `${dodgerLeftEdge += 4}px`
-   }
-   if (dodgerLeftEdge > 0 ){
-   window.requestAnimationFrame(moving)
-  }
+  
+
+   window.requestAnimationFrame(function(){
+var DLE = positionToInteger(DODGER.style.left)
+      if (DLE > 0 ){
+       DODGER.style.left =  `${DLE -= 4}px`
+        }
+   })
+ 
 }
 
 function moveDodgerRight() {
@@ -155,6 +159,12 @@ function moveDodgerRight() {
    * This function should move DODGER to the right
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
+    window.requestAnimationFrame(function(){
+var DLE = positionToInteger(DODGER.style.left)
+      if (DLE < 360 ){
+       DODGER.style.left =  `${DLE += 4}px`
+        }
+   })
 }
 
 /**
