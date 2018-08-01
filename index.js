@@ -91,11 +91,11 @@ function createRock(x) {
    */
    
   var mRock = document.getElementsByClassName('rock');
-  
+  //  might not have to call mRock
   function moveRock(mRock) {
   var tops = 0;
   var drop = positionToInteger(mRock.style.top);
-  
+   // mRock.style.top =`${drop += 2}px`;
     // implement me!
     // (use the comments below to guide you!)
     /**
@@ -158,13 +158,18 @@ for (let i = 0; i < mRock.length; i++) {
  *  test: clearInterval(gameInterval);
  */
 function endGame() {
- var rocks = document.getElementsByClassName('rock');
+ 
  var ends = document.getElementById('game');
+ var rocks = document.getElementsByClassName('rock')
  
   clearInterval(gameInterval);
   
+  // loop through the rocks by looping through an array (need to use .remove())
+  // for (rocks in ends) {
+  //   document.game.rocks.remove();
+  // }
   while (ends.firstChild) {
-  ends.removeChild(ends.firstChild);
+ends.removeChild(ends.firstChild);
 }
   ROCKS.length=0;
   alert("YOU LOSE!");
@@ -172,23 +177,27 @@ function endGame() {
 
 function moveDodger(e) {
 
-  window.addEventListener('keydown', function(e) {
+ // window.addEventListener('keydown', function(e) {
     
     
   if(e.which === RIGHT_ARROW) {
      moveDodgerRight();
+     e.preventDefault();
+     e.stopPropagation();  
        }
        
    else if(e.which === LEFT_ARROW) {
      moveDodgerLeft();
+     e.preventDefault();
+     e.stopPropagation(); 
        }  
   
-  else  {
-     e.preventDefault();
-     e.stopPropagation();    
-     }
+  //   else  {
+  //   e.preventDefault();
+  //   e.stopPropagation();    
+  //   } 
        
-});
+// });
   // implement me!
   /**
    * This function should call `moveDodgerLeft()`
