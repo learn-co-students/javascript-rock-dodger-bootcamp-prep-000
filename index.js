@@ -38,24 +38,26 @@ function createRock(x) {
   rock.style.top = top;
   GAME.appendChild(rock);
   
-  if (top < 360) {
+ if (top < GAME_HEIGHT) {
     moveRock();
   }
-
+  
   function moveRock() {
     
       if (checkCollision(rock)) {
         endGame();
       } 
-      if (top < 400) {
+      if (top < GAME_HEIGHT) {
+        window.requestAnimationFrame(moveRock);
         rock.style.top = `${top += 2}px`
       }
-      if (top >= 400) {
+      else if (top >= GAME_HEIGHT) {
         rock.remove();
       }
   }
   
   window.requestAnimationFrame(moveRock);
+  
   
   ROCKS.push(rock);
   return rock;
@@ -72,7 +74,9 @@ function endGame() {
   ROCKS.forEach(function(rock){
     rock.remove();
   })
+  document.removeEventListener('keydown', moveDodger)
   alert("YOU LOSE!");
+
 }
 
 function moveDodger(e) {
@@ -91,7 +95,6 @@ function moveDodger(e) {
 function moveDodgerLeft() {
   let leftNumbers = DODGER.style.left.replace('px', '');
   let left = parseInt(leftNumbers, 10);
-  
   function move() {
     if (left > 0) {
       DODGER.style.left = `${left - 5}px`;
