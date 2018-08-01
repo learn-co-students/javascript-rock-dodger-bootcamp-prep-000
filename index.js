@@ -22,7 +22,9 @@ function checkCollision(rock) {
     const rockLeftEdge = positionToInteger(rock.style.left);
     const rockRightEdge = rockLeftEdge + 20;
 
-    if (rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge || rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge || rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge) {
+    if (rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge 
+        || rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge 
+        || rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge) {
       return true;
     }
   }
@@ -46,14 +48,14 @@ function createRock(x) {
         endGame();
       } 
       if (top < 400) {
-         rock.style.top = `${top += 2}px`
+        rock.style.top = `${top += 2}px`
       }
       if (top >= 400) {
-        GAME.removeChild(rock);
+        rock.remove();
       }
-   window.requestAnimationFrame(moveRock);
-
   }
+  
+  window.requestAnimationFrame(moveRock);
   
   ROCKS.push(rock);
   return rock;
@@ -68,17 +70,20 @@ function createRock(x) {
 function endGame() {
   clearInterval(gameInterval);
   ROCKS.forEach(function(rock){
-    ROCKS.splice(0, ROCKS.length);
+    rock.remove();
   })
-  console.log(ROCKS)
   alert("YOU LOSE!");
 }
 
 function moveDodger(e) {
   if (e.which === LEFT_ARROW) {
+    e.preventDefault();
+    e.stopPropagation();
     moveDodgerLeft();
   }
   if (e.which === RIGHT_ARROW) {
+    e.preventDefault();
+    e.stopPropagation();
     moveDodgerRight();
   }
 }
@@ -88,10 +93,9 @@ function moveDodgerLeft() {
   let left = parseInt(leftNumbers, 10);
   
   function move() {
-    DODGER.style.left = `${left - 5}px`;
     if (left > 0) {
-    
-   }
+      DODGER.style.left = `${left - 5}px`;
+    }
   }
   window.requestAnimationFrame(move);
 }
@@ -101,10 +105,9 @@ function moveDodgerRight() {
   let left = parseInt(leftNumbers, 10);
   
   function move() {
-    DODGER.style.left = `${left + 4}px`;
-    if (left < 400) {
-    
-   }
+    if (left < 360) {
+      DODGER.style.left = `${left + 4}px`;
+    }
   }
   window.requestAnimationFrame(move);
 }
