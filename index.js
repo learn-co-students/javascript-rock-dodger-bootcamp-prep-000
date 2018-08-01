@@ -111,9 +111,9 @@ window.requestAnimationFrame(moveRock)
  */
  function endGame() {
  	clearInterval(gameInterval);
- 	for(var i = 0; i< ROCKS.length; i++){
- 		ROCKS.splice(i, 1)
- 	}
+ 	ROCKS.forEach (function (rock){
+ 	  rock.remove()
+ 	})
  	// ROCKS.splice(0, ROCKS.length);
  	//child = document.getElementsByClassName('rock')
  	// DODGER.removeChild(child)
@@ -132,8 +132,12 @@ window.requestAnimationFrame(moveRock)
    */
    if(e.which == LEFT_ARROW){
      moveDodgerLeft();
+     e.preventDefault();
+     e.stopPropagation();
    }else if(e.which == RIGHT_ARROW){
    	moveDodgerRight();
+   	 e.preventDefault();
+   	e.stopPropagation();
    }
 }
 function moveDodgerLeft() {
