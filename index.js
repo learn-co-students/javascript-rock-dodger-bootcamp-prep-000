@@ -165,12 +165,17 @@ function endGame() {
   clearInterval(gameInterval);
   
   // loop through the rocks by looping through an array (need to use .remove())
+  for (i = 0; i < rocks.length; i++) {
+    if (rocks.length > 0) {
+      rocks[i].remove();
+    }
+  }
   // for (rocks in ends) {
   //   document.game.rocks.remove();
   // }
-  while (ends.firstChild) {
-ends.removeChild(ends.firstChild);
-}
+//   while (ends.firstChild) {
+// ends.removeChild(ends.firstChild);
+
   ROCKS.length=0;
   alert("YOU LOSE!");
 }
@@ -192,11 +197,7 @@ function moveDodger(e) {
      e.stopPropagation(); 
        }  
   
-  //   else  {
-  //   e.preventDefault();
-  //   e.stopPropagation();    
-  //   } 
-       
+ 
 // });
   // implement me!
   /**
