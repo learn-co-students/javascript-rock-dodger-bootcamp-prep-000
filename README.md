@@ -1,4 +1,4 @@
-JavaScript Rock Dodger
+npmJavaScript Rock Dodger
 ---
 
 ## Objectives
