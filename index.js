@@ -29,12 +29,12 @@ function checkCollision(rock) {
     const dodgerLeftEdge = positionToInteger(DODGER.style.left)
 
     // FIXME: The DODGER is 40 pixels wide -- how do we get the right edge?
-    const dodgerRightEdge = 0;
+    const dodgerRightEdge = dodgerLeftEdge + 40;
 
     const rockLeftEdge = positionToInteger(rock.style.left)
 
     // FIXME: The rock is 20 pixel's wide -- how do we get the right edge?
-    const rockRightEdge = 0;
+    const rockRightEdge = rockLeftEdge + 20;
 
     if (false /**
                * Think about it -- what's happening here?
@@ -79,11 +79,19 @@ function createRock(x) {
      * If a rock collides with the DODGER,
      * we should call endGame()
      */
-
-    /**
-     * Otherwise, if the rock hasn't reached the bottom of
-     * the GAME, we want to move it again.
-     */
+     ROCKS.forEach(function(rock) {
+       rock.style.top += 2;
+       if (checkCollision(rock)) {
+         endGame();
+       } else {
+         moveRock();
+       }
+        /**
+         * Otherwise, if the rock hasn't reached the bottom of
+         * the GAME, we want to move it again.
+         */
+      }
+     )
 
     /**
      * But if the rock *has* reached the bottom of the GAME,
