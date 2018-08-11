@@ -66,47 +66,24 @@ function createRock(x) {
 
   rock.style.top = top
 
-  /**
-   * Now that we have a rock, we'll need to append
-   * it to GAME and move it downwards.
-   */
-
-
-  /**
-   * This function moves the rock. (2 pixels at a time
-   * seems like a good pace.)
-   */
-  function moveRock() {
+function moveRock() {
     // implement me!
     // (use the comments below to guide you!)
     /**
      * If a rock collides with the DODGER,
      * we should call endGame()
      */
-     ROCKS.forEach(function(rock) {
-       rock.style.top = `${top += 2}px`;
-       if (checkCollision(rock)) {
-         endGame();
-       } else {
-         moveRock();
-       }
-        /**
-         * Otherwise, if the rock hasn't reached the bottom of
-         * the GAME, we want to move it again.
-         */
-      }
-     )
 
-    /**
-     * But if the rock *has* reached the bottom of the GAME,
-     * we should remove the rock from the DOM
-     */
+    window.requestAnimationFrame(() => {rock.style.top = `${top += 2}px`});
+    if (checkCollision(rock)) {
+     endGame();
+    } else if (rock.style.top == '400px') {
+     rock.remove();
+    } else {
+     moveRock();
+    }
   }
-
-  // We should kick of the animation of the rock around here
-
-  // Add the rock to ROCKS so that we can remove all rocks
-  // when there's a collision
+  moveRock();
   ROCKS.push(rock)
 
   // Finally, return the rock element you've created
@@ -143,13 +120,13 @@ function moveDodger(e) {
 }
 
 function moveDodgerLeft() {
-  // implement me!
-  /**
-   * This function should move DODGER to the left
-   * (mabye 4 pixels?). Use window.requestAnimationFrame()!
-   */
-   window.requestAnimationFrame(() => {DODGER.style.left += 4});
-
+   let left = positionToInteger(DODGER.style.left);
+   function moveLeft() {
+     DODGER.style.left = `${left -= 4}px`
+   }
+   if (left > 0) {
+   window.requestAnimationFrame(moveLeft);
+    }
 }
 
 function moveDodgerRight() {
@@ -158,7 +135,7 @@ function moveDodgerRight() {
    * This function should move DODGER to the right
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
-   window.requestAnimationFrame(() => {DODGER.style.right += 4});
+   window.requestAnimationFrame(() => DODGER.style.left += 4);
 }
 
 /**
