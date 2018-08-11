@@ -29,14 +29,16 @@ function checkCollision(rock) {
     const dodgerLeftEdge = positionToInteger(DODGER.style.left)
 
     // FIXME: The DODGER is 40 pixels wide -- how do we get the right edge?
-    const dodgerRightEdge = dodgerLeftEdge + 40;
+    const dodgerRightEdge = 40 + dodgerLeftEdge ;
 
     const rockLeftEdge = positionToInteger(rock.style.left)
 
     // FIXME: The rock is 20 pixel's wide -- how do we get the right edge?
-    const rockRightEdge = rockLeftEdge + 20;
+    const rockRightEdge = 20 + rockLeftEdge;
 
-    if (false /**
+    if ((rockLeftEdge < dodgerLeftEdge && rockRightEdge > dodgerLeftEdge) ||
+        (rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge) ||
+        (rockLeftEdge < dodgerRightEdge && rockRightEdge > dodgerRightEdge)){ /**
                * Think about it -- what's happening here?
                * There's been a collision if one of three things is true:
                * 1. The rock's left edge is < the DODGER's left edge,
@@ -45,8 +47,10 @@ function checkCollision(rock) {
                *    and the rock's right edge is < the DODGER's right edge;
                * 3. The rock's left edge is < the DODGER's right edge,
                *    and the rock's right edge is > the DODGER's right edge
-               */) {
+               */
       return true
+    } else {
+      return false
     }
   }
 }
@@ -80,7 +84,7 @@ function createRock(x) {
      * we should call endGame()
      */
      ROCKS.forEach(function(rock) {
-       rock.style.top += 2;
+       rock.style.top = `${top += 2}px`;
        if (checkCollision(rock)) {
          endGame();
        } else {
@@ -116,6 +120,8 @@ function createRock(x) {
  * Finally, alert "YOU LOSE!" to the player.
  */
 function endGame() {
+  ROCKS.forEach(rock => rock.remove());
+  gameInterval.clear();
 }
 
 function moveDodger(e) {
@@ -127,6 +133,13 @@ function moveDodger(e) {
    * we've declared for you above.)
    * And be sure to use the functions declared below!
    */
+   let top
+
+   if (e.which == '') {
+     moveDodgerLeft();
+   } else if (e.which == '') {
+     moveDodgerRight();
+   }
 }
 
 function moveDodgerLeft() {
@@ -135,6 +148,8 @@ function moveDodgerLeft() {
    * This function should move DODGER to the left
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
+   window.requestAnimationFrame(() => {DODGER.style.left += 4});
+
 }
 
 function moveDodgerRight() {
@@ -143,6 +158,7 @@ function moveDodgerRight() {
    * This function should move DODGER to the right
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
+   window.requestAnimationFrame(() => {DODGER.style.right += 4});
 }
 
 /**
