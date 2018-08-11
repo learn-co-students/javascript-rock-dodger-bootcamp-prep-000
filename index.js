@@ -64,19 +64,22 @@ function createRock(x) {
   // Hmmm, why would we have used `var` here?
   var top = 0
 
-  function moveRock() {
+  rock.style.top = top
+
+function moveRock() {
     rock.style.top = `${top += 2}px`
     if (checkCollision(rock)) {
-     return endGame();
+     endGame();
     } else if (rock.style.top == '400px') {
      rock.remove();
     } else {
      window.requestAnimationFrame(moveRock);
     }
   }
-  ROCKS.push(rock)
   window.requestAnimationFrame(moveRock);
+  ROCKS.push(rock)
 
+  // Finally, return the rock element you've created
   return rock
 }
 
@@ -87,10 +90,8 @@ function createRock(x) {
  * Finally, alert "YOU LOSE!" to the player.
  */
 function endGame() {
-  // ROCKS.forEach(rock => rock.remove());
-   ROCKS.forEach(function(rock) { rock.remove() })
-  window.clearInterval(gameInterval);
-
+  ROCKS.forEach(rock => rock.remove());
+  window.clearInterval(gameInterval)
 }
 
 function moveDodger(e) {
@@ -127,13 +128,13 @@ function moveDodgerRight() {
    * This function should move DODGER to the right
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
-   let left = positionToInteger(DODGER.style.left);
+   let right = positionToInteger(DODGER.style.right);
    function moveRight() {
-     DODGER.style.left = `${left += 4}px`
+     DODGER.style.right = `${right += 4}px`
    }
-   if (left < 360) {
-   window.requestAnimationFrame(moveRight);
-    }
+   if (right < 360) {
+     window.requestAnimationFrame(moveRight);
+   }
 }
 
 /**
