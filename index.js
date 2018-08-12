@@ -164,10 +164,15 @@ function moveDodgerLeft() {
    * This function moves the DODGER to the left by 4 pixels
    * as long as it isn't all the way left already
    */
-  let left = positionToInteger(DODGER.style.left);
-  if (left > 0) {
-    DODGER.style.left = `${left-4}px`;
-  }
+
+  window.requestAnimationFrame(function() {
+    const left = positionToInteger(DODGER.style.left)
+
+    if (left > 0) {
+      DODGER.style.left = `${left - 4}px`;
+    }
+  });
+
 }
 
 function moveDodgerRight() {
@@ -175,10 +180,13 @@ function moveDodgerRight() {
    * This function moves the DODGER to the right by 4 pixels
    * as long as it isn't all the way right already
    */
-  let left = positionToInteger(DODGER.style.left);
-  if (left < 360) {
-    DODGER.style.left = `${left+4}px`;
-  }
+  window.requestAnimationFrame(function() {
+    const left = positionToInteger(DODGER.style.left);
+
+    if (left < 360) {
+      DODGER.style.left = `${left+4}px`;
+    }
+  });
 }
 
 /**
