@@ -62,11 +62,10 @@ function createRock(x) {
    * Now that we have a rock, we'll need to append
    * it to GAME and move it downwards.
    */
-   GAME.append(rock);
-
+   //GAME.append(rock);
+   GAME.appendChild(rock);
   /**
-   * This function moves the rock. (2 pixels at a time
-   * seems like a good pace.)
+   * This function moves the rock. (2 pixels at a time)
    */
   function moveRock() {
 
@@ -97,7 +96,7 @@ function createRock(x) {
      }
   }
 
-  // We should kick of the animation of the rock around here
+  // kick of the animation of the rock
   window.requestAnimationFrame(moveRock);
 
   // Add the rock to ROCKS so that we can remove all rocks
@@ -122,22 +121,19 @@ function endGame() {
   for (let i of ROCKS) {
     i.remove();
   }
+
   // Remove the moveDodger event listener
-  DODGER.remove();
+  window.removeEventListener('keydown', moveDodger);
 
   // alert the player that they lost
-  alert("YOU LOSE!");
-
-/*
+  //alert("YOU LOSE!");
   // Enhance the game by giving the ability to Start Over
-  // add the dodger back at its starting place
+  // move the dodger back to its starting place
   DODGER.style = "bottom: 0px; left: 180px";
-  GAME.append(DODGER);
 
-  // Give the option for a new game
-  START.innerHTML = "New Game"
+  START.innerHTML = "Game Over!\nNew Game?"
   START.style.display = 'inline'
-*/
+
 }
 
 function moveDodger(e) {
@@ -165,26 +161,24 @@ function moveDodger(e) {
 
 function moveDodgerLeft() {
   /**
-   * This function should move DODGER to the left
-   * (mabye 4 pixels?). Use window.requestAnimationFrame()!
+   * This function moves the DODGER to the left by 4 pixels
+   * as long as it isn't all the way left already
    */
   let left = positionToInteger(DODGER.style.left);
-  if (left >= 0) {
+  if (left > 0) {
     DODGER.style.left = `${left-4}px`;
   }
-  window.requestAnimationFrame(moveDodgerLeft);
 }
 
 function moveDodgerRight() {
   /**
-   * This function should move DODGER to the right
-   * (mabye 4 pixels?). Use window.requestAnimationFrame()!
+   * This function moves the DODGER to the right by 4 pixels
+   * as long as it isn't all the way right already
    */
   let left = positionToInteger(DODGER.style.left);
-  if (left <= 360) {
+  if (left < 360) {
     DODGER.style.left = `${left+4}px`;
   }
-  window.requestAnimationFrame(moveDodgerRight);
 }
 
 /**
