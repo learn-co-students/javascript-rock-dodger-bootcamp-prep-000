@@ -1,6 +1,3 @@
-/**
- * Don't change these constants!
- */
 const DODGER = document.getElementById('dodger')
 const GAME = document.getElementById('game')
 const GAME_HEIGHT = 400
@@ -64,9 +61,11 @@ function createRock(x) {
   // Hmmm, why would we have used `var` here?
   var top = 0
 
-  rock.style.top = top
+  rock.style.top = `${top}px`
 
-function moveRock() {
+  GAME.appendChild(rock);
+
+  function moveRock() {
     rock.style.top = `${top += 2}px`
     if (checkCollision(rock)) {
      endGame();
@@ -92,6 +91,7 @@ function moveRock() {
 function endGame() {
   ROCKS.forEach(rock => rock.remove());
   window.clearInterval(gameInterval)
+  START.style.display = 'block'
 }
 
 function moveDodger(e) {
@@ -148,7 +148,7 @@ function start() {
   window.addEventListener('keydown', moveDodger)
 
   START.style.display = 'none'
-
+  DODGER.style.left = '180px'
   gameInterval = setInterval(function() {
     createRock(Math.floor(Math.random() *  (GAME_WIDTH - 20)))
   }, 1000)
