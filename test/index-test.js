@@ -316,7 +316,7 @@ describe('Rock Dodger', () => {
       expect(positionToInteger(dodger.style.left)).toBeGreaterThan(left)
     })
 
-    it('does not move the DODGER left if the DODGER\'s right edge already touches the right edge of GAME', () => {
+    it('does not move the DODGER right if the DODGER\'s right edge already touches the right edge of GAME', () => {
       dodger.style.left = '360px'
 
       moveDodgerRight()
