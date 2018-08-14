@@ -28,11 +28,11 @@ function checkCollision(rock) {
   if (top > 360) {
     const dodgerLeftEdge = positionToInteger(DODGER.style.left)
 
-    const dodgerRightEdge = positionToInteger(DODGER.style.right)
+    const dodgerRightEdge = 
 
     const rockLeftEdge = positionToInteger(rock.style.left)
 
-    const rockRightEdge = positionToInteger(rock.style.right)
+    const rockRightEdge = 
 
     if (false /**
                * Think about it -- what's happening here?
@@ -58,7 +58,11 @@ function createRock(x) {
   // Hmmm, why would we have used `var` here?
   var top = 0
 
-  rock.style.top = top
+    rock.style.top = `${top += 2}px`
+  
+  if (top > 360) {
+    window.requestAnimationFrame(rock)
+  }
 
   /**
    * Now that we have a rock, we'll need to append
@@ -115,35 +119,32 @@ function endGame() {
 }
 
 function moveDodger(e) {
-  document.addEventListener('keydown', function(e) {
-  if (e.which === 37) {
-    moveDodgerLeft()
-  } else if (e.which === 39) {
-    moveDodgerRight()
-  }
-})
+  if (e.which == LEFT_ARROW) {
+    moveDodgerLeft();
+    e.preventDefault();
+    e.stopPropagation();
+  } else if (e.which == RIGHT_ARROW) {
+    moveDodgerRight();
+    e.preventDefault();
+    e.stopPropagation();
+}
 }
 
 function moveDodgerLeft() {
-  var leftNumbers = DODGER.style.left.replace('px', '')
-  var left = parseInt(leftNumbers, 10)
+  var left = positionToInteger(DODGER.style.left)
   
   if (left > 0) {
-    dodger.style.left = `${left - 4}px`
+    DODGER.style.left = `${left -= 4}px`
     window.requestAnimationFrame(moveDodgerLeft);
   }
-  window.requestAnimationFrame(moveDodgerLeft)
 }
-
 function moveDodgerRight() {
-  var rightNumbers = DODGER.style.right.replace('px', '')
-  var right = parseInt(rightNumbers, 10)
+  var right = positionToInteger(DODGER.style.right)
   
-  if (right > 0) {
-    dodger.style.right = `${right - 4}px`
+  if (right < 360) {
+    DODGER.style.right = `${right -= 4}px`
     window.requestAnimationFrame(moveDodgerRight);
   }
-  window.requestAnimationFrame(moveDodgerRight)
 }
 
 /**
