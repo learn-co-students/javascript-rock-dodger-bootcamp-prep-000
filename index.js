@@ -30,9 +30,9 @@ function checkCollision(rock) {
 
     const rockRightEdge = rockLeftEdge + 20;
 
-    if ((rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerRightEdge)|| (rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge)||(rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge) ) {
-      return true
-    }
+   return (
+     (rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge)|| (rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge)||(rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge)
+     ) 
   }
 }
 
@@ -44,47 +44,72 @@ function createRock(x) {
  
   var top = rock.style.top
 
-  rock.style.top = 0
+  top = 0
 
-  document.getElementById(`game`).appendChild(rock)
+  GAME.appendChild(rock)
    
 
   function moveRock() {
     
     rock.style.top=`${top+=2}px`
     
-    if (checkCollision(rock) === true) {
+    if (checkCollision(rock)) {
       return endGame()
-    } else if (rock.style.bottom === 0) {
+    } 
+    if (top<GAME_HEIGHT) {
+      window.requestAnimationFrame(moveRock)
+    } else {
       rock.remove()
     }
-    
+    }
     window.requestAnimationFrame(moveRock)
-    
     ROCKS.push(rock)
     
     return rock
 }
-}
 
 function endGame() {
-  gameInterval=0
-  ROCKS.style.display=none
-  
+    clearInterval(gameInterval)
+    
+    let i=0
+    
+    while (i<ROCKS.length) {
+      ROCKS[i].style.display=`none`
+      i++
+    }
+    
+    window.removeEventListener('keydown', moveDodger)
+    
+    alert (`You Lose!`)
 }
 
 function moveDodger(e) {
-  
+   if(e.which===LEFT_ARROW) {
+      return moveDodgerLeft()
+    } else if(e.which===RIGHT_ARROW) {
+      return moveDodgerRight()
+    }
 }
 
 function moveDodgerLeft() {
+  var leftNumbers = dodger.style.left.replace('px', '')
+  var left = parseInt(leftNumbers, 10)
   
+   if (left > 0) {
+    dodger.style.left = `${left - 4}px`
+    window.requestAnimationFrame(moveDodgerLeft)
+   }
 }
 
 function moveDodgerRight() {
-  
+  var leftNumbers = dodger.style.left.replace('px', '')
+  var left = parseInt(leftNumbers, 10)
+ 
+  if (left < 360) {
+    dodger.style.left = `${left + 4}px`
+    window.requestAnimationFrame(moveDodgerRight)
+  }
 }
-
 
 function positionToInteger(p) {
   return parseInt(p.split('px')[0]) || 0
