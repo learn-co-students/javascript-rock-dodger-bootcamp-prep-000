@@ -49,7 +49,7 @@ function checkCollision(rock) {
                *    and the rock's right edge is < the DODGER's right edge;
                * 3. The rock's left edge is < the DODGER's right edge,
                *    and the rock's right edge is > the DODGER's right edge
-               */) {
+               */ {
       return true;
     }
   }
@@ -64,17 +64,14 @@ function createRock(x) {
   // Hmmm, why would we have used `var` here?
   var top = 0
 
-    rock.style.top = top 
+  rock.style.top = top 
   
-  if (top > 360) {
-    window.requestAnimationFrame(rock)
   }
 
   /**
    * Now that we have a rock, we'll need to append
    * it to GAME and move it downwards.
    */
-   
    GAME.appendChild(rock)
 
 
@@ -85,12 +82,13 @@ function createRock(x) {
   function moveRock() {
     rock.style.top = `${top += 2}px`
     
-    if (top < GAME_HEIGHT) {
       if (checkCollision(rock)){
-        endGame();
-      }
+        return endGame();
+
+    } if (top < GAME_HEIGHT) {
+      window.requestAnimationFrame(moveRock)
     } else {
-      rock.remove();
+       rock.remove();
     }
     
     // implement me!
@@ -131,8 +129,8 @@ function createRock(x) {
  */
 function endGame() {
   clear.(gameInterval);
-  DODGER.removeEventListener(moveDodger);
-  alert('YOU LOSE!')
+  DODGER.removeEventListener('keydown', moveDodger);
+  return alert('YOU LOSE!')
 }
 
  // implement me!
@@ -163,12 +161,14 @@ function moveDodger(e) {
  */
 
 function moveDodgerLeft() {
+  window.requestAnimationFrame(function() {
+
   var left = positionToInteger(DODGER.style.left)
   
   if (left > 0) {
     DODGER.style.left = `${left -= 4}px`
-    window.requestAnimationFrame(moveDodgerLeft);
   }
+  })
 }
 
  // implement me!
@@ -178,12 +178,15 @@ function moveDodgerLeft() {
   */
 
 function moveDodgerRight() {
+  window.requestAnimationFrame(function() {
+    
   var right = positionToInteger(DODGER.style.right)
   
   if (right < 360) {
     DODGER.style.right = `${right -= 4}px`
     window.requestAnimationFrame(moveDodgerRight);
   }
+  })
 }
 
 /**
