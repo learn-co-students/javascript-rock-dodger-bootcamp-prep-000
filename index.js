@@ -39,19 +39,18 @@ function createRock(x) {
 
   var top = 0;
 
-  rock.style.top = top;
+  rock.style.top = `${top}px`;
 
   GAME.appendChild(rock);
 
   function moveRock() {
     if (checkCollision(rock)) endGame();
 
-    if (top > 360) rock.remove();
-
-    top += 2;
-
-    if (top <= 360) {
+    if (top <= 380) {
+      top += 2;
       window.requestAnimationFrame(moveRock);
+    } else {
+      rock.romove()
     }
   }
 
