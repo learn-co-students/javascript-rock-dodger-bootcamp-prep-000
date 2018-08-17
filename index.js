@@ -39,18 +39,16 @@ function createRock(x) {
 
   var top = 0;
 
-  rock.style.top = `${top}px`;
-
   GAME.appendChild(rock);
 
   function moveRock() {
     if (checkCollision(rock)) endGame();
+    rock.style.top = `${top += 2}px`;
 
     if (top <= 380) {
-      top += 2;
       window.requestAnimationFrame(moveRock);
     } else {
-      rock.romove()
+      rock.romove();
     }
   }
 
@@ -64,7 +62,7 @@ function createRock(x) {
 function endGame() {
   clearInterval(gameInterval);
   for (let i = 0; i < ROCKS.length; i++) {
-    ROCKS[i].remove()
+    ROCKS[i].remove();
   }
   window.removeEventListener("keydown", moveDodger);
   alert("YOU LOSE!");
