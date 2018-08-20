@@ -56,17 +56,17 @@ function checkCollision(rock) {
 }
 
 function createRock(x) {
-  const rock = document.createElement('div')
+  const rock = document.createElement('div');
 
-  rock.className = 'rock'
-  rock.style.left = `${x}px`
+  rock.className = 'rock';
+  rock.style.left = `${x}px`;
 
   // Hmmm, why would we have used `var` here?
-   var top = 0
+   var top = 0;
 
-  rock.style.top = top
+  rock.style.top = top;
 
-  GAME.appendChild(rock)
+  GAME.appendChild(rock);
 
   /**
    * Now that we have a rock, we'll need to append
@@ -83,13 +83,13 @@ function createRock(x) {
     rock.style.top = `${top += 2}px`;
 
     if (checkCollision(rock)) {
-      return endGame()
+      return endGame();
     }
 
     if (top < GAME_HEIGHT) {
-      window.requestAnimationFrame(moveRock)
+      window.requestAnimationFrame(moveRock);
     } else {
-      rock.remove()
+      rock.remove();
     }
   }
     
@@ -113,14 +113,14 @@ function createRock(x) {
 
   // We should kick of the animation of the rock around here
   
- window.requestAnimationFrame(moveRock)
+ window.requestAnimationFrame(moveRock);
 
   // Add the rock to ROCKS so that we can remove all rocks
   // when there's a collision
-   ROCKS.push(rock)
+   ROCKS.push(rock);
 
   // Finally, return the rock element you've created
-   return rock
+   return rock;
 }
 
 
@@ -131,13 +131,13 @@ function createRock(x) {
  * Finally, alert "YOU LOSE!" to the player.
  */
 function endGame() {
-  clearInterval(gameInterval)
+  clearInterval(gameInterval);
 
-  ROCKS.forEach(function(rock) {rock.remove() })
+  ROCKS.forEach(function(rock) {rock.remove() });
 
-  document.removeEventListener('keydown', moveDodger)
+  document.removeEventListener('keydown', moveDodger);
 
-  return alert('YOU LOSE!')
+  return alert('YOU LOSE!');
 }
 
  // implement me!
