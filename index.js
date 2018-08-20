@@ -127,12 +127,26 @@ function createRock(x) {
  */
 function endGame() {
   
+<<<<<<< HEAD
   window.clearInterval(gameInterval);
   while(ROCKS.length>0){
     ROCKS[0].remove()
     ROCKS.shift();
   }
   
+=======
+ /* for(let i=0; i< ROCKS.length; i++){
+   if (GAME.querySelector('.rock'))
+   GAME.querySelector('.rock').remove()
+  }*/
+  
+  while(GAME.querySelector('.rock')){
+    GAME.querySelector('.rock').remove()
+    ROCKS.shift();
+  }
+  
+  clearInterval(gameInterval);
+>>>>>>> 4f2ffc7b1a5df4b89877b46def71d84db925d7f1
   window.removeEventListener('keydown', moveDodger)
   alert("YOU LOSE!")
   
