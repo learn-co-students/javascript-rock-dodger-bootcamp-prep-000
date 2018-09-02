@@ -53,7 +53,7 @@ function createRock(x) {
       rock.style.top = `${top}px`;
       window.requestAnimationFrame(moveRock);
     }
-    else if (top > GAME_HEIGHT - 20) {
+    else if (top >= GAME_HEIGHT - 20) {
       GAME.removeChild(rock);
       ROCKS.shift();
     }
@@ -66,50 +66,55 @@ function createRock(x) {
 
 function endGame() {
   clearInterval(gameInterval);
-  while (ROCKS.length > 0) {
-    game.removeChild(rock)
-    ROCKS.shift();
-  }
+  ROCKS.forEach(function(rock) {
+    rock.remove();
+  });
+  
   document.removeEventListener('keydown', moveDodger)
-  alert('YOU LOSE!')
+  alert('YOU LOSE SUCKA!')
 }
 
 function moveDodger(e) {
+
+
   if (e.which === 37) {
-//    e.stopPropigation
-//    e.preventDefault
+    e.stopPropagation();
+    e.preventDefault();
     moveDodgerLeft();
   }
   else if (e.which === 39) {
-//    e.stopPropigation
-//    e.preventDefault
+    e.stopPropagation();
+    e.preventDefault();
     moveDodgerRight();
-  } 
-//  else (e.which !== 39) || (e.which !== 37) {
-//  return;
-//  }
+  }   else {
+    return;
+    }
 }
 
 
 function moveDodgerLeft() {
+  window.requestAnimationFrame(function() {
   var leftNumbers = DODGER.style.left.replace('px', '')
   var left = parseInt(leftNumbers, 10)
  
-  if (left <= GAME_WIDTH) {
-    DODGER.style.left = `${left - 3}px`
+  if (left > 0) {
+    DODGER.style.left = `${left - 4}px`
   }
-  window.requestAnimationFrame(moveDodgerLeft)
+  })
 }
 
 
 function moveDodgerRight() {
+  window.requestAnimationFrame(function() {
   var leftNumbers = DODGER.style.left.replace('px', '')
   var left = parseInt(leftNumbers, 10)
  
-  if (left > GAME_WIDTH - 40)
+  if (left < GAME_WIDTH - 40) {
     DODGER.style.left = `${left + 3}px`
   }
-  window.requestAnimationFrame(moveDodgerRight)
+  })
+}
+
     
 
 /**
@@ -125,7 +130,11 @@ function start() {
 
   START.style.display = 'none'
 
+function dificulty(i) {
+  setInterval
+}
+
   gameInterval = setInterval(function() {
     createRock(Math.floor(Math.random() *  (GAME_WIDTH - 20)))
-  }, 1000)
+  }, 1000 )
 }
