@@ -206,7 +206,7 @@ describe('Rock Dodger', () => {
         }
       })
 
-      it('calls e.preventDefault()', () => {
+      it('calls e.preventDefault() e.preventDefault', () => {
         e.preventDefault = spy
 
         moveDodger(e)
@@ -244,12 +244,11 @@ describe('Rock Dodger', () => {
           which: 39
         }
       })
-
+        console.log(spy)
       it('calls e.preventDefault()', () => {
         e.preventDefault = spy
 
         moveDodger(e)
-
         expect(spy).toHaveBeenCalled()
       })
 
