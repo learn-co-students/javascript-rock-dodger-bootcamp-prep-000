@@ -96,7 +96,7 @@ function createRock(x) {
      * we should remove the rock from the DOM
      */
     else {
-      GAME.removeChild(rock);
+      rock.remove();
       ROCKS.splice(ROCKS.indexOf(rock), 1)
     }
   }
