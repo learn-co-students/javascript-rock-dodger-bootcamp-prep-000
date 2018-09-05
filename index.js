@@ -51,8 +51,8 @@ function checkCollision(rock) {
                */) {
       return true
     }
-    return false
   }
+  return false
 }
 
 function createRock(x) {
@@ -92,7 +92,7 @@ function createRock(x) {
      * the GAME, we want to move it again.
      */
     rock.style.top = `${top += 2}px`
-    if (top > 0) {
+    if (top < GAME_HEIGHT) {
       window.requestAnimationFrame(moveRock)
     }
 
@@ -100,7 +100,7 @@ function createRock(x) {
      * But if the rock *has* reached the bottom of the GAME,
      * we should remove the rock from the DOM
      */
-    if (top <= 0) {
+    if (top > GAME_HEIGHT) {
       rock.remove()
     }
   }
@@ -199,6 +199,7 @@ function start() {
   START.style.display = 'none'
 
   gameInterval = setInterval(function() {
-    createRock(Math.floor(Math.random() *  (GAME_WIDTH - 20)))
+    /* createRock(Math.floor(Math.random() *  (GAME_WIDTH - 20))) */
+    createRock(180)
   }, 1000)
 }
