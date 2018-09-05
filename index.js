@@ -1,26 +1,17 @@
-/**
- * Don't change these constants!
- */
 const DODGER = document.getElementById('dodger');
 const GAME = document.getElementById('game');
 const GAME_HEIGHT = 400;
 const GAME_WIDTH = 400;
-const LEFT_ARROW = 37; // use e.which!
-const RIGHT_ARROW = 39; // use e.which!
+const LEFT_ARROW = 37;
+const RIGHT_ARROW = 39;
 const ROCKS = [];
 const START = document.getElementById('start');
 
 var gameInterval = null;
 
-/**
- * Be aware of what's above this line,
- * but all of your work should happen below.
- */
 
 function checkCollision(rock) {
-
   const top = positionToInteger(rock.style.top);
-
 
   if (top > 360) {
     const dodgerLeftEdge = positionToInteger(DODGER.style.left);
@@ -31,8 +22,7 @@ function checkCollision(rock) {
     if (
       (rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge) ||
       (rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge) ||
-      (rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge))
-     {
+      (rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge)) {
       return true;
     }
   }
@@ -68,12 +58,7 @@ function createRock(x) {
   return rock
 }
 
-/**
- * End the game by clearing `gameInterval`,
- * removing all ROCKS from the DOM,
- * and removing the `moveDodger` event listener.
- * Finally, alert "YOU LOSE!" to the player.
- */
+
 function endGame() {
   clearInterval(gameInterval);
 
@@ -91,24 +76,18 @@ function moveDodger(e) {
   const key = e.which;
 
   if ([LEFT_ARROW, RIGHT_ARROW].indexOf(key) > -1) {
-      e.preventDefault()
-      e.stopPropagation()
-    }
+    e.preventDefault()
+    e.stopPropagation()
+  }
 
   if (key === LEFT_ARROW) {
     moveDodgerLeft();
   } else if (key === RIGHT_ARROW) {
     moveDodgerRight();
   }
-  // implement me!
-  /**
-   * This function should call `moveDodgerLeft()`
-   * if the left arrow is pressed and `moveDodgerRight()`
-   * if the right arrow is pressed. (Check the constants
-   * we've declared for you above.)
-   * And be sure to use the functions declared below!
-   */
+
 }
+
 
 function moveDodgerLeft() {
   window.requestAnimationFrame(function() {
@@ -120,6 +99,7 @@ function moveDodgerLeft() {
   })
 }
 
+
 function moveDodgerRight() {
   window.requestAnimationFrame(function() {
     const left = positionToInteger(DODGER.style.left);
@@ -130,13 +110,11 @@ function moveDodgerRight() {
   })
 }
 
-/**
- * @param {string} p The position property
- * @returns {number} The position as an integer (without 'px')
- */
+
 function positionToInteger(p) {
   return parseInt(p.split('px')[0]) || 0
 }
+
 
 function start() {
   window.addEventListener('keydown', moveDodger)
