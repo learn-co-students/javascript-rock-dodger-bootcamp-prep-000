@@ -97,7 +97,7 @@ function endGame() {
   ROCKS.forEach(function(element) {
   element.remove();
   });
-  moveDodger.removeEventListener();
+  window.removeEventListener('keydown', moveDodger);
   alert("YOU LOSE!");
 }
  //This function should call `moveDodgerLeft()`
@@ -106,13 +106,11 @@ function endGame() {
  //we've declared for you above.)
  //And be sure to use the functions declared below!
 function moveDodger(e) {
-  window.addEventListener("keydown", function (e){
-    if (e.which === LEFT_ARROW) {
-      moveDodgerLeft();
-    } else if (e.which === RIGHT_ARROW) {
-      moveDodgerRight();
-    }
-  })
+  if (e.which === LEFT_ARROW) {
+    moveDodgerLeft();
+  } else if (e.which === RIGHT_ARROW) {
+    moveDodgerRight();
+  }
 }
 //This function should move DODGER to the left
 //(mabye 4 pixels?). Use window.requestAnimationFrame()!
