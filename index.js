@@ -82,7 +82,7 @@ function createRock(x) {
    */
   function moveRock() {
     
-    x.style.top = `${top += 2}px`
+    rock.style.top = `${top += 2}px`
     
       if (top < 200) {
         window.requestAnimationFrame(moveRock)
@@ -132,9 +132,27 @@ function createRock(x) {
  * Finally, alert "YOU LOSE!" to the player.
  */
 function endGame() {
+  clearInterval(gameInterval);
+  for (let i=0; ROCKS.length > i; i++) {
+    ROCKS.slice([i]);
+  }
+  clearInterval('ROCKS')
+  DODGER.removeEventListener;
+  alert("YOU LOSE!");
+  
+  
 }
 
 function moveDodger(e) {
+  document.addEventListener('keydown', function(e)
+  {
+    if (e.which === LEFT_ARROW) {
+      moveDodgerLeft();
+    }
+    if (e.which === RIGHT_ARROW) {
+      moveDodgerRight();
+    }
+    })
   // implement me!
   /**
    * This function should call `moveDodgerLeft()`
@@ -152,20 +170,20 @@ function moveDodgerLeft() {
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
   
-     
-   
-   
-   
-      
-}
 
+}
+   
+   
 function moveDodgerRight() {
   // implement me!
   /**
    * This function should move DODGER to the right
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
+
 }
+   
+
 
 /**
  * @param {string} p The position property
