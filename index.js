@@ -67,11 +67,11 @@ function createRock(x) {
     function step() {
       while (!checkCollision(rock) && top < 360) {
         top += 2
-        window.requestAnimationFrame(step())
+      window.requestAnimationFrame()
       }
     }
-    window.requestAnimationFrame(moveRock)
   }
+  window.requestAnimationFrame(moveRock)
   if (checkCollision(rock)) {
     endGame()
   }
