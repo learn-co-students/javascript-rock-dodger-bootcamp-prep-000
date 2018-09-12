@@ -64,18 +64,14 @@ function createRock(x) {
      // we should remove the rock from the DOM
      if (checkCollision(rock)) {
        endGame();
-     } else {
-        function moveRock() {
-              rock.style.top = `${top += 2}px`;
-              window.requestAnimationFrame(step);
-           if (rock.style.top > GAME_HEIGHT) {
-            move(top);
-          } else {
-             rock.remove();
-          }
-        }
-      }
-  }
+     } else if (rock.style.top > GAME_HEIGHT) {
+        window.requestAnimationFrame (function(){
+         rock.style.top = `${top += 2}px`}
+         ) ;
+       } else {
+         rock.remove();
+       }
+     }
   // We should kick of the animation of the rock around here
   // Add the rock to ROCKS so that we can remove all rocks
   // when there's a collision
