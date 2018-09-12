@@ -84,7 +84,7 @@ function createRock(x) {
     createRock(Math.floor(Math.random() *  (GAME_WIDTH - 20)))
   }, 1000)
   window.requestAnimationFrame(moveRock);
-  moveRock()
+  moveRock();
   ROCKS.push(rock);
   return rock;
 }
@@ -94,8 +94,10 @@ function createRock(x) {
   //Finally, alert "YOU LOSE!" to the player.
 function endGame() {
   clearInterval(gameInterval);
-  ROCKS.remove();
-  moveDodger.remove();
+  ROCKS.forEach(function(element) {
+  element.remove();
+  });
+  moveDodger.removeEventListener();
   alert("YOU LOSE!");
 }
  //This function should call `moveDodgerLeft()`
@@ -113,9 +115,10 @@ function moveDodger(e) {
 //This function should move DODGER to the left
 //(mabye 4 pixels?). Use window.requestAnimationFrame()!
 function moveDodgerLeft() {
-  var left = DODGER.style.left;
-  DODGER.style.left = `${left - 4}px`;
-  window.requestAnimationFrame();
+  window.requestAnimationFrame(function(){
+    var left = DODGER.style.left;
+    DODGER.style.left = `${left - 4}px`;
+  });
 }
 //This function should move DODGER to the right
 //(mabye 4 pixels?). Use window.requestAnimationFrame()!
