@@ -93,6 +93,13 @@ function createRock(x) {
  */
 function endGame() {
   clearInterval(gameInterval)
+ // while (ROCKS.length > 0 ) { ROCKS.pop() }  No, this removes each rock from the array, but not from the DOM.
+  for (let i = 0; i < ROCKS.length; i++) {
+  ROCKS[i].remove()
+  }
+ // ROCKS.splice(0, ROCKS.length) No, splice returns an array of the deleted elements.
+  //remove(ROCKS)
+  //moveDodger.removeEventListener()
 }
 
 function moveDodger(e) {
