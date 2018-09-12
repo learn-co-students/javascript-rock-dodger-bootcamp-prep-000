@@ -66,10 +66,9 @@ function createRock(x) {
        endGame();
      } else {
         function moveRock() {
-
               rock.style.top = `${top += 2}px`;
               window.requestAnimationFrame(step);
-          } if (rock.style.top > GAME_HEIGHT) {
+           if (rock.style.top > GAME_HEIGHT) {
             move(top);
           } else {
              rock.remove();
@@ -105,7 +104,6 @@ function endGame() {
  //we've declared for you above.)
  //And be sure to use the functions declared below!
 function moveDodger(e) {
-  console.log(e.which);
     if (e.which === LEFT_ARROW) {
       moveDodgerLeft();
     } else if (e.which === RIGHT_ARROW) {
