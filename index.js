@@ -69,6 +69,7 @@ function createRock(x) {
 
   rock.style.top = top
 
+
   /**
    * Now that we have a rock, we'll need to append
    * it to GAME and move it downwards.
@@ -86,7 +87,20 @@ function createRock(x) {
      * If a rock collides with the DODGER,
      * we should call endGame()
      */
-
+      if (checkCollision(rock) === true) {
+        endGame()
+      }
+      else if (checkCollision(rock) === false) {
+        moveRock();
+      }
+      else if ()
+        
+      }
+        
+        
+      }
+        
+      }
     /**
      * Otherwise, if the rock hasn't reached the bottom of
      * the GAME, we want to move it again.
