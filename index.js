@@ -53,7 +53,7 @@ function checkCollision(rock) {
                * 3. The rock's left edge is < the DODGER's right edge,
                *    and the rock's right edge is > the DODGER's right edge
                */
-      return true;
+      return true
     }
   }
 }
@@ -133,10 +133,7 @@ function createRock(x) {
  */
 function endGame() {
   clearInterval(gameInterval);
-  for (let i=0; ROCKS.length > i; i++) {
-    ROCKS.slice([i]);
-  }
-  clearInterval('ROCKS')
+  clearInterval(ROCKS)
   DODGER.removeEventListener;
   alert("YOU LOSE!");
   
@@ -169,15 +166,17 @@ function moveDodgerLeft() {
    * This function should move DODGER to the left
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
-  var leftNumbers = DODGER.style.left.replace('px', '')
-  var left = parseInt(leftNumbers, 10)
-      if (left > 0)
-      {
-        DODGER.style.left = `${left - 1}px`
+       var left = 0
+       function step() {
+       dodger.style.left = `${left += 4}px`
+    
+      if (left < 180) {
+        window.requestAnimationFrame(step)
+    
       }
-  
+      window.requestAnimationFrame(step)
 }
-   
+}  
    
 function moveDodgerRight() {
   // implement me!
@@ -185,7 +184,16 @@ function moveDodgerRight() {
    * This function should move DODGER to the right
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
-
+var left = 0
+       function step() {
+       dodger.style.right = `${right += 4}px`
+    
+      if (right > 180) {
+        window.requestAnimationFrame(step)
+    
+      }
+      window.requestAnimationFrame(step)
+}
 }
    
 
