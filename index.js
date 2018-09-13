@@ -54,10 +54,9 @@ function createRock(x) {
   // Hmmm, why would we have used `var` here?
   var top = 0
 
-  rock.style.top = top
-
-
   GAME.appendChild(rock)
+  
+  
 
   /**
    * Now that we have a rock, we'll need to append
@@ -75,21 +74,19 @@ function createRock(x) {
     // SideNote: move function is the overall function but lines 12, 13 
     // actually calls the step function and the if conditional creates a boundary 
     // (use the comments below to guide you!)
+    if (checkCollision() === false) {
+    rock.style.top = `${top += 2}px`
     
-    top = `${top += 2}px`
-    
-       if (top < 360) {
+       if (top < 380) {
          window.requestAnimationFrame(moveRock)
        }
        
-       if (top === 360) {
+       if (top === 380) {
          rock.remove()
        }
-       
-       if (checkCollision() === true) {
-            endGame();
-       }
-  
+    } else {
+      endGame();
+    }    
  
     //add a if statement here that checks collision method and if true, calls endGame()
     /**
@@ -108,7 +105,8 @@ function createRock(x) {
      * But if the rock *has* reached the bottom of the GAME,
      * we should remove the rock from the DOM
      */
-    }   
+    }
+    
   window.requestAnimationFrame(moveRock)   
 
   // We should kick off the animation of the rock around here
@@ -178,7 +176,7 @@ function moveDodgerLeft() {
       
       function left() {
       if (dodgerLeftEdge > 0) {
-         dodger.style.left = `${dodgerLeftEdge - 4}px`
+         dodger.style.left = `${dodgerLeftEdge - 7}px`
          }
    }
    window.requestAnimationFrame(left)
@@ -194,7 +192,7 @@ function moveDodgerRight() {
      var dodgerRightEdge = dodgerLeftEdge + 40
       function right() {
       if (dodgerRightEdge < 360) {
-         dodger.style.left = `${dodgerRightEdge + 4}px`
+         dodger.style.left = `${dodgerLeftEdge + 7}px`
          }
    }
    window.requestAnimationFrame(right)
