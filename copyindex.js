@@ -78,15 +78,15 @@ function createRock(x) {
     // (use the comments below to guide you!)
     
      rock.style.top = `${top += 2}px`
-    
+       if (checkCollision(rock)) {
+          return endGame();
+       } 
        if (top < GAME_HEIGHT) {
          window.requestAnimationFrame(moveRock)
        } else {
          rock.remove()
        }
-       if (checkCollision(rock)) {
-          return endGame();
-       } 
+       
    }     
   window.requestAnimationFrame(moveRock)        
   
@@ -135,11 +135,10 @@ function endGame() {
     oldRocks[i].remove()
   } 
   window.removeEventListener('keydown', moveDodger)
-
-  alert("YOU LOSE!");
   
-  START.innerHTML = 'Play again?';	
-  START.style.display = 'inline';
+  START.innerHTML = 'Play again?'; START.style.display = 'inline';
+  
+  alert("YOU LOSE!");
   
   //use clearInterval()
   // Pass each rock from ROCKS and remove them individually
