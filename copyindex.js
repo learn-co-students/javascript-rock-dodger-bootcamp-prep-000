@@ -36,7 +36,10 @@ function checkCollision(rock) {
     // (FIXED) FIXME: The rock is 20 pixel's wide -- how do we get the right edge?
     const rockRightEdge = rockLeftEdge + 20;
 
-    return rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge || rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge || rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge
+    return (
+      (rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge) || 
+      (rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge) || 
+      (rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge))
     }
 
 // NOTE** --> Here 360 is the amt the rock traveled, once it's able to collide, this is when the function starts testing for collisions. 
@@ -78,6 +81,7 @@ function createRock(x) {
     // (use the comments below to guide you!)
     
      rock.style.top = `${top += 2}px`
+     
        if (checkCollision(rock)) {
           return endGame();
        } 
@@ -136,13 +140,16 @@ function endGame() {
   } 
   window.removeEventListener('keydown', moveDodger)
   
-  START.innerHTML = 'Play again?'; START.style.display = 'inline';
-  
   alert("YOU LOSE!");
   
+  START.innerHTML = 'Play again?'; 
+  START.style.display = 'inline';
+  
+  DODGER.style.left = `180px`
+}
   //use clearInterval()
   // Pass each rock from ROCKS and remove them individually
-}
+
 
 // Ask what those stopPropagation and preventDefault is..., also why window.requestAnimationFrame is necessary...
 
@@ -227,7 +234,7 @@ function start() {
   window.addEventListener('keydown', moveDodger)
 
   START.style.display = 'none'
-
+  
   gameInterval = setInterval(function() {
     createRock(Math.floor(Math.random() *  (GAME_WIDTH - 20)))
   }, 1000)

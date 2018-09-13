@@ -144,6 +144,8 @@ function endGame() {
   
   START.innerHTML = 'Play again?'; 
   START.style.display = 'inline';
+  
+  DODGER.style.left = `180px`
 }
   //use clearInterval()
   // Pass each rock from ROCKS and remove them individually
@@ -232,7 +234,7 @@ function start() {
   window.addEventListener('keydown', moveDodger)
 
   START.style.display = 'none'
-
+  
   gameInterval = setInterval(function() {
     createRock(Math.floor(Math.random() *  (GAME_WIDTH - 20)))
   }, 1000)
