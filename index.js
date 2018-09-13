@@ -36,17 +36,13 @@ function checkCollision(rock) {
     // (FIXED) FIXME: The rock is 20 pixel's wide -- how do we get the right edge?
     const rockRightEdge = rockLeftEdge + 20;
 
-    if ((rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge) || (rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge) || (rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge)) {
-      return true;
-    } else {
-      return false;
-    }
+    return rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge || rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge || rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge
+      
   }
-
+}
 // NOTE** --> Here 360 is the amt the rock traveled, once it's able to collide, this is when the function starts testing for collisions. 
 
 // NOTE** You can do the if conditional... return true or else if false... but it is unnecessary here because logical operators return a boolean already. Parenthesis are optional in this case. 
-}
 
 function createRock(x) {
   const rock = document.createElement('div')
@@ -75,23 +71,24 @@ function createRock(x) {
    
    function moveRock() {
     
+    
     // SideNote: move function is the overall function but lines 12, 13 
     // actually calls the step function and the if conditional creates a boundary 
     // (use the comments below to guide you!)
   
-    rock.style.top = `${top += 2}px`
-    
-       if (top < 380) {
-         window.requestAnimationFrame(moveRock)
-         
-           if (checkCollision() === true) {
-               endGame();
-              }
-       }
+    rock.style.top = `${top += 1.5}px`
+       
        if (top === 380) {
          rock.remove()
+       } 
+       
+       if (top < 380) {
+         window.requestAnimationFrame(moveRock)
+       } 
+       if (checkCollision() === true) {
+         endGame();
        }
-    }  
+    }
  
     //add a if statement here that checks collision method and if true, calls endGame()
     /**
@@ -131,9 +128,10 @@ function createRock(x) {
  * Finally, alert "YOU LOSE!" to the player.
  */
 function endGame() {
-  oldRocks = []
+  alert("YOU LOSE!");
+  var oldRocks = []
   clearInterval(gameInterval)
-  
+  window.removeEventListener('keydown', moveDodger)
   for (i = 0; i < ROCKS.length; i++) {
     oldRocks.push(ROCKS[i])
     oldRocks[i].remove()
@@ -141,7 +139,7 @@ function endGame() {
   
   //use clearInterval()
   // Pass each rock from ROCKS and remove them individually
-  alert("YOU LOSE!");
+  
   
 }
 
@@ -180,7 +178,7 @@ function moveDodgerLeft() {
       
       function left() {
       if (dodgerLeftEdge > 0) {
-         dodger.style.left = `${dodgerLeftEdge - 10}px`
+         dodger.style.left = `${dodgerLeftEdge - 4}px`
          }
    }
    window.requestAnimationFrame(left)
@@ -194,9 +192,10 @@ function moveDodgerLeft() {
 function moveDodgerRight() {
      var dodgerLeftEdge = positionToInteger(DODGER.style.left)
      var dodgerRightEdge = dodgerLeftEdge + 40
-      function right() {
+      
+    function right() {
       if (dodgerRightEdge < 360) {
-         dodger.style.left = `${dodgerLeftEdge + 10}px`
+         dodger.style.left = `${dodgerLeftEdge + 4}px`
          }
    }
    window.requestAnimationFrame(right)
