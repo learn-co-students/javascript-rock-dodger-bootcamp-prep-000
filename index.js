@@ -1,6 +1,5 @@
-/**
- * Don't change these constants!
- */
+//Don't change these constants!
+ 
 const DODGER = document.getElementById('dodger')
 const GAME = document.getElementById('game')
 const GAME_HEIGHT = 400
@@ -12,10 +11,7 @@ const START = document.getElementById('start')
 
 var gameInterval = null
 
-/**
- * Be aware of what's above this line,
- * but all of your work should happen below.
- */
+//Be aware of what's above this line, but all of your work should happen below.
 
 function checkCollision(rock) {
   const top = positionToInteger(rock.style.top)
@@ -24,15 +20,13 @@ function checkCollision(rock) {
   // GAME_HEIGHT - 20 - 20 = 360px;
   if (top > 360) {
     const dodgerLeftEdge = positionToInteger(DODGER.style.left)
-
     // FIXME: The DODGER is 40 pixels wide -- how do we get the right edge?
+    // const dodgerRightEdge = dodgerLeftEdge + 0;
     const dodgerRightEdge = dodgerLeftEdge + 40;
-          
     const rockLeftEdge = positionToInteger(rock.style.left)
-
     // FIXME: The rock is 20 pixel's wide -- how do we get the right edge?
+    // const rockRightEdge = rockLeftEdge + 0;
     const rockRightEdge = rockLeftEdge + 20;
-
     if (/*false /**
                * Think about it -- what's happening here?
                * There's been a collision if one of three things is true:
@@ -79,12 +73,7 @@ function createRock(x) {
   return rock
 }
 
-/**
- * End the game by clearing `gameInterval`,
- * removing all ROCKS from the DOM,
- * and removing the `moveDodger` event listener.
- * Finally, alert "YOU LOSE!" to the player.
- */
+//End the game by clearing `gameInterval`, removing all ROCKS from the DOM, and removing the `moveDodger` event listener. Finally, alert "YOU LOSE!" to the player.
 function endGame() {
   clearInterval(gameInterval)
  // while (ROCKS.length > 0 ) { ROCKS.pop() }  No, this removes each rock from the array, but not from the DOM.
@@ -93,42 +82,26 @@ function endGame() {
   }
   alert("YOU LOSE!")
  // ROCKS.splice(0, ROCKS.length) No, splice returns an array of the deleted elements.
-  //remove(ROCKS)
-  //moveDodger.removeEventListener()
 }
 
-  // implement me!
   //This function should call `moveDodgerLeft()` if the left arrow is pressed and `moveDodgerRight()` if the right arrow is pressed. (Check the constants we've declared for you above.) And be sure to use the functions declared below!
 function moveDodger(e) {  
-  //DODGER.addEventListener('keydown', function(e) {
-    if (e.which === 37) {
-      moveDodgerLeft()
-      e.preventDefault()
-      e.stopPropagation()
-    }
-    if (e.which === 39) {
-      moveDodgerRight()
-      e.preventDefault()
-      e.stopPropagation()
-    }
-//  })
-}
-
-/*GAME.addEventListener('keydown', function(e) {
+  //No need to implement addEventListener here.  It's done below.
   if (e.which === 37) {
-       moveDodgerLeft()
+    moveDodgerLeft()
+    e.preventDefault()
+    e.stopPropagation()
   }
   if (e.which === 39) {
-       moveDodgerRight()
+    moveDodgerRight()
+    e.preventDefault()
+    e.stopPropagation()
   }
-})*/
+}
 
 function moveDodgerLeft() {
   // implement me!
-  /**
-   * This function should move DODGER to the left
-   * (mabye 4 pixels?). Use window.requestAnimationFrame()!
-   */
+  //This function should move DODGER to the left (mabye 4 pixels?). Use window.requestAnimationFrame()!
   var leftNumbers = dodger.style.left.replace('px', '')
   var left = parseInt(leftNumbers, 10)
   if (left > 0) {
@@ -137,11 +110,7 @@ function moveDodgerLeft() {
 }
 
 function moveDodgerRight() {
-  // implement me!
-  /**
-   * This function should move DODGER to the right
-   * (mabye 4 pixels?). Use window.requestAnimationFrame()!
-   */
+  //This function should move DODGER to the right (mabye 4 pixels?). Use window.requestAnimationFrame()!
   var leftNumbers = dodger.style.left.replace('px', '')
   var left = parseInt(leftNumbers, 10)
   if (left > -1 && left < 360) {
