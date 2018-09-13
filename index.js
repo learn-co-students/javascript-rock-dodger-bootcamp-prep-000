@@ -36,12 +36,12 @@ function checkCollision(rock) {
     // (FIXED) FIXME: The rock is 20 pixel's wide -- how do we get the right edge?
     const rockRightEdge = rockLeftEdge + 20;
 
-if ((rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge) || (rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge) || (rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge)) {
-  return true
-  } else {
-  return false
-  }  
-}
+    if ((rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge) || (rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge) || (rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
 // NOTE** --> Here 360 is the amt the rock traveled, once it's able to collide, this is when the function starts testing for collisions. 
 
@@ -60,7 +60,6 @@ function createRock(x) {
 
   GAME.appendChild(rock)
   
-  
 
   /**
    * Now that we have a rock, we'll need to append
@@ -73,24 +72,26 @@ function createRock(x) {
    */
    // IMPNOTE**: createRock & moveRock formatted in this way (moveRock within createRock) so that it can follow the function move() & step() example 
   // ImpNOTE: Recursion = A function calling itself and Callback is passing a function in it's entirety into another function (Remember function vs function() example)
+   
    function moveRock() {
     
     // SideNote: move function is the overall function but lines 12, 13 
     // actually calls the step function and the if conditional creates a boundary 
     // (use the comments below to guide you!)
-    if (checkCollision() === false) {
+  
     rock.style.top = `${top += 2}px`
     
        if (top < 380) {
          window.requestAnimationFrame(moveRock)
+         
+           if (checkCollision() === true) {
+               endGame();
+              }
        }
-       
        if (top === 380) {
          rock.remove()
        }
-    } else {
-      endGame();
-    }    
+    }  
  
     //add a if statement here that checks collision method and if true, calls endGame()
     /**
@@ -109,8 +110,7 @@ function createRock(x) {
      * But if the rock *has* reached the bottom of the GAME,
      * we should remove the rock from the DOM
      */
-    }
-    
+
   window.requestAnimationFrame(moveRock)   
 
   // We should kick off the animation of the rock around here
@@ -180,7 +180,7 @@ function moveDodgerLeft() {
       
       function left() {
       if (dodgerLeftEdge > 0) {
-         dodger.style.left = `${dodgerLeftEdge - 7}px`
+         dodger.style.left = `${dodgerLeftEdge - 10}px`
          }
    }
    window.requestAnimationFrame(left)
@@ -196,7 +196,7 @@ function moveDodgerRight() {
      var dodgerRightEdge = dodgerLeftEdge + 40
       function right() {
       if (dodgerRightEdge < 360) {
-         dodger.style.left = `${dodgerLeftEdge + 7}px`
+         dodger.style.left = `${dodgerLeftEdge + 10}px`
          }
    }
    window.requestAnimationFrame(right)
