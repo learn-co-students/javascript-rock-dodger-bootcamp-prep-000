@@ -91,31 +91,37 @@ function endGame() {
   for (let i = 0; i < ROCKS.length; i++) {
   ROCKS[i].remove()
   }
+  alert("YOU LOSE!")
  // ROCKS.splice(0, ROCKS.length) No, splice returns an array of the deleted elements.
   //remove(ROCKS)
   //moveDodger.removeEventListener()
 }
 
-function moveDodger(e) {
   // implement me!
-  /**
-   * This function should call `moveDodgerLeft()`
-   * if the left arrow is pressed and `moveDodgerRight()`
-   * if the right arrow is pressed. (Check the constants
-   * we've declared for you above.)
-   * And be sure to use the functions declared below!
-   */
-   
-   
-  GAME.addEventListener('keydown', function(e) {
+  //This function should call `moveDodgerLeft()` if the left arrow is pressed and `moveDodgerRight()` if the right arrow is pressed. (Check the constants we've declared for you above.) And be sure to use the functions declared below!
+function moveDodger(e) {  
+  //DODGER.addEventListener('keydown', function(e) {
     if (e.which === 37) {
-       moveDodgerLeft()
+      moveDodgerLeft()
+      e.preventDefault()
+      e.stopPropagation()
     }
     if (e.which === 39) {
-       moveDodgerRight()
+      moveDodgerRight()
+      e.preventDefault()
+      e.stopPropagation()
     }
-  })
+//  })
 }
+
+/*GAME.addEventListener('keydown', function(e) {
+  if (e.which === 37) {
+       moveDodgerLeft()
+  }
+  if (e.which === 39) {
+       moveDodgerRight()
+  }
+})*/
 
 function moveDodgerLeft() {
   // implement me!
