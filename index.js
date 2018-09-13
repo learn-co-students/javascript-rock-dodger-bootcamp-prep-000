@@ -179,24 +179,30 @@ function moveDodger(e) {
    * we've declared for you above.)
    * And be sure to use the functions declared below!
    */
-
-
-function moveDodgerLeft() {
+/* function moveDodgerLeft() {
 
      var dodgerLeftEdge = positionToInteger(DODGER.style.left) 
       
       function left() {
       if (dodgerLeftEdge > 0) {
          dodger.style.left = `${dodgerLeftEdge - 4}px`
+         }
+    window.requestAnimationFrame(left)
+     }
+   */
+   function moveDodgerLeft() {
+     window.requestAnimationFrame(function () {
+      var dodgerLeftEdge = positionToInteger(DODGER.style.left)
+       if (dodgerLeftEdge > 0) { 
+           DODGER.style.left = `${dodgerLeftEdge - 4}px`;
+           }	
+     })
    }
-   window.requestAnimationFrame(left)
- }
   /**
    * This function should move DODGER to the left
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
-}
-
+  
 function moveDodgerRight() {
      var dodgerLeftEdge = positionToInteger(DODGER.style.left)
      var dodgerRightEdge = dodgerLeftEdge + 40
@@ -205,9 +211,10 @@ function moveDodgerRight() {
       if (dodgerRightEdge < 360) {
          dodger.style.left = `${dodgerLeftEdge + 4}px`
       }
-   }
+    }
    window.requestAnimationFrame(right)
-}
+ }
+
   /**
    * This function should move DODGER to the right
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
