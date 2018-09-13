@@ -55,7 +55,7 @@ function createRock(x) {
 
   // Measuring by the left side of the rock, so 0 to 380 is the position set, so rock doesn't go off screen when created
   // Hmmm, why would we have used `var` here?
-  var top = rock.style.top = 0
+  var top = 0
   
   GAME.appendChild(rock)
   
@@ -77,23 +77,20 @@ function createRock(x) {
     // actually calls the step function and the if conditional creates a boundary 
     // (use the comments below to guide you!)
     
-    top = `${top += 2}px`
+     rock.style.top = `${top += 2}px`
     
-       if (top < 360) {
+       if (checkCollision(rock)) {
+          return endGame();
+       }
+       if (top < GAME_HEIGHT) {
          window.requestAnimationFrame(moveRock)
-       }
-       
-       if (checkCollision() === true) {
-            endGame();
-       }
-       
-       if (top === 360) {
+       } else {
          rock.remove()
        }
+        
    }     
-       
+  window.requestAnimationFrame(moveRock)        
   
- 
     //add a if statement here that checks collision method and if true, calls endGame()
     /**
      * If a rock collides with the DODGER,
@@ -111,8 +108,7 @@ function createRock(x) {
      * But if the rock *has* reached the bottom of the GAME,
      * we should remove the rock from the DOM
      */
-
-  window.requestAnimationFrame(moveRock)   
+   
 
   // We should kick off the animation of the rock around here
 
@@ -133,19 +129,22 @@ function createRock(x) {
  */
 function endGame() {
 
-  alert("YOU LOSE!");
+  
   var oldRocks = []
   clearInterval(gameInterval)
   window.removeEventListener('keydown', moveDodger)
-
   oldRocks = []
   clearInterval(gameInterval)
   
-
   for (i = 0; i < ROCKS.length; i++) {
     oldRocks.push(ROCKS[i])
     oldRocks[i].remove()
   } 
+  
+  alert("YOU LOSE!");
+  
+  START.innerHTML = 'Play again?';	
+  START.style.display = 'inline';
   
   //use clearInterval()
   // Pass each rock from ROCKS and remove them individually
@@ -179,6 +178,7 @@ function moveDodger(e) {
    * we've declared for you above.)
    * And be sure to use the functions declared below!
    */
+   // some reason this moveLeft function stopped working... even though it worked before
 /* function moveDodgerLeft() {
 
      var dodgerLeftEdge = positionToInteger(DODGER.style.left) 
@@ -193,7 +193,7 @@ function moveDodger(e) {
    function moveDodgerLeft() {
      window.requestAnimationFrame(function () {
       var dodgerLeftEdge = positionToInteger(DODGER.style.left)
-       if (dodgerLeftEdge > 0) { 
+       if (dodgerLeftEdge > 0) {
            DODGER.style.left = `${dodgerLeftEdge - 4}px`;
            }	
      })
@@ -205,7 +205,7 @@ function moveDodger(e) {
   
 function moveDodgerRight() {
      var dodgerLeftEdge = positionToInteger(DODGER.style.left)
-     var dodgerRightEdge = dodgerLeftEdge + 40
+     var dodgerRightEdge = dodgerLeftEdge + 40;
       
     function right() {
       if (dodgerRightEdge < 360) {
