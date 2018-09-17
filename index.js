@@ -67,11 +67,22 @@ function checkCollision(rock) {
   else return false;
 }
 
+//color of rocks
+var color = 0;
+
 function createRock(x) {
   const rock = document.createElement('div')
 
   rock.className = 'rock'
   rock.style.left = `${x}px`
+
+  //lets add some colors
+  if(color == 1) rock.style.background = 'blue';
+  if(color == 2) rock.style.background = 'red';
+  if(color == 3) rock.style.background = 'yellow';
+  if(color == 4) {rock.style.background = 'green';
+                  color = 0;}
+  color++;
 
   // Hmmm, why would we have used `var` here?
   var top = 0;
@@ -197,7 +208,6 @@ function moveDodger(e) {
    */
    //console.log('moveDodger started');
 
-  // var leftInt = positionToInteger(DODGER.style.left);
 
    if (e.which == 37) {moveDodgerLeft(); e.stopPropagation();  e.preventDefault();}
    if (e.which == 39) {moveDodgerRight();  e.stopPropagation();  e.preventDefault();}
@@ -262,7 +272,7 @@ function start() {
 
   }
 /*
-//additional interval for smoother game
+//additional interval for smoother game, however cant use it because tests want requestAnimationFrame ...
 
   gameSmooth = setInterval(function() {
     moveRock();
