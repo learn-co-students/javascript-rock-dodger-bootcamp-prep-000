@@ -21,8 +21,12 @@ var gameInterval = null
  //Starting value:
  DODGER.style.left = '180px';
 
+ //counter
+ var points = 0;
+
  //additional value for smoother fall
  var gameSmooth = null;
+ var left = null;
 
 
 function checkCollision(rock) {
@@ -89,9 +93,9 @@ function createRock(x) {
    ROCKS.push(rock)
 
    // Finally, return the rock element you've created
-   //window.requestAnimationFrame(createRock);
+   window.requestAnimationFrame(moveRock);
 
-   //window.requestAnimationFrame(createRock);        heeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeelp
+
    return rock
  }
 
@@ -123,6 +127,8 @@ function moveRock() {
         else if(positionToInteger(currentrock.style.top)>380) {
           currentrock.remove();
           ROCKS.shift();
+          points++;
+          document.querySelector('#score').innerHTML = `${points} points`;
           //currentrock.shift();
         }
         /*
@@ -132,7 +138,7 @@ function moveRock() {
          */
 
          else {
-           currentrock.style.top = (positionToInteger(currentrock.style.top)+2)+'px';
+           currentrock.style.top = (positionToInteger(currentrock.style.top)+20)+'px';
 
          ROCKS[i] = currentrock;
          //console.log(`top ${currentrock.style.top}`)
@@ -191,7 +197,7 @@ function moveDodger(e) {
    */
    //console.log('moveDodger started');
 
-   leftInt = positionToInteger(DODGER.style.left);
+  // var leftInt = positionToInteger(DODGER.style.left);
 
    if (e.which == 37) {moveDodgerLeft(); e.stopPropagation();  e.preventDefault();}
    if (e.which == 39) {moveDodgerRight();  e.stopPropagation();  e.preventDefault();}
@@ -205,8 +211,9 @@ function moveDodgerLeft() {
    * This function should move DODGER to the left
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
-
+    var leftInt = positionToInteger(DODGER.style.left);
     if(leftInt>0) {
+
        leftInt -= 4;
        DODGER.style.left = `${leftInt}px`;
 
@@ -214,6 +221,7 @@ function moveDodgerLeft() {
     }
 
 
+    //return leftInt;
 }
 
 function moveDodgerRight() {
@@ -222,7 +230,7 @@ function moveDodgerRight() {
    * This function should move DODGER to the right
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
-
+   var leftInt = positionToInteger(DODGER.style.left);
    if(leftInt<360) {
      leftInt +=4;
      DODGER.style.left = `${leftInt}px`;
@@ -230,7 +238,7 @@ function moveDodgerRight() {
    stopIdright = window.requestAnimationFrame(moveDodgerRight);
  }
 
-   return leftInt;
+   //return leftInt;
 }
 
 
@@ -252,6 +260,8 @@ function start() {
   gameInterval = setInterval(function() {
     createRock(Math.floor(Math.random() *  (GAME_WIDTH - 20)))}, 1000)
 
+  }
+/*
 //additional interval for smoother game
 
   gameSmooth = setInterval(function() {
@@ -259,3 +269,4 @@ function start() {
     faster +=10;
     }, 50-faster)
 }
+*/
