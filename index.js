@@ -11,7 +11,7 @@ const ROCKS = []
 const START = document.getElementById('start')
 
 var gameInterval = null
-
+var bugFix = 0
 /**
  * Be aware of what's above this line,
  * but all of your work should happen below.
@@ -36,7 +36,13 @@ function checkCollision(rock) {
     // FIXME: The rock is 20 pixel's wide -- how do we get the right edge?
     const rockRightEdge = rockLeftEdge + 20;
 
-    if (false /**
+    if (rockLeftEdge < dodgerLeftEdge && rockRightEdge > dodgerLeftEdge){return true}
+    
+     if (rockLeftEdge>dodgerLeftEdge && rockRightEdge < dodgerRightEdge) {return true}
+    
+    if (rockLeftEdge<dodgerRightEdge && rockRightEdge > dodgerRightEdge) {return true} 
+    
+    /**
                * Think about it -- what's happening here?
                * There's been a collision if one of three things is true:
                * 1. The rock's left edge is < the DODGER's left edge,
@@ -45,10 +51,11 @@ function checkCollision(rock) {
                *    and the rock's right edge is < the DODGER's right edge;
                * 3. The rock's left edge is < the DODGER's right edge,
                *    and the rock's right edge is > the DODGER's right edge
-               */) {
-      return true
-    }
-  }
+               */ 
+     
+    
+  }return false
+  
 }
 
 function createRock(x) {
@@ -86,10 +93,13 @@ function createRock(x) {
      */
      function step(){
        rock.style.top = `${top += 2}px`
-       
-       if (top < 415){
+       if (checkCollision(rock)){
+         
+         if (bugFix===0){alert("YOU LOSE!"); bugFix = 1}
+         endGame()}
+       if (top < 400){
          window.requestAnimationFrame(step)
-       } if (top === 400){rock.remove()}
+       } if (top === 399){rock.remove()}
      }
     
      window.requestAnimationFrame(step)
@@ -111,6 +121,13 @@ function createRock(x) {
   return rock
 }
 
+
+function removeRocks(rkaray){
+  for (let i = 0; i < rkaray.length; i++){
+    rkaray[i].remove()
+  }
+}
+
 /**
  * End the game by clearing `gameInterval`,
  * removing all ROCKS from the DOM,
@@ -118,6 +135,11 @@ function createRock(x) {
  * Finally, alert "YOU LOSE!" to the player.
  */
 function endGame() {
+  clearInterval(gameInterval) 
+  removeRocks(ROCKS)
+  window.removeEventListener('keydown', moveDodger)
+  //alert("YOU LOSE!")
+  START.style.display = ''
 }
 
 function moveDodger(e) {
@@ -179,7 +201,7 @@ function start() {
   window.addEventListener('keydown', moveDodger)
 
   START.style.display = 'none'
-
+  bugFix = 0 
   gameInterval = setInterval(function() {
     createRock(Math.floor(Math.random() *  (GAME_WIDTH - 20)))
   }, 1000)
