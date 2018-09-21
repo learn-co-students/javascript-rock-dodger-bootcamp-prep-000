@@ -38,7 +38,7 @@ function checkCollision(rock) {
 
     if (rockLeftEdge < dodgerLeftEdge && rockRightEdge > dodgerLeftEdge){return true}
     
-     if (rockLeftEdge>dodgerLeftEdge && rockRightEdge < dodgerRightEdge) {return true}
+     if (rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge) {return true}
     
     if (rockLeftEdge<dodgerRightEdge && rockRightEdge > dodgerRightEdge) {return true} 
     
@@ -73,7 +73,7 @@ function createRock(x) {
    * Now that we have a rock, we'll need to append
    * it to GAME and move it downwards.
    */
-   GAME.append(rock)
+   GAME.appendChild(rock)
 
   /**
    * This function moves the rock. (2 pixels at a time
@@ -153,8 +153,12 @@ function moveDodger(e) {
    */
    
    if(e.which == LEFT_ARROW){
+     e.preventDefault()
+     e.stopPropagation()
      moveDodgerLeft()
    }else if (e.which == RIGHT_ARROW){
+     e.preventDefault()
+     e.stopPropagation()
      moveDodgerRight()
    }
 }
