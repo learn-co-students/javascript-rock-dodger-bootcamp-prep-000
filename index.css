@@ -26,13 +26,13 @@
 .rock {
   width: 20px;
   height: 20px;
-  background: tan;
+  background: deeppink;
   position: absolute;
 }
 
 .rock:before {
   content: "";
-  border-bottom: 6px solid tan;
+  border-bottom: 6px solid deeppink;
   border-left: 6px solid #111;
   border-right: 6px solid #111;
   height: 0;
@@ -46,7 +46,7 @@
   content: "";
   border-left: 6px solid #111;
   border-right: 6px solid #111;
-  border-top: 6px solid tan;
+  border-top: 6px solid deeppink;
   bottom: 0;
   height: 0;
   left: 0;
