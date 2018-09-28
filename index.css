@@ -28,6 +28,7 @@
   height: 20px;
   background: tan;
   position: absolute;
+top:50px;
 }
 
 .rock:before {

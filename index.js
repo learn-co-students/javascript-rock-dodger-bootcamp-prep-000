@@ -66,35 +66,16 @@ GAME.appendChild(rock);
    */
   function moveRock() {
 if(checkCollision(rock)){endGame();}
-if(top>400){GAME.removeChild(rock);}
-else{rock.style.top=`$[top +=2}px`;
-window.requestAnimationFrame(moveRock);}
-    // (use the comments below to guide you!)
-    /**
-     * If a rock collides with the DODGER,
-     * we should call endGame()
-     */
+if(top>400){GAME.removeChild(rock);ROCKS.shift();}
+else{rock.style.top=`${top +=2}px`;
+window.requestAnimationFrame(moveRock);}}
 
-    /**
-     * Otherwise, if the rock hasn't reached the bottom of
-     * the GAME, we want to move it again.
-     */
-
-    /**
-     * But if the rock *has* reached the bottom of the GAME,
-     * we should remove the rock from the DOM
-     */
-  
-
-  // We should kick of the animation of the rock around here
-
-  // Add the rock to ROCKS so that we can remove all rocks
-  // when there's a collision
+moveRock();
   ROCKS.push(rock)
 
   // Finally, return the rock element you've created
   return rock
-}}
+}
 
 /**
  * End the game by clearing `gameInterval`,
@@ -111,7 +92,7 @@ function endGame() {
 
 function moveDodger(e) {
 if(e.which==37)
-{moveDodgerLeft();} if(e.which==38){moveDodgerRight();}
+{moveDodgerLeft();} if(e.which==39){moveDodgerRight();}
   /**
    * This function should call `moveDodgerLeft()`
    * if the left arrow is pressed and `moveDodgerRight()`
