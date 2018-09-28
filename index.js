@@ -18,8 +18,7 @@ var gameInterval = null
  */
 
 function checkCollision(rock) {
-  // implement me!
-  // use the comments below to guide you!
+ 
   const top = positionToInteger(rock.style.top)
 
   // rocks are 20px high
@@ -29,27 +28,20 @@ function checkCollision(rock) {
     const dodgerLeftEdge = positionToInteger(DODGER.style.left)
 
     // FIXME: The DODGER is 40 pixels wide -- how do we get the right edge?
-    const dodgerRightEdge = 0;
+    const dodgerRightEdge =positionToInteger(DODGER.style.left)+40;
 
-    const rockLeftEdge = positionToInteger(rock.style.left)
+    const rockLeftEdge = positionToInteger(rock.style.left);
 
     // FIXME: The rock is 20 pixel's wide -- how do we get the right edge?
-    const rockRightEdge = 0;
+    const rockRightEdge = positionToInteger(rock.style.left)+20;
 
-    if (false /**
-               * Think about it -- what's happening here?
-               * There's been a collision if one of three things is true:
-               * 1. The rock's left edge is < the DODGER's left edge,
-               *    and the rock's right edge is > the DODGER's left edge;
-               * 2. The rock's left edge is > the DODGER's left edge,
-               *    and the rock's right edge is < the DODGER's right edge;
-               * 3. The rock's left edge is < the DODGER's right edge,
-               *    and the rock's right edge is > the DODGER's right edge
-               */) {
-      return true
+
+    if (((rockLeftEdge<dodgerLeftEdge)&&(rockRightEdge<dodgerLeftEdge))||((rockLeftEdge>dodgerRightEdge)&&(rockRightEdge>dodgerRightEdge))){return false} else{return true}
+    //if both rock edges are to the left of the dodgers left edge, or to the right of the right edge no collision, else collision 
     }
-  }
+  
 }
+  
 
 function createRock(x) {
   const rock = document.createElement('div')
@@ -61,7 +53,7 @@ function createRock(x) {
   var top = 0
 
   rock.style.top = top
-
+GAME.appendChild(rock);
   /**
    * Now that we have a rock, we'll need to append
    * it to GAME and move it downwards.
@@ -73,7 +65,10 @@ function createRock(x) {
    * seems like a good pace.)
    */
   function moveRock() {
-    // implement me!
+if(checkCollision(rock)){endGame();}
+if(top>400){GAME.removeChild(rock);}
+else{rock.style.top=`$[top +=2}px`;
+window.requestAnimationFrame(moveRock);}
     // (use the comments below to guide you!)
     /**
      * If a rock collides with the DODGER,
@@ -89,7 +84,7 @@ function createRock(x) {
      * But if the rock *has* reached the bottom of the GAME,
      * we should remove the rock from the DOM
      */
-  }
+  
 
   // We should kick of the animation of the rock around here
 
@@ -99,7 +94,7 @@ function createRock(x) {
 
   // Finally, return the rock element you've created
   return rock
-}
+}}
 
 /**
  * End the game by clearing `gameInterval`,
@@ -108,10 +103,15 @@ function createRock(x) {
  * Finally, alert "YOU LOSE!" to the player.
  */
 function endGame() {
+  clearInterval(gameInterval);
+  for(var i=0;i<ROCKS.length;i++){GAME.removeChild(ROCKS[i]);}
+  window.removeEventListener('keydown',moveDodger);
+  alert("YOU LOSE!");
 }
 
 function moveDodger(e) {
-  // implement me!
+if(e.which==37)
+{moveDodgerLeft();} if(e.which==38){moveDodgerRight();}
   /**
    * This function should call `moveDodgerLeft()`
    * if the left arrow is pressed and `moveDodgerRight()`
@@ -122,21 +122,14 @@ function moveDodger(e) {
 }
 
 function moveDodgerLeft() {
-  // implement me!
-  /**
-   * This function should move DODGER to the left
-   * (mabye 4 pixels?). Use window.requestAnimationFrame()!
-   */
+  
+dodger.style.left=`${positionToInteger(dodger.style.left)-4}px`;
+window.requestAnimationFrame(moveDodgerLeft);
 }
 
-function moveDodgerRight() {
-  // implement me!
-  /**
-   * This function should move DODGER to the right
-   * (mabye 4 pixels?). Use window.requestAnimationFrame()!
-   */
-}
-
+function moveDodgerRight() {dodger.style.left=`${positionToInteger(dodger.style.left)+4}px`;
+window.requestAnimationFrame(moveDodgerRight);}
+ 
 /**
  * @param {string} p The position property
  * @returns {number} The position as an integer (without 'px')
