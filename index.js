@@ -85,14 +85,14 @@ moveRock();
  */
 function endGame() {
   clearInterval(gameInterval);
-  for(var i=0;i<ROCKS.length;i++){GAME.removeChild(ROCKS[i]);}
+  for(var i=0;i<ROCKS.length;i++){ROCKS[i].remove();}
   window.removeEventListener('keydown',moveDodger);
   alert("YOU LOSE!");
 }
 
 function moveDodger(e) {
 if(e.which==37)
-{moveDodgerLeft();} if(e.which==39){moveDodgerRight();}
+{e.preventDefault();e.stopPropagation();moveDodgerLeft();} if(e.which==39){e.preventDefault();e.stopPropagation();moveDodgerRight();}
   /**
    * This function should call `moveDodgerLeft()`
    * if the left arrow is pressed and `moveDodgerRight()`
@@ -103,13 +103,21 @@ if(e.which==37)
 }
 
 function moveDodgerLeft() {
-  
+ if(positionToInteger(dodger.style.left)>1) { 
 dodger.style.left=`${positionToInteger(dodger.style.left)-4}px`;
-window.requestAnimationFrame(moveDodgerLeft);
+window.requestAnimationFrame(moveDodgerLeft);}
 }
 
-function moveDodgerRight() {dodger.style.left=`${positionToInteger(dodger.style.left)+4}px`;
-window.requestAnimationFrame(moveDodgerRight);}
+function moveDodgerRight() {
+
+  window.requestAnimationFrame(function(){
+    if (positionToInteger(dodger.style.left)<360){
+      dodger.style.left=`${positionToInteger(dodger.style.left)+4}px`;
+      
+    }
+  });
+
+}
  
 /**
  * @param {string} p The position property

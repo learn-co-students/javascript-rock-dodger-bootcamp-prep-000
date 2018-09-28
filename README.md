@@ -63,7 +63,8 @@ GAME.appendChild(rock);
   /**
    * This function moves the rock. (2 pixels at a time
    * seems like a good pace.)
-   */
+   */**
+
   function moveRock() {
 if(checkCollision(rock)){endGame();}
 if(top>400){GAME.removeChild(rock);ROCKS.shift();}
