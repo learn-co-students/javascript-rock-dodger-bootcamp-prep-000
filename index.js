@@ -151,6 +151,7 @@ function start() {
   console.log("here's a change");
   console.log("another change")
   console.log("third change")
+  console.log("fourth change")
   START.style.display = 'none'
 
   gameInterval = setInterval(function() {
