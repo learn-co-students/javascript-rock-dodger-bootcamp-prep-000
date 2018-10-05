@@ -11,6 +11,7 @@ const ROCKS = []
 const START = document.getElementById('start')
 const DODGER_PACE = 5
 const DODGER_WIDTH = 40
+const ROCK_PACE = 5
 
 var gameInterval = null
 
@@ -55,57 +56,45 @@ function checkCollision(rock) {
 
 function createRock(x) {
   const rock = document.createElement('div')
-  const rockPace = 2
-
   rock.className = 'rock'
   rock.style.left = `${x}px`
 
-  // Hmmm, why would we have used `var` here?
-  var top = 0
-
-  rock.style.top = top
+  var top = 0     // Hmmm, why would we have used `var` here?
+  rock.style.top = `${top}px`
   GAME.appendChild(rock)
-  /**
-   * Now that we have a rock, we'll need to append
-   * it to GAME and move it downwards.
-   */
-
-
-  /**
-   * This function moves the rock. (2 pixels at a time
-   * seems like a good pace.)
-   */
+  ROCKS.push(rock)
+  console.log("pushed rock");
+  
   function moveRock() {
-    // implement me!
-    // (use the comments below to guide you!)
-    /**
-     * If a rock collides with the DODGER,
-     * we should call endGame()
-     */
+    console.log('rock moving')
+    // If a rock collides with the DODGER, we should call endGame()  
     if (checkCollision) {
-      endGame()
-      return
+      // endGame()
     }
 
-    /**
-     * Otherwise, if the rock hasn't reached the bottom of
-     * the GAME, we want to move it again.
-     */
+    //  Otherwise, if the rock hasn't reached the bottom of the GAME, we want to move it again.
+    //  But if the rock *has reached the bottom of the GAME, we should remove the rock from the DOM
+    window.requestAnimationFrame(moveRock)
 
-    /**
-     * But if the rock *has* reached the bottom of the GAME,
-     * we should remove the rock from the DOM
-     */
   }
 
-  // We should kick of the animation of the rock around here
 
-  // Add the rock to ROCKS so that we can remove all rocks
-  // when there's a collision
-  ROCKS.push(rock)
+  // We should kick of the animation of the rock around here
+  window.requestAnimationFrame(moveRock)
 
   // Finally, return the rock element you've created
   return rock
+}
+
+function start() {
+  window.addEventListener('keydown', moveDodger)
+
+  START.style.display = 'none'
+  createRock(Math.floor(Math.random() * (GAME_WIDTH - 20)))
+
+  gameInterval = setInterval(function () {
+    // createRock(Math.floor(Math.random() * (GAME_WIDTH - 20)))
+  }, 1000)
 }
 
 /**
@@ -115,10 +104,15 @@ function createRock(x) {
  * Finally, alert "YOU LOSE!" to the player.
  */
 function endGame() {
+  for (let i = 0; i < ROCKS.length; i++) {
+    var rock = ROCKS[i]
+    rock.parentNode.removeChild(rock)
+  }
+  clearInterval(gameInterval)
 }
 
 function shouldMoveLeft() {
-  return positionToInteger(DODGER.style.left) > 5
+  return positionToInteger(DODGER.style.left) > 0
 }
 
 function shouldMoveRight() {
@@ -140,7 +134,7 @@ function moveDodgerLeft() {
     let left = positionToInteger(DODGER.style.left)
     DODGER.style.left = `${left - DODGER_PACE}px`
   }
-  //  Use window.requestAnimationFrame()!
+  // TO-DO: Use window.requestAnimationFrame()!
 
 }
 
@@ -149,7 +143,7 @@ function moveDodgerRight() {
     let left = positionToInteger(DODGER.style.left)
     DODGER.style.left = `${left + DODGER_PACE}px`
   }
-  //  Use window.requestAnimationFrame()!
+  // TO-DO: Use window.requestAnimationFrame()!
 
 }
 
@@ -161,14 +155,6 @@ function positionToInteger(p) {
   return parseInt(p.split('px')[0]) || 0
 }
 
-function start() {
-  window.addEventListener('keydown', moveDodger)
-
-  START.style.display = 'none'
-
-  gameInterval = setInterval(function () {
-    // createRock(Math.floor(Math.random() * (GAME_WIDTH - 20)))
-  }, 1000)
-}
 
 
+``
