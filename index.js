@@ -60,18 +60,18 @@ function createRock(x) {
   rock.style.left = `${x}px`
 
   var top = 0     // Hmmm, why would we have used `var` here?
-  rock.style.top = `${top}px`
+  rock.style.top = `${0}px`
   GAME.appendChild(rock)
   ROCKS.push(rock)
   console.log("pushed rock");
-  
+
   function moveRock() {
-    console.log('rock moving')
-    // If a rock collides with the DODGER, we should call endGame()  
     if (checkCollision) {
       // endGame()
     }
 
+    let topNum = positionToInteger(rock.style.top)
+    rock.style.top = `${topNum+ROCK_PACE}px`
     //  Otherwise, if the rock hasn't reached the bottom of the GAME, we want to move it again.
     //  But if the rock *has reached the bottom of the GAME, we should remove the rock from the DOM
     window.requestAnimationFrame(moveRock)
