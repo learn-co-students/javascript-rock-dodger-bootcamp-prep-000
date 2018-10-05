@@ -150,6 +150,7 @@ function start() {
   window.addEventListener('keydown', moveDodger)
   console.log("here's a change");
   console.log("another change")
+  console.log("third change")
   START.style.display = 'none'
 
   gameInterval = setInterval(function() {
