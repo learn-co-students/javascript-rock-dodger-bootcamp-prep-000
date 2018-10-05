@@ -8,10 +8,12 @@ const GAME_WIDTH = 400
 const LEFT_ARROW = 37 // use e.which!
 const RIGHT_ARROW = 39 // use e.which!
 const ROCKS = []
-const START = document.getElementById('start')
-const DODGER_PACE = 5
 const DODGER_WIDTH = 40
+const ROCK_HEIGHT = 20
+const DODGER_HEIGHT = 20
+const DODGER_PACE = 5
 const ROCK_PACE = 5
+const START = document.getElementById('start')
 
 var gameInterval = null
 
@@ -21,6 +23,9 @@ var gameInterval = null
  */
 
 function checkCollision(rock) {
+
+  return false
+
   // implement me!
   // use the comments below to guide you!
   const top = positionToInteger(rock.style.top)
@@ -63,16 +68,25 @@ function createRock(x) {
   rock.style.top = `${0}px`
   GAME.appendChild(rock)
   ROCKS.push(rock)
-  console.log("pushed rock");
+
+  function rockAtBottom() {
+    console.log(rock.style.top);
+    return (positionToInteger(rock.style.top) >= GAME_HEIGHT - ROCK_HEIGHT)
+  }
 
   function moveRock() {
     if (checkCollision) {
       // endGame()
     }
 
-    let topNum = positionToInteger(rock.style.top)
-    rock.style.top = `${topNum+ROCK_PACE}px`
-    //  Otherwise, if the rock hasn't reached the bottom of the GAME, we want to move it again.
+    if (!rockAtBottom()) {
+      let topNum = positionToInteger(rock.style.top)
+      rock.style.top = `${topNum + ROCK_PACE}px`
+    } else {
+      rock.parentNode.removeChild(rock)
+    }
+
+
     //  But if the rock *has reached the bottom of the GAME, we should remove the rock from the DOM
     window.requestAnimationFrame(moveRock)
 
