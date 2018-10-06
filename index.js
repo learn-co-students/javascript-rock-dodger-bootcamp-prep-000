@@ -23,7 +23,6 @@ var gameInterval = null
  */
 
 function checkCollision(rock) {
-
   const top = positionToInteger(rock.style.top)
   if (top > (GAME_HEIGHT - ROCK_HEIGHT - DODGER_HEIGHT)) {
     const dodgerLeftEdge = positionToInteger(DODGER.style.left)
@@ -55,8 +54,8 @@ function createRock(x) {
   }
 
   function moveRock() {
-    if (checkCollision) {
-      // endGame()
+    if (checkCollision(rock)) {
+      endGame()
     }
 
     if (!rockAtBottom()) {
@@ -71,21 +70,13 @@ function createRock(x) {
   return rock
 }
 
-/**
- * End the game by clearing `gameInterval`,
- * removing all ROCKS from the DOM,
- * and removing the `moveDodger` event listener.
- * Finally, alert "YOU LOSE!" to the player.
- */
 function endGame() {
+  clearInterval(gameInterval)
   for (let i = 0; i < ROCKS.length; i++) {
     var rock = ROCKS[i]
-    rock.parentNode.removeChild(rock)
+    rock.remove()
   }
-  while (ROCKS.length) {
-    ROCKS.pop()
-  }
-  clearInterval(gameInterval)
+  
 }
 
 function shouldMoveLeft() {
@@ -124,10 +115,6 @@ function moveDodgerRight() {
 
 }
 
-/**
- * @param {string} p The position property
- * @returns {number} The position as an integer (without 'px')
- */
 function positionToInteger(p) {
   return parseInt(p.split('px')[0]) || 0
 }
