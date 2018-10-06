@@ -40,13 +40,14 @@ function checkCollision(rock) {
                
     if ((rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge) || (rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge) || (rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge))
     {
-    return false
-    }
-    else{
-      
       return true
-      
     }
+    else
+    {
+      return false
+    }
+      
+    
   }
 }
 
@@ -94,7 +95,7 @@ function createRock(x) {
      */
      
      if (top >= GAME_HEIGHT) {
-      rock.remove();
+       GAME.removeChild(rock);
      }
      
      else if (checkCollision(rock)) {
@@ -110,13 +111,15 @@ function createRock(x) {
     
   }
 
-   // We should kick of the animation of the rock around here	
-    window.requestAnimationFrame(moveRock);
+   	
+    
       
       
       
       
   // We should kick of the animation of the rock around here
+  
+  window.requestAnimationFrame(moveRock);
 
   // Add the rock to ROCKS so that we can remove all rocks
   // when there's a collision
@@ -134,14 +137,15 @@ function createRock(x) {
  */
 function endGame() {
   
+ clearInterval(gameInterval);
+  
   document.removeEventListener('keydown', moveDodger);
   
-   ROCKS.forEach(function(rock){
-    rock.remove();
-   
-});
-
-alert("YOU LOSE!");
+ for (var i=0; i<ROCKS.length; i++){
+    ROCKS[i].remove();
+  }
+  window.removeEventListener('keydown', moveDodger);
+  alert("YOU LOSE!");
 }
 
 
@@ -170,19 +174,18 @@ function moveDodgerLeft() {
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
    
-var move = 5;
-function stepLeft() {
+var left = positionToInteger(DODGER.style.left);
+ 
+ function stepLeft()
+ {
+   DODGER.style.left=`${left-4}px`;
+ }
+ 
+ if (left > 0 )
+ {
+window.requestAnimationFrame(stepLeft);
+}
 
-if (positionToInteger(DODGER.style.left) > 0) 
-{
-  DODGER.style.left = `${positionToInteger(DODGER.style.left) - 1}px`;
- } 
-else {
-      return
-    }
-     move-- > 0 ? window.requestAnimationFrame(stepLeft) : false;
-  }
-   window.requestAnimationFrame(stepLeft);
 }
 
 function moveDodgerRight() {
@@ -193,20 +196,22 @@ function moveDodgerRight() {
    */
    
    
-var move = 5;
-function stepRight() {
-
-if (positionToInteger(DODGER.style.left) < GAME_WIDTH - 40)
-{
-  DODGER.style.left = `${positionToInteger(DODGER.style.left) +1}px`;
- } 
-else {
-      return
-    }
-     move-- > 0 ? window.requestAnimationFrame(stepRight) : false;
-  }
-   window.requestAnimationFrame(stepRight);
+ var right = positionToInteger(DODGER.style.left);
+ 
+ function stepRight()
+ {
+   DODGER.style.left=`${right + 4}px`;
+ }
+ 
+ if (right < 360 )
+ {
+   
+ window.requestAnimationFrame(stepRight);
+ }
+  
 }
+
+   
 
 /**
  * @param {string} p The position property
