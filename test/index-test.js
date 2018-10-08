@@ -1,327 +1,327 @@
-describe('Rock Dodger', () => {
-  afterEach(function() {
-    expect.restoreSpies()
-  })
+// describe('Rock Dodger', () => {
+//   afterEach(function() {
+//     expect.restoreSpies()
+//   })
 
-  describe('checkCollision(rock)', () => {
-    /**
-     * DODGER starts out at left = 180px
-     */
-    describe('rock is <= 360px from the top of GAME', () => {
-      it('does not collide', () => {
-        let rock = document.createElement('div')
-        rock.className = 'rock'
-        rock.style.top = '2px'
-        rock.style.left = '0px'
+//   describe('checkCollision(rock)', () => {
+//     /**
+//     * DODGER starts out at left = 180px
+//     */
+//     describe('rock is <= 360px from the top of GAME', () => {
+//       it('does not collide', () => {
+//         let rock = document.createElement('div')
+//         rock.className = 'rock'
+//         rock.style.top = '2px'
+//         rock.style.left = '0px'
 
-        expect(checkCollision(rock)).toNotBe(true)
+//         expect(checkCollision(rock)).toNotBe(true)
 
-        rock = null
-      })
-    })
+//         rock = null
+//       })
+//     })
 
-    describe('rock is > 360px from the top of GAME', () => {
-      let rock
+//     describe('rock is > 360px from the top of GAME', () => {
+//       let rock
 
-      beforeEach(() => {
-        rock = document.createElement('div')
-        rock.className = 'rock'
-        rock.style.top = '362px'
-      })
+//       beforeEach(() => {
+//         rock = document.createElement('div')
+//         rock.className = 'rock'
+//         rock.style.top = '362px'
+//       })
 
-      afterEach(() => {
-        rock = null
-      })
+//       afterEach(() => {
+//         rock = null
+//       })
 
-      it('does not collide if not within DODGER\'s bounds', () => {
-        rock.style.left = '0px'
+//       it('does not collide if not within DODGER\'s bounds', () => {
+//         rock.style.left = '0px'
 
-        expect(checkCollision(rock)).toNotBe(true)
-      })
+//         expect(checkCollision(rock)).toNotBe(true)
+//       })
 
-      it("collides if the rock's left edge is <= the DODGER's left edge and the rock's right edge is >= the DODGER's left edge", () => {
-        rock.style.left = '170px'
+//       it("collides if the rock's left edge is <= the DODGER's left edge and the rock's right edge is >= the DODGER's left edge", () => {
+//         rock.style.left = '170px'
 
-        expect(checkCollision(rock)).toBe(true)
-      })
+//         expect(checkCollision(rock)).toBe(true)
+//       })
 
-      it("collides if the rock's left edge is >= the DODGER's left edge and the rock's right edge is <= the DODGER's right edge", () => {
-        rock.style.left = '180px'
+//       it("collides if the rock's left edge is >= the DODGER's left edge and the rock's right edge is <= the DODGER's right edge", () => {
+//         rock.style.left = '180px'
 
-        expect(checkCollision(rock)).toBe(true)
-      })
+//         expect(checkCollision(rock)).toBe(true)
+//       })
 
-      it("collides if the rock's left edge is <= the DODGER's right edge and the rock's right edge is >= the DODGER's right edge", () => {
-        rock.style.left = '219px'
+//       it("collides if the rock's left edge is <= the DODGER's right edge and the rock's right edge is >= the DODGER's right edge", () => {
+//         rock.style.left = '219px'
 
-        expect(checkCollision(rock)).toBe(true)
-      })
-    })
-  })
+//         expect(checkCollision(rock)).toBe(true)
+//       })
+//     })
+//   })
 
-  describe('createRock(x)', () => {
-    let rock, spy
-    beforeEach(() => {
-      // this slight hack lets us run the tests both
-      // in the browser and in jsdom
-      if (typeof window.requestAnimationFrame !== 'undefined') {
-        spy = expect.spyOn(window, 'requestAnimationFrame')
-      } else {
-        spy = window.requestAnimationFrame = expect.createSpy()
-      }
+//   describe('createRock(x)', () => {
+//     let rock, spy
+//     beforeEach(() => {
+//       // this slight hack lets us run the tests both
+//       // in the browser and in jsdom
+//       if (typeof window.requestAnimationFrame !== 'undefined') {
+//         spy = expect.spyOn(window, 'requestAnimationFrame')
+//       } else {
+//         spy = window.requestAnimationFrame = expect.createSpy()
+//       }
 
-      rock = createRock(2)
-    })
+//       rock = createRock(2)
+//     })
 
-    afterEach(() => {
-      rock = null
-      spy = null
-    })
+//     afterEach(() => {
+//       rock = null
+//       spy = null
+//     })
 
-    it('creates a rock with a given `style.left` value', () => {
-      expect(rock.style.left).toEqual('2px')
-    })
+//     it('creates a rock with a given `style.left` value', () => {
+//       expect(rock.style.left).toEqual('2px')
+//     })
 
-    it('calls window.requestAnimationFrame()', () => {
-      expect(spy).toHaveBeenCalled()
-    })
+//     it('calls window.requestAnimationFrame()', () => {
+//       expect(spy).toHaveBeenCalled()
+//     })
 
-    describe('moveRock()', () => {
-      it('checks for a collision', () => {
-        let called = false
+//     describe('moveRock()', () => {
+//       it('checks for a collision', () => {
+//         let called = false
 
-        const spy = expect.spyOn(window, 'checkCollision')
+//         const spy = expect.spyOn(window, 'checkCollision')
 
-        window.requestAnimationFrame = cb => {
-          if (!called) {
-            called = true
-            cb()
-          }
-        }
-
-        createRock(4)
-
-        expect(spy).toHaveBeenCalled()
-      })
-
-      it('ends the game if there is a collision', () => {
-        const spy = expect.spyOn(window, 'endGame')
-        const stub = expect.spyOn(window, 'checkCollision').andReturn(true)
-
-        window.requestAnimationFrame = cb => {
-          cb()
-        }
-
-        createRock(182)
-
-        expect(spy).toHaveBeenCalled()
-
-        window.checkCollision.restore()
-      })
-
-//       it('removes the rock once it falls of the screen', done => {
 //         window.requestAnimationFrame = cb => {
-//           setInterval(cb, 0)
+//           if (!called) {
+//             called = true
+//             cb()
+//           }
 //         }
 
-//         const rock = createRock(2)
-//         const spy = expect.spyOn(rock, 'remove')
+//         createRock(4)
 
-//         // Janky setTimeout to let the rock fall
-//         // off the screen
-//         setTimeout(() => {
-//           expect(spy).toHaveBeenCalled()
-//           done()
-//         }, 50)
+//         expect(spy).toHaveBeenCalled()
 //       })
-    })
-  })
 
-  describe('endGame()', () => {
-    it('clears gameInterval', () => {
-      const spy = expect.spyOn(window, 'clearInterval')
+//       it('ends the game if there is a collision', () => {
+//         const spy = expect.spyOn(window, 'endGame')
+//         const stub = expect.spyOn(window, 'checkCollision').andReturn(true)
 
-      endGame()
+//         window.requestAnimationFrame = cb => {
+//           cb()
+//         }
 
-      expect(spy).toHaveBeenCalled()
-    })
+//         createRock(182)
 
-    it('removes all of the rocks', () => {
-      // noop
-      window.requestAnimationFrame = () => {}
+//         expect(spy).toHaveBeenCalled()
 
-      let spies = []
+//         window.checkCollision.restore()
+//       })
 
-      for (let i = 0; i < 4; i++) {
-        let rock = createRock(i)
+// //       it('removes the rock once it falls of the screen', done => {
+// //         window.requestAnimationFrame = cb => {
+// //           setInterval(cb, 0)
+// //         }
 
-        spies.push(expect.spyOn(rock, 'remove'))
-      }
+// //         const rock = createRock(2)
+// //         const spy = expect.spyOn(rock, 'remove')
 
-      endGame()
+// //         // Janky setTimeout to let the rock fall
+// //         // off the screen
+// //         setTimeout(() => {
+// //           expect(spy).toHaveBeenCalled()
+// //           done()
+// //         }, 50)
+// //       })
+//     })
+//   })
 
-      for (let i = 0; i < 4; i++) {
-        expect(spies[i]).toHaveBeenCalled()
-      }
-    })
+//   describe('endGame()', () => {
+//     it('clears gameInterval', () => {
+//       const spy = expect.spyOn(window, 'clearInterval')
 
-  })
+//       endGame()
 
-  describe('moveDodger(e)', () => {
-    beforeEach(() => {
-      window.requestAnimationFrame = () => {}
-    })
+//       expect(spy).toHaveBeenCalled()
+//     })
 
-    describe('e.which !== LEFT_ARROW && e.which !== RIGHT_ARROW', () => {
-      it('does nothing', () => {
-        const e = {
-          preventDefault: expect.createSpy(),
-          stopPropagation: expect.createSpy(),
-          which: 1
-        }
-        const l = expect.spyOn(window, 'moveDodgerLeft')
-        const r = expect.spyOn(window, 'moveDodgerRight')
+//     it('removes all of the rocks', () => {
+//       // noop
+//       window.requestAnimationFrame = () => {}
 
-        moveDodger(e)
+//       let spies = []
 
-        expect(e.preventDefault).toNotHaveBeenCalled()
-        expect(e.stopPropagation).toNotHaveBeenCalled()
-        expect(l).toNotHaveBeenCalled()
-        expect(r).toNotHaveBeenCalled()
+//       for (let i = 0; i < 4; i++) {
+//         let rock = createRock(i)
 
-        window.moveDodgerLeft.restore()
-        window.moveDodgerRight.restore()
-      })
-    })
+//         spies.push(expect.spyOn(rock, 'remove'))
+//       }
 
-    describe('e.which === LEFT_ARROW', () => {
-      let e, spy
+//       endGame()
 
-      beforeEach(() => {
-        spy = expect.createSpy()
-        e = {
-          preventDefault: () => {},
-          stopPropagation: () => {},
-          which: 37
-        }
-      })
+//       for (let i = 0; i < 4; i++) {
+//         expect(spies[i]).toHaveBeenCalled()
+//       }
+//     })
 
-      it('calls e.preventDefault()', () => {
-        e.preventDefault = spy
+//   })
 
-        moveDodger(e)
+//   describe('moveDodger(e)', () => {
+//     beforeEach(() => {
+//       window.requestAnimationFrame = () => {}
+//     })
 
-        expect(spy).toHaveBeenCalled()
-      })
+//     describe('e.which !== LEFT_ARROW && e.which !== RIGHT_ARROW', () => {
+//       it('does nothing', () => {
+//         const e = {
+//           preventDefault: expect.createSpy(),
+//           stopPropagation: expect.createSpy(),
+//           which: 1
+//         }
+//         const l = expect.spyOn(window, 'moveDodgerLeft')
+//         const r = expect.spyOn(window, 'moveDodgerRight')
 
-      it('calls e.stopPropagation()', () => {
-        e.stopPropagation = spy
+//         moveDodger(e)
 
-        moveDodger(e)
+//         expect(e.preventDefault).toNotHaveBeenCalled()
+//         expect(e.stopPropagation).toNotHaveBeenCalled()
+//         expect(l).toNotHaveBeenCalled()
+//         expect(r).toNotHaveBeenCalled()
 
-        expect(spy).toHaveBeenCalled()
-      })
+//         window.moveDodgerLeft.restore()
+//         window.moveDodgerRight.restore()
+//       })
+//     })
 
-      it('calls moveDodgerLeft()', () => {
-        const f = expect.spyOn(window, 'moveDodgerLeft')
+//     describe('e.which === LEFT_ARROW', () => {
+//       let e, spy
 
-        moveDodger(e)
+//       beforeEach(() => {
+//         spy = expect.createSpy()
+//         e = {
+//           preventDefault: () => {},
+//           stopPropagation: () => {},
+//           which: 37
+//         }
+//       })
 
-        expect(f).toHaveBeenCalled()
+//       it('calls e.preventDefault()', () => {
+//         e.preventDefault = spy
 
-        window.moveDodgerLeft.restore()
-      })
-    })
+//         moveDodger(e)
 
-    describe('e.which === RIGHT_ARROW', () => {
-      let e, spy
+//         expect(spy).toHaveBeenCalled()
+//       })
 
-      beforeEach(() => {
-        spy = expect.createSpy()
-        e = {
-          preventDefault: () => {},
-          stopPropagation: () => {},
-          which: 39
-        }
-      })
+//       it('calls e.stopPropagation()', () => {
+//         e.stopPropagation = spy
 
-      it('calls e.preventDefault()', () => {
-        e.preventDefault = spy
+//         moveDodger(e)
 
-        moveDodger(e)
+//         expect(spy).toHaveBeenCalled()
+//       })
 
-        expect(spy).toHaveBeenCalled()
-      })
+//       it('calls moveDodgerLeft()', () => {
+//         const f = expect.spyOn(window, 'moveDodgerLeft')
 
-      it('calls e.stopPropagation()', () => {
-        e.stopPropagation = spy
+//         moveDodger(e)
 
-        moveDodger(e)
+//         expect(f).toHaveBeenCalled()
 
-        expect(spy).toHaveBeenCalled()
-      })
+//         window.moveDodgerLeft.restore()
+//       })
+//     })
 
-      it('calls moveDodgerRight()', () => {
-        const f = expect.spyOn(window, 'moveDodgerRight')
+//     describe('e.which === RIGHT_ARROW', () => {
+//       let e, spy
 
-        moveDodger(e)
+//       beforeEach(() => {
+//         spy = expect.createSpy()
+//         e = {
+//           preventDefault: () => {},
+//           stopPropagation: () => {},
+//           which: 39
+//         }
+//       })
 
-        expect(f).toHaveBeenCalled()
+//       it('calls e.preventDefault()', () => {
+//         e.preventDefault = spy
 
-        window.moveDodgerRight.restore()
-      })
-    })
-  })
+//         moveDodger(e)
 
-  describe('moveDodgerLeft()', () => {
-    beforeEach(() => {
-      dodger = document.getElementById('dodger')
+//         expect(spy).toHaveBeenCalled()
+//       })
 
-      window.requestAnimationFrame = cb => {
-        cb()
-      }
-    })
+//       it('calls e.stopPropagation()', () => {
+//         e.stopPropagation = spy
 
-    it('moves the DODGER to the left', () => {
-      const left = positionToInteger(dodger.style.left)
+//         moveDodger(e)
 
-      moveDodgerLeft()
+//         expect(spy).toHaveBeenCalled()
+//       })
 
-      expect(positionToInteger(dodger.style.left)).toBeLessThan(left)
-    })
+//       it('calls moveDodgerRight()', () => {
+//         const f = expect.spyOn(window, 'moveDodgerRight')
 
-    it('does not move the DODGER left if the DODGER\'s left edge already touches the left edge of GAME', () => {
-      dodger.style.left = '0px'
+//         moveDodger(e)
 
-      moveDodgerLeft()
+//         expect(f).toHaveBeenCalled()
 
-      expect(dodger.style.left).toEqual('0px')
-    })
-  })
+//         window.moveDodgerRight.restore()
+//       })
+//     })
+//   })
 
-  describe('moveDodgerRight', () => {
-    beforeEach(() => {
-      dodger = document.getElementById('dodger')
+//   describe('moveDodgerLeft()', () => {
+//     beforeEach(() => {
+//       dodger = document.getElementById('dodger')
 
-      window.requestAnimationFrame = cb => {
-        cb()
-      }
-    })
+//       window.requestAnimationFrame = cb => {
+//         cb()
+//       }
+//     })
 
-    it('moves the DODGER to the right', () => {
-      const left = positionToInteger(dodger.style.left)
+//     it('moves the DODGER to the left', () => {
+//       const left = positionToInteger(dodger.style.left)
 
-      moveDodgerRight()
+//       moveDodgerLeft()
 
-      expect(positionToInteger(dodger.style.left)).toBeGreaterThan(left)
-    })
+//       expect(positionToInteger(dodger.style.left)).toBeLessThan(left)
+//     })
 
-    it('does not move the DODGER left if the DODGER\'s right edge already touches the right edge of GAME', () => {
-      dodger.style.left = '360px'
+//     it('does not move the DODGER left if the DODGER\'s left edge already touches the left edge of GAME', () => {
+//       dodger.style.left = '0px'
 
-      moveDodgerRight()
+//       moveDodgerLeft()
 
-      expect(dodger.style.left).toEqual('360px')
-    })
-  })
-})
+//       expect(dodger.style.left).toEqual('0px')
+//     })
+//   })
+
+//   describe('moveDodgerRight', () => {
+//     beforeEach(() => {
+//       dodger = document.getElementById('dodger')
+
+//       window.requestAnimationFrame = cb => {
+//         cb()
+//       }
+//     })
+
+//     it('moves the DODGER to the right', () => {
+//       const left = positionToInteger(dodger.style.left)
+
+//       moveDodgerRight()
+
+//       expect(positionToInteger(dodger.style.left)).toBeGreaterThan(left)
+//     })
+
+//     it('does not move the DODGER left if the DODGER\'s right edge already touches the right edge of GAME', () => {
+//       dodger.style.left = '360px'
+
+//       moveDodgerRight()
+
+//       expect(dodger.style.left).toEqual('360px')
+//     })
+//   })
+// })
