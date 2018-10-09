@@ -102,10 +102,43 @@ function createRock(x) {
  * Finally, alert "YOU LOSE!" to the player.
  */
 function endGame() {
-}
+   ROCKS.forEach(function(rock) { rock.remove()})
+
+   clearInterval(gameInterval);
+  }
 
 function moveDodger(e) {
-  // implement me!
+  if(e.which ===LEFT_ARROW) {
+    e.preventDefault()
+    e.stopPropagation()
+  }
+  if(e.which === RIGHT_ARROW) {
+    e.preventDefault()
+    e.stopPropagation()
+  }
+
+        // if (e.which !== LEFT_ARROW && e.which !== RIGHT_ARROW) {
+        //
+        //
+        // }
+    // else if (e.which === RIGHT_ARROW) {
+    //     e.preventDefault()
+    //     e.stopPropagation()
+    //     moveDodgerRight()
+    // }
+  }
+
+  function moveDodgerLeft() {
+    const left = positionToInteger(DODGER.style.left)
+    if (left > 0) {
+      dodger.style.left= `${left - 4}px`
+      window.requestAnimationFrame(moveDodgerLeft)
+     }
+
+   }
+
+
+
   /**
    * This function should call `moveDodgerLeft()`
    * if the left arrow is pressed and `moveDodgerRight()`
@@ -113,18 +146,14 @@ function moveDodger(e) {
    * we've declared for you above.)
    * And be sure to use the functions declared below!
    */
-}
 
-function moveDodgerLeft() {
-  // implement me!
-  /**
-   * This function should move DODGER to the left
-   * (mabye 4 pixels?). Use window.requestAnimationFrame()!
-   */
-}
 
 function moveDodgerRight() {
-  // implement me!
+  const left = positionToInteger(DODGER.style.left)
+  if (left < GAME_WIDTH - 40){
+    dodger.style.left = `${left + 4}px`
+    window.requestAnimationFrame(moveDodgerRight)
+  }// implement me!
   /**
    * This function should move DODGER to the right
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
