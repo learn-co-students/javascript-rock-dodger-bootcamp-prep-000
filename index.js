@@ -18,6 +18,7 @@ var gameInterval = null
  */
 
 function checkCollision(rock) {
+  
   // implement me!
   // use the comments below to guide you!
   const top = positionToInteger(rock.style.top)
@@ -29,14 +30,14 @@ function checkCollision(rock) {
     const dodgerLeftEdge = positionToInteger(DODGER.style.left)
 
     // FIXME: The DODGER is 40 pixels wide -- how do we get the right edge?
-    const dodgerRightEdge = 0;
+    const dodgerRightEdge = positionToInteger(DODGER.style.right)
 
     const rockLeftEdge = positionToInteger(rock.style.left)
 
     // FIXME: The rock is 20 pixel's wide -- how do we get the right edge?
-    const rockRightEdge = 0;
+    const rockRightEdge = positionToInteger(rock.style.right)
 
-    if (false /**
+    /** if (false 
                * Think about it -- what's happening here?
                * There's been a collision if one of three things is true:
                * 1. The rock's left edge is < the DODGER's left edge,
@@ -45,7 +46,13 @@ function checkCollision(rock) {
                *    and the rock's right edge is < the DODGER's right edge;
                * 3. The rock's left edge is < the DODGER's right edge,
                *    and the rock's right edge is > the DODGER's right edge
-               */) {
+               ) */ if (false === rock){
+                 rockLeftEdge < dodgerLeftEdge && rockRightEdge > dodgerLeftEdge ||
+                 rockLeftEdge > dodgerLeftEdge && rockRightEdge < dodgerRightEdge ||
+                 rockLeftEdge < dodgerLeftEdge && rockRightEdge > dodgeRightEdge
+                   
+                 
+                 
       return true
     }
   }
@@ -58,7 +65,7 @@ function createRock(x) {
   rock.style.left = `${x}px`
 
   // Hmmm, why would we have used `var` here?
-  var top = 0
+  var top = -100;
 
   rock.style.top = top
 
@@ -66,13 +73,39 @@ function createRock(x) {
    * Now that we have a rock, we'll need to append
    * it to GAME and move it downwards.
    */
+  GAME.appendChild(rock);
 
+
+function moveRockBottom() {
+  var rockPosition = gameInterval;
+  var id = setInterval(frame, 10);
+  function frame() {
+    if (rockPosition == 380) {
+      clearInterval(id);
+    } else {
+      rockPosition++;
+      rock.style.top = rockPosition + 'px';
+    }
+  }
+  /* var bottomNumbers = rock.style.left.replace('px', ' ')
+  var bottom = parseInt(bottomNumbers, 10)
+  
+ 
+    if (bottom > 0) {
+      rock.style.left = `${bottom + 2}px` 
+      window.requestAnimationFrame(moveRock)
+    } */
+} 
 
   /**
    * This function moves the rock. (2 pixels at a time
    * seems like a good pace.)
    */
-  function moveRock() {
+function moveRock() {
+
+ moveRockBottom() 
+
+    
     // implement me!
     // (use the comments below to guide you!)
     /**
@@ -92,6 +125,8 @@ function createRock(x) {
   }
 
   // We should kick of the animation of the rock around here
+  
+window.requestAnimationFrame(moveRock)
 
   // Add the rock to ROCKS so that we can remove all rocks
   // when there's a collision
@@ -99,7 +134,7 @@ function createRock(x) {
 
   // Finally, return the rock element you've created
   return rock
-}
+} createRock() // calling the rock function so I can see it
 
 /**
  * End the game by clearing `gameInterval`,
@@ -110,7 +145,18 @@ function createRock(x) {
 function endGame() {
 }
 
-function moveDodger(e) {
+function moveDodger(e) { 
+document.addEventListener( 'keydown', function(e) {
+  if (e.which === 37) {
+    moveDodgerLeft();
+  }
+  
+  if (e.which === 39) {
+    moveDodgerRight()
+  }
+})}
+
+  
   // implement me!
   /**
    * This function should call `moveDodgerLeft()`
@@ -119,23 +165,46 @@ function moveDodger(e) {
    * we've declared for you above.)
    * And be sure to use the functions declared below!
    */
-}
+
 
 function moveDodgerLeft() {
+    var leftNumbers = DODGER.style.left.replace('px', ' ') 
+    var left = parseInt(leftNumbers, 10)
+    
+    function step() {
+      if (left > 0) {
+        DODGER.style.left = `${left - 6}px`
+        window.requestAnimationFrame(step)
+      }
+    }
+    window.requestAnimationFrame(step)
+  }
   // implement me!
   /**
    * This function should move DODGER to the left
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
-}
+
 
 function moveDodgerRight() {
+  var rightNumbers = DODGER.style.left.replace('px', ' ')
+  var right = parseInt(rightNumbers, 10)
+  
+  function step() {
+    if (right > 0) {
+      DODGER.style.left = `${right + 6}px`
+      window.requestAnimationFrame(step)
+    }
+  }
+  window.requestAnimationFrame(step)
+}
+
   // implement me!
   /**
    * This function should move DODGER to the right
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
-}
+
 
 /**
  * @param {string} p The position property
@@ -154,3 +223,5 @@ function start() {
     createRock(Math.floor(Math.random() *  (GAME_WIDTH - 20)))
   }, 1000)
 }
+
+
