@@ -78,33 +78,40 @@ function createRock(x) {
    * seems like a good pace.)
    */
   function moveRock() {
+    rock.style.top = `${top += 6}px`;
+
     // implement me!
     // (use the comments below to guide you!)
     /**
      * If a rock collides with the DODGER,
      * we should call endGame()
      */
-    if (checkCollision(rock)) {
-      return endGame()
-    }
 
     /**
      * Otherwise, if the rock hasn't reached the bottom of
      * the GAME, we want to move it again.
      */
-    if (top < GAME_HEIGHT) {
-      rock.style.top = `${top += 6}px`
-    } else {
+
     /**
      * But if the rock *has* reached the bottom of the GAME,
      * we should remove the rock from the DOM
      */
+
+
+
+    if (checkCollision(rock)) {
+      endGame()
+    } else if (top < GAME_HEIGHT) {
+      window.requestAnimationFrame(moveRock)
+    } else {
       rock.remove()
     }
+
   }
 
+
   // We should kick of the animation of the rock around here
-  setInterval(moveRock, 100)
+  window.requestAnimationFrame(moveRock)
   // Add the rock to ROCKS so that we can remove all rocks
   // when there's a collision
   ROCKS.push(rock)
@@ -124,7 +131,9 @@ function endGame() {
   for (i=0; i< ROCKS.length; i++) {
     ROCKS[i].remove()
   }
-  alert("YOU LOSE!")
+  //remove event listener
+  window.removeEventListener('keydown', moveDodger)
+  window.alert("YOU LOSE!")
 }
 
 function moveDodger(e) {
@@ -157,7 +166,6 @@ function moveDodgerLeft() {
   var leftDodgerEdge = positionToInteger(DODGER.style.left);
 
   function step () {
-    //console.log(leftDodgerEdge);
     if (leftDodgerEdge > 0) {
       DODGER.style.left = `${leftDodgerEdge - 4}px`
     }
@@ -197,7 +205,6 @@ function start() {
   window.addEventListener('keydown', moveDodger)
 
   START.style.display = 'none'
-  //createRock(Math.floor(Math.random() *  (GAME_WIDTH - 20)))
   gameInterval = setInterval(function() {
     createRock(Math.floor(Math.random() *  (GAME_WIDTH - 20)))
   }, 1000)
