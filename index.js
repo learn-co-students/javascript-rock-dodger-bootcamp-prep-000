@@ -10,7 +10,7 @@ const RIGHT_ARROW = 39 // use e.which!
 const ROCKS = []
 const START = document.getElementById('start')
 
-var gameInterval = null
+var gameInterval = null;
 
 /**
  * Be aware of what's above this line,
@@ -60,20 +60,13 @@ function createRock(x) {
 
   // Hmmm, why would we have used `var` here?
   /// bc we need 'top' to represent an integer.
-  var top = 0;
-
-  rock.style.top = top;
-
+  var top = rock.style.top = 0;
   /**
    * Now that we have a rock, we'll need to append
    * it to GAME and move it downwards.
    */
-
-// var GAME = document.querySelector('#game');
-const GAME = document.getElementById('game');
-rock.appendChild('game');
-
-
+//const GAME = document.getElementById('game');
+ //GAME.appendChild(rock);
   /**
    * This function moves the rock. (2 pixels at a time
    * seems like a good pace.)
@@ -85,7 +78,10 @@ rock.appendChild('game');
      * If a rock collides with the DODGER,
      * we should call endGame()
      */
-
+  if (checkCollision(rock)) {
+  return endGame();
+  }
+    
     /**
      * Otherwise, if the rock hasn't reached the bottom of
      * the GAME, we want to move it again.
@@ -104,6 +100,7 @@ rock.appendChild('game');
   ROCKS.push(rock)
 
   // Finally, return the rock element you've created
+  window.requestAnimationFrame(moveRock);
   return rock
 }
 
@@ -114,9 +111,31 @@ rock.appendChild('game');
  * Finally, alert "YOU LOSE!" to the player.
  */
 function endGame() {
+  clearInterval(gameInterval);
+  //ROCKS.length = 0;
+  const rock = document.createElement('div');
+  //rock.remove();
+  for (var i = 0; i < ROCKS.length; i++) {
+    ROCKS[i].remove();
+}
+  alert ("YOU LOSE!");
 }
 
 function moveDodger(e) {
+  //e.preventDefault();
+  if (e.which !== 37 && e.which !== 39) {
+    //moveDodgerLeft();
+  }
+  if (e.which === 37) {
+    e.stopPropagation();
+    e.preventDefault();
+    moveDodgerLeft();
+  }
+  if (e.which === 39) {
+    moveDodgerRight();
+    e.stopPropagation();
+    e.preventDefault();
+  }
   // implement me!
   /**
    * This function should call `moveDodgerLeft()`
@@ -133,6 +152,15 @@ function moveDodgerLeft() {
    * This function should move DODGER to the left
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
+  //var dodger = positionToInteger(dodger.style.left);
+  //     expect(positionToInteger(dodger.style.left)).toBeLessThan(left)
+  const left = positionToInteger(dodger.style.left);
+  function almost() {
+    dodger.style.left = `${left - 4}px`;
+  }
+    if (left > 0) {
+  window.requestAnimationFrame(almost);
+    }
 }
 
 function moveDodgerRight() {
@@ -141,6 +169,17 @@ function moveDodgerRight() {
    * This function should move DODGER to the right
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
+   //DODGER.style.right = `${right += 4}px`;
+   //window.requestAnimationFrame(moveDodgerRight);
+  const left = positionToInteger(dodger.style.left);
+  function done() {
+    dodger.style.left = `${left + 4}px`;
+  }
+  if (left < 360) {
+    window.requestAnimationFrame(done);
+}
+  //     moveDodgerRight()
+  //     expect(positionToInteger(dodger.style.left)).toBeGreaterThan(left)
 }
 
 /**
