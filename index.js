@@ -84,14 +84,13 @@ function createRock(x) {
      * we should call endGame()
      */
      if(checkCollision(rock)) {
-       endGame();
-       return null
+       return endGame();
      }
     /**
      * Otherwise, if the rock hasn't reached the bottom of
      * the GAME, we want to move it again.
      */
-     if(top < (GAME_HEIGHT - 20)) {
+     if(top < GAME_HEIGHT) {
        window.requestAnimationFrame(moveRock);
      }
     /**
@@ -127,7 +126,11 @@ function endGame() {
   }
 
   window.removeEventListener('keydown', moveDodger);
-  window.alert("YOU LOSE!");
+
+  START.innerHTML = "Play again?"
+  START.style.display = 'inline'
+  
+  return alert("YOU LOSE!");
 }
 
 function moveDodger(e) {
