@@ -182,7 +182,7 @@ function moveDodgerRight() {
      }
    })
 
-}
+
 
 /**
  * @param {string} p The position property
