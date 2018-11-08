@@ -123,6 +123,10 @@ function endGame() {
     element.remove()
   })
   window.removeEventListener('keydown', moveDodger);
+  
+  START.innerHTML = 'Play again?'
+  START.style.display = 'inline'
+
   alert("YOU LOSE!");
 }
 
