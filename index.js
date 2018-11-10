@@ -69,8 +69,7 @@ function createRock(x) {
    * it to GAME and move it downwards.
    */
   GAME.appendChild(rock)
-  moveRock(rock)
-  return rock
+  
 
   /**
    * This function moves the rock. (2 pixels at a time
@@ -79,17 +78,22 @@ function createRock(x) {
   function moveRock() {
     // implement me!
     // (use the comments below to guide you!)
-
-    if (checkCollision() === true) {
-      endGame()
+      rock.style.top = `${top += 2}px`
+    if (checkCollision(rock) === true) {
+      return endGame()
     }
     /**
      * If a rock collides with the DODGER,
      * we should call endGame()
      */
-    else if (rock.style.top > 380){
+    if (rock.style.top < 380){
+    window.requestAnimationFrame(moveRock)
+    } else {
+      rock.remove()
       
     }
+    
+    
     /**
      * Otherwise, if the rock hasn't reached the bottom of
      * the GAME, we want to move it again.
@@ -105,6 +109,7 @@ function createRock(x) {
 
   // Add the rock to ROCKS so that we can remove all rocks
   // when there's a collision
+  window.requestAnimationFrame(moveRock)
   ROCKS.push(rock)
 
   // Finally, return the rock element you've created
@@ -119,8 +124,8 @@ function createRock(x) {
  */
 function endGame() {
   clearInterval(gameInterval)
-  ROCKS.length = 0
-  
+  ROCKS.forEach(function(rock){rock.remove()});
+  document.removeEventListener('keydown', moveDodger)
   alert("YOU LOSE!")
 }
 
@@ -164,7 +169,7 @@ function moveDodgerRight() {
   var rightNumbers = dodger.style.left.replace('px', '')
   var right = parseInt(rightNumbers, 10)
  function step() {
-   dodger.style.left = `${right + 4}px`
+   dodger.style.left = `${right + 4}px`;
  } 
   if (right < 360) {
     window.requestAnimationFrame(step)
