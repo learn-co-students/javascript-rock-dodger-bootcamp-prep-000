@@ -29,16 +29,16 @@ function checkCollision(rock) {
     const dodgerLeftEdge = positionToInteger(DODGER.style.left)
 
     // FIXME: The DODGER is 40 pixels wide -- how do we get the right edge?
-    const dodgerRightEdge = positionToInteger(DODGER.style.left + 40);
+    const dodgerRightEdge = dodgerLeftEdge + 40;
 
     const rockLeftEdge = positionToInteger(rock.style.left)
 
     // FIXME: The rock is 20 pixel's wide -- how do we get the right edge?
-    const rockRightEdge = positionToInteger(rock.style.left + 20);
+    const rockRightEdge = rockLeftEdge + 20;
 
-    return ((rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge)||
-        (rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge)||
-        (rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge))
+    return rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge||
+        rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge||
+        rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge
       
               /**
                * Think about it -- what's happening here?
@@ -63,12 +63,14 @@ function createRock(x) {
   var top = 0
 
   rock.style.top = top
-
+  
   /**
    * Now that we have a rock, we'll need to append
    * it to GAME and move it downwards.
    */
-
+  GAME.appendChild(rock)
+  moveRock(rock)
+  return rock
 
   /**
    * This function moves the rock. (2 pixels at a time
@@ -118,15 +120,19 @@ function createRock(x) {
 function endGame() {
   clearInterval(gameInterval)
   ROCKS.length = 0
-
+  
   alert("YOU LOSE!")
 }
 
 function moveDodger(e) {
   if (e.which === LEFT_ARROW) {
+    e.preventDefault()
     moveDodgerLeft()
+    e.stopPropagation()
   } else if (e.which === RIGHT_ARROW) {
+    e.preventDefault()
     moveDodgerRight()
+    e.stopPropagation()
   }
   }
   // implement me!
