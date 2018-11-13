@@ -37,11 +37,11 @@ function checkCollision(rock) {
     const rockRightEdge = rockLeftEdge + 20;
 
     if (
-      (rockLeftEdge < dodgerLeftEdge && rockRightEdge > dodgerLeftEdge) 
+      (rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge) 
       || 
-      (rockLeftEdge > dodgerLeftEdge && rockRightEdge < dodgerRightEdge)
+      (rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge)
       || 
-      (rockLeftEdge < dodgerRightEdge && rockRightEdge > dodgerRightEdge)) 
+      (rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge)) 
       {
       return true
       }
@@ -55,7 +55,7 @@ function createRock(x) {
   rock.style.left = `${x}px`;
 
   // Hmmm, why would we have used `var` here?
-  var top = 0;
+  var top = rock.style.top = 0
   
   /**
    * Now that we have a rock, we'll need to append
@@ -76,7 +76,7 @@ function createRock(x) {
     rock.style.top = `${top += 2}px`;
     
     if (checkCollision(rock)) {
-      endGame();
+      return endGame();
     }
     /**
      * Otherwise, if the rock hasn't reached the bottom of
@@ -146,8 +146,17 @@ function moveDodgerLeft() {
    * This function should move DODGER to the left
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
+  var left = positionToInteger(DODGER.style.left);
+ 
+  function stepLeft()
+   {
+     DODGER.style.left=`${left -= 4}px`;
+   }
    
-   
+   if (left > 0)
+   {
+  window.requestAnimationFrame(stepLeft);
+  }
 }
 
 function moveDodgerRight() {
@@ -156,6 +165,17 @@ function moveDodgerRight() {
    * This function should move DODGER to the right
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
+  var right = positionToInteger(DODGER.style.left);
+ 
+  function stepRight()
+   {
+     DODGER.style.left=`${right += 4}px`;
+   }
+   
+   if (right < 360)
+   {
+  window.requestAnimationFrame(stepRight);
+  }
 }
 
 /**
