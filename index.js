@@ -26,15 +26,9 @@ function checkCollision(rock) {
   const rockRightEdge = positionToInteger(rock.style.left) + 20;
  
   if ((top > 360) &&
-     (rockLeftEdge <= dodgerLeftEdge) && (rockRightEdge >= dodgerLeftEdge)) {
-     return true
-     }
-  else if ((top > 360) &&
-      (rockLeftEdge >= dodgerLeftEdge) && (rockRightEdge <= dodgerRightEdge)) {
-      return true
-      }
-  else if ((top > 360) &&
-      (rockLeftEdge <= dodgerRightEdge) && (rockRightEdge >= dodgerRightEdge)) {
+     ((rockLeftEdge <= dodgerLeftEdge) && (rockRightEdge >= dodgerLeftEdge) ||
+      (rockLeftEdge >= dodgerLeftEdge) && (rockRightEdge <= dodgerRightEdge) ||
+      (rockLeftEdge <= dodgerRightEdge) && (rockRightEdge >= dodgerRightEdge))) {
       return true
     } 
   else return     
@@ -43,42 +37,34 @@ function checkCollision(rock) {
 
 
 function createRock(x) {
-  var rock = document.createElement('div')
+  const rock = document.createElement('div')
+
   rock.className = 'rock'
-  rock.style.top = '2px';
   rock.style.left = `${x}px`
-  
-  GAME.appendChild(rock);
-  
-  moveRock(rock);
-  
-  return rock;
-  
-}
-  
-  
 
+  var top = rock.style.top = 0
 
-function moveRock(rock) {
-  var top = 0;  
-  
-  function step() {
+  GAME.appendChild(rock)
+
+  function moveRock() {
     rock.style.top = `${top += 2}px`;
-    window.requestAnimationFrame(step);
-      }
-  
-  window.requestAnimationFrame(step);
-  
-  if (checkCollision(rock)) {
-    endGame();
-  }
-  
-  ROCKS.push(rock);
-  
-  if (top > 379) {
-     rock.remove();
+
+    if (checkCollision(rock)) {
+      return endGame()
+    }
+
+    if (top < GAME_HEIGHT) {
+      window.requestAnimationFrame(moveRock)
+    } else {
+      rock.remove()
+    }
   }
 
+  window.requestAnimationFrame(moveRock)
+
+  ROCKS.push(rock)
+
+  return rock
 }
 
 function endGame() {
@@ -92,14 +78,8 @@ function endGame() {
     GAME.children[i].remove()
   }
   
-  window.removeEventListener('keydown', function(e) {
-      if (e.which === LEFT_ARROW) {
-      moveDodgerLeft();
-      }
-      else if (e.which === RIGHT_ARROW) {
-      moveDodgerRight();
-    }
-  });
+  window.removeEventListener('keydown', moveDodger)
+     
   
   return alert("YOU LOSE!")
 }
@@ -107,7 +87,11 @@ function endGame() {
 
 function moveDodger(e) {
   
-  window.addEventListener('keydown', function(e) {
+  if ([LEFT_ARROW, RIGHT_ARROW].indexOf(e.which) > -1) {
+    e.preventDefault();
+    e.stopPropagation();
+  }
+  
     if (e.which === LEFT_ARROW) {
      
       moveDodgerLeft();
@@ -118,8 +102,8 @@ function moveDodger(e) {
      moveDodgerRight();
      
     }
-    e.stopPropagation();
-  })
+   
+  
   
 }
 
