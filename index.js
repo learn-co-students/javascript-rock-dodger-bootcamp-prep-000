@@ -81,7 +81,7 @@ function createRock(x) {
      * we should call endGame()
      */
      let rockTopPos = positionToInteger(rock.style.top)
-     rockTopPos += 20
+     rockTopPos += 2
      rock.style.top = `${rockTopPos}px`;
 
      if(checkCollision(rock)) {
@@ -90,9 +90,9 @@ function createRock(x) {
 
 
     if (rockTopPos >=400) {
-      //ROCKS.shift();
+      ROCKS.shift();
       rock.remove();
-      //clearInterval(rock.rockInterval);
+      clearInterval(rock.rockInterval);
     } else {
       window.requestAnimationFrame(moveRock);
     }
