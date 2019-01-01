@@ -1,8 +1,6 @@
-/**
- * Don't change these constants!
- */
+
 const DODGER = document.getElementById('dodger')
-const DODGER_WIDTH=40        
+const DODGER_WIDTH=40
 const GAME = document.getElementById('game')
 const GAME_HEIGHT = 400
 const GAME_WIDTH = 400
@@ -13,21 +11,8 @@ const START = document.getElementById('start')
 
 var gameInterval = null
 
-/**
- * Be aware of what's above this line,
- * but all of your work should happen below.
- */
-
-
-
-
-
-
-
 
 function checkCollision(rock) {
-  // implement me!
-  // use the comments below to guide you!
   const top = positionToInteger(rock.style.top)
 
   // rocks are 20px high
@@ -35,15 +20,9 @@ function checkCollision(rock) {
   // GAME_HEIGHT - 20 - 20 = 360px;
   if (top > 360) {
     const dodgerLeftEdge = positionToInteger(DODGER.style.left)
-
-    // FIXME: The DODGER is 40 pixels wide -- how do we get the right edge?
     const dodgerRightEdge = dodgerLeftEdge+40;
-
     const rockLeftEdge = positionToInteger(rock.style.left)
-
-    // FIXME: The rock is 20 pixel's wide -- how do we get the right edge?
     const rockRightEdge = rockLeftEdge+20;
-
 
     if ((rockRightEdge > dodgerLeftEdge) && ((rockRightEdge-dodgerLeftEdge)<60)) {
       rock.remove()
@@ -56,45 +35,22 @@ function checkCollision(rock) {
 }
 
 
-
-
-
-
-
-
-
-
-
 function createRock(x) {
-  console.log('hello you')
   const rock = document.createElement('div')
   GAME.append(rock)
-  
   rock.className = 'rock'
-  rock.style.left = `${x}px`  //left side of rock assigned to parameter into function
-  
-
-
-  // Hmmm, why would we have used `var` here?  We need to reassign a new top for each new rock so they all start at the top.
+  rock.style.left = `${x}px`
   var top = 0
   rock.style.top = top
-  //ROCKS=[rock]
   moveRock(rock)
-  
-  
-  /*
-   * Now that we have a rock, we'll need to append
-   * it to GAME and move it downwards.
-   */
+}
 
-}  
-  
-  
-  
-  
 
-  
-  
+
+
+
+
+
 
 
 
@@ -102,28 +58,28 @@ function createRock(x) {
    * This function moves the rock. (2 pixels at a time
    * seems like a good pace.)
    */
- 
- 
- 
-/* 
- 
+
+
+
+/*
+
 function moveRock() {
   rockInterval = setInterval(function() {
     var top=parseInt(rock.style.top.split('px',1))+2
     if (top<379) {
-      rock.style.top=`${top+2}px`   
-    } 
+      rock.style.top=`${top+2}px`
+    }
     else {
       clearInterval(rockInterval)
     }
    }, 10)
  }
- 
- */
- 
- 
 
- 
+ */
+
+
+
+
 function moveRock(movingRock) {
     // implement me!
     // (use the comments below to guide you!)
@@ -148,8 +104,8 @@ function moveRock(movingRock) {
   rockInterval = setInterval(function() {
     var top=parseInt(rock.style.top.split('px',1))+2
     if ((top<(GAME_HEIGHT-20)) && (!checkCollision(rock))) {
-      rock.style.top=`${top+2}px`   
-    } 
+      rock.style.top=`${top+2}px`
+    }
     else if (checkCollision(rock)) {
       clearInterval(rockInterval)
       //console.log('cleared') ----->rock interval cleared!!
@@ -161,7 +117,7 @@ function moveRock(movingRock) {
       rock.remove()
       //ROCKS.pop()
     }
-   }, 4)  
+   }, 4)
 
   //ROCKS.push(rock)
   //return rock
@@ -170,7 +126,7 @@ function moveRock(movingRock) {
 
   // Add the rock to ROCKS so that we can remove all rocks
   // when there's a collision
- 
+
 
   // Finally, return the rock element you've created
 
@@ -210,8 +166,8 @@ function moveDodger(e) {
    * we've declared for you above.)
    * And be sure to use the functions declared below!
    */
-  
-   
+
+
    if (e.which===LEFT_ARROW) {
      e.preventDefault()
      moveDodgerLeft()
@@ -232,8 +188,8 @@ function moveDodgerLeft() {
    * This function should move DODGER to the left
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
-   
-   
+
+
   var left = positionToInteger(DODGER.style.left)  //current left edge of dodger
 
   function step() {
@@ -261,7 +217,7 @@ function moveDodgerRight() {
     if (left < ((GAME_WIDTH-DODGER_WIDTH)-3)) {
       DODGER.style.left = `${left += 4}px`
       window.requestAnimationFrame(step)
-    } 
+    }
   }
   window.requestAnimationFrame(step)
 }
@@ -288,7 +244,3 @@ function start() {
     createRock(Math.floor(Math.random() *  (GAME_WIDTH - 20)))
   }, 1000)
 }
-
-
-
-
