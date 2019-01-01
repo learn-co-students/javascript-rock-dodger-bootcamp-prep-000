@@ -15,9 +15,6 @@ var gameInterval = null
 function checkCollision(rock) {
   const top = positionToInteger(rock.style.top)
 
-  // rocks are 20px high
-  // DODGER is 20px high
-  // GAME_HEIGHT - 20 - 20 = 360px;
   if (top > 360) {
     const dodgerLeftEdge = positionToInteger(DODGER.style.left)
     const dodgerRightEdge = dodgerLeftEdge+40;
@@ -48,59 +45,8 @@ function createRock(x) {
 
 
 
-
-
-
-
-
-
-  /**
-   * This function moves the rock. (2 pixels at a time
-   * seems like a good pace.)
-   */
-
-
-
-/*
-
-function moveRock() {
-  rockInterval = setInterval(function() {
-    var top=parseInt(rock.style.top.split('px',1))+2
-    if (top<379) {
-      rock.style.top=`${top+2}px`
-    }
-    else {
-      clearInterval(rockInterval)
-    }
-   }, 10)
- }
-
- */
-
-
-
-
 function moveRock(movingRock) {
-    // implement me!
-    // (use the comments below to guide you!)
-    /**
-     * If a rock collides with the DODGER,
-     * we should call endGame()
-     */
-
-    /**
-     * Otherwise, if the rock hasn't reached the bottom of
-     * the GAME, we want to move it again.
-     */
-
-
-    /**
-     * But if the rock *has* reached the bottom of the GAME,
-     * we should remove the rock from the DOM
-     */
-
   var rock=movingRock
-
   rockInterval = setInterval(function() {
     var top=parseInt(rock.style.top.split('px',1))+2
     if ((top<(GAME_HEIGHT-20)) && (!checkCollision(rock))) {
@@ -108,47 +54,19 @@ function moveRock(movingRock) {
     }
     else if (checkCollision(rock)) {
       clearInterval(rockInterval)
-      //console.log('cleared') ----->rock interval cleared!!
       endGame()
-      //console.log('ended game') ----->successfully printed!!!
     }
     else {
       clearInterval(rockInterval)
       rock.remove()
-      //ROCKS.pop()
     }
    }, 4)
-
-  //ROCKS.push(rock)
-  //return rock
-
-  // We should kick of the animation of the rock around here
-
-  // Add the rock to ROCKS so that we can remove all rocks
-  // when there's a collision
-
-
-  // Finally, return the rock element you've created
 
 }
 
 
-
-
-
-
-/**
- * End the game by clearing `gameInterval`,
- * removing all ROCKS from the DOM,
- * and removing the `moveDodger` event listener.
- * Finally, alert "YOU LOSE!" to the player.
- */
 function endGame() {
   clearInterval(gameInterval)
-  console.log('cleared')
-  //for (var i=(ROCKS.length-1);i>=0;i--) {
-  //  ROCKS[i].remove()
-  //}
   window.removeEventListener('keydown', moveDodger)
   alert('YOU LOSE!')
 }
@@ -158,16 +76,6 @@ function endGame() {
 
 
 function moveDodger(e) {
-  // implement me!
-  /**
-   * This function should call `moveDodgerLeft()`
-   * if the left arrow is pressed and `moveDodgerRight()`
-   * if the right arrow is pressed. (Check the constants
-   * we've declared for you above.)
-   * And be sure to use the functions declared below!
-   */
-
-
    if (e.which===LEFT_ARROW) {
      e.preventDefault()
      moveDodgerLeft()
@@ -181,15 +89,7 @@ function moveDodger(e) {
 }
 
 
-
 function moveDodgerLeft() {
-  // implement me!
-  /**
-   * This function should move DODGER to the left
-   * (mabye 4 pixels?). Use window.requestAnimationFrame()!
-   */
-
-
   var left = positionToInteger(DODGER.style.left)  //current left edge of dodger
 
   function step() {
@@ -206,11 +106,6 @@ function moveDodgerLeft() {
 
 
 function moveDodgerRight() {
-  // implement me!
-  /**
-   * This function should move DODGER to the right
-   * (mabye 4 pixels?). Use window.requestAnimationFrame()!
-   */
   var left = positionToInteger(DODGER.style.left)  //current left edge of dodger
 
   function step() {
