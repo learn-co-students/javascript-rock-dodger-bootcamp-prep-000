@@ -41,15 +41,15 @@ function checkCollision(rock) {
                * There's been a collision if one of three things is true:
                * 1. The rock's left edge is < the DODGER's left edge,
                *    and the rock's right edge is > the DODGER's left edge;*/
-               (rock.style.left <= DODGER.style.left && rock.style.right >= DODGER.style.left)
+               (rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge)
                ||
                /** 2. The rock's left edge is > the DODGER's left edge,
                *    and the rock's right edge is < the DODGER's right edge;*/
-               (rock.style.left >= DODGER.style.left && rock.style.right <= DODGER.style.right)
+               (rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge)
                ||
                /** 3. The rock's left edge is < the DODGER's right edge,
                *    and the rock's right edge is > the DODGER's right edge*/
-               (rock.style.left <= DODGER.style.right && rock.style.right >= DODGER.style.right)
+               (rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge)
                ) {
       return true
     }
@@ -136,15 +136,15 @@ function endGame() {
   alert("YOU LOSE!"); 
 }
 
-function moveDodger(event) {
+function moveDodger(e) {
   if (e.which !== LEFT_ARROW && e.which !== RIGHT_ARROW) {
   } else if (e.which === LEFT_ARROW) {
-    event.stopPropagation();
-    event.preventDefault();
+    e.preventDefault();
+    e.stopPropagation();
     moveDodgerLeft();
   } else if (e.which === RIGHT_ARROW) {
-    event.stopPropagation();
-    event.preventDefault();
+    e.preventDefault();
+    e.stopPropagation();
     moveDodgerRight();
   } 
 }
