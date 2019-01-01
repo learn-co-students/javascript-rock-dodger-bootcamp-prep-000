@@ -87,8 +87,9 @@ function createRock(x) {
      * If a rock collides with the DODGER,
      * we should call endGame()
      */
-    if (checkCollision(rock))
+    if (checkCollision(rock)){
       endGame();
+    }
     else {
       
     /**
@@ -96,7 +97,9 @@ function createRock(x) {
      * the GAME, we want to move it again.
      */
       rock.style.top = `${top += 2}px`;
-      if (rock.style.top < 400) {
+      var rockTop = rock.style.top.replace('px', '')
+      var rockTopInt = parseInt(rockTop, 10)
+      if (top < 400) {
         window.requestAnimationFrame(moveRock);
       }
     /**
@@ -125,7 +128,7 @@ function createRock(x) {
  * Finally, alert "YOU LOSE!" to the player.
  */
 function endGame() {
-  clearInterval(gameInterval);
+  window.clearInterval(gameInterval);
   for (var i = 0; i < ROCKS.length; i++){
     ROCKS[i].remove();
   }
@@ -133,16 +136,17 @@ function endGame() {
   alert("YOU LOSE!"); 
 }
 
-function moveDodger(e) {
-  e.stopPropagation();
-  e.preventDefault();
-  if (e.which === LEFT_ARROW) {
+function moveDodger(event) {
+  if (e.which !== LEFT_ARROW && e.which !== RIGHT_ARROW) {
+  } else if (e.which === LEFT_ARROW) {
+    event.stopPropagation();
+    event.preventDefault();
     moveDodgerLeft();
   } else if (e.which === RIGHT_ARROW) {
+    event.stopPropagation();
+    event.preventDefault();
     moveDodgerRight();
-  } else if (e.which !== RIGHT_ARROW && e.which !== LEFT_ARROW) {
-    return;
-  }
+  } 
 }
 
 function moveDodgerLeft() {
