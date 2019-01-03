@@ -51,8 +51,10 @@ function createRock(x) {
   // Hmmm, why would we have used `var` here?-Because as the rock moves downwards,top value will be dynamic- changing
   var top = 0;
   rock.style.top = top;
-  document.body.appendChild(rock);
-  
+  //document.body.appendChild(rock);--this way, the tests passed and I could submit the lab.But rocks are falling outside the game box.
+  //which is not the expected result.So some loop hole might there in the index-test.js --in the appending some checking to be included
+  //So now am gonna append rock with the game.
+  GAME.appendChild(rock);
       
       const check = checkCollision(rock);
       if(check===true){
