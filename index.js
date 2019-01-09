@@ -51,14 +51,14 @@ function createRock(x) {
   // Hmmm, why would we have used `var` here?
   var top = 0;
 
-  rock.style.top = top;
+  
 
   /**
    * Now that we have a rock, we'll need to append
    * it to GAME and move it downwards.
    */
    GAME.appendChild(rock);
-   window.requestAnimationFrame((top +=2)+"px");
+   window.requestAnimationFrame(moveRock);
 
 
   /**
@@ -72,7 +72,7 @@ function createRock(x) {
      * If a rock collides with the DODGER,
      * we should call endGame()
      */
-     
+    rock.style.top = `${top+=2}px`;
     if(checkCollision(rock) === true){
       return endGame();
     }
@@ -81,18 +81,16 @@ function createRock(x) {
      * Otherwise, if the rock hasn't reached the bottom of
      * the GAME, we want to move it again.
      */
-     else if(top < GAME_HEIGHT-20){
-      window.requestAnimationFrame((top + 2)+"px");
+    if(top < GAME_HEIGHT){
+      window.requestAnimationFrame(moveRock);
+    }else{
+      rock.remove();
     }
 
     /**
      * But if the rock *has* reached the bottom of the GAME,
      * we should remove the rock from the DOM
      */
-     else if (top > GAME_HEIGHT-20){
-       GAME.removeChild(rock);
-       ROCKS.shift();
-     }
   }
 
   // We should kick of the animation of the rock around here
@@ -112,14 +110,15 @@ function createRock(x) {
  * Finally, alert "YOU LOSE!" to the player.
  */
 function endGame() {
-  while(ROCKS.length > 0){
-    GAME.removeChild(ROCKS); 
-  }
   clearInterval(gameInterval);
+  
+  for(var i = 0; i<ROCKS.length; i++){
+    ROCKS[i].remove();
+  }
+  
   window.removeEventListener('keydown', moveDodger);
   alert("YOU LOSE!!!");
   START.innerHTML = "Play Again?";
-  START.style.display = 'inline';
 }
 
 function moveDodger(e) {
