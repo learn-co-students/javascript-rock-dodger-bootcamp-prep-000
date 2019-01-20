@@ -86,26 +86,32 @@ function endGame() {
 
 
 function moveDodger(e) {
-  if (e.which == 37) { 
-    moveDodgerLeft()
+  if (e.which === LEFT_ARROW) { 
+    moveDodgerLeft();
+    e.stopPropagation();
+		e.preventDefault();
   }
   
-  if (e.which == 39) {
-    moveDodgerRight()
+  if (e.which == RIGHT_ARROW) {
+    moveDodgerRight();
+    e.stopPropagation();
+		e.preventDefault();
   }
 }
 
 
 function moveDodgerLeft() {
-  if (DODGER.style.left > 0) {
-    DODGER.style.left -= '4px'
+  const left = positionToInteger(DODGER.style.left)
+  if (left > 0) {
+    DODGER.style.left = `${left - 4}px`
     window.requestAnimationFrame()
   }
 }
 
 function moveDodgerRight() {
-  if (DODGER.style.right < GAME_WIDTH) {
-    DODGER.style.right += '4px'
+  const left = positionToInteger(DODGER.style.left)
+  if (left < GAME_WIDTH) {
+    DODGER.style.right = `${left + 4}px`
     window.requestAnimationFrame()
   }
 }
