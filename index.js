@@ -29,9 +29,7 @@ function checkCollision(rock) {
 
     if (
       ((rockLeftEdge <= dodgerLeftEdge) && (rockRightEdge >= dodgerLeftEdge)) 
-      
       || ((rockLeftEdge >= dodgerLeftEdge) && (rockRightEdge <= dodgerRightEdge)) 
-      
       || ((rockLeftEdge <= dodgerRightEdge) && (rockRightEdge >= dodgerRightEdge))
       ) {
       return true;
@@ -41,61 +39,35 @@ function checkCollision(rock) {
 }
 
 
-
 function createRock(x) {
-  const rock = document.createElement('div')
+  const rock = document.createElement('div');
+  rock.className = 'rock';
+  rock.style.left = `${x}px`;
+  var top = 0;
+  rock.style.top = 0;
 
-  rock.className = 'rock'
-  rock.style.left = `${x}px`
-
-  // Hmmm, why would we have used `var` here?
-  var top = 0
-
-  rock.style.top = top
-
-  /**
-   * Now that we have a rock, we'll need to append
-   * it to GAME and move it downwards.
-   */
   GAME.appendChild(rock);
-
+    
+  
   function moveRock() {
-  var top = 0
- 
-  function step() {
-    rock.style.top = `${top += 2}px`
-    if (top < 380) {
-      window.requestAnimationFrame(step)
+    rock.style.top = `${top += 2}px`;
+
+      if (checkCollision(rock)) {
+        return endGame()
+      }
+    
+    if (top == GAME_HEIGHT) {
+      rock.remove()
+    } else {
+      window.requestAnimationFrame(moveRock)
     }
   }
-      
-    /**
-     * If a rock collides with the DODGER,
-     * we should call endGame()
-     *  if (checkCollision(rock)) {
-      endGame()
-     */
-
-    /**
-     * Otherwise, if the rock hasn't reached the bottom of
-     * the GAME, we want to move it again.
-     */
-
-    /**
-     * But if the rock *has* reached the bottom of the GAME,
-     * we should remove the rock from the DOM
-     */
-  }
-
-  // We should kick off the animation of the rock around here
-
-  // Add the rock to ROCKS so that we can remove all rocks
-  // when there's a collision
+  window.requestAnimationFrame(moveRock)
   ROCKS.push(rock)
-
-  // Finally, return the rock element you've created
   return rock
 }
+
+
 
 /**
  * End the game by clearing `gameInterval`,
