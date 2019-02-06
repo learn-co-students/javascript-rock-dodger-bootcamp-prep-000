@@ -63,27 +63,39 @@ function checkCollision(rock) {
 function createRock(x) {
   const rock = document.createElement('div')
   rock.className = 'rock'
-  rock.style.left = `${x} px`
+  rock.style.left = `${x}px`
     // Hmmm, why would we have used `var` here?
   var top = 0
   rock.style.top = top
   GAME.appendChild(rock)
-  return
+  function moveRock() {
+   if (checkCollision(rock) === true) {
+    return endGame()
+    } else {
+    rock.style.top = `${top += 2}px`
+    
+    if (top < 380) {
+    window.requestAnimationFrame(moveRock)
+     } 
+   }
+   
+  }
+  
+  window.requestAnimationFrame(moveRock)
+  return rock
   
 }
   /**
    * Now that we have a rock, we'll need to append
    * it to GAME and move it downwards.
    */
-/**
-   * This function moves the rock. (2 pixels at a time
+
+   /* This function moves the rock. (2 pixels at a time
    * seems like a good pace.)
    */
-  function moveRock() {
-   var test = document.getElementsByClassName('rock')
-   console.log(test.style.left)
-   
-   
+
+
+  
     // implement me!
     // (use the comments below to guide you!)
     /**
@@ -100,15 +112,15 @@ function createRock(x) {
      * we should remove the rock from the DOM
      */
   
+   
     
-    
-  }
+  
 
   // We should kick of the animation of the rock around here
 
   // Add the rock to ROCKS so that we can remove all rocks
   // when there's a collision
-  ROCKS.push(rock)
+  
 
   // Finally, return the rock element you've created
 
@@ -121,14 +133,29 @@ function createRock(x) {
  * and removing the `moveDodger` event listener.
  * Finally, alert "YOU LOSE!" to the player.
  */
+
+  function removeRock() {
+  var rock = document.getElementsByClassName("rock");
+  for (var i = 0; i < rock.length; i++) {
+    rock[i].remove()
+  }
+  }
+
 function endGame() {
+ clearInterval(gameInterval)
+  removeRock()
+  alert("YOU LOSE!")
 }
 
 function moveDodger(e) {  // this works to call the named functions DSS
  
 if (e.which === LEFT_ARROW) {
+  e.preventDefault()
+  e.stopPropagation()
   return moveDodgerLeft()
 } else if (e.which === RIGHT_ARROW) {
+  e.preventDefault()
+  e.stopPropagation()
   return  moveDodgerRight() 
 } 
  
@@ -162,7 +189,9 @@ var left = DODGER.style.left.replace('px','')
 var leftInt = parseInt(left,10)
 if (positionToInteger(DODGER.style.left) < 360) {
 DODGER.style.left = `${leftInt+10}px`
-} // implement me!
+} 
+
+// implement me!
   /**
    * This function should move DODGER to the right
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
@@ -175,14 +204,12 @@ DODGER.style.left = `${leftInt+10}px`
  */
  
 function positionToInteger(p) {
-  return parseInt(p.split('px')[0]) || 0
+  return parseInt(p.split('px')[0]) || 0;
 }
 
 function start() {
   window.addEventListener('keydown', moveDodger)
-
   START.style.display = 'none'
-
   gameInterval = setInterval(function() {
   createRock(Math.floor(Math.random() *  (GAME_WIDTH - 20)))
   }, 1000)
