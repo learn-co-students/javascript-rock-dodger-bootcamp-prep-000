@@ -60,7 +60,7 @@ function createRock(x) { // here we create the rock object
   const rock = document.createElement('div') // created an element using element tag
 
   rock.className = 'rock' // set class name
-  rock.style.left = `${x}px`
+  rock.style.left = `${x}px` // set rock left side px to equal parameter initialized with (x)
 
   // Hmmm, why would we have used `var` here? // for the scope
   var top = 0
