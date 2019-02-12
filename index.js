@@ -36,7 +36,7 @@ function checkCollision(rock) { // function called with paramenter set to variab
     // FIXME: The rock is 20 pixel's wide -- how do we get the right edge?
     const rockRightEdge = rockLeftEdge + 20; // const set to equal 20px from left edge of rock object
 
-    if (false /**
+    if (false /**  // if false do nothing
                * Think about it -- what's happening here?
                * There's been a collision if one of three things is true:
                * 1. The rock's left edge is < the DODGER's left edge,
@@ -46,12 +46,12 @@ function checkCollision(rock) { // function called with paramenter set to variab
                * 3. The rock's left edge is < the DODGER's right edge,
                *    and the rock's right edge is > the DODGER's right edge
                */) {
-      return true
+      return true // eh? Need to research why we need this part
     }
-    return (
-      (rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge)
-      || (rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge)
-      || (rockLeftEdge <= dodgerRightEdge &&rockRightEdge >= dodgerRightEdge)
+    return ( // below checks for collision based on cases above
+      (rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge) // 1.Rocks left edge is < or equal to  dodger's left edge and rock right edge is > or equal to dodger left edge
+      || (rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge) // 2. Rocks left edge > or equal to dodgers left edge and rocks right edge < or eqaul to dodgers right edge
+      || (rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge) // 3. Rocks left edge < dodgers right edge and rocks right edge > dodgers right edge
     )
   }
 }
