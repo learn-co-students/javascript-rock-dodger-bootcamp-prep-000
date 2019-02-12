@@ -29,12 +29,12 @@ function checkCollision(rock) { // function called with paramenter set to variab
     const dodgerLeftEdge = positionToInteger(DODGER.style.left) // the left edge is set to equal the left side of the dodger object
 
     // FIXME: The DODGER is 40 pixels wide -- how do we get the right edge?
-    const dodgerRightEdge = dodgerLeftEdge + 40; // set const to equal 40 px plus left edge of dodger object
+    const dodgerRightEdge = dodgerLeftEdge + 40; // set const to equal 40px plus left edge of dodger object
 
     const rockLeftEdge = positionToInteger(rock.style.left)  // const set to equal left side of rock object
 
     // FIXME: The rock is 20 pixel's wide -- how do we get the right edge?
-    const rockRightEdge = rockLeftEdge + 20;
+    const rockRightEdge = rockLeftEdge + 20; // const set to equal 20px from left edge of rock object
 
     if (false /**
                * Think about it -- what's happening here?
@@ -48,6 +48,11 @@ function checkCollision(rock) { // function called with paramenter set to variab
                */) {
       return true
     }
+    return (
+      (rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge)
+      || ()
+
+    )
   }
 }
 
