@@ -7,17 +7,17 @@ const GAME_HEIGHT = 400 // Line 6 && 7 sets width and height of game box
 const GAME_WIDTH = 400
 const LEFT_ARROW = 37 // use e.which! (numbers correlate to keycode)
 const RIGHT_ARROW = 39 // use e.which!
-const ROCKS = []
+const ROCKS = [] // empty array
 const START = document.getElementById('start') // selects element using element tag
 
-var gameInterval = null //
+var gameInterval = null // gameInterval exists with an empty value of null
 
 /**
  * Be aware of what's above this line,
  * but all of your work should happen below.
  */
 
-function checkCollision(rock) {
+function checkCollision(rock) { // function called with paramenter set to variable rock
   // implement me!
   // use the comments below to guide you!
   const top = positionToInteger(rock.style.top)
