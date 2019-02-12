@@ -63,9 +63,8 @@ function createRock(x) { // here we create the rock object
   rock.style.left = `${x}px` // set rock left side px to equal parameter initialized with (x)
 
   // Hmmm, why would we have used `var` here? // for the scope
-  var top = 0
 
-  rock.style.top = top // top of rock is equal to 0px
+  var top = rock.style.top = 0 // top of rock is equal to 0px
 
   /**
    * Now that we have a rock, we'll need to append
@@ -93,9 +92,9 @@ function createRock(x) { // here we create the rock object
      * Otherwise, if the rock hasn't reached the bottom of
      * the GAME, we want to move it again.
      */
-    if (top < GAME_HEIGHT) {
-      window.requestAnimationFrame(moveRock)
-    } else {
+    if (top < GAME_HEIGHT) { //if the rock hasn't hit bottom of game box
+      window.requestAnimationFrame(moveRock) //use animation to run the moveRock function
+    } else { // if it has hit bottom of game box, get rid of the rock
       rock.remove()
     }
 
@@ -109,6 +108,7 @@ function createRock(x) { // here we create the rock object
 
   // Add the rock to ROCKS so that we can remove all rocks
   // when there's a collision
+  window.requestAnimationFrame(moveRock)
   ROCKS.push(rock)
 
   // Finally, return the rock element you've created
