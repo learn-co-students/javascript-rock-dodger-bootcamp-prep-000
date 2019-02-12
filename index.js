@@ -20,13 +20,13 @@ var gameInterval = null // gameInterval exists with an empty value of null
 function checkCollision(rock) { // function called with paramenter set to variable rock
   // implement me!
   // use the comments below to guide you!
-  const top = positionToInteger(rock.style.top)
+  const top = positionToInteger(rock.style.top) // const set to equal top of rock object
 
   // rocks are 20px high
   // DODGER is 20px high
   // GAME_HEIGHT - 20 - 20 = 360px;
-  if (top > 360) {
-    const dodgerLeftEdge = positionToInteger(DODGER.style.left)
+  if (top > 360) { // if top of rock object is within game board
+    const dodgerLeftEdge = positionToInteger(DODGER.style.left) // the left edge is set to equal the left side of the dodger object
 
     // FIXME: The DODGER is 40 pixels wide -- how do we get the right edge?
     const dodgerRightEdge = dodgerLeftEdge + 40;
