@@ -56,13 +56,13 @@ function checkCollision(rock) { // function called with paramenter set to variab
   }
 }
 
-function createRock(x) {
-  const rock = document.createElement('div')
+function createRock(x) { // here we create the rock object
+  const rock = document.createElement('div') // created an element using element tag
 
-  rock.className = 'rock'
+  rock.className = 'rock' // set class name
   rock.style.left = `${x}px`
 
-  // Hmmm, why would we have used `var` here?
+  // Hmmm, why would we have used `var` here? // for the scope
   var top = 0
 
   rock.style.top = top
