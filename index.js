@@ -50,8 +50,8 @@ function checkCollision(rock) { // function called with paramenter set to variab
     }
     return (
       (rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge)
-      || ()
-
+      || (rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge)
+      || (rockLeftEdge <= dodgerRightEdge &&rockRightEdge >= dodgerRightEdge)
     )
   }
 }
