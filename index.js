@@ -108,11 +108,11 @@ function createRock(x) { // here we create the rock object
 
   // Add the rock to ROCKS so that we can remove all rocks
   // when there's a collision
-  window.requestAnimationFrame(moveRock)
-  ROCKS.push(rock)
+  window.requestAnimationFrame(moveRock) // move rock around
+  ROCKS.push(rock) //shovel rock into array created above
 
   // Finally, return the rock element you've created
-  return rock
+  return rock // returning element
 }
 
 /**
@@ -122,6 +122,11 @@ function createRock(x) { // here we create the rock object
  * Finally, alert "YOU LOSE!" to the player.
  */
 function endGame() {
+  clearInterval(gameInterval) //clearing gameInterval initialy set to null above
+  ROCKS.forEach(function(rock) {rock.remove()})
+  START.innerHTML = 'Play again?'
+  START.style.display = 'inline'
+  return alert('YOU LOSE!')
 }
 
 function moveDodger(e) {
