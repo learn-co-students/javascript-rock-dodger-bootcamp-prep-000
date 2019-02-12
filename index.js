@@ -65,21 +65,22 @@ function createRock(x) { // here we create the rock object
   // Hmmm, why would we have used `var` here? // for the scope
   var top = 0
 
-  rock.style.top = top
+  rock.style.top = top // top of rock is equal to 0px
 
   /**
    * Now that we have a rock, we'll need to append
    * it to GAME and move it downwards.
    */
-
+  GAME.appendChild(rock) //here we're appending the rock to GAME
 
   /**
    * This function moves the rock. (2 pixels at a time
    * seems like a good pace.)
    */
-  function moveRock() {
+  function moveRock() { // here is where we will move it downward
     // implement me!
     // (use the comments below to guide you!)
+    rock.style.top = `${top += 2}px`;
     /**
      * If a rock collides with the DODGER,
      * we should call endGame()
