@@ -1,16 +1,16 @@
 /**
  * Don't change these constants!
  */
-const DODGER = document.getElementById('dodger')
-const GAME = document.getElementById('game')
-const GAME_HEIGHT = 400
+const DODGER = document.getElementById('dodger') // selects element using element tag
+const GAME = document.getElementById('game') // also selects element using element tag
+const GAME_HEIGHT = 400 // Line 6 && 7 sets width and height of game box
 const GAME_WIDTH = 400
-const LEFT_ARROW = 37 // use e.which!
+const LEFT_ARROW = 37 // use e.which! (numbers correlate to keycode)
 const RIGHT_ARROW = 39 // use e.which!
 const ROCKS = []
-const START = document.getElementById('start')
+const START = document.getElementById('start') // selects element using element tag
 
-var gameInterval = null
+var gameInterval = null //
 
 /**
  * Be aware of what's above this line,
