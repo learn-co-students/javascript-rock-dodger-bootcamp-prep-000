@@ -81,20 +81,16 @@ function createRock(x) {
     // implement me!
     // (use the comments below to guide you!)
    
+    rock.style.top = `${top += 2}px`;
     if(checkCollision(rock)) {
       return endGame();
     }
-    function step() {
-      `${top += 2}px`;
-      if(top < GAME_HEIGHT) {
-        window.requestAnimationFrame(step);
+    if(top < GAME_HEIGHT) {
+        window.requestAnimationFrame(moveRock);
       }
-    }
-    window.requestAnimationFrame(step);
-    
-    if('') {
-      
-    }
+      else{
+        rock.remove();
+      }
 
     
     
@@ -131,6 +127,9 @@ function createRock(x) {
  * Finally, alert "YOU LOSE!" to the player.
  */
 function endGame() {
+ clearInterval('gameInterval');  
+ rock.remove();  
+ return alert("YOU LOSE!"); 
 }
 
 function moveDodger(e) {
