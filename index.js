@@ -84,8 +84,20 @@ function createRock(x) {
     if(checkCollision(rock)) {
       return endGame();
     }
+    function step() {
+      `${top += 2}px`;
+      if(top < GAME_HEIGHT) {
+        window.requestAnimationFrame(step);
+      }
+    }
+    window.requestAnimationFrame(step);
     
-   
+    if('') {
+      
+    }
+
+    
+    
     /**
      * If a rock collides with the DODGER,
      * we should call endGame()
