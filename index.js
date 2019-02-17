@@ -29,14 +29,19 @@ function checkCollision(rock) {
     const dodgerLeftEdge = positionToInteger(DODGER.style.left)
 
     // FIXME: The DODGER is 40 pixels wide -- how do we get the right edge?
-    const dodgerRightEdge = 0;
+    const dodgerRightEdge = dodgerLeftEdge + 40;
+    //equaled 0 initially
 
     const rockLeftEdge = positionToInteger(rock.style.left)
-
+    
     // FIXME: The rock is 20 pixel's wide -- how do we get the right edge?
-    const rockRightEdge = 0;
+    const rockRightEdge = rockLeftEdge + 20;
 
-    if (false /**
+    if (rockLeftEdge < dodgerLeftEdge &&  rockRightEdge > dodgerLeftEdge ||
+          rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge ||
+          rockLeftEdge < dodgerRightEdge && rockRightEdge > dodgerRightEdge
+              
+              /**
                * Think about it -- what's happening here?
                * There's been a collision if one of three things is true:
                * 1. The rock's left edge is < the DODGER's left edge,
@@ -67,7 +72,7 @@ function createRock(x) {
    * it to GAME and move it downwards.
    */
 
-
+    GAME.appendChild(rock);
   /**
    * This function moves the rock. (2 pixels at a time
    * seems like a good pace.)
@@ -75,6 +80,22 @@ function createRock(x) {
   function moveRock() {
     // implement me!
     // (use the comments below to guide you!)
+   
+    function moveRock() {
+     /* If a rock collides with the DODGER,
+     * we should call endGame()
+     */
+     rock.style.top = `${top+=2}px`;
+     if (checkCollision(rock)){
+       return endGame();
+     } if (top < GAME_HEIGHT){
+       window.requestAnimationFrame(moveRock);
+     } else {
+       rock.remove();
+     }}
+
+    
+    
     /**
      * If a rock collides with the DODGER,
      * we should call endGame()
@@ -108,6 +129,12 @@ function createRock(x) {
  * Finally, alert "YOU LOSE!" to the player.
  */
 function endGame() {
+ clearInterval('gameInterval');  
+ ROCKS.forEach(function(rock) {
+   rock.remove();
+ });
+ document.removeEventListener('keydown', moveDodger);
+ return alert("YOU LOSE!"); 
 }
 
 function moveDodger(e) {
@@ -119,6 +146,14 @@ function moveDodger(e) {
    * we've declared for you above.)
    * And be sure to use the functions declared below!
    */
+   document.addEventListener('keydown', function(e) {
+  if (e.which === LEFT_ARROW) {
+    e.preventDefault()
+  }
+  if (e.which === 39) {
+    moveDodgerRight()
+  } 
+})
 }
 
 function moveDodgerLeft() {
