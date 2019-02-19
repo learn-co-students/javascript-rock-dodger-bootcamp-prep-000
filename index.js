@@ -65,7 +65,7 @@ function createRock(x) {
   // Hmmm, why would we have used `var` here?
   var top = 0;
   
-  var otherTop = rock.style.top = top;
+  rock.style.top = top;
 
   //rock.style.top = top
 
@@ -82,20 +82,20 @@ function createRock(x) {
   function moveRock() {
     // implement me!
     // (use the comments below to guide you!)
-   
-    function moveRock() {
+    
      /* If a rock collides with the DODGER,
      * we should call endGame()
      */
-     rock.style.top = `${otherTop += 2}px`;
+     rock.style.top = `${top += 2}px`;
      if (checkCollision(rock)){
-       return endGame();
-     } if (otherTop < GAME_HEIGHT){
-       window.requestAnimationFrame(moveRock);
-     } else {
+       endGame();
+     } if (top <= GAME_HEIGHT){
        rock.remove();
-     }}
-
+     } else {
+       window.requestAnimationFrame(moveRock);
+     }
+      
+      
     
     
     /**
@@ -115,7 +115,7 @@ function createRock(x) {
   }
 
   // We should kick of the animation of the rock around here
-
+window.requestAnimationFrame(moveRock);
   // Add the rock to ROCKS so that we can remove all rocks
   // when there's a collision
   ROCKS.push(rock)
@@ -150,9 +150,9 @@ function moveDodger(e) {
    */
    document.addEventListener('keydown', function(e) {
   if (e.which === LEFT_ARROW) {
-    e.preventDefault()
+    moveDodgerLeft()
   }
-  if (e.which === 39) {
+  if (e.which === RIGHT_ARROW) {
     moveDodgerRight()
   } 
 })
@@ -164,6 +164,7 @@ function moveDodgerLeft() {
    * This function should move DODGER to the left
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
+   
 }
 
 function moveDodgerRight() {
