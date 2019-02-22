@@ -12,18 +12,13 @@ const START = document.getElementById('start')
 
 var gameInterval = null
 
-/**
- * Be aware of what's above this line,
- * but all of your work should happen below.
- */
-
 function checkCollision(rock) {
   const top = positionToInteger(rock.style.top)
   if (top > 360) {
     const dodgerLeftEdge = positionToInteger(DODGER.style.left)
-    const dodgerRightEdge = positionToInteger(DODGER.style.right);
+    const dodgerRightEdge = 360
     const rockLeftEdge = positionToInteger(rock.style.left)
-    const rockRightEdge = positionToInteger(rock.style.right);
+    const rockRightEdge = 380
  
     if ((rockLeftEdge <= dodgerLeftEdge) && (rockRightEdge >= dodgerLeftEdge))  {
       return true 
@@ -34,7 +29,9 @@ function checkCollision(rock) {
     else if ((rockLeftEdge <= dodgerRightEdge) && (rockRightEdge >= dodgerRightEdge)) {
          return true 
     }
+  else {
     return false 
+  }
   }
   }
 
