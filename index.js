@@ -1,6 +1,3 @@
-/**
- * Don't change these constants!
- */
 const DODGER = document.getElementById('dodger')
 const GAME = document.getElementById('game')
 const GAME_HEIGHT = 400
@@ -20,13 +17,13 @@ function checkCollision(rock) {
     const rockLeftEdge = positionToInteger(rock.style.left)
     const rockRightEdge = 380
  
-    if ((rockLeftEdge <= dodgerLeftEdge) && (rockRightEdge >= dodgerLeftEdge))  {
+    if (rockLeftEdge <= dodgerLeftEdge) && (rockRightEdge >= dodgerLeftEdge)  {
       return true 
     }
-    else if ((rockLeftEdge >= dodgerLeftEdge) && (rockRightEdge <= dodgerRightEdge)) {
+    else if (rockLeftEdge >= dodgerLeftEdge) && (rockRightEdge <= dodgerRightEdge) {
       return true 
     }
-    else if ((rockLeftEdge <= dodgerRightEdge) && (rockRightEdge >= dodgerRightEdge)) {
+    else if (rockLeftEdge <= dodgerRightEdge) && (rockRightEdge >= dodgerRightEdge) {
          return true 
     }
   else {
