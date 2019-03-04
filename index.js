@@ -70,8 +70,6 @@ function createRock(x) {
   
   rock.style.top = top;
 
-  //rock.style.top = top
-
   /**
    * Now that we have a rock, we'll need to append
    * it to GAME and move it downwards.
@@ -85,10 +83,6 @@ function createRock(x) {
     // implement me!
     // (use the comments below to guide you!)
     
-     /* If a rock collides with the DODGER,
-     * we should call endGame()
-     */
-     
      /**
      * If a rock collides with the DODGER,
      * we should call endGame()
@@ -103,8 +97,14 @@ function createRock(x) {
      * But if the rock *has* reached the bottom of the GAME,
      * we should remove the rock from the DOM
      */
-     
-     
+     if(checkCollision(rock)) {
+       return endGame();
+     }
+     if (top < GAME_HEIGHT) {
+      window.requestAnimationFrame(moveRock);
+    } else {
+      rock.remove();
+    }
   }
 
   // We should kick of the animation of the rock around here
