@@ -100,7 +100,7 @@ function createRock(x) {
      * the GAME, we want to move it again.
      */
      if(top < GAME_HEIGHT){
-       window.RequestAnimationFrame(moveRock)
+       window.requestAnimationFrame(moveRock)
      }
 
     /**
@@ -114,7 +114,7 @@ function createRock(x) {
 
 
   // We should kick of the animation of the rock around here
-  window.RequestAnimationFrame(moveRock)
+  window.requestAnimationFrame(moveRock)
   // Add the rock to ROCKS so that we can remove all rocks
   // when there's a collision
   ROCKS.push(rock)
@@ -131,8 +131,9 @@ function createRock(x) {
  */
 function endGame() {
   document.removeEventListener('keydown', moveDodger)
-  ROCKS = []
+  ROCKS.forEach(function(rock) { rock.remove() })
   clearInterval(gameInterval)
+  alert("YOU LOSE!")
 }
 
 function moveDodger(e) {
@@ -144,14 +145,19 @@ function moveDodger(e) {
    * we've declared for you above.)
    * And be sure to use the functions declared below!
    */
-   document.addEventListener('keydown', function(e) {
+
+   var key = e.which
+
+  if ([LEFT_ARROW, RIGHT_ARROW].indexOf(key) > -1) {
+    e.preventDefault()
+    e.stopPropagation()
+  }
      if(e.which === LEFT_ARROW){
        moveDodgerLeft()
      }
      else if(e.which === RIGHT_ARROW){
        moveDodgerRight()
-     }
-})
+}
 
 }
 
