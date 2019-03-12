@@ -30,7 +30,7 @@ function checkCollision(rock) {
 
     // FIXME: The DODGER is 40 pixels wide -- how do we get the right edge?
     
-    const dodgerRightEdge = dodgerLeftEdge + 40
+    const dodgerRightEdge = dodgerLeftEdge + 40;
     const rockLeftEdge = positionToInteger(rock.style.left)
     
 
@@ -49,7 +49,7 @@ function checkCollision(rock) {
                *    and the rock's right edge is > the DODGER's right edge
                */
             
-  rockLeftEdge < dodgerLeftEdge && rockRightEdge > dodgerLeftEdge || rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge || rockLeftEdge < dodgerRightEdge && rockRightEdge > dodgerRightEdge
+          rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge || rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge || rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge
      
               
               ) {
@@ -99,13 +99,13 @@ function createRock(x) {
     rock.style.top = `${top += 2}px`;
     
     if(checkCollision(rock)) {
-      return endGame();
+      endGame();
     }
-    if(top < GAME_HEIGHT) {
-      window.requestAnimationFrame(moveRock)
+    if(rock < GAME_HEIGHT) {
+      window.requestAnimationFrame(moveRock);
     }
-    else {
-      $('rock').remove();
+    else{
+      rock.remove();
     }
   }
 
@@ -127,8 +127,12 @@ window.requestAnimationFrame(moveRock);
  */
 function endGame() {
  clearInterval(gameInterval);
- ROCKS.forEach(function(rock) {rock.remove()});
+ ROCKS.forEach(function(rock) {
+   rock.remove();
+ });
  document.removeEventListener('keydown', moveDodger);
+ START.innerHTML = 'Play Again';
+ START.style.display = 'inline';
  alert("YOU LOSE!");
 }
 
@@ -159,12 +163,7 @@ function moveDodgerLeft() {
    * This function should move DODGER to the left
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
-  window.requestAnimationFrame(function() {
-    let left = positionToInteger(DODGER.style.left);
-    if(left > 0) {
-      DODGER.style.left = `${left - 4}px`;
-    }
-  });
+  
 }
 
 function moveDodgerRight() {
@@ -173,12 +172,7 @@ function moveDodgerRight() {
    * This function should move DODGER to the right
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
-   window.requestAnimationFrame(function() {
-     let right = positionToInteger(DODGER.style.left);
-     if(right < 360) {
-      DODGER.style.left = `${right + 4}px`; 
-     }
-   });
+   
 }
 
 /**
