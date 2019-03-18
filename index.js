@@ -50,7 +50,7 @@ function checkCollision(rock) {
                *    and the rock's right edge is > the DODGER's right edge
                */
             
-         rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge || rockLeftEdge >= dodgerLeftEdge && rockRightEdge && dodgerRightEdge || rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge
+         rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge || rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge || rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge
      
               
               ) {
@@ -97,17 +97,15 @@ function createRock(x) {
      * But if the rock *has* reached the bottom of the GAME,
      * we should remove the rock from the DOM
      */
-    rock.style.top = `${top += 2}px`;
-    
-    if(checkCollision(rock)) {
-      return endGame();
-    }
-    if(top < GAME_HEIGHT) {
-      window.requestAnimationFrame(moveRock);
-    }
-    else{
-      rock.remove();
-    }
+   if(checkCollision(rock)) {
+     return endGame();
+   }
+   if(rock < GAME_HEIGHT) {
+     window.requestAnimationFrame(moveRock);
+   }
+   if(rock >= GAME_HEIGHT) {
+     rock.remove();
+   }
   }
 
   // We should kick of the animation of the rock around here
@@ -131,10 +129,7 @@ clearInterval(gameInterval);
 for(let i = 0; i < ROCKS.length; i++) {
   ROCKS[i].remove();
 }
-document.removeEventListener('keydown', moveDodger);
-START.innerHTML = "Play Again";
-START.style.display = 'inline';
-alert("YOU LOSE!");
+alert('YOU LOSE!');
 }
 
 function moveDodger(e) {
@@ -166,9 +161,8 @@ function moveDodgerLeft() {
    */
    window.requestAnimationFrame(function() {
      let left = positionToInteger(DODGER.style.left);
-     
      if(left > 0) {
-       dodger.style.left = `${left - 4}px`;
+       DODGER.style.left = `${left - 4}px`;
      }
    });
 }     
@@ -179,13 +173,10 @@ function moveDodgerRight() {
    * This function should move DODGER to the right
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
-    window.requestAnimationFrame(function() {
-      let left = positionToInteger(DODGER.style.left);
-      
-      if(left < 360) {
-        DODGER.style.left = `${left + 4}px`;
-      }
-    });   
+     let left = positionToInteger(DODGER.style.left);
+     if(left < 360) {
+       DODGER.style.left = `${left + 4}px`;
+     }
 }
 
 /**
