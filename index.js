@@ -50,7 +50,7 @@ function checkCollision(rock) {
                *    and the rock's right edge is > the DODGER's right edge
                */
             
-         rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge || rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge || rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge
+         rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge || rockLeftEdge >=  dodgerLeftEdge && rockRightEdge <=  dodgerRightEdge || rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge
      
               
               ) {
@@ -103,13 +103,13 @@ function createRock(x) {
    if(rock < GAME_HEIGHT) {
      window.requestAnimationFrame(moveRock);
    }
-   if(rock >= GAME_HEIGHT) {
+   else{
      rock.remove();
    }
   }
 
   // We should kick of the animation of the rock around here
-window.requestAnimationFrame(moveRock);
+  window.requestAnimationFrame(moveRock);
   // Add the rock to ROCKS so that we can remove all rocks
   // when there's a collision
   ROCKS.push(rock)
@@ -129,6 +129,8 @@ clearInterval(gameInterval);
 for(let i = 0; i < ROCKS.length; i++) {
   ROCKS[i].remove();
 }
+START.innerHTML = 'Play Again';
+START.style.display = 'inline';
 alert('YOU LOSE!');
 }
 
@@ -141,16 +143,16 @@ function moveDodger(e) {
    * we've declared for you above.)
    * And be sure to use the functions declared below!
    */
-   if(e.which === LEFT_ARROW) {
-     e.preventDefault();
-     e.stopPropagation();
-     moveDodgerLeft();
-   }
-   if(e.which === RIGHT_ARROW) {
-     e.preventDefault();
-     e.stopPropagation();
-     moveDodgerRight();
-   }
+if(e.which === LEFT_ARROW) {
+  e.preventDefault();
+  e.stopPropagation();
+  moveDodgerLeft();
+}
+if(e.which === RIGHT_ARROW) {
+  e.preventDefault();
+  e.stopPropagation();
+  moveDodgerRight();
+}
 }
 
 function moveDodgerLeft() {
@@ -173,10 +175,12 @@ function moveDodgerRight() {
    * This function should move DODGER to the right
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
+    window.requestAnimationFrame(function() {
      let left = positionToInteger(DODGER.style.left);
      if(left < 360) {
        DODGER.style.left = `${left + 4}px`;
      }
+   }); 
 }
 
 /**
