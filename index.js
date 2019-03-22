@@ -19,8 +19,9 @@ var gameInterval = null
 
 function checkCollision(rock) {
   // implement me!
-  // use the comments below to guide you!
+  console.log(rock)// use the comments below to guide you!
   const top = positionToInteger(rock.style.top)
+  
 
   // rocks are 20px high
   // DODGER is 20px high
@@ -58,7 +59,7 @@ function checkCollision(rock) {
 
 function createRock(x) {
   const rock = document.createElement('div')
-
+  
   rock.className = 'rock'
   rock.style.left = `${x}px`
 
@@ -77,14 +78,23 @@ function createRock(x) {
    * This function moves the rock. (2 pixels at a time
    * seems like a good pace.)
    */
-  function moveRock() {
+  function moveRock(rock) {
     // implement me!
     // (use the comments below to guide you!)
+    
+    function step() {
+      rock.style.top = `${top += 2}px`
+      
+      
+    }
+    
+
+      
     /**
      * If a rock collides with the DODGER,
      * we should call endGame()
      */
-    if (checkCollision()){
+    if (checkCollision(rock)){
       
       endGame()
     }
@@ -92,8 +102,10 @@ function createRock(x) {
      * Otherwise, if the rock hasn't reached the bottom of
      * the GAME, we want to move it again.
      */
-      else if (rock < 360){
-        moveRock()
+      else if (top < 360){
+        window.requestAnimationFrame(step)
+    
+        
       }
       else {
         GAME.removeChild(rock)
@@ -102,7 +114,9 @@ function createRock(x) {
      * But if the rock *has* reached the bottom of the GAME,
      * we should remove the rock from the DOM
      */
-  }
+  
+    
+    }
   window.requestAnimationFrame(moveRock)
   // We should kick of the animation of the rock around here
   
@@ -124,13 +138,20 @@ function endGame() {
   clearInterval(gameInterval)
   while(ROCKS.length > 0) {
     let delrock = ROCKS.pop();
-    GAME.removeChild(delrock)
+    delrock.remove()
 }
 
   }
 
 function moveDodger(e) {
   // implement me!
+  GAME.addEventListener('keydown', moveDodger(e))
+  if (e.which === LEFT_ARROW) {
+    moveDodgerLeft()
+  }
+  else if (e.which === RIGHT_ARROW){
+    moveDodgerRight()
+  }
   /**
    * This function should call `moveDodgerLeft()`
    * if the left arrow is pressed and `moveDodgerRight()`
@@ -142,7 +163,14 @@ function moveDodger(e) {
 
 function moveDodgerLeft() {
   // implement me!
-  /**
+  var leftNumbers = dodger.style.left.replace('px', '')
+  var left =parseInt(leftNumbers, 10)
+
+  if (left > 0){
+    dodger.style.left = `${left -4}px`
+    }
+   
+    /**
    * This function should move DODGER to the left
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
@@ -150,6 +178,14 @@ function moveDodgerLeft() {
 
 function moveDodgerRight() {
   // implement me!
+ var rightNumbers = dodger.style.right.replace('px', '')
+  var right =parseInt(rightNumbers, 10)
+
+  if (right < 360){
+    dodger.style.right = `${right -4}px`
+    }
+  
+ 
   /**
    * This function should move DODGER to the right
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
