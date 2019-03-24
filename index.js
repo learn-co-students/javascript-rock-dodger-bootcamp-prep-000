@@ -14,10 +14,10 @@ var gameInterval = null;
 
 function checkCollision(rock) {
 
-  console.log(rock);
+  
   const top = positionToInteger(rock.style.top);
   
-  if (top > 360) {
+  if (top >= 360) {
     const dodgerLeftEdge = positionToInteger(DODGER.style.left);
 
     
@@ -26,7 +26,7 @@ function checkCollision(rock) {
     const rockLeftEdge = positionToInteger(rock.style.left);
 
   
-    const rockRightEdge = rockLeftEdge + 40;
+    const rockRightEdge = rockLeftEdge + 20;
 
     if ((rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge) || (rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge) || (rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge)){
     
@@ -47,29 +47,26 @@ function createRock(x) {
  
   var top = 0;
 
-  rock.style.top = top;
+  rock.style.top = `${top}px`
 
-
+console.log(rock)
   GAME.appendChild(rock);
 
   
   function moveRock() {
     
-    top = `${top += 2}px`;
-    function step() {
-    }
+    rock.style.top = `${top += 2}px`;
+    
    
-   if (checkCollision(rock) === true){
+   if (checkCollision(rock)){
        endGame();
     }
       
-      else if (top < 360){
-        window.requestAnimationFrame(step);
+      else if (top < 400){
+        window.requestAnimationFrame(moveRock);
      }
-      else {
-        GAME.removeChild(rock);
-      }
-    }
+   }
+  
   window.requestAnimationFrame(moveRock);
   
   ROCKS.push(rock);
@@ -84,9 +81,12 @@ function endGame() {
   while(ROCKS.length > 0) {
     let delrock = ROCKS.pop();
     delrock.remove();
+    }
+  alert('You Have Lost!, Press space to try again?');
+  START.style.display = 'initial'
+ 
 }
-
-  }
+  
 
 function moveDodger(e){
  
@@ -134,6 +134,7 @@ function positionToInteger(p) {
 
 function start() {
   window.addEventListener('keydown', moveDodger);
+  
   
   START.style.display = 'none';
 
