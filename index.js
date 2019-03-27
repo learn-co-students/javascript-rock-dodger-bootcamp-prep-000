@@ -38,13 +38,11 @@ function createRock(x) {
      if (checkCollision(rock)) {
        return endGame();
      }
-     
      if (top < GAME_HEIGHT - 20) {
        rock.style.top = `${top + 2}px`;
        top += 2;
        window.requestAnimationFrame(moveRock);
      }
-     
      if (top === GAME_HEIGHT - 20) {
        GAME.removeChild(rock);
        window.requestAnimationFrame(moveRock);
