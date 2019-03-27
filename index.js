@@ -8,6 +8,7 @@ const ROCKS = [];
 const START = document.getElementById('start');
 
 var gameInterval = null;
+var endGameCalled = 0;
 
 function checkCollision(rock) {
   const top = positionToInteger(rock.style.top);
@@ -34,6 +35,9 @@ function createRock(x) {
   rock.style.top = `${top}px`;
   GAME.appendChild(rock);
   function moveRock() {
+     if (endGameCalled === 1) {
+       return;
+     }
      rock.style.top = `${top + 2}px`;
      top += 2;
      if (checkCollision(rock)) {
@@ -51,6 +55,7 @@ function createRock(x) {
 }
 
 function endGame() {
+  endGameCalled = 1;
   clearInterval(gameInterval);
   ROCKS.forEach(function(rock) {
     rock.remove();
