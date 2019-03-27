@@ -33,43 +33,41 @@ function createRock(x) {
   var top = 0;
   rock.style.top = `${top}px`;
   GAME.appendChild(rock);
-  window.requestAnimationFrame(moveRock);
   function moveRock() {
+     rock.style.top = `${top + 2}px`;
+     top += 2;
      if (checkCollision(rock)) {
        return endGame();
      }
-     if (top < GAME_HEIGHT - 20) {
-       rock.style.top = `${top + 2}px`;
-       top += 2;
+     if (top < GAME_HEIGHT) {
        window.requestAnimationFrame(moveRock);
-     }
-     if (top === GAME_HEIGHT - 20) {
+     } else {
        GAME.removeChild(rock);
-       window.requestAnimationFrame(moveRock);
      }
   }
+  window.requestAnimationFrame(moveRock);
   ROCKS.push(rock);
   return rock;
 }
 
 function endGame() {
   clearInterval(gameInterval);
-  for (var i = 0; i < ROCKS.length; i++) {
-    ROCKS[i].remove();
-  }
+  ROCKS.forEach(function(rock) {
+    rock.remove();
+  });
   window.removeEventListener('keydown', moveDodger);
   alert(`YOU LOSE!`);
 }
 
 function moveDodger(e) {
    if (e.which === LEFT_ARROW) {
+     e.preventDefault();
+     e.stopPropagation();
      moveDodgerLeft();
-     e.preventDefault();
-     e.stopPropagation();
    } else if (e.which === RIGHT_ARROW) {
-     moveDodgerRight();
      e.preventDefault();
      e.stopPropagation();
+     moveDodgerRight();
    }
 }
 
