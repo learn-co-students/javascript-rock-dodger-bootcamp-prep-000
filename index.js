@@ -97,7 +97,7 @@ function createRock(x) {
      * But if the rock *has* reached the bottom of the GAME,
      * we should remove the rock from the DOM
      */
-   rock.style.top = `${top += 2}px`
+   rock.style.top = `${top += 2}px`;
    
    if(checkCollision(rock)) {
     return endGame();
@@ -131,6 +131,7 @@ clearInterval(gameInterval);
 for(let i = 0; i < ROCKS.length; i++) {
   ROCKS[i].remove();
 }
+document.removeEventListener('keydown', moveDodger);
 START.innerHTML = 'Restart?';
 START.style.display = 'inline';
 alert('YOU LOSE!');
