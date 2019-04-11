@@ -50,7 +50,7 @@ function checkCollision(rock) {
                *    and the rock's right edge is > the DODGER's right edge
                */
             
-        rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge || rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge || rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge
+        rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge || rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge || rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge 
      
               
               ) {
@@ -97,15 +97,15 @@ function createRock(x) {
      * But if the rock *has* reached the bottom of the GAME,
      * we should remove the rock from the DOM
      */
-   rock.style.top = `${top += 2}px`;
-   
-   if(checkCollision(rock)) {
+  rock.style.top = `${top += 2}px`;
+  
+  if(checkCollision(rock)) {
     return endGame();
   }
-  if(top < GAME_HEIGHT) {
+  if(rock < GAME_HEIGHT) {
     window.requestAnimationFrame(moveRock);
   }
-  else{
+  else {
     rock.remove();
   }
   }
@@ -127,14 +127,11 @@ function createRock(x) {
  * Finally, alert "YOU LOSE!" to the player.
  */
 function endGame() {
-clearInterval(gameInterval);
-for(let i = 0; i < ROCKS.length; i++) {
-  ROCKS[i].remove();
-}
-document.removeEventListener('keydown', moveDodger);
-START.innerHTML = 'Restart?';
-START.style.display = 'inline';
-alert('YOU LOSE!');
+  clearInterval(gameInterval);
+  for(let i = 0; i < ROCKS.length; i++) {
+    ROCKS[i].remove();
+  }
+  alert('YOU LOSE!');
 }
 
 function moveDodger(e) {
@@ -146,16 +143,17 @@ function moveDodger(e) {
    * we've declared for you above.)
    * And be sure to use the functions declared below!
    */
-  if(e.which === LEFT_ARROW) {
-    e.preventDefault();
-    e.stopPropagation();
-    moveDodgerLeft();
-  }
-  if(e.which === RIGHT_ARROW) {
-    e.preventDefault();
-    e.stopPropagation();
-    moveDodgerRight();
-  }
+ 
+   if(e.which === LEFT_ARROW) {
+     e.preventDefault();
+     e.stopPropagation();
+     moveDodgerLeft();
+   }
+   if(e.which === RIGHT_ARROW) {
+     e.preventDefault();
+     e.stopPropagation();
+     moveDodgerRight();
+   }
 }
 
 function moveDodgerLeft() {
@@ -180,12 +178,12 @@ function moveDodgerRight() {
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
     window.requestAnimationFrame(function() {
-      let left = positionToInteger(DODGER.style.left);
-      
-      if(left < 360) {
-        DODGER.style.left = `${left + 4}px`;
-      }
-    });
+    let right = positionToInteger(DODGER.style.left);
+    
+    if(right < 360) {
+      DODGER.style.left = `${right + 4}px`;
+    }
+  });
 }
 
 /**
