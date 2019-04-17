@@ -144,7 +144,7 @@ describe('Rock Dodger', () => {
       endGame()
 
       expect(spy).toHaveBeenCalled()
-    })
+ })
 
     it('removes all of the rocks', () => {
       // noop
