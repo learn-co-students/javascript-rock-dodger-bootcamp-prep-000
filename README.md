@@ -1,5 +1,7 @@
 JavaScript Rock Dodger
 ---
+### Preview
+https://javamajk.github.io/javascript-rock-dodger-bootcamp-prep-000/
 
 ## Objectives
 
