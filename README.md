@@ -1,6 +1,8 @@
 JavaScript Rock Dodger
 ---
 
+Voden, šolski projekt z vnaprej napisanimi testi. Projekt bi lahko izvedel samostojno, vendar pa je bila pomembna prava sintaksa za opravljanje testov. Skale se zatikajo, ker pri uporabi boljše kode, ki je tekla tekoča sintaksa ni bila prava in testi niso prestali preizkusa.
+
 ## Objectives
 
 1. Use JavaScript to build a rock-dodging game
