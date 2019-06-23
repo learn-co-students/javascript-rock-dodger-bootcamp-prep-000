@@ -38,34 +38,15 @@ function checkCollision(rock) {
     const rockRightEdge = rockLeftEdge + 20 ;
     
 
-    if (false
-    /**
-              * Think about it -- what's happening here?
-              * There's been a collision if one of three things is true:
-              * 1. The rock's left edge is < the DODGER's left edge,
-              *    and the rock's right edge is > the DODGER's left edge;
-              * 2. The rock's left edge is > the DODGER's left edge,
-              *    and the rock's right edge is < the DODGER's right edge;
-              * 3. The rock's left edge is < the DODGER's right edge,
-              *    and the rock's right edge is > the DODGER's right edge
-              */) {
-                 
-      return true;
-    }
-    
-    if( rockLeftEdge < dodgerLeftEdge && rockRightEdge > dodgerLeftEdge) {
-      return true
-    }
-    if(rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge){
-      return true
-    } 
-    if(rockLeftEdge < dodgerRightEdge && rockRightEdge > dodgerRightEdge){
-      return true;
-    }
+    return (
+      (rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge) ||
+      (rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge) ||
+      (rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge)
+    )
     
     
   }  
-// return false;
+
 }
 
 function createRock(x) {
@@ -95,7 +76,7 @@ function createRock(x) {
     // implement me!
     // (use the comments below to guide you!)
     rock.style.top = `${top += 2}px`
-    if( top < 380){ 
+    if( top < GAME_HEIGHT){ 
      
       window.requestAnimationFrame(moveRock)
       
@@ -122,62 +103,63 @@ function createRock(x) {
   return rock
 }
 
-/**
- * End the game by clearing `gameInterval`,
- * removing all ROCKS from the DOM,
- * and removing the `moveDodger` event listener.
- * Finally, alert "YOU LOSE!" to the player.
- */
+
 function endGame() {
   
   clearInterval(gameInterval);
-  clearInterval(moveDodger);
-  var currentRocks =  GAME.querySelectorAll('.rock')
-  for(let i = 0; i < currentRocks.length; i++){
-    currentRocks[i].remove()
-    }
+  
+  // var currentRocks =  GAME.querySelectorAll('.rock')
+  // for(let i = 0; i < currentRocks.length; i++){
+  //   currentRocks[i].remove()
+  //   }
+  ROCKS.forEach((rock)=>{
+    rock.remove()
+  });
+  
+  // clearInterval(moveDodger);
+  document.removeEventListener('keydown', moveDodger);
+  
   
   alert('YOU LOSE!')
 }
 
 function moveDodger(e) {
+  const key = e.which
   
-  // document.addEventListener('keydown', e=>{
-    // if(e.which !== RIGHT_ARROW && e.which !== LEFT_ARROW){
-    //   e.preventDefault();
-    // }
-    var key = e.which;
-     if(key == LEFT_ARROW){ 
-       moveDodgerLeft();
-        e.preventDefault();
-        e.stopPropagation();
-     }
-     if(key == RIGHT_ARROW){ 
+  if([LEFT_ARROW, RIGHT_ARROW].indexOf(key) > -1){
       e.preventDefault();
-      moveDodgerRight();
       e.stopPropagation();
+    }
+     if(key === LEFT_ARROW){ 
+       moveDodgerLeft();
+        
+     } else if(key === RIGHT_ARROW){ 
+      moveDodgerRight();
      } 
      
-  // });
-   
 }
 
 function moveDodgerLeft() {
   let left = positionToInteger(DODGER.style.left);
-     
-  if(left > 0){
+  window.requestAnimationFrame(()=>{
+    if(left > 0){
     DODGER.style.left = `${left - 4}px`;
-    window.requestAnimationFrame(moveDodgerLeft);
-  }      
+    
+  }
+  });   
+        
 }
 
 function moveDodgerRight() {
  
   let dodgerN = positionToInteger(DODGER.style.left);
-  if(dodgerN < 360){
+  window.requestAnimationFrame(()=>{
+    if(dodgerN < 360){
     DODGER.style.left = `${dodgerN + 4}px`;
-    window.requestAnimationFrame(moveDodgerRight);
+    
       }
+  });
+  
 }
 
 /**
