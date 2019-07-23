@@ -24,7 +24,9 @@ var gameInterval = null
       const dodgerRightEdge = dodgerLeftEdge + 40;
       const rockLeftEdge = positionToInteger(rock.style.left)
       const rockRightEdge = rockLeftEdge + 20;
-      if ((rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge)||(rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge)||(rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge)) {
+      if ((rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge)||
+      (rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge)||(
+        rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge)) {
         return true
       }
     }
@@ -34,8 +36,7 @@ var gameInterval = null
     const rock = document.createElement('div')
     rock.className = 'rock'
     rock.style.left = `${x}px`
-    var top = 0
-    rock.style.top = top
+    var top = rock.style.top = 0
     GAME.appendChild(rock)
     /**
      * This function moves the rock. (2 pixels at a time
@@ -93,14 +94,14 @@ function endGame() {
 
 function moveDodger(e) {
       if (e.which === 37) {
-        // e.preventDefault();
-        // e.stopPropagation();
+        e.preventDefault();
+        e.stopPropagation();
         moveDodgerLeft()
       }
 
       if (e.which === 39) {
-        // e.preventDefault();
-        // e.stopPropagation();
+        e.preventDefault();
+        e.stopPropagation();
         moveDodgerRight()
       }
  }
@@ -136,3 +137,4 @@ function start() {
    createRock(Math.floor(Math.random() *  (GAME_WIDTH - 20)))
  }, 1000)
 }
+  
