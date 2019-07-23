@@ -30,43 +30,57 @@ var gameInterval = null
     }
   }
 
-function createRock(x) {
-  const rock = document.createElement('div')
-  rock.className = 'rock'
-  rock.style.left = `${x}px`
-  var top = 0
-  rock.style.top = top
-  GAME.appendChild(rock)
-  window.requestAnimationFrame(rock);
-  return rock
-}
+  function createRock(x) {
+    const rock = document.createElement('div')
+    rock.className = 'rock'
+    rock.style.left = `${x}px`
+    var top = 0
+    rock.style.top = top
+    GAME.appendChild(rock)
+    /**
+     * This function moves the rock. (2 pixels at a time
+     * seems like a good pace.)
+     */
+    function moveRock() {
+      // function step() {
+      rock.style.top = `${top += 2}px`
+      //  if (top < 400) {
+      //    window.requestAnimationFrame(rock)
+      //  }
+             /**
+       * If a rock collides with the DODGER,
+       * we should call endGame()
+       */
+       if (checkCollision(rock)) {
+          endGame()
+       }
+      /**
+       * Otherwise, if the rock hasn't reached the bottom of
+       * the GAME, we want to move it again.
+       */
+       else if (rock.style.top < GAME_HEIGHT) {
+         window.requestAnimationFrame(moveRock);
+      }
+      /**
+       * But if the rock *has* reached the bottom of the GAME,
+       * we should remove the rock from the DOM
+       */
+       else {
+         rock.remove()
+       }
+    }
 
-function moveRock() {
-  if (checkCollision(rock)) {
-     endGame()
-  } else if (rock.style.top < GAME_HEIGHT) {
-     moveRock()
-  } else {
-     GAME.removeChild(rock);
+    // We should kick of the animation of the rock around here
+    window.requestAnimationFrame(moveRock)
+
+    // Add the rock to ROCKS so that we can remove all rocks
+    // when there's a collision
+    ROCKS.push(rock)
+
+    // Finally, return the rock element you've created
+    return rock
   }
-}
 
-function move(rock) {
-  var top = 0
-  function step() {
-   el.style.top = `${top += 2}px`
-   if (top < 400) {
-     window.requestAnimationFrame(rock)
-   }
- }
- window.requestAnimationFrame(rock)
-// We should kick off the animation of the rock around here
-// Add the rock to ROCKS so that we can remove all rocks
-// when there's a collision
-  ROCKS.push(rock)
-// Finally, return the rock element you've created
- return rock
-}
 
 function endGame() {
  clearInterval(gameInterval);
@@ -78,17 +92,17 @@ function endGame() {
 }
 
 function moveDodger(e) {
-    document.addEventListener('keydown', function(e) {
       if (e.which === 37) {
+        // e.preventDefault();
+        // e.stopPropagation();
         moveDodgerLeft()
       }
-    })
 
-    document.addEventListener('keydown', function(e) {
       if (e.which === 39) {
+        // e.preventDefault();
+        // e.stopPropagation();
         moveDodgerRight()
       }
-    })
  }
 
 function moveDodgerLeft() {
