@@ -37,7 +37,7 @@ function createRock(x) {
   var top = 0
   rock.style.top = top
   GAME.appendChild(rock)
-  window.requestAnimationFrame(step);
+  window.requestAnimationFrame(rock);
   return rock
 }
 
@@ -56,10 +56,10 @@ function move(rock) {
   function step() {
    el.style.top = `${top += 2}px`
    if (top < 400) {
-     window.requestAnimationFrame(step)
+     window.requestAnimationFrame(rock)
    }
  }
- window.requestAnimationFrame(step)
+ window.requestAnimationFrame(rock)
 // We should kick off the animation of the rock around here
 // Add the rock to ROCKS so that we can remove all rocks
 // when there's a collision
