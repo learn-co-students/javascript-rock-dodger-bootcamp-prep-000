@@ -15,7 +15,9 @@ var gameInterval = null
 /**
  * Be aware of what's above this line,
  * but all of your work should happen below.
+ * All of your work should happen below.
  */
+
 
 function checkCollision(rock) {
   // implement me!
@@ -30,26 +32,24 @@ function checkCollision(rock) {
 
     // FIXME: The DODGER is 40 pixels wide -- how do we get the right edge?
     const dodgerRightEdge = 0;
+    const dodgerRightEdge = dodgerLeftEdge + 40;
 
     const rockLeftEdge = positionToInteger(rock.style.left)
+    const rockRightEdge = rockLeftEdge + 20;
 
     // FIXME: The rock is 20 pixel's wide -- how do we get the right edge?
     const rockRightEdge = 0;
-
-    if (false /**
-               * Think about it -- what's happening here?
-               * There's been a collision if one of three things is true:
-               * 1. The rock's left edge is < the DODGER's left edge,
-               *    and the rock's right edge is > the DODGER's left edge;
-               * 2. The rock's left edge is > the DODGER's left edge,
-               *    and the rock's right edge is < the DODGER's right edge;
-               * 3. The rock's left edge is < the DODGER's right edge,
-               *    and the rock's right edge is > the DODGER's right edge
-               */) {
-      return true
-    }
+    
+    if ((dodgerLeftEdge <= rockRightEdge && dodgerLeftEdge >= rockLeftEdge) ||
+			(dodgerRightEdge <= rockRightEdge && dodgerRightEdge >= rockLeftEdge) ||
+			(rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge)) {
+			  return true;
+			} else {
+			  return false;
+			}
   }
 }
+
 
 function createRock(x) {
   const rock = document.createElement('div')
