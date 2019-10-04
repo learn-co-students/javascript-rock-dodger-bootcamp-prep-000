@@ -1,5 +1,5 @@
 /**
- * Don't change these constants!
+ * Don't change these constants! 
  */
 const DODGER = document.getElementById('dodger');
 const GAME = document.getElementById('game');
