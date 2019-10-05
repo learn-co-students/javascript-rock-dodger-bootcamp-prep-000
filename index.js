@@ -1,5 +1,3 @@
-
-  
 /*
  * Don't change these constants!
  */
