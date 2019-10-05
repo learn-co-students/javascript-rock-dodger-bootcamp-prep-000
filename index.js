@@ -1,3 +1,5 @@
+// Mark Kauffman - TODO: slow down Rock, improve colors, add more rocks.
+
 /*
  * Don't change these constants!
  */
