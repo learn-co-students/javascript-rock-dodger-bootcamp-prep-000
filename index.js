@@ -72,6 +72,8 @@ function createRock(x) {
   var top = 0
 
   rock.style.top = top
+  
+  GAME.appendChild(rock)
 
   GAME.appendChild(rock)
 
@@ -163,7 +165,6 @@ function moveDodger(e) {
      e.preventDefault();
      e.stopPropagation();
    }
-
 }
 
 function moveDodgerLeft() {
@@ -188,7 +189,6 @@ function moveDodgerRight() {
    * This function should move DODGER to the right
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
-
 
   var rightNumbers = dodger.style.left.replace('px', '')
   var right = parseInt(rightNumbers, 10);
