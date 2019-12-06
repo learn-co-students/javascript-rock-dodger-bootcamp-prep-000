@@ -17,8 +17,11 @@ var gameInterval = null
  * but all of your work should happen below.
  */
  
- var dodgerSpeed = 4; 
+ var dodgerSpeed = 12; 
+ var rockSpeed = 2;
+ var isDodgerMoving_bool = false;
  var dodger_anim_ref = 0;
+ var rock_anim_ref = 0;
 
 function checkCollision(rock) {
   // implement me!
@@ -95,11 +98,21 @@ function createRock(x) {
      * Otherwise, if the rock hasn't reached the bottom of
      * the GAME, we want to move it again.
      */
+     
+     function step() {
+       rock.style.top = `${top += rockSpeed}px`; 
+       if (rock.style.top < GAME_HEIGHT) {
+         window.requestAnimationFrame(step);
+       }
+     }
+     
+     window.requestAnimationFrame(step); 
 
     /**
      * But if the rock *has* reached the bottom of the GAME,
      * we should remove the rock from the DOM
      */
+   
   }
 
   // We should kick off the animation of the rock around here
@@ -140,7 +153,11 @@ function moveDodger(e) {
    * we've declared for you above.)
    * And be sure to use the functions declared below!
    */
-   switch(e.which) {
+   
+   // Stops this getting called repeatedly by keydown event. 
+   if (!isDodgerMoving_bool) {
+     isDodgerMoving_bool = true;
+     switch(e.which) {
      case LEFT_ARROW:
        e.preventDefault();
        e.stopPropagation();
@@ -151,7 +168,9 @@ function moveDodger(e) {
         e.stopPropagation();
         moveDodgerRight(); 
         break;
+     }
    }
+  
 }
 
 function moveDodgerLeft() {
@@ -160,8 +179,6 @@ function moveDodgerLeft() {
    * This function should move DODGER to the left
    * (maybe 4 pixels?). Use window.requestAnimationFrame()!
    */
-   
-   // SPEEDS UP AFTER YOU HOLD IT FOR A WHILE! AND DOESN'T STOP WHEN YOU LET GO!
    
    function step() {
      let currentPos = positionToInteger(DODGER.style.left); 
@@ -180,8 +197,6 @@ function moveDodgerRight() {
    * (maybe 4 pixels?). Use window.requestAnimationFrame()!
    */
    
-   // SPEEDS UP AFTER YOU HOLD IT FOR A WHILE! AND DOESN'T STOP WHEN YOU LET GO!
-   
    function step() {
      let currentPos = positionToInteger(DODGER.style.left); 
      if (currentPos < 360) {
@@ -193,6 +208,7 @@ function moveDodgerRight() {
 }
 
 function stopDodger() {
+  isDodgerMoving_bool = false;
   cancelAnimationFrame(dodger_anim_ref); 
 }
 
@@ -213,5 +229,5 @@ function start() {
 
   gameInterval = setInterval(function() {
     createRock(Math.floor(Math.random() *  (GAME_WIDTH - 20)))
-  }, 1000)
+  }, 1000);
 }
