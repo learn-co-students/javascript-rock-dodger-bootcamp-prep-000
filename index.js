@@ -61,10 +61,8 @@ function createRock(x) {
   rock.style.left = `${x}px`
 
   // Hmmm, why would we have used `var` here?
-  var top = 0
+  var top = rock.style.top = 0;
 
-  rock.style.top = top
-  
   GAME.appendChild(rock);
 
   /**
@@ -77,6 +75,7 @@ function createRock(x) {
    * seems like a good pace.)
    */
   function moveRock() {
+    rock.style.top =`${top+=2}px`;
     // implement me!
     // (use the comments below to guide you!)
     /**
@@ -84,9 +83,16 @@ function createRock(x) {
      * we should call endGame().
      */
      
-   if (checkCollision(rock)){
+  if (checkCollision(rock)){
      endGame()
    }
+   
+  if (top < 400) {
+    window.requestAnimationFrame(moveRock)
+  }
+  else{
+  rock.remove()    
+  }
     
     /**
      * Otherwise, if the rock hasn't reached the bottom of
@@ -98,7 +104,6 @@ function createRock(x) {
      * we should remove the rock from the DOM.
      */
   }
-    
     window.requestAnimationFrame(moveRock)
     
   // We should kick off the animation of the rock around here.
@@ -118,10 +123,12 @@ function createRock(x) {
  * Finally, alert "YOU LOSE!" to the player.
  */
 function endGame() {
-   gameInterval = null;
-   ROCKS.splice(0,ROCKS.length);
-   GAME.removeEventListener(moveDodger);
-   alert ("YOU LOSE!")
+   clearInterval(gameInterval);
+   ROCKS.forEach(rock => rock.remove());
+   document.removeEventListener('keydown', moveDodger);
+   START.innerHTML = "play again?";
+   START.style.display = "inline";
+  alert ("YOU LOSE!")
 }
 
 function moveDodger(e) {
@@ -133,23 +140,25 @@ function moveDodger(e) {
    * we've declared for you above.)
    * And be sure to use the functions declared below!
    */
-     document.addEventListener('keydown', function (e) {
     if (e.which === LEFT_ARROW){
-      moveDodgerLeft()
+      e.preventDefault();
+      e.stopPropagation();
+      moveDodgerLeft();
     }
-    if (e.which === RIGHT_ARROW){
+    else if (e.which === RIGHT_ARROW){
+      e.preventDefault();
+      e.stopPropagation();
       moveDodgerRight()
     }
-  })
+
    
 }
 
 function moveDodgerLeft() {
-  var leftNumbers = dodger.style.left.replace('px', '')
-  var left = paraseInt(leftNumbers, 10)
+  var left = positionToInteger(DODGER.style.left);
   
   if (left > 0) {
-    dodger.style.left = `{left - 1 px}`
+    DODGER.style.left = `${left-4}px`
   }
 
   // implement me!
@@ -160,6 +169,11 @@ function moveDodgerLeft() {
 }
 
 function moveDodgerRight() {
+  var left = positionToInteger(DODGER.style.left);
+  
+  if (left  < 360){
+    DODGER.style.left = `${left+4}px`
+  }
   // implement me!
   /**
    * This function should move DODGER to the right
