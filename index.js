@@ -17,7 +17,7 @@ var gameInterval = null
  * but all of your work should happen below.
  */
  
- var dodgerSpeed = 12; 
+ var dodgerSpeed = 6; 
  var rockSpeed = 2;
  var isDodgerMoving_bool = false;
  var dodger_anim_ref = 0;
@@ -86,6 +86,8 @@ function createRock(x) {
    * This function moves the rock. (2 pixels at a time
    * seems like a good pace.)
    */
+   
+   
   function moveRock() {
     // implement me!
     // (use the comments below to guide you!)
@@ -98,15 +100,16 @@ function createRock(x) {
      * Otherwise, if the rock hasn't reached the bottom of
      * the GAME, we want to move it again.
      */
-     
-     function step() {
-       rock.style.top = `${top += rockSpeed}px`; 
-       if (rock.style.top < GAME_HEIGHT) {
-         window.requestAnimationFrame(step);
-       }
+     if (top < GAME_HEIGHT) {
+       let currentPos = positionToInteger(rock.style.top); 
+       console.log(`ROCK OK! CURRENTPOS: ${currentPos}`);
+       rock.style.top = `${currentPos += rockSpeed}px`; 
+       requestAnimationFrame(moveRock);
+     } else {
+       console.log("ROCK SMASH!"); 
+       GAME.remove(rock); 
      }
      
-     window.requestAnimationFrame(step); 
 
     /**
      * But if the rock *has* reached the bottom of the GAME,
@@ -116,6 +119,7 @@ function createRock(x) {
   }
 
   // We should kick off the animation of the rock around here
+  requestAnimationFrame(moveRock);
 
   // Add the rock to ROCKS so that we can remove all rocks
   // when there's a collision
