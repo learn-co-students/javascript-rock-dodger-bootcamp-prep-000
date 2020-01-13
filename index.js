@@ -95,19 +95,26 @@ function createRock(x) {
      * If a rock collides with the DODGER,
      * we should call endGame()
      */
-
+     
+     
+     
     /**
      * Otherwise, if the rock hasn't reached the bottom of
      * the GAME, we want to move it again.
      */
-     if (top < GAME_HEIGHT) {
-       let currentPos = positionToInteger(rock.style.top); 
-       console.log(`ROCK OK! CURRENTPOS: ${currentPos}`);
-       rock.style.top = `${currentPos += rockSpeed}px`; 
+     // top = rock.style.top; 
+     
+     let currentY = positionToInteger(rock.style.top);
+     
+     if (currentY < GAME_HEIGHT) {
+       if (checkCollision(rock)) {
+         endGame();
+       } 
+       rock.style.top = `${currentY += rockSpeed}px`; 
        requestAnimationFrame(moveRock);
      } else {
        console.log("ROCK SMASH!"); 
-       GAME.remove(rock); 
+       rock.remove();
      }
      
 
@@ -139,8 +146,8 @@ function endGame() {
   clearInterval(gameInterval); 
   
   // Removing the rocks doesn't work yet. 
-  let rocks = document.querySelectorAll(".rocks"); 
-  for (let rock of rocks) {
+  //let rocks = document.querySelectorAll(".rocks"); 
+  for (let rock of ROCKS) {
     rock.remove();
   }
   
@@ -226,7 +233,7 @@ function positionToInteger(p) {
 
 function start() {
   
-  window.addEventListener('keydown', moveDodger)
+  window.addEventListener("keydown", moveDodger); 
   window.addEventListener("keyup", stopDodger); 
 
   START.style.display = 'none'
