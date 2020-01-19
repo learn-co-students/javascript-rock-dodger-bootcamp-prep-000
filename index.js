@@ -12,6 +12,8 @@ const START = document.getElementById('start')
 
 var gameInterval = null
 
+// Blah blah test, made a comment. 
+
 /**
  * Be aware of what's above this line,
  * but all of your work should happen below.
