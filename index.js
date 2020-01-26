@@ -19,9 +19,6 @@ var gameInterval = null
  * but all of your work should happen below.
  */
 
- var leftDown = false;
- var rightDown = false;
- var isMoving = false;
  var dodgerSpeed = 4;
 
 function checkCollision(rock) {
@@ -102,7 +99,6 @@ function createRock(x) {
 function endGame() {
 
   clearInterval(gameInterval); 
-  removeEventListener("keyup", stopDodger); 
   removeEventListener('keydown', moveDodger); 
 
   ROCKS.forEach(function(rock) {
@@ -115,60 +111,35 @@ function endGame() {
 function moveDodger(e) {
   switch(e.which) {
     case LEFT_ARROW:
-
-      leftDown = true;
-      rightDown = false;
-
-      if (!isMoving) {
-        moveDodgerLeft();
-        isMoving = true;
-      }  
-
+      e.stopPropagation();
+      e.preventDefault();
+      moveDodgerLeft();
       break;
 
     case RIGHT_ARROW:
-
-      leftDown = false;
-      rightDown = true;
-
-      if (!isMoving) {
-        moveDodgerRight();
-        isMoving = true;
-      }  
+      e.stopPropagation();
+      e.preventDefault();
+      moveDodgerRight();
       break;
   }
 }
 
 function moveDodgerLeft() {
-  var currentPos = positionToInteger(DODGER.style.left);
-
-  function step() {
-    if (leftDown) {
-      DODGER.style.left = `${currentPos -= dodgerSpeed}px`;
-      window.requestAnimationFrame(step); 
-    } 
-  }
-  
-  step(); 
+  window.requestAnimationFrame(function() {
+    const left = positionToInteger(DODGER.style.left)
+    if (left > 0) {
+      DODGER.style.left = `${left - dodgerSpeed}px`;
+    }
+  }); 
 }
 
 function moveDodgerRight() {
-  var currentPos = positionToInteger(DODGER.style.left);
-
-  function step() {
-    if (rightDown) {
-      DODGER.style.left = `${currentPos += dodgerSpeed}px`;
-      window.requestAnimationFrame(step); 
-    } 
-  }
-
-  step(); 
-}
-
-function stopDodger() {
-  leftDown = false;
-  rightDown = false;
-  isMoving = false;
+  window.requestAnimationFrame(function() {
+    const left = positionToInteger(DODGER.style.left)
+    if (left < 360) {
+      DODGER.style.left = `${left + dodgerSpeed}px`;
+    }
+  }); 
 }
 
 /**
@@ -180,9 +151,8 @@ function positionToInteger(p) {
 }
 
 function start() {
-  window.addEventListener('keydown', moveDodger)
-  window.addEventListener("keyup", stopDodger);
 
+  window.addEventListener('keydown', moveDodger)
   START.style.display = 'none'
 
   gameInterval = setInterval(function() {
