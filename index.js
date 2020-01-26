@@ -12,17 +12,11 @@ const START = document.getElementById('start')
 
 var gameInterval = null
 
-// Blah blah test, made a comment. 
-
-/**
- * Be aware of what's above this line,
- * but all of your work should happen below.
- */
-
- var leftDown = false;
- var rightDown = false;
- var isMoving = false;
- var dodgerSpeed = 4;
+var leftDown = false;
+var rightDown = false;
+var isMoving = false;
+var dodgerSpeed = 4;
+var rockSpeed = 2;
 
 function checkCollision(rock) {
 
@@ -60,22 +54,12 @@ function createRock(x) {
 
   // Hmmm, why would we have used `var` here?
   var top = 0
-
   rock.style.top = top
-
-  /**
-   * Now that we have a rock, we'll need to append
-   * it to GAME and move it downwards.
-   */
   GAME.appendChild(rock);
 
-  /**
-   * This function moves the rock. (2 pixels at a time
-   * seems like a good pace.)
-   */
   function moveRock() {
 
-    rock.style.top = `${top += 2}px`;
+    rock.style.top = `${top += rockSpeed}px`;
 
     if (checkCollision(rock)) {
       return endGame(); 
