@@ -1,21 +1,14 @@
-/**
- * Don't change these constants!
- */
 const DODGER = document.getElementById('dodger')
 const GAME = document.getElementById('game')
 const GAME_HEIGHT = 400
 const GAME_WIDTH = 400
 const LEFT_ARROW = 37 // use e.which!
 const RIGHT_ARROW = 39 // use e.which!
-const ROCKS = []
 const START = document.getElementById('start')
 
-var gameInterval = null
+const ROCKS = []
 
-/**
- * Be aware of what's above this line,
- * but all of your work should happen below.
- */
+var gameInterval = null
 
 function checkCollision(rock) {
   // implement me!
@@ -44,7 +37,7 @@ function checkCollision(rock) {
                * 2. The rock's left edge is > the DODGER's left edge,
                *    and the rock's right edge is < the DODGER's right edge;
                * 3. The rock's left edge is < the DODGER's right edge,
-               *    and the rock's right edge is > the DODGER's right edge.
+               *    and the rock's right edge is > the DODGER's right edge
                */) {
       return true
     }
@@ -57,7 +50,6 @@ function createRock(x) {
   rock.className = 'rock'
   rock.style.left = `${x}px`
 
-  // Hmmm, why would we have used `var` here?
   var top = 0
 
   rock.style.top = top
@@ -77,7 +69,7 @@ function createRock(x) {
     // (use the comments below to guide you!)
     /**
      * If a rock collides with the DODGER,
-     * we should call endGame().
+     * we should call endGame()
      */
 
     /**
@@ -87,18 +79,15 @@ function createRock(x) {
 
     /**
      * But if the rock *has* reached the bottom of the GAME,
-     * we should remove the rock from the DOM.
+     * we should remove the rock from the DOM
      */
   }
 
-  // We should kick off the animation of the rock around here.
+  // We should kick of the animation of the rock around here
 
   // Add the rock to ROCKS so that we can remove all rocks
-  // when there's a collision.
+  // when there's a collision
   ROCKS.push(rock)
-
-  // Finally, return the rock element you've created.
-  return rock
 }
 
 /**
@@ -108,6 +97,14 @@ function createRock(x) {
  * Finally, alert "YOU LOSE!" to the player.
  */
 function endGame() {
+}
+
+/**
+ * @param {string} p The position property
+ * @returns {number} The position as an integer (without 'px')
+ */
+function positionToInteger(p) {
+  return parseInt(p.split('px')[0]) || 0
 }
 
 function moveDodger(e) {
@@ -135,14 +132,6 @@ function moveDodgerRight() {
    * This function should move DODGER to the right
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
-}
-
-/**
- * @param {string} p The position property
- * @returns {number} The position as an integer (without 'px')
- */
-function positionToInteger(p) {
-  return parseInt(p.split('px')[0]) || 0
 }
 
 function start() {
