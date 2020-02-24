@@ -66,7 +66,7 @@ function createRock(x) {
 
   rock.className = 'rock'
   rock.style.left = `${x}px`
-
+  
   // Hmmm, why would we have used `var` here?
   var top = 0
 
@@ -99,7 +99,7 @@ function createRock(x) {
      * Otherwise, if the rock hasn't reached the bottom of
      * the GAME, we want to move it again.
      */
-     top = top +2;
+      top = top +2;
       rock.style.top = `${top}px`    
     /**
      * But if the rock *has* reached the bottom of the GAME,
@@ -113,7 +113,6 @@ function createRock(x) {
       {
         rock.remove();
       }
-      
   }
 
   // We should kick off the animation of the rock around here.
@@ -121,6 +120,7 @@ function createRock(x) {
   
   // Add the rock to ROCKS so that we can remove all rocks
   // when there's a collision.
+  rock.id = `rock-${ROCKS.length+1}`
   ROCKS.push(rock)
 
   // Finally, return the rock element you've created.
@@ -137,7 +137,11 @@ function endGame() {
   clearInterval(gameInterval);
   for(let i = 0; i < ROCKS.length; i++)
   {
-    ROCKS[i].remove;
+    //window.removeChild(ROCKS[i]);
+    let tempRock = document.getElementById(`rock-${ROCKS.length}`);
+    console.log(`Popping ${tempRock}`);
+    ROCKS.pop();
+    document.removeChild(tempRock);
   }
   window.removeEventListener('keydown', moveDodger);
   alert("YOU LOSE!");
@@ -155,10 +159,12 @@ function moveDodger(e) {
    if(e.which === LEFT_ARROW)
    {
     window.requestAnimationFrame(moveDodgerLeft);
+    //moveDodgerLeft();
    }
    else if (e.which === RIGHT_ARROW)
    {
      window.requestAnimationFrame(moveDodgerRight);
+     //moveDodgerRight();
    }
 }
 
@@ -183,6 +189,13 @@ function moveDodgerRight() {
    * This function should move DODGER to the right
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
+   const leftPosition = DODGER.style.left.replace('px', '');
+   let leftNumber = positionToInteger(leftPosition);
+   if(leftNumber < 396)
+   {
+     leftNumber = leftNumber + 4;
+     DODGER.style.left = leftNumber;
+   }
 }
 
 /**
