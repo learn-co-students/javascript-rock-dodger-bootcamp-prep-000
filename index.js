@@ -43,11 +43,8 @@ function checkCollision(rock) {
     else if (rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge){
       return true
     }
-    else if (rockLeftEdge <= dodgerRightEdge && rockRightEdge>= dodgerRightEdge){
+    else if (rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge){
       return true
-    }
-    else{
-      return false
     }
   }
   
@@ -92,12 +89,12 @@ function createRock(x) {
      * we should remove the rock from the DOM.
      */
      
-     rock.style.top += `${top += 2}px`;
+     rock.style.top = `${top+=2}px`;
      if (checkCollision(rock)){
       endGame()
        
      }
-     else if(rock.style.top < 380){
+     else if(top < GAME_HEIGHT){
        window.requestAnimationFrame(moveRock)
      }
      else{
@@ -144,14 +141,16 @@ function moveDodger(e) {
    
    
    if (e.which === LEFT_ARROW){
-     moveDodgerLeft();
+     
      e.preventDefault();
      e.stopPropagation();
+     moveDodgerLeft();
    }
    else if(e.which === RIGHT_ARROW){
-     moveDodgerRight();
+     
      e.preventDefault();
      e.stopPropagation();
+     moveDodgerRight();
    }
    
 }
@@ -182,11 +181,11 @@ function moveDodgerRight() {
    * This function should move DODGER to the right
    * (mabye 4 pixels?). Use window.requestAnimationFrame()!
    */
-  var left = positionToInteger(DODGER.style.left)+40
+  var left = positionToInteger(DODGER.style.left)
   
   function step() {
     
-    if(left < 400){
+    if(left < 360){
       DODGER.style.left = `${left += 4}px`
       window.requestAnimationFrame(step)
     }
