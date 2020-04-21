@@ -80,10 +80,10 @@ function createRock(x) {
    
     if (checkCollision(rock) === true){
       return endGame()
-    } else if (top < 381){
+    } else if (top < GAME_HEIGHT){
       rock.style.top = `${top += 2}px`
       window.requestAnimationFrame(moveRock)
-    } else if (top > 380) {
+    } else {
       rock.remove()
     }
    
@@ -129,7 +129,6 @@ function endGame() {
   }
   document.removeEventListener('keydown', moveDodger)
   alert('YOU LOSE!')
-  start()
 }
 
 function moveDodger(e) {
@@ -143,14 +142,18 @@ function moveDodger(e) {
    */
    var key = e.which
    
-   if (key !== LEFT_ARROW && key !== RIGHT_ARROW){
-   e.preventDefault()
-   e.stopPropagation()
-   }
+  // if (key !== LEFT_ARROW && key !== RIGHT_ARROW){
+  // // e.preventDefault()
+  // // e.stopPropagation()
+  // }
    
   if (key === LEFT_ARROW) {
+    e.preventDefault()
+    e.stopPropagation()
      moveDodgerLeft()
   } else if (key === RIGHT_ARROW){
+    e.preventDefault()
+    e.stopPropagation()
     moveDodgerRight()
   }
 
