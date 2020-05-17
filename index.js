@@ -10,7 +10,7 @@ const RIGHT_ARROW = 39 // use e.which!
 const ROCKS = []
 const START = document.getElementById('start')
 
-const gameInterval = null
+var gameInterval = null
 
 /**
  * Be aware of what's above this line,
@@ -75,7 +75,7 @@ function createRock(x) {
    * seems like a good pace.)
    */
   function moveRock() {
-    x.style = `${top += 2}px`
+    rock.style.top = `${top += 2}px`
     // implement me!
     // (use the comments below to guide you!)
     /**
@@ -123,7 +123,7 @@ function endGame() {
   clearInterval(gameInterval)
   ROCKS.forEach(function(rock){ rock.remove()})
   document.removeEventListener('keydown', moveDodger);
-  alert("YOU LOSE!")
+  return alert("YOU LOSE!")
 
 }
 
@@ -137,7 +137,7 @@ function moveDodger(e) {
    * And be sure to use the functions declared below!
    */
    //Test codes asks for propagation , defaults, so checked for either input and inputted
-   if(e.which === LEFT_ARROW || e.which === RIGHT_ARROW){
+   if(e.which === LEFT_ARROW  || e.which === RIGHT_ARROW){
      e.preventDefault()
      e.stopPropagation()
    }
