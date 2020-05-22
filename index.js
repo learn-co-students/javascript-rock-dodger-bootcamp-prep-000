@@ -28,33 +28,20 @@ var gameInterval = null;
     const dodgerLeftEdge = DODGER.style.left ;
     // take DODGER.style.left and convert it to an integer
     
-    
-    
-    
     const dodgerRightEdge = DODGER.style.right ;
     // I would do the same for dodgerRightEdge
     
-    
-
-
-
     const rockLeftEdge = positionToInteger(rock.style.left);
     // repeat for rockLeftEdge
 
-    
     const rockRightEdge = positionToInteger(rock.style.right);
     // repeat for rockRightEdge
-    
-    
     
     // FIXME: The DODGER is 40 pixels wide -- how do we get the right edge?
     // FIXME: The rock is 20 pixel's wide -- how do we get the right edge?
     // We will then need to use the information above to write some logic to check collision
 
-
-     
-               
-                //There's been a collision if one of three things is true:
+               //There's been a collision if one of three things is true:
                if ((rockLeftEdge > dodgerLeftEdge) && (rockRightEdge < dodgerLeftEdge)){
                  return true;
                }
@@ -67,9 +54,7 @@ var gameInterval = null;
                else {
                  return false;
                } 
-      
     }
-  
 }
 
 
@@ -78,18 +63,20 @@ var gameInterval = null;
 function createRock(x) {
   const rock = document.createElement('div');
 
-  rock.className = 'rock'
-  rock.style.left = `${x}px`
+  rock.className = 'rock';
+  rock.style.left = `${x}px`;
 
   // Hmmm, why would we have used `var` here?
-  var top = 0
+  var top = 0;
 
-  rock.style.top = top
+  rock.style.top = top;
 
   /**
    * Now that we have a rock, we'll need to append
    * it to GAME and move it downwards.
    */
+GAME.appendChild(rock); 
+moveRock();
 
 
   /**
@@ -99,11 +86,15 @@ function createRock(x) {
   function moveRock() {
     // implement me!
     // (use the comments below to guide you!)
-    /**
-     * If a rock collides with the DODGER,
-     * we should call endGame().
-     */
-
+    
+      if (checkCollision(rock) = true) {     //a rock collides with the DODGER,
+        alert endGame()                       //we should call endGame().
+      }    
+     
+     else {
+       moveRock()
+     }
+     
     /**
      * Otherwise, if the rock hasn't reached the bottom of
      * the GAME, we want to move it again.
