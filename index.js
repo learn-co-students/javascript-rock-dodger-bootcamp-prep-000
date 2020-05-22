@@ -83,27 +83,36 @@ moveRock();
    * This function moves the rock. (2 pixels at a time
    * seems like a good pace.)
    */
-  function moveRock() {
-    // implement me!
-    // (use the comments below to guide you!)
+function moveRock() {
+    # implement me!
+    # (use the comments below to guide you!)
+    # should we reset rock.style.top???
     
-      if (checkCollision(rock) = true) {     //a rock collides with the DODGER,
-        alert endGame()                       //we should call endGame().
+      if (checkCollision(rock) = true) {     #a rock collides with the DODGER,
+        return endGame()                       #we should call endGame()
       }    
      
-     else {
-       moveRock()
-     }
+     
+   
+     # Otherwise, if the rock hasn't reached the bottom of
+     # the GAME, we want to move it again.
+     if (top < GAME_HEIGHT) {
+     #mve rock
+    } else {
+      #remove rock
+    }
+
+
+     # But if the rock *has* reached the bottom of the GAME,
+     # we should remove the rock from the DOM.
+  }
      
     /**
      * Otherwise, if the rock hasn't reached the bottom of
      * the GAME, we want to move it again.
      */
 
-    /**
-     * But if the rock *has* reached the bottom of the GAME,
-     * we should remove the rock from the DOM.
-     */
+   
   }
 
   // We should kick off the animation of the rock around here.
