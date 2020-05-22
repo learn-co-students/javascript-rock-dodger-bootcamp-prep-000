@@ -25,16 +25,16 @@ var gameInterval = null;
   
   if (top > 360) {
     
-    const dodgerLeftEdge = DODGER.style.left ;
+    const dodgerLeftEdge = positionToInteger(DODGER.style.left) ;
     // take DODGER.style.left and convert it to an integer
     
-    const dodgerRightEdge = DODGER.style.right ;
+    const dodgerRightEdge = DODGER.style.right + 40;
     // I would do the same for dodgerRightEdge
     
     const rockLeftEdge = positionToInteger(rock.style.left);
     // repeat for rockLeftEdge
 
-    const rockRightEdge = positionToInteger(rock.style.right);
+    const rockRightEdge = rock.style.right + 20;
     // repeat for rockRightEdge
     
     // FIXME: The DODGER is 40 pixels wide -- how do we get the right edge?
@@ -55,7 +55,7 @@ var gameInterval = null;
                  return false;
                } 
     }
-}
+
 
 
 
