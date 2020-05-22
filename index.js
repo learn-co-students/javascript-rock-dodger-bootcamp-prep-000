@@ -10,7 +10,7 @@ const RIGHT_ARROW = 39 // use e.which!
 const ROCKS = []
 const START = document.getElementById('start')
 
-var gameInterval = null
+var gameInterval = null;
 
 /**
  * Be aware of what's above this line,
@@ -20,18 +20,25 @@ var gameInterval = null
 function checkCollision(rock) {
   // implement me!
   // use the comments below to guide you!
-  const top = positionToInteger(rock.style.top)
+  const top = positionToInteger(rock.style.top);
+  
+  var droppingRocks = $("droppingRocks"); 
+  //droppingRocks is a div but I'm not sure what to name it because I don't want to name it dodger, that's not the right description...
+         droppingRocks.animate({height:'20px', opacity: '0.1'}, "slow"); 
+         droppingRocks.animate({height:'20px', opacity: '0.2'}, "slow");
+         droppingRocks.animate({height:'20px', opacity: '0.3'}, "slow");
+         droppingRocks.animate({height:'20px', opacity: '0.4'}, "slow");
 
   // rocks are 20px high
   // DODGER is 20px high
   // GAME_HEIGHT - 20 - 20 = 360px;
   if (top > 360) {
-    const dodgerLeftEdge = positionToInteger(DODGER.style.left)
+    const dodgerLeftEdge = positionToInteger(DODGER.style.left);
 
     // FIXME: The DODGER is 40 pixels wide -- how do we get the right edge?
     const dodgerRightEdge = 0;
 
-    const rockLeftEdge = positionToInteger(rock.style.left)
+    const rockLeftEdge = positionToInteger(rock.style.left);
 
     // FIXME: The rock is 20 pixel's wide -- how do we get the right edge?
     const rockRightEdge = 0;
@@ -52,7 +59,7 @@ function checkCollision(rock) {
 }
 
 function createRock(x) {
-  const rock = document.createElement('div')
+  const rock = document.createElement('div');
 
   rock.className = 'rock'
   rock.style.left = `${x}px`
