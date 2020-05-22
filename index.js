@@ -84,22 +84,22 @@ moveRock();
    * seems like a good pace.)
    */
 function moveRock() {
-    # implement me!
-    # (use the comments below to guide you!)
-    # should we reset rock.style.top???
+    // implement me!
+    //(use the comments below to guide you!)
+    // should we reset rock.style.top???
     
-      if (checkCollision(rock) = true) {     #a rock collides with the DODGER,
-        return endGame()                       #we should call endGame()
+      if (checkCollision()) {     //a rock collides with the DODGER,
+        return endGame()                       //we should call endGame()
       }    
      
      
    
-     # Otherwise, if the rock hasn't reached the bottom of
-     # the GAME, we want to move it again.
+     // Otherwise, if the rock hasn't reached the bottom of
+     // the GAME, we want to move it again.
      if (top < GAME_HEIGHT) {
-     #mve rock
+     //mve rock
     } else {
-      #remove rock
+      //remove rock
     }
 
 
