@@ -25,6 +25,7 @@ var gameInterval = null;
     const dodgerRightEdge = DODGER.style.right + 40;
     const rockLeftEdge = positionToInteger(rock.style.left);
     const rockRightEdge = rock.style.right + 20;
+    
               //There's been a collision if one of three things is true:
                if (((rockLeftEdge <= dodgerLeftEdge) && (rockRightEdge >= dodgerLeftEdge))  ||
                  
@@ -70,8 +71,8 @@ function moveRock() {
     //(use the comments below to guide you!)
     // should we reset rock.style.top???
     
-      if (checkCollision()) {     //a rock collides with the DODGER,
-      return endGame()                       //we should call endGame()
+      if (checkCollision(rock)) {     //a rock collides with the DODGER,
+      return endGame();                       //we should call endGame()
       }    
      
      
