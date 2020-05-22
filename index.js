@@ -18,45 +18,33 @@ var gameInterval = null;
 
   function checkCollision(rock) {
   const top = positionToInteger(rock.style.top);
-
-  // rocks are 20px high
-  // DODGER is 20px high
-  // GAME_HEIGHT - 20 - 20 = 360px;
-  
+ 
   if (top > 360) {
     
     const dodgerLeftEdge = positionToInteger(DODGER.style.left) ;
-    // take DODGER.style.left and convert it to an integer
-    
     const dodgerRightEdge = DODGER.style.right + 40;
-    // I would do the same for dodgerRightEdge
-    
     const rockLeftEdge = positionToInteger(rock.style.left);
-    // repeat for rockLeftEdge
-
     const rockRightEdge = rock.style.right + 20;
-    // repeat for rockRightEdge
-    
-    // FIXME: The DODGER is 40 pixels wide -- how do we get the right edge?
-    // FIXME: The rock is 20 pixel's wide -- how do we get the right edge?
-    // We will then need to use the information above to write some logic to check collision
-
-               //There's been a collision if one of three things is true:
-               if ((rockLeftEdge > dodgerLeftEdge) && (rockRightEdge < dodgerLeftEdge)){
-                 return true;
-               }
-               else if ((rockLeftEdge > dodgerLeftEdge) && (rockRightEdge < dodgerRightEdge)){
-                 return true;
-               }
-               else if ((rockLeftEdge < dodgerRightEdge) && (rockRightEdge > dodgerRightEdge)){
-                 return true;
-               }
+              //There's been a collision if one of three things is true:
+               if (((rockLeftEdge <= dodgerLeftEdge) && (rockRightEdge >= dodgerLeftEdge))  ||
+                 
+               
+                ((rockLeftEdge > dodgerLeftEdge) && (rockRightEdge < dodgerRightEdge))    ||
+                 
+               
+                ((rockLeftEdge < dodgerRightEdge) && (rockRightEdge > dodgerRightEdge))){
+                  
+                return true;
+                  
+                }
+                 
+              
                else {
                  return false;
                } 
     }
 
-
+}
 
 
 
