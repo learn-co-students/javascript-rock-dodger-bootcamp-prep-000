@@ -25,13 +25,13 @@ var gameInterval = null;
   
   if (top > 360) {
     
-    const dodgerLeftEdge = DODGER.style.left = 200;
+    const dodgerLeftEdge = DODGER.style.left ;
     // take DODGER.style.left and convert it to an integer
     
     
     
     
-    const dodgerRightEdge = DODGER.style.right = 200;
+    const dodgerRightEdge = DODGER.style.right ;
     // I would do the same for dodgerRightEdge
     
     
@@ -52,19 +52,24 @@ var gameInterval = null;
     // We will then need to use the information above to write some logic to check collision
 
 
-    if (false /**
-               * Think about it -- what's happening here?
-               * There's been a collision if one of three things is true:
-               * 1. The rock's left edge is < the DODGER's left edge,
-               *    and the rock's right edge is > the DODGER's left edge;
-               * 2. The rock's left edge is > the DODGER's left edge,
-               *    and the rock's right edge is < the DODGER's right edge;
-               * 3. The rock's left edge is < the DODGER's right edge,
-               *    and the rock's right edge is > the DODGER's right edge.
-               */) {
-      return true
+     
+               
+                //There's been a collision if one of three things is true:
+               if ((rockLeftEdge > dodgerLeftEdge) && (rockRightEdge < dodgerLeftEdge)){
+                 return true;
+               }
+               else if ((rockLeftEdge > dodgerLeftEdge) && (rockRightEdge < dodgerRightEdge)){
+                 return true;
+               }
+               else if ((rockLeftEdge < dodgerRightEdge) && (rockRightEdge > dodgerRightEdge)){
+                 return true;
+               }
+               else {
+                 return false;
+               } 
+      
     }
-  }
+  
 }
 
 
