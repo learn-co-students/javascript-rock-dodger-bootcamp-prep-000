@@ -89,27 +89,31 @@ var rock;
   
   window.alert("YOU LOSE!");  
   
-  START.style.display = 'Play Again?';
+  START.innerText = "Start Again?";
+  START.style.display = '';
   
 } 
 
 function moveDodger(e) {
   
-  document.addEventListener('keydown', function(e) {
-    e.preventDefault();
-    e.stopPropagation();
+
+
      if (e.which === LEFT_ARROW) {
+
       moveDodgerLeft();
+             e.preventDefault();
+       e.stopPropagation(); 
      }
-  });
+
   
-  document.addEventListener('keydown', function(e) {
-    e.preventDefault();
-    e.stopPropagation();
+
+
      if (e.which === RIGHT_ARROW) {
+           e.preventDefault();
+    e.stopPropagation();
       moveDodgerRight();
      }
-  });
+ 
 }
 
 function moveDodgerLeft() {
