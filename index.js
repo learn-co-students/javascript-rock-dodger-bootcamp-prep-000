@@ -85,11 +85,11 @@ var rock;
   clearInterval(gameInterval);
   
   for (let i=0; i<ROCKS.length; i++){
-    rock.splice(i);
+    ROCKS[i].remove();
   }
   
   
-  moveDodger.removeEventListener();
+  document.removeEventListener('keydown',moveDodger);
   
   
   window.alert("YOU LOSE!");  
@@ -100,7 +100,17 @@ var rock;
 
 function moveDodger(e) {
   
+  document.addEventListener('keydown', function(e) {
+     if (e.which === 37) {
+      moveDodgerLeft();
+     }
+  })
   
+  document.addEventListener('keydown', function(e) {
+  if (e.which === 39) {
+    moveDodgerRight();
+   }
+  }) 
   
   // implement me!
   /**
@@ -115,55 +125,34 @@ function moveDodger(e) {
 }
 
 function moveDodgerLeft() {
-
-  var leftNumbers = dodger.style.left.replace('px', '');
-  var left = parseInt(leftNumbers, 10);
  
-  if (top < 400) {
-              window.requestAnimationFrame(moveDodgerLeft);
-         
-   
- 
-     if (left > 0) {
-       dodger.style.left = `${left - 4}px`;
+ window.requestAnimationFrame(function(){
+   var leftNumbers = DODGER.style.left.replace('px', '');
+   var left = parseInt(leftNumbers, 10);
+    if (left > 0) {
+       DODGER.style.left = `${left - 4}px`;
      }
-
-     document.addEventListener('keydown', function(e) {
-     if (e.which === 37) {
-       moveDodgerLeft();
-     }
-  });
-
-  }
-     else { 
-       
-       
-  window.requestAnimationFrame(moveDodgerLeft);
-     }
+ });
 }
-
 
 
 
 function moveDodgerRight() {
-  
-   var rightNumbers = dodger.style.right.replace('px', '');
-  var right = parseInt(rightNumbers, 10);
- 
-  if (right > 0) {
-    dodger.style.right = `${right - 4}px`;
-  }
-
-document.addEventListener('keydown', function(e) {
-  if (e.which === 39) {
-    moveDodgerRight();
+  window.requestAnimationFrame(function(){ 
+   var leftNumbers = DODGER.style.left.replace('px', '');
+   var left = parseInt(leftNumbers, 10);
+    if (left < 360) {
+       DODGER.style.left = `${left + 4}px`;
+    
   }
 });
+}
+
  
   
   
    // Use window.requestAnimationFrame()!
-}
+
 
 /**
  * @param {string} p The position property
@@ -182,3 +171,5 @@ function start() {
     createRock(Math.floor(Math.random() *  (GAME_WIDTH - 20)))
   }, 1000)
 }
+
+
