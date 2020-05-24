@@ -101,27 +101,16 @@ var rock;
 function moveDodger(e) {
   
   document.addEventListener('keydown', function(e) {
-     if (e.which === 37) {
+     if (e.which === LEFT_ARROW) {
       moveDodgerLeft();
      }
   })
   
   document.addEventListener('keydown', function(e) {
-  if (e.which === 39) {
+  if (e.which === RIGHT_ARROW) {
     moveDodgerRight();
    }
   }) 
-  
-  // implement me!
-  /**
-   * This function should call `moveDodgerLeft()`if the left arrow is pressed and 
-   * `moveDodgerRight()` if the right arrow is pressed. 
-   * (Check the constants we've declared for you above.)
-   * And be sure to use the functions declared below!
-   * const LEFT_ARROW = 37 // use e.which!
-   * const RIGHT_ARROW = 39 // use e.which!
-   * 
-   */
 }
 
 function moveDodgerLeft() {
@@ -148,16 +137,7 @@ function moveDodgerRight() {
 });
 }
 
- 
-  
-  
-   // Use window.requestAnimationFrame()!
 
-
-/**
- * @param {string} p The position property
- * @returns {number} The position as an integer (without 'px')
- */
 function positionToInteger(p) {
   return parseInt(p.split('px')[0]) || 0
 }
