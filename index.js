@@ -96,16 +96,20 @@ var rock;
 function moveDodger(e) {
   
   document.addEventListener('keydown', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
      if (e.which === LEFT_ARROW) {
       moveDodgerLeft();
      }
   });
   
   document.addEventListener('keydown', function(e) {
-  if (e.which === RIGHT_ARROW) {
-    moveDodgerRight();
-   }
-  }); 
+    e.preventDefault();
+    e.stopPropagation();
+     if (e.which === RIGHT_ARROW) {
+      moveDodgerRight();
+     }
+  });
 }
 
 function moveDodgerLeft() {
