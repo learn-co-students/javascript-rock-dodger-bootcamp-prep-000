@@ -119,6 +119,7 @@ function createRock(x) {
      */
   }
 
+  rock.remove = function() {}
 
   // We should kick off the animation of the rock around here.
   moveRock()
@@ -148,6 +149,8 @@ function endGame() {
     rck.parentNode.removeChild(rck)
     ROCKS.shift()
   }
+  
+  ROCKS.forEach(rock => rock.remove())
   
   window.removeEventListener('keydown', moveDodger)
   
