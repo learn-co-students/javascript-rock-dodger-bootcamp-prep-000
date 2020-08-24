@@ -18,8 +18,7 @@ var gameInterval = null
  */
 
 function checkCollision(rock) {
-  // implement me!
-  // use the comments below to guide you!
+  
   const top = positionToInteger(rock.style.top)
 
   // rocks are 20px high
@@ -27,25 +26,15 @@ function checkCollision(rock) {
   // GAME_HEIGHT - 20 - 20 = 360px;
   if (top > 360) {
     const dodgerLeftEdge = positionToInteger(DODGER.style.left)
-
-    // FIXME: The DODGER is 40 pixels wide -- how do we get the right edge?
+    
     const dodgerRightEdge = dodgerLeftEdge + 40;
 
     const rockLeftEdge = positionToInteger(rock.style.left)
 
-    // FIXME: The rock is 20 pixel's wide -- how do we get the right edge?
     const rockRightEdge = rockLeftEdge + 20;
 
-    if (false /**
-            
-               * There's been a collision if one of three things is true:
-            1.  rockLeftEdge < dodgerLeftEdge
-                  AND rockRightEdge > dodgerLeftEdge
-               2. rockLeftEdge > dodgerLeftEdge
-              AND rockRightEdge < dodgerRightEdge
-               3. rockLeftEdge < dodgerRightEdge
-              AND rockRightEdge > dodgerRightEdge
-               */) {
+    if ( rockLeftEdge < dodgerLeftEdge && rockRightEdge > dodgerLeftEdge || rockLeftEdge > dodgerLeftEdge && rockRightEdge < dodgerRightEdge || rockLeftEdge < dodgerRightEdge && rockRightEdge > dodgerRightEdge )
+            {
       return true
     }
   }
@@ -81,7 +70,7 @@ $(rock).appendTo(GAME)
      * If a rock collides with the DODGER,
      * we should call endGame().
      */
-if 
+if (true)
     /**
      * Otherwise, if the rock hasn't reached the bottom of
      * the GAME, we want to move it again.
@@ -92,7 +81,7 @@ if
      * we should remove the rock from the DOM.
      */
     
-  }
+
 
   // We should kick off the animation of the rock around here
   
@@ -124,14 +113,15 @@ if
  * and removing the `moveDodger` event listener.
  * Finally, alert "YOU LOSE!" to the player.
  */
+}
 function endGame() {
 }
 
-function moveDodger(e) {
-  $(document).on('keydown', function(e)) {
-    if (e.which==37) {moveDodgerLeft()}
-    if (e.which==39) {moveDodgerRight()}
-  }
+// function moveDodger(e) {
+//   // $(document).on('keydown', function(e)) {
+//     if (e.which==37) {moveDodgerLeft()}
+//     if (e.which==39) {moveDodgerRight()}
+//   } 
   
   
   // implement me!
@@ -142,7 +132,7 @@ function moveDodger(e) {
    * we've declared for you above.)
    * And be sure to use the functions declared below!
    */
-}
+// }
 
 function moveDodgerLeft() {
  
